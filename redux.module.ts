@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { Reducer, StoreEnhancer } from 'redux';
 import { logger } from 'redux-logger';
@@ -25,9 +24,7 @@ export interface IStoreConfig<S> {
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-  ],
+  imports: [],
 })
 export class ReduxModule {
 
