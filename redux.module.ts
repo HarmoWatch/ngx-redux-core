@@ -1,20 +1,26 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { applyMiddleware, createStore, Reducer, Store } from 'redux';
+import { Reducer, StoreEnhancer } from 'redux';
 import { logger } from 'redux-logger';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { IConstructableStoreProvider, IRootState } from './interfaces';
+import { StoreProvider } from './provider/root-store.provider';
+import { ReduxModuleItem } from './redux-module-item';
+import { ReduxActions } from './redux.actions';
 
-import { IAction, IRootState } from './interfaces';
-
-interface IPayloadRegisterModule {
+export interface IPayloadRegisterModule {
   initialState: {};
   stateName: string;
 }
 
-interface IReduxModuleItem<T = {}> {
+export interface IReduxModuleItem<T = {}> {
   initialState: T;
   stateName: string;
   reducer: Reducer<T>;
+}
+
+export interface IStoreConfig<S> {
+  enhancer?: StoreEnhancer<S>;
+  store?: IConstructableStoreProvider<S>;
 }
 
 @NgModule({
@@ -25,50 +31,25 @@ interface IReduxModuleItem<T = {}> {
 })
 export class ReduxModule {
 
-  public static readonly registerModule$ = new ReplaySubject<IReduxModuleItem>();
   public static readonly ACTION_REGISTER_MODULE = `${ReduxModule.name}://registerModule`;
 
-  private store: Store<{}>;
-  private modules: IReduxModuleItem[] = [];
-
-  constructor() {
-
-    this.store = createStore(
-      this.reduce.bind(this),
-      {module: {}},
-      applyMiddleware(logger),
-    );
-
-    // window.setInterval(() => {
-    //
-    // }, 1000);
-
-    ReduxModule.registerModule$.subscribe(module => {
-      this.store.dispatch<IAction<IPayloadRegisterModule>>({
+  constructor(store: StoreProvider) {
+    ReduxModuleItem.onRegister$.subscribe(moduleItem => {
+      store.dispatch({
         payload: {
-          initialState: module.initialState,
-          stateName: module.stateName,
+          initialState: moduleItem.initialState,
+          stateName: moduleItem.stateName,
         },
         type: ReduxModule.ACTION_REGISTER_MODULE,
       });
 
-      this.modules.push(module);
+      moduleItem.actions
+        .map(action => action.prototype)
+        .filter(proto => !!proto)
+        .forEach((proto) => {
+          proto.reduxActionCalls.subscribe((a) => store.dispatch(a));
+        });
     });
-  }
-
-  private reduce(state: IRootState, action: IAction<IPayloadRegisterModule>) {
-
-    if (action.type === ReduxModule.ACTION_REGISTER_MODULE) {
-      const {stateName, initialState} = action.payload;
-
-      return Object.assign({}, state, {
-        module: Object.assign({}, state.module, {
-          [stateName]: initialState,
-        }),
-      });
-    }
-
-    return this.modules.reduce((reducedState, module) => module.reducer(reducedState, action), state);
   }
 
   public static forChild(): ModuleWithProviders {
@@ -78,10 +59,25 @@ export class ReduxModule {
     };
   }
 
-  public static forRoot(): ModuleWithProviders {
+  public static forRoot<T = IRootState>(config?: IStoreConfig<T>): ModuleWithProviders {
+
+    const storeProvider = {
+      provide: StoreProvider,
+      useFactory: () => {
+        if (config.store) {
+          return new config.store(config);
+        }
+
+        return new StoreProvider(config as {} as IStoreConfig<IRootState>);
+      },
+    };
+
     return {
       ngModule: ReduxModule,
-      providers: [],
+      providers: [
+        storeProvider,
+      ],
     };
   }
+
 }

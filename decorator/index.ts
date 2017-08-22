@@ -1,2 +1,3 @@
 export * from './redux';
-export * from './reducer-for';
+export * from './redux/action';
+export * from './redux/reducer';
