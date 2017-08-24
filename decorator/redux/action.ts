@@ -1,31 +1,28 @@
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Subject } from 'rxjs/Subject';
-import { IAction } from '../../interfaces';
+/* tslint:disable */
+import { ReduxRegistry } from '../../registry';
 
-interface IReduxAction {
-  reduxActionCalls?: Subject<IAction>;
-}
+export function ReduxAction(actionType?: string): MethodDecorator {
 
-export function ReduxAction(type: string) {
-
-  return (target: {}, propertyKey: string, descriptor: PropertyDescriptor): void => {
-
-    // @todo check for static methods
-
-    const reduxAction = target as IReduxAction;
-
-    if (!reduxAction.reduxActionCalls) {
-      reduxAction.reduxActionCalls = new ReplaySubject<IAction>();
-    }
+  return (target, propertyKey, descriptor: PropertyDescriptor) => {
 
     const method = descriptor.value;
 
-    // tslint:disable-next-line only-arrow-functions
-    descriptor.value = function () {
-      const payload = method.apply(null, arguments);
-      reduxAction.reduxActionCalls.next({ type, payload });
+    actionType = actionType || [target['name'] || target.constructor.name, propertyKey].join('/');
+
+    const proxyFunction = function () {
+      this.__reduxActionType = actionType;
+      const payload = method.apply(this, arguments);
+
+      ReduxRegistry.store.then(store => {
+        store.dispatch({ type: actionType, payload });
+      });
+
       return payload;
     };
+
+    proxyFunction['__@ReduxAction'] = {type: actionType};
+
+    descriptor.value = proxyFunction;
 
   };
 }

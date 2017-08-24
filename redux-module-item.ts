@@ -14,7 +14,6 @@ export class ReduxModuleItem {
 
   public static readonly onRegister$ = new ReplaySubject<ReduxModuleItem>();
 
-  public readonly actions: IGenericType[];
   public readonly initialState: {};
   public readonly moduleName: string;
   public readonly stateName: string;
@@ -25,7 +24,6 @@ export class ReduxModuleItem {
               private moduleConstructor: IGenericType<IReduxModule<{}>>,
               public module: IReduxModule<{}>) {
 
-    this.actions = config.actions;
     this.initialState = module.initialState;
     this.moduleName = moduleConstructor.name;
     this.stateName = config.stateName || kebabCase(this.moduleName.replace(/Module$/, ''));

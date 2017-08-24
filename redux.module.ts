@@ -39,13 +39,6 @@ export class ReduxModule {
         },
         type: ReduxModule.ACTION_REGISTER_MODULE,
       });
-
-      moduleItem.actions
-        .map(action => action.prototype)
-        .filter(proto => !!proto)
-        .forEach((proto) => {
-          proto.reduxActionCalls.subscribe((a) => store.dispatch(a));
-        });
     });
   }
 

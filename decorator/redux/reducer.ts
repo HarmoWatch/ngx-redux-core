@@ -7,8 +7,18 @@ export interface IReducer {
   };
 }
 
-export function ReduxReducer<S>(type: string | string[]) {
-  const types = Array.isArray(type) ? type : [ type ];
+export function ReduxReducer<S>(actionType: any | string | string[]) {
+
+  if (typeof actionType === 'function') {
+    actionType = actionType['__@ReduxAction'] ? actionType['__@ReduxAction'].type : null;
+  }
+
+  if (!actionType) {
+    // @todo throw exception
+    return;
+  }
+
+  const types = Array.isArray(actionType) ? actionType : [ actionType ];
 
   return (target: {}, propertyKey: string): void => {
     const reducer = target as IReducer;
