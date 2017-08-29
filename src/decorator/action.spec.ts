@@ -4,16 +4,22 @@ import { ReduxAction } from './action';
 
 const payloads = {
   _bar: {iam: '_bat'},
+  _barCustomName: {iam: '_barCustomName'},
   _foo: {iam: '_foo'},
+  _fooCustomName: {iam: '_fooCustomName'},
   bar: {iam: 'bar'},
+  barCustomName: {iam: 'barCustomName'},
   foo: {iam: 'foo'},
+  fooCustomName: {iam: 'fooCustomName'},
 };
 
-class Sample {
+export class TestActions {
 
   public avoidTS6133Errors() {
     this._foo();
-    Sample._bar();
+    this._fooCustomName();
+    TestActions._bar();
+    TestActions._barCustomName();
   }
 
   @ReduxAction()
@@ -21,9 +27,19 @@ class Sample {
     return payloads.foo;
   }
 
+  @ReduxAction('CustomFoo')
+  fooCustomName() {
+    return payloads.fooCustomName;
+  }
+
   @ReduxAction()
   private _foo() {
     return payloads._foo;
+  }
+
+  @ReduxAction('AnotherCustomFoo')
+  private _fooCustomName() {
+    return payloads._fooCustomName;
   }
 
   @ReduxAction()
@@ -31,9 +47,19 @@ class Sample {
     return payloads.bar;
   }
 
+  @ReduxAction('customBar')
+  public static barCustomName() {
+    return payloads.barCustomName;
+  }
+
   @ReduxAction()
   private static _bar() {
     return payloads._bar;
+  }
+
+  @ReduxAction('anotherCustomBar')
+  private static _barCustomName() {
+    return payloads._barCustomName;
   }
 
 }
@@ -51,30 +77,58 @@ describe('Decorator/ReduxAction', () => {
     description: 'prototype method',
     expectation: {
       payload: payloads.foo,
-      type: 'Sample/foo',
+      type: 'TestActions/foo',
     },
-    method: Sample.prototype.foo,
+    method: TestActions.prototype.foo,
+  }, {
+    description: 'prototype method with custom action type',
+    expectation: {
+      payload: payloads.fooCustomName,
+      type: 'CustomFoo',
+    },
+    method: TestActions.prototype.fooCustomName,
   }, {
     description: 'private prototype method',
     expectation: {
       payload: payloads._foo,
-      type: 'Sample/_foo',
+      type: 'TestActions/_foo',
     },
-    method: Sample.prototype[ '_foo' ],
+    method: TestActions.prototype[ '_foo' ],
+  }, {
+    description: 'private prototype method with custom action type',
+    expectation: {
+      payload: payloads._fooCustomName,
+      type: 'AnotherCustomFoo',
+    },
+    method: TestActions.prototype[ '_fooCustomName' ],
   }, {
     description: 'static method',
     expectation: {
       payload: payloads.bar,
-      type: 'Sample/bar',
+      type: 'TestActions/bar',
     },
-    method: Sample.bar,
+    method: TestActions.bar,
+  }, {
+    description: 'static method with custom action type',
+    expectation: {
+      payload: payloads.barCustomName,
+      type: 'customBar',
+    },
+    method: TestActions.barCustomName,
   }, {
     description: 'private static method',
     expectation: {
       payload: payloads._bar,
-      type: 'Sample/_bar',
+      type: 'TestActions/_bar',
     },
-    method: Sample[ '_bar' ],
+    method: TestActions[ '_bar' ],
+  }, {
+    description: 'private static method with custom action type',
+    expectation: {
+      payload: payloads._barCustomName,
+      type: 'anotherCustomBar',
+    },
+    method: TestActions[ '_barCustomName' ],
   } ];
 
   testSuite.forEach(testCase => {
