@@ -1,9 +1,14 @@
+import { IReduxAction } from '../interfaces';
 import { ReduxRegistry } from '../registry';
 
-export type ReduxActionFunc = (...rest) => {} | void;
+export type ReduxActionFunc<P = {} | void> = (...rest) => P;
 export type ReduxActionDecorator = (target: object,
                                     propertyKey: string | symbol,
                                     descriptor: TypedPropertyDescriptor<ReduxActionFunc>) => void;
+
+function dispatch(action: IReduxAction) {
+  ReduxRegistry.getStore().then(store => store.dispatch(action));
+}
 
 export function ReduxAction(type?: string): ReduxActionDecorator {
 
@@ -11,15 +16,19 @@ export function ReduxAction(type?: string): ReduxActionDecorator {
 
     const method = descriptor.value;
 
-    type = type || [ target[ 'name' ] as string || target.constructor.name, propertyKey ].join('/');
+    type = type || [
+      target[ 'name' ] as string || target.constructor.name,
+      propertyKey,
+    ].join(target[ 'name' ] ? '::' : '.');
 
     const proxyFunction = function () {
       const payload = method.apply(this, arguments);
 
-      ReduxRegistry.getStore().then(store => store.dispatch({
-        payload,
-        type,
-      }));
+      if (payload instanceof Promise) {
+        payload.then((p) => dispatch({payload: p, type}));
+      } else {
+        dispatch({payload, type});
+      }
 
       return payload;
     };
