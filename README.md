@@ -4,6 +4,9 @@
 * [About](#about)
 * [Installation](#installation)
 * [Usage](#usage)
+* Decorator
+  * [@ReduxAction](./src/decorator/action.md)
+  * [@ReduxReducer](./src/decorator/reducer.md)
 
 ## About
 
@@ -12,6 +15,7 @@ following benefits:
 
 - Module and component driven approach
 - Classes for *reducers* and *actions*
+- The reducer is connected to the payload of the action
 - Easy refactoring by referencing *reducers* and *actions* like that:  
   
   ```ts
@@ -60,6 +64,7 @@ npm install @ngx-redux --save
 
 - support lazy loaded modules
 - check if the return type of the action could be automatically the payload of the action
+- create pipe to access state directly from the view
 
 ## Usage
 
@@ -106,7 +111,7 @@ import {ReduxModule} from '@ngx-redux';
 export class AppModule { }
 ```
 
-#### 2. Decorate a child NgModule of your application with `@Redux()`
+#### 2. Decorate a child NgModule of your application with `@Redux()` and provide the `initialState`
 
 ```ts
 import {BrowserModule} from '@angular/platform-browser';
@@ -119,7 +124,15 @@ import {Redux} from '@ngx-redux';
     ],
 })
 @Redux()
-export class AppModule { }
+export class SampleModule {
+
+  public get initialState() {
+    return {
+      yolo: true,
+    };
+  }
+
+}
 ```
 
 #### 3. Decorate a your actions with `@ReduxAction()`
@@ -206,7 +219,7 @@ import {SampleReducer} from '...';
         SampleReducer
     ],
 })
-export class AppModule { }
+export class SampleModule { }
 ```
 
 #### 6. Access the data using the `@ReduxSelect` decorator.

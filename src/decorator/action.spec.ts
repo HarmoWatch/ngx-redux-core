@@ -67,7 +67,7 @@ describe('Decorator/ReduxAction', () => {
   const testSuite = [ {
     description: 'prototype method',
     method: TestActions.prototype.foo,
-    type: 'TestActions.foo',
+    type: 'TestActions/foo',
   }, {
     description: 'prototype method with custom action type',
     method: TestActions.prototype.fooCustomName,
@@ -75,7 +75,7 @@ describe('Decorator/ReduxAction', () => {
   }, {
     description: 'private prototype method',
     method: TestActions.prototype[ '_foo' ],
-    type: 'TestActions._foo',
+    type: 'TestActions/_foo',
   }, {
     description: 'private prototype method with custom action type',
     method: TestActions.prototype[ '_fooCustomName' ],
@@ -83,7 +83,7 @@ describe('Decorator/ReduxAction', () => {
   }, {
     description: 'static method',
     method: TestActions.bar,
-    type: 'TestActions::bar',
+    type: 'TestActions/static/bar',
   }, {
     description: 'static method with custom action type',
     method: TestActions.barCustomName,
@@ -91,7 +91,7 @@ describe('Decorator/ReduxAction', () => {
   }, {
     description: 'private static method',
     method: TestActions[ '_bar' ],
-    type: 'TestActions::_bar',
+    type: 'TestActions/static/_bar',
   }, {
     description: 'private static method with custom action type',
     method: TestActions[ '_barCustomName' ],

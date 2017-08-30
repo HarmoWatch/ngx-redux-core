@@ -92,14 +92,14 @@ export class TestReducers {
 
 describe('Decorator/ReduxReducer', () => {
 
-  it('has registered 1 reducer for TestActions::bar', () => {
-    const reducers = ReduxRegistry.getReducersByType('TestActions::bar');
+  it('has registered 1 reducer for TestActions/static/bar', () => {
+    const reducers = ReduxRegistry.getReducersByType('TestActions/static/bar');
     expect(reducers.length).toEqual(1);
     expect(reducers[ 0 ]).toEqual(TestReducers.publicStatic);
   });
 
-  it('has registered 1 reducer for TestActions::baz', () => {
-    const reducers = ReduxRegistry.getReducersByType('TestActions::baz');
+  it('has registered 1 reducer for TestActions/static/baz', () => {
+    const reducers = ReduxRegistry.getReducersByType('TestActions/static/baz');
     expect(reducers.length).toEqual(1);
     expect(reducers[ 0 ]).toEqual(TestReducers[ 'privateStatic' ]);
   });
@@ -116,20 +116,20 @@ describe('Decorator/ReduxReducer', () => {
     expect(reducers[ 0 ]).toEqual(TestReducers.prototype[ 'protectedFunc' ]);
   });
 
-  it('has registered 1 reducer for TestActions::someOtherAction2', () => {
-    const reducers = ReduxRegistry.getReducersByType('TestActions::someOtherAction2');
+  it('has registered 1 reducer for TestActions/static/someOtherAction2', () => {
+    const reducers = ReduxRegistry.getReducersByType('TestActions/static/someOtherAction2');
     expect(reducers.length).toEqual(1);
     expect(reducers[ 0 ]).toEqual(TestReducers.prototype[ 'protectedFunc' ]);
   });
 
-  it('has registered 1 reducer for TestActions.bar', () => {
-    const reducers = ReduxRegistry.getReducersByType('TestActions.bar');
+  it('has registered 1 reducer for TestActions/bar', () => {
+    const reducers = ReduxRegistry.getReducersByType('TestActions/bar');
     expect(reducers.length).toEqual(1);
     expect(reducers[ 0 ]).toEqual(TestReducers.prototype.publicBar);
   });
 
-  it('has registered 2 reducers for TestActions::iHaveTwoReducers', () => {
-    const reducers = ReduxRegistry.getReducersByType('TestActions::iHaveTwoReducers');
+  it('has registered 2 reducers for TestActions/static/iHaveTwoReducers', () => {
+    const reducers = ReduxRegistry.getReducersByType('TestActions/static/iHaveTwoReducers');
     expect(reducers.length).toEqual(2);
     expect(reducers[ 0 ]).toEqual(TestReducers.prototype[ 'protectedFunc' ]);
     expect(reducers[ 1 ]).toEqual(TestReducers.prototype.secondReducer);

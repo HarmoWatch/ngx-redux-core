@@ -10,16 +10,15 @@ function dispatch(action: IReduxAction) {
   ReduxRegistry.getStore().then(store => store.dispatch(action));
 }
 
-export function ReduxAction(type?: string): ReduxActionDecorator {
+export function ReduxAction(customType?: string): ReduxActionDecorator {
 
   return (target: object, propertyKey, descriptor: TypedPropertyDescriptor<ReduxActionFunc>) => {
 
     const method = descriptor.value;
-
-    type = type || [
+    const type = customType || [
       target[ 'name' ] as string || target.constructor.name,
       propertyKey,
-    ].join(target[ 'name' ] ? '::' : '.');
+    ].join(target[ 'name' ] ? '/static/' : '/');
 
     const proxyFunction = function () {
       const payload = method.apply(this, arguments);
