@@ -5,8 +5,8 @@
 * [Installation](#installation)
 * [Usage](#usage)
 * Decorator
-  * [@ReduxAction](./src/decorator/action.md)
-  * [@ReduxReducer](./src/decorator/reducer.md)
+  * [@ReduxAction](src/decorator/action/action.md)
+  * [@ReduxReducer](src/decorator/reducer/reducer.md)
 
 ## About
 
@@ -15,7 +15,7 @@ following benefits:
 
 - Module and component driven approach
 - Classes for *reducers* and *actions*
-- The reducer is connected to the payload of the action
+- The reducer is connected to the payload on an action
 - Easy refactoring by referencing *reducers* and *actions* like that:  
   
   ```ts

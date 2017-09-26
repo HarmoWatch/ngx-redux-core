@@ -5,7 +5,7 @@ export function ReduxSelect(selector: string[]): PropertyDecorator {
   return (target: {}, propertyKey: string) => {
 
     const subject = new BehaviorSubject(null);
-    ReduxRegistry.store.then(store => {
+    ReduxRegistry.getStore().then(store => {
       subject.next(select(store.getState(), selector));
       store.subscribe(() => {
         subject.next(select(store.getState(), selector));
@@ -22,9 +22,5 @@ export function ReduxSelect(selector: string[]): PropertyDecorator {
 }
 
 function select(state: {}, selector: string[]): {} {
-  return selector.reduce((previousValue, propertyKey) => {
-    if (typeof previousValue === 'object') {
-      return previousValue[ propertyKey ];
-    }
-  }, state);
+  return selector.reduce((previousValue, propertyKey) => previousValue[ propertyKey ], state);
 }
