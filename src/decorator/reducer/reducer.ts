@@ -1,5 +1,5 @@
-import { ReduxRegistry } from '../registry';
-import { ReduxActionFunc } from './action';
+import { ReduxRegistry } from '../../registry';
+import { ReduxActionFunc } from '../action/action';
 
 export interface IReduxReducerAction<P = any> {
   payload: P;

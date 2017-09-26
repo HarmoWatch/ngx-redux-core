@@ -1,5 +1,5 @@
-import { IReduxAction } from '../interfaces';
-import { ReduxRegistry } from '../registry';
+import { IReduxAction } from '../../interfaces';
+import { ReduxRegistry } from '../../registry';
 
 export type ReduxActionFunc<P = {} | void> = (...rest) => P;
 export type ReduxActionDecorator = (target: object,

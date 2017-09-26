@@ -1,0 +1,105 @@
+{
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rulesDirectory": [
+    "node_modules/codelyzer",
+    "node_modules/tslint-jasmine-rules/dist"
+  ],
+  "rules": {
+    "arrow-parens": false,
+    "member-ordering": [true, {
+      "order": [
+        "static-field",
+        "instance-field",
+        "constructor",
+        "public-instance-method",
+        "protected-instance-method",
+        "private-instance-method"
+      ]
+    }],
+    "member-access": false,
+    "no-any": false,
+    "no-invalid-this": false,
+    "no-unused-variable": true,
+    "no-use-before-declare": true,
+    "no-void-expression": true,
+    "curly": true,
+    "prefer-object-spread": false,
+    "restrict-plus-operands": true,
+    "switch-default": true,
+    "cyclomatic-complexity": [true, 5],
+    "deprecation": true,
+    "indent": [true, "spaces", 2],
+    "linebreak-style": [true, "LF"],
+    "max-file-line-count": [true, 300],
+    "no-mergeable-namespace": true,
+    "no-require-imports": true,
+    "encoding": true,
+    "newline-before-return": false,
+    "no-boolean-literal-compare": true,
+    "no-irregular-whitespace": true,
+    "number-literal-format": true,
+    "object-literal-key-quotes": [true, "as-needed"],
+    "one-variable-per-declaration": true,
+    "prefer-method-signature": true,
+    "prefer-switch": [true, {"min-cases": 2}],
+    "prefer-template": true,
+    "space-before-function-paren": [
+      true, {
+        "anonymous": "always",
+        "named": "never",
+        "constructor": "never",
+        "method": "never",
+        "asyncArrow": "always"
+      }],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-separator",
+      "check-type",
+      "check-typecast",
+      "check-preblock"
+    ],
+
+    "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
+    "interface-name": [false, "always-prefix"],
+    "component-class-suffix": true,
+    "directive-class-suffix": true,
+    "max-classes-per-file": [true, 2],
+    "import-destructuring-spacing": true,
+    "invoke-injectable": true,
+    "no-access-missing-member": false,
+    "no-attribute-parameter-decorator": true,
+    "no-forward-ref": true,
+    "no-input-rename": true,
+    "no-output-rename": true,
+    "pipe-naming": [true, "camelCase", "my"],
+    "templates-use-public": true,
+    "use-host-property-decorator": true,
+    "use-input-property-decorator": true,
+    "use-life-cycle-interface": true,
+    "use-output-property-decorator": true,
+    "use-pipe-transform-interface": true,
+    "no-console": true,
+    "no-string-literal": false,
+    "object-literal-sort-keys": true,
+    "ordered-imports": true,
+    "quotemark": [
+      true,
+      "single",
+      "avoid-escape"
+    ],
+    "variable-name": [
+      true,
+      "allow-leading-underscore",
+      "allow-pascal-case",
+      "ban-keywords",
+      "check-format"
+    ],
+    "no-focused-tests": true,
+    "no-disabled-tests": false
+  }
+}

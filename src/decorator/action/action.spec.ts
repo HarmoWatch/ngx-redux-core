@@ -1,5 +1,5 @@
 import { Store } from 'redux';
-import { ReduxRegistry } from '../registry';
+import { ReduxRegistry } from '../../registry';
 import { ReduxAction } from './action';
 
 export class TestActions {

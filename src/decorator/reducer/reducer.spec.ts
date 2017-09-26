@@ -1,12 +1,12 @@
-import { ReduxRegistry } from '../registry';
-import { ReduxAction } from './action';
+import { ReduxRegistry } from '../../registry';
+import { ReduxAction } from '../action/action';
 import { IReduxReducerAction, ReduxReducer } from './reducer';
 
 export interface SampleState {
   yolo: boolean;
 }
 
-class TestActions {
+export class TestActions {
 
   @ReduxAction()
   public static bar() {
