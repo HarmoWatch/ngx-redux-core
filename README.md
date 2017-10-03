@@ -10,7 +10,7 @@ The following tasks are left:
 - support / test lazy loaded modules
 - finalize docs
 - support initial state again
-- @ReduxSelect shall support custom functions and work with relative and absolute paths.
+- @ReduxSelect shall support custom functions and relative paths.
 - delete obsolete code
 - provide a guide for unit testing
 - create pipe to access state directly from the view

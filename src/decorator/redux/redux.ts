@@ -19,11 +19,14 @@ export function Redux(config?: IReduxModuleConfig) {
 
     return class extends constructor {
       redux = (() => {
-        const {stateName, reducers} = Object.assign({
+        const mergedConfig = Object.assign({
           reducers: [],
           stateName: constructor.name,
         }, config || {});
 
+        const {stateName, reducers} = mergedConfig;
+
+        // constructor[ '__@Redux' ] = mergedConfig;
         ReduxRegistry.registerModule(stateName, this);
 
         reducers.reduce((previousValue, currentValue) => {

@@ -1,8 +1,12 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ReduxRegistry } from '../../registry';
 
-export function ReduxSelect(selector: string | string[]): PropertyDecorator {
-  const selectorArray: string[] = Array.isArray(selector) ? selector : [ selector ];
+export function ReduxSelect(selector: string): PropertyDecorator {
+  const selectorArray: string[] = selector.split('/');
+
+  if (selectorArray[ 0 ] !== '') {
+    throw new Error('Relative selectors are not supported yet!');
+  }
 
   return (target: {}, propertyKey: string) => {
 
@@ -24,11 +28,13 @@ export function ReduxSelect(selector: string | string[]): PropertyDecorator {
 }
 
 function select(state: {}, selector: string[]): {} {
-  return selector.reduce((previousValue, propertyKey) => {
-    if (!previousValue || !previousValue[ propertyKey ]) {
-      return null;
-    }
+  return selector
+    .filter((propertyKey) => propertyKey !== '')
+    .reduce((previousValue, propertyKey) => {
+      if (!previousValue || !previousValue[ propertyKey ]) {
+        return null;
+      }
 
-    return previousValue[ propertyKey ];
-  }, state);
+      return previousValue[ propertyKey ];
+    }, state);
 }
