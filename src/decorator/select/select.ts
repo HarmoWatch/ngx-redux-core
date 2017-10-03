@@ -22,5 +22,11 @@ export function ReduxSelect(selector: string[]): PropertyDecorator {
 }
 
 function select(state: {}, selector: string[]): {} {
-  return selector.reduce((previousValue, propertyKey) => previousValue[ propertyKey ], state);
+  return selector.reduce((previousValue, propertyKey) => {
+    if (!previousValue || !previousValue[ propertyKey ]) {
+      return null;
+    }
+
+    return previousValue[ propertyKey ];
+  }, state);
 }

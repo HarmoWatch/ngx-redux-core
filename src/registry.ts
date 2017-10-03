@@ -1,31 +1,48 @@
 import { Reducer, Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+
+export class ReduxRegistryReducerItem {
+  stateName: string;
+  reducer: Reducer<{}>;
+}
 
 export class ReduxRegistry {
 
+  public static readonly ACTION_REGISTER_MODULE = `${ReduxRegistry.name}://registerModule`;
+
   private static readonly _store = new AsyncSubject<Store<{}>>();
-  private static readonly _reducers: { [type: string]: Array<Reducer<{}>> } = {};
-  public static readonly modules = new ReplaySubject<any>();
+  private static readonly _reducers: { [type: string]: ReduxRegistryReducerItem[] } = {};
 
   public static registerStore(store: Store<{}>) {
     ReduxRegistry._store.next(store);
     ReduxRegistry._store.complete();
   }
 
-  public static registerReducer(type: string, reducer: Reducer<{}>) {
+  public static registerReducer(stateName: string, type: string, reducer: Reducer<{}>) {
     ReduxRegistry._reducers[ type ] = ReduxRegistry._reducers[ type ] || [];
-    ReduxRegistry._reducers[ type ].push(reducer);
+    ReduxRegistry._reducers[ type ].push({stateName, reducer});
   }
 
-  public static registerModule(/*config: IReduxModuleConfig,
-                               moduleConstructor: IReduxModuleType<{}>,*/
-                               module: any) {
+  public static registerModule(stateName, module: any) {
+    ReduxRegistry.getStore().then((store) => {
 
-    this.modules.next(module);
+      let initialState = {};
+      if (module.onReduxInit) {
+        initialState = module.onReduxInit() || {};
+      }
+
+      store.dispatch({
+        payload: {
+          initialState,
+          stateName,
+        },
+        type: ReduxRegistry.ACTION_REGISTER_MODULE,
+      });
+
+    });
   }
 
-  public static getReducersByType(type: string): Array<Reducer<{}>> {
+  public static getReducerItemsByType(type: string): ReduxRegistryReducerItem[] {
     return ReduxRegistry._reducers[ type ] || [];
   }
 

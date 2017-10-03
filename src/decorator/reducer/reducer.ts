@@ -1,4 +1,3 @@
-import { ReduxRegistry } from '../../registry';
 import { ReduxActionFunc } from '../action/action';
 
 export interface IReduxReducerAction<P = any> {
@@ -14,9 +13,9 @@ export type ReduxReducerDecorator<S, P>
 export type ReduxReducerActionType<P> = ReduxActionFunc<Promise<P>> | ReduxActionFunc<P> | string;
 export type ReduxReducerActionTypeArray<P> = ReduxReducerActionType<P> | Array<ReduxReducerActionType<P>>;
 
-export function ReduxReducer<S = any, P = any>(type: ReduxReducerActionTypeArray<P>): ReduxReducerDecorator<S, P> {
+export function ReduxReducer<S = any, P = any>(typeArray: ReduxReducerActionTypeArray<P>): ReduxReducerDecorator<S, P> {
 
-  const types = (Array.isArray(type) ? type : [ type ]).map((t) => {
+  const types = (Array.isArray(typeArray) ? typeArray : [ typeArray ]).map((t) => {
     if (typeof t === 'function') {
 
       if (!t[ '__@ReduxAction' ] || !t[ '__@ReduxAction' ].type) {
@@ -34,7 +33,17 @@ export function ReduxReducer<S = any, P = any>(type: ReduxReducerActionTypeArray
       target[ propertyKey ].bind(target);
     }
 
-    types.forEach(t => ReduxRegistry.registerReducer(t, target[ propertyKey ]));
+    if (!target[ '__@ReduxReducer' ]) {
+      target[ '__@ReduxReducer' ] = [];
+    }
+
+    types.forEach(type => {
+      target[ '__@ReduxReducer' ].push({
+        actionType: type,
+        reducerFunction: target[ propertyKey ].bind(target),
+      });
+    });
+
     return target[ propertyKey ];
   };
 

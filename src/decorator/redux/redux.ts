@@ -15,11 +15,25 @@ export interface IReduxModuleConfig {
 }
 
 export function Redux(config?: IReduxModuleConfig) {
-
   return <T extends IReduxModuleType<{}>>(constructor: T) => {
 
     return class extends constructor {
-      redux = (() => ReduxRegistry.registerModule(/*config, constructor, */this))();
+      redux = (() => {
+        const {stateName, reducers} = Object.assign({
+          reducers: [],
+          stateName: constructor.name,
+        }, config || {});
+
+        ReduxRegistry.registerModule(stateName, this);
+
+        reducers.reduce((previousValue, currentValue) => {
+          return previousValue
+            .concat(currentValue[ '__@ReduxReducer' ] || [])
+            .concat(currentValue[ 'prototype' ][ '__@ReduxReducer' ] || []);
+        }, []).forEach((r) => ReduxRegistry.registerReducer(stateName, r.actionType, r.reducerFunction));
+
+        return config;
+      })();
     };
 
   };
