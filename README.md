@@ -1,12 +1,30 @@
 # [WIP] ngx-redux 
+
+The project is work in progress ;) Here you can see the current progress:
+
+[████████████████████████████████████████░░░░░░░░░░ 80% Done](https://changaco.oy.lc/unicode-progress-bars/)
+
+The following tasks are left:
+
+- improve unit test coverage
+- support / test lazy loaded modules
+- finalize docs
+- support initial state again
+- @ReduxSelect shall support custom functions and work with relative and absolute paths.
+- delete obsolete code
+- provide a guide for unit testing
+- create pipe to access state directly from the view
+
 ## Decorator driven redux integration for Angular 2+
 
 * [About](#about)
 * [Installation](#installation)
 * [Usage](#usage)
 * Decorator
+  * [@Redux](src/decorator/redux/redux.md)
   * [@ReduxAction](src/decorator/action/action.md)
   * [@ReduxReducer](src/decorator/reducer/reducer.md)
+  * [@ReduxSelect](src/decorator/select/select.md)
 
 ## About
 
@@ -59,12 +77,6 @@ First you need to install the npm package:
 ```sh
 npm install @ngx-redux --save
 ```
-
-## Open issues / todos
-
-- support lazy loaded modules
-- check if the return type of the action could be automatically the payload of the action
-- create pipe to access state directly from the view
 
 ## Usage
 

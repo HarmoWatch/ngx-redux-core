@@ -1,14 +1,16 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ReduxRegistry } from '../../registry';
 
-export function ReduxSelect(selector: string[]): PropertyDecorator {
+export function ReduxSelect(selector: string | string[]): PropertyDecorator {
+  const selectorArray: string[] = Array.isArray(selector) ? selector : [ selector ];
+
   return (target: {}, propertyKey: string) => {
 
     const subject = new BehaviorSubject(null);
     ReduxRegistry.getStore().then(store => {
-      subject.next(select(store.getState(), selector));
+      subject.next(select(store.getState(), selectorArray));
       store.subscribe(() => {
-        subject.next(select(store.getState(), selector));
+        subject.next(select(store.getState(), selectorArray));
       });
     });
 
