@@ -12,13 +12,14 @@ The following tasks are left:
 - @ReduxSelect shall support custom functions and relative paths.
 - delete obsolete code
 - provide a guide for unit testing
-- create pipe to access state directly from the view
 
 ## Decorator driven redux integration for Angular 2+
 
 * [About](#about)
 * [Installation](#installation)
 * [Usage](#usage)
+* Pipe
+  * [reduxSelect](src/pipe/select/select.md)
 * Decorator
   * [@Redux](src/decorator/redux/redux.md)
   * [@ReduxAction](src/decorator/action/action.md)
