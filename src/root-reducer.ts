@@ -1,8 +1,17 @@
 import { Reducer } from 'redux';
 import { IReduxAction, IRootState } from './interfaces';
-import { ReduxRegistry } from './registry';
+import { IRegisterModulePayload, ReduxRegistry } from './registry';
 
-export const rootReducer: Reducer<IRootState> = (state: IRootState, action: IReduxAction): IRootState => {
+export const rootReducer: Reducer<IRootState> = (state: IRootState,
+                                                 action: IReduxAction<IRegisterModulePayload>): IRootState => {
+
+  if (action.type === ReduxRegistry.ACTION_REGISTER_MODULE) {
+    const {stateName, initialState} = action.payload;
+
+    return Object.assign({}, state, {
+      [stateName]: initialState,
+    });
+  }
 
   return ReduxRegistry.getReducerItemsByType(action.type)
     .reduce((stateToReduce, reducerItem) => {

@@ -2,14 +2,13 @@
 
 The project is work in progress ;) Here you can see the current progress:
 
-[████████████████████████████████████████░░░░░░░░░░ 80% Done](https://changaco.oy.lc/unicode-progress-bars/)
+[█████████████████████████████████████████████░░░░░ 90% Done](https://changaco.oy.lc/unicode-progress-bars/)
 
 The following tasks are left:
 
 - improve unit test coverage
 - support / test lazy loaded modules
 - finalize docs
-- support initial state again
 - @ReduxSelect shall support custom functions and relative paths.
 - delete obsolete code
 - provide a guide for unit testing

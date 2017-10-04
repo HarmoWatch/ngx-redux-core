@@ -1,9 +1,15 @@
 import { Reducer, Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
+import { IReduxAction } from './interfaces';
 
 export class ReduxRegistryReducerItem {
   stateName: string;
   reducer: Reducer<{}>;
+}
+
+export interface IRegisterModulePayload {
+  initialState: {};
+  stateName: string;
 }
 
 export class ReduxRegistry {
@@ -31,7 +37,7 @@ export class ReduxRegistry {
         initialState = module.onReduxInit() || {};
       }
 
-      store.dispatch({
+      store.dispatch<IReduxAction<IRegisterModulePayload>>({
         payload: {
           initialState,
           stateName,
