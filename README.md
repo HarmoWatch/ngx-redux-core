@@ -1,17 +1,7 @@
 # [WIP] ngx-redux 
 
-The project is work in progress ;) Here you can see the current progress:
-
-[█████████████████████████████████████████████░░░░░ 90% Done](https://changaco.oy.lc/unicode-progress-bars/)
-
-The following tasks are left:
-
-- improve unit test coverage
-- support / test lazy loaded modules
-- finalize docs
-- @ReduxSelect shall support custom functions and relative paths.
-- delete obsolete code
-- provide a guide for unit testing
+Hey there, the package is still work in progress, but there are no more major changes planned. So the package is ready 
+to use now, but please [check the open the open tasks](https://github.com/HarmoWatch/ngx-redux/projects/1).
 
 ## Decorator driven redux integration for Angular 2+
 
