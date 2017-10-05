@@ -3,6 +3,7 @@
   "lib": {
     "entryFile": "src/public_api.ts",
     "externals": {
+      "redux": "redux",
       "redux/index": "redux"
     }
   }
