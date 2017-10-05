@@ -1,16 +1,17 @@
 {
-  "name": "ngx-redux",
-  "version": "0.1.0",
+  "private": false,
+  "name": "@harmowatch/ngx-redux-core",
+  "version": "0.0.1",
   "description": "Decorator driven redux integration for Angular 2+",
   "scripts": {
     "clean:package": "rimraf .ng_build dist",
     "build:package": "npm run clean:package && ng-packagr -p ng-package.json",
     "version:minor": "npm version minor",
-    "publish:package": "npm publish ./dist/"
+    "publish:package": "npm run build:package && npm publish ./dist/ --access=public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HarmoWatch/ngx-redux.git"
+    "url": "git+https://github.com/HarmoWatch/ngx-redux-core.git"
   },
   "keywords": [
     "angular",
@@ -27,9 +28,9 @@
   "author": "Kay Schecker",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/HarmoWatch/ngx-redux/issues"
+    "url": "https://github.com/HarmoWatch/ngx-redux-core/issues"
   },
-  "homepage": "https://github.com/HarmoWatch/ngx-redux#readme",
+  "homepage": "https://github.com/HarmoWatch/ngx-redux-core#readme",
   "peerDependencies": {
     "@angular/core": ">=2.0.0",
     "redux": ">=3.0.0"

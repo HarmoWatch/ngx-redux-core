@@ -65,7 +65,7 @@ following benefits:
 First you need to install the npm package:
 
 ```sh
-npm install @ngx-redux --save
+npm install @ngx-redux/core -D
 ```
 
 ## Usage
