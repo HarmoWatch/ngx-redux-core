@@ -7,6 +7,7 @@
     "clean:package": "rimraf .ng_build dist",
     "build:package": "npm run clean:package && ng-packagr -p ng-package.json",
     "version:minor": "npm version minor",
+    "version:patch": "npm version patch",
     "publish:package": "npm run build:package && npm publish ./dist/ --access=public"
   },
   "repository": {
