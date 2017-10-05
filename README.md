@@ -62,10 +62,16 @@ following benefits:
 
 ## Installation
 
+You need to install redux by your self:
+
+```sh
+npm install redux --save
+```
+
 First you need to install the npm package:
 
 ```sh
-npm install @ngx-redux/core -D
+npm install @harmowatch/ngx-redux-core --save-dev
 ```
 
 ## Usage
