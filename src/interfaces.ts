@@ -9,3 +9,7 @@ export interface IRootState<T = {}> {
     [key: string]: T;
   };
 }
+
+export interface OnReduxInit<S = void> {
+  onReduxInit?(): S;
+}

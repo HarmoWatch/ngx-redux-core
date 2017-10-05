@@ -1,9 +1,10 @@
+export * from './core/select';
 export * from './decorator/action/action';
 export * from './decorator/reducer/reducer';
 export * from './decorator/redux/redux';
 export * from './decorator/select/select';
+export * from './pipe/select/select';
+export * from './interfaces';
 export * from './redux.module';
-
-export interface OnReduxInit<S = void> {
-  onReduxInit?(): S;
-}
+export * from './registry';
+export * from './root-reducer';

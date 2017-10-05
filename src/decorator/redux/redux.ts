@@ -1,4 +1,4 @@
-import { OnReduxInit } from '../../index';
+import { OnReduxInit } from '../../interfaces';
 import { ReduxRegistry } from '../../registry';
 
 export interface IReducerType {
