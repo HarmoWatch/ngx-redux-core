@@ -4,7 +4,9 @@
   "description": "Decorator driven redux integration for Angular 2+",
   "scripts": {
     "clean:package": "rimraf .ng_build dist",
-    "build:package": "npm run clean:package && ng-packagr -p ng-package.json"
+    "build:package": "npm run clean:package && ng-packagr -p ng-package.json",
+    "version:minor": "npm version minor",
+    "publish:package": "npm publish ./dist/"
   },
   "repository": {
     "type": "git",
