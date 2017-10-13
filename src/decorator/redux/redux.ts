@@ -1,5 +1,6 @@
 import { OnReduxInit } from '../../interfaces';
 import { ReduxRegistry } from '../../registry';
+import { getReduxReducerClassMetadata, IReduxReducerClassMetadata } from '../reducer/reducer';
 
 export interface IReducerType {
   new (...args: any[]): any;
@@ -11,7 +12,7 @@ export interface IReduxModuleType<S = {}> {
 
 export interface IReduxModuleConfig {
   reducers?: IReducerType[];
-  stateName?: string;
+  stateName: string;
 }
 
 export function Redux(config?: IReduxModuleConfig) {
@@ -21,7 +22,7 @@ export function Redux(config?: IReduxModuleConfig) {
       redux = (() => {
         const mergedConfig = Object.assign({
           reducers: [],
-          stateName: constructor.name,
+          stateName: '',
         }, config || {});
 
         const {stateName, reducers} = mergedConfig;
@@ -29,11 +30,13 @@ export function Redux(config?: IReduxModuleConfig) {
         // constructor[ '__@Redux' ] = mergedConfig;
         ReduxRegistry.registerModule(stateName, this);
 
-        reducers.reduce((previousValue, currentValue) => {
-          return previousValue
-            .concat(currentValue[ '__@ReduxReducer' ] || [])
-            .concat(currentValue[ 'prototype' ][ '__@ReduxReducer' ] || []);
-        }, []).forEach((r) => ReduxRegistry.registerReducer(stateName, r.actionType, r.reducerFunction));
+        reducers
+          .map((reducer) => getReduxReducerClassMetadata(reducer.constructor))
+          .forEach((metadata: IReduxReducerClassMetadata) => {
+            metadata.reducers.forEach(reducer => {
+              ReduxRegistry.registerReducer(stateName, reducer.types, reducer.reducer);
+            });
+          });
 
         return config;
       })();

@@ -1,10 +1,13 @@
+import { IReduxAction } from '../../interfaces';
 import { ReduxActionFunc } from '../action/action';
 
-export interface IReduxReducerAction<P = any> {
-  payload: P;
-}
+const METADATA_KEY = Symbol('@ReduxActionController');
 
-export type ReduxReducerFunc<S, P> = (state: S, action?: IReduxReducerAction<P>) => S;
+const METADATA_DEFAULT: IReduxReducerClassMetadata = {
+  reducers: [],
+};
+
+export type ReduxReducerFunc<S, P> = (state: S, action?: IReduxAction<P>) => S;
 export type ReduxReducerDecorator<S, P>
   = (target: object,
      propertyKey: string | symbol,
@@ -13,22 +16,21 @@ export type ReduxReducerDecorator<S, P>
 export type ReduxReducerActionType<P> = ReduxActionFunc<Promise<P>> | ReduxActionFunc<P> | string;
 export type ReduxReducerActionTypeArray<P> = ReduxReducerActionType<P> | Array<ReduxReducerActionType<P>>;
 
-export function ReduxReducer<S = any, P = any>(typeArray: ReduxReducerActionTypeArray<P>): ReduxReducerDecorator<S, P> {
+export interface IReduxReducerClassMetadata {
+  reducers: Array<{
+    types: ReduxReducerActionTypeArray<{}>,
+    reducer: ReduxReducerFunc<{}, {}>,
+  }>;
+}
 
-  const types = (Array.isArray(typeArray) ? typeArray : [ typeArray ]).map((t) => {
-    if (typeof t === 'function') {
-
-      if (!t[ '__@ReduxAction' ] || !t[ '__@ReduxAction' ].type) {
-        throw new Error('Unable to resolve action type. Make sure you\'ve decorated the target by @ReduxAction');
-      }
-
-      return t[ '__@ReduxAction' ].type;
-    }
-
-    return t;
-  });
+export function ReduxReducer<S = any, P = any>(types: ReduxReducerActionTypeArray<P>): ReduxReducerDecorator<S, P> {
 
   return (target: object, propertyKey: string) => {
+
+    const metadata = getReduxReducerClassMetadata(target.constructor);
+    metadata.reducers.push({types, reducer: target[ propertyKey ].bind(target)});
+    Reflect[ 'defineMetadata' ](METADATA_KEY, metadata, target.constructor);
+
     if (typeof target === 'object') {
       target[ propertyKey ].bind(target);
     }
@@ -37,14 +39,11 @@ export function ReduxReducer<S = any, P = any>(typeArray: ReduxReducerActionType
       target[ '__@ReduxReducer' ] = [];
     }
 
-    types.forEach(type => {
-      target[ '__@ReduxReducer' ].push({
-        actionType: type,
-        reducerFunction: target[ propertyKey ].bind(target),
-      });
-    });
-
     return target[ propertyKey ];
   };
 
+}
+
+export function getReduxReducerClassMetadata(target: any): IReduxReducerClassMetadata {
+  return Object.assign({}, METADATA_DEFAULT, Reflect[ 'getMetadata' ](METADATA_KEY, target));
 }

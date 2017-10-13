@@ -1,5 +1,6 @@
 export * from './core/select';
 export * from './decorator/action/action';
+export * from './decorator/action-controller/action-controller';
 export * from './decorator/reducer/reducer';
 export * from './decorator/redux/redux';
 export * from './decorator/select/select';

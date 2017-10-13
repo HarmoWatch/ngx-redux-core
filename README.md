@@ -5,7 +5,6 @@ to use now, but please [check the open the open tasks](https://github.com/HarmoW
 
 ## Decorator driven redux integration for Angular 2+
 
-* [About](#about)
 * [Installation](#installation)
 * [Usage](#usage)
 * Pipe
@@ -16,110 +15,51 @@ to use now, but please [check the open the open tasks](https://github.com/HarmoW
   * [@ReduxReducer](src/decorator/reducer/reducer.md)
   * [@ReduxSelect](src/decorator/select/select.md)
 
-## About
-
-This package gives you an easy way to use redux within your Angular 2+ application. By using this package you've the
-following benefits:
-
-- Module and component driven approach
-- Classes for *reducers* and *actions*
-- The reducer is connected to the payload on an action
-- Easy refactoring by referencing *reducers* and *actions* like that:  
-  
-  ```ts
-  import { IReduxAction, ReduxAction, ReduxReducer } from '@ngx-redux';
-  
-  export class SampleComponent {
-    
-      @ReduxAction()
-      public static sampleAction() {
-          return 'just return the payload';
-      }
-
-      @ReduxAction()
-      public someOtherAction() {
-          return {
-            foo: 'bar'
-          };
-      }
-    
-  }
-  
-  export class SampleReducer {
-  
-    @ReduxReducer(SampleComponent.sampleAction)
-    public foo(state: {}, action: IReduxAction) {
-      // ...
-    }
-    
-    @ReduxReducer(SampleComponent.prototype.someOtherAction)
-    public bar(state: {}, action: IReduxAction) {
-      // ...
-    }
-  
-  }
-  ```   
-
 ## Installation
 
-You need to install redux by your self:
+This package requires `redux >=3.0.0` as peer dependency. So let's install it first:
 
 ```sh
 npm install redux --save
 ```
 
-First you need to install the npm package:
+Now you're ready to install `@harmowatch/ngx-redux-core` by typing:
 
 ```sh
-npm install @harmowatch/ngx-redux-core --save-dev
+npm install @harmowatch/ngx-redux-core --save
 ```
 
 ## Usage
 
 #### 1. Import the `ReduxModule`
 
-Ok, now you have to import `ReduxModule.forRoot()` in the root NgModule of your application.
+Ok, now you have to import `ReduxModule.forRoot()` in the root NgModule of your application:
 
 ```ts
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {ReduxModule} from '@ngx-redux';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReduxModule } from '@harmowatch/ngx-redux-core'; // (1) Import the decorator and the module
+
+import { AppComponent } from './app.component';
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        ReduxModule.forRoot()
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    ReduxModule.forRoot(), // (2) Add the module to the list of imports
+  ],
+  providers: [],
+  bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {
+}
 ```
 
-##### `ReduxModule.forRoot()` configuration
+#### 2. Decorate the module where you want to use redux with `@Redux`
 
-###### `enhancer`
-
-You can add a store enhancer as documented here:
-[http://redux.js.org/docs/api/createStore.html](http://redux.js.org/docs/api/createStore.html).
-
-```ts
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {ReduxModule} from '@ngx-redux';
-
-@NgModule({
-    imports: [
-        BrowserModule,
-        ReduxModule.forRoot({
-            enhancer: window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-        }),
-    ],
-    bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
-
-#### 2. Decorate a child NgModule of your application with `@Redux()` and provide the `initialState`
+The decorator `@Redux` registers your module to the global redux context.
 
 ```ts
 import {BrowserModule} from '@angular/platform-browser';

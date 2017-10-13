@@ -1,10 +1,13 @@
 import { Reducer, Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
+import { getActionTypeByFunction } from './decorator/action/action';
+import { ReduxReducerActionType, ReduxReducerActionTypeArray } from './decorator/reducer/reducer';
 import { IReduxAction } from './interfaces';
 
 export class ReduxRegistryReducerItem {
   stateName: string;
   reducer: Reducer<{}>;
+  type: ReduxReducerActionType<{}>;
 }
 
 export interface IRegisterModulePayload {
@@ -17,16 +20,31 @@ export class ReduxRegistry {
   public static readonly ACTION_REGISTER_MODULE = `${ReduxRegistry.name}://registerModule`;
 
   private static readonly _store = new AsyncSubject<Store<{}>>();
-  private static readonly _reducers: { [type: string]: ReduxRegistryReducerItem[] } = {};
+  private static readonly _reducers: ReduxRegistryReducerItem[] = [];
 
   public static registerStore(store: Store<{}>) {
     ReduxRegistry._store.next(store);
     ReduxRegistry._store.complete();
   }
 
-  public static registerReducer(stateName: string, type: string, reducer: Reducer<{}>) {
-    ReduxRegistry._reducers[ type ] = ReduxRegistry._reducers[ type ] || [];
-    ReduxRegistry._reducers[ type ].push({stateName, reducer});
+  public static registerReducer(stateName: string, types: ReduxReducerActionTypeArray<{}>, reducer: Reducer<{}>) {
+
+    if (Array.isArray(types)) {
+      types.forEach((type) => {
+        ReduxRegistry._reducers.push({
+          reducer,
+          stateName,
+          type,
+        });
+      });
+    } else {
+      ReduxRegistry._reducers.push({
+        reducer,
+        stateName,
+        type: types as ReduxReducerActionType<{}>,
+      });
+    }
+
   }
 
   public static registerModule(stateName, module: any) {
@@ -49,7 +67,8 @@ export class ReduxRegistry {
   }
 
   public static getReducerItemsByType(type: string): ReduxRegistryReducerItem[] {
-    return ReduxRegistry._reducers[ type ] || [];
+    return ReduxRegistry._reducers
+      .filter(reducerItem => getActionTypeByFunction(reducerItem.type) === type);
   }
 
   public static getStore(): Promise<Store<{}>> {
