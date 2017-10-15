@@ -2,7 +2,6 @@ import { Inject, Pipe, PipeTransform } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { select } from '../../core/select';
-import { getReduxStateMetadata } from '../../decorator/state/state';
 import { IReduxModuleChildConfig, REDUX_MODULE_CONFIG } from '../../redux.module';
 
 @Pipe({
@@ -14,11 +13,6 @@ export class ReduxSelectPipe implements PipeTransform {
   }
 
   transform(selector: string): Observable<{}> {
-
-    if (!selector.startsWith('/')) {
-      selector = `/${getReduxStateMetadata(this.moduleConfig.state).name}/${selector}`;
-    }
-
-    return select(selector);
+    return select(selector, this.moduleConfig.state);
   }
 }

@@ -1,15 +1,20 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { getReduxStateMetadata, IReduxStateType } from '../decorator/state/state';
 
 import { ReduxRegistry } from '../registry';
 
-export function selectByState<S>(state: {}, selector: string): S {
+export function selectByState<S>(state: {}, selector: string, context?: IReduxStateType): S {
+
+  if (!selector.startsWith('/')) {
+    if (!context) {
+      throw new Error('Relative selectors need to have a state context!');
+    }
+
+    selector = `/${getReduxStateMetadata(context).name}/${selector}`;
+  }
 
   const selectorArray: string[] = selector.split('/');
-
-  if (selectorArray[ 0 ] !== '') {
-    throw new Error('Relative selectors are not supported yet!');
-  }
 
   return selectorArray
     .filter((propertyKey) => propertyKey !== '')
@@ -22,11 +27,11 @@ export function selectByState<S>(state: {}, selector: string): S {
     }, state);
 }
 
-export function select<S>(selector: string): Observable<S> {
+export function select<S>(selector: string, context?: IReduxStateType): Observable<S> {
   const subject = new BehaviorSubject<S>(null);
   ReduxRegistry.getStore().then(store => {
-    subject.next(selectByState(store.getState(), selector));
-    store.subscribe(() => subject.next(selectByState(store.getState(), selector)));
+    subject.next(selectByState(store.getState(), selector, context));
+    store.subscribe(() => subject.next(selectByState(store.getState(), selector, context)));
   });
 
   return subject.asObservable();
