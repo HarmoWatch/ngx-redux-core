@@ -1,16 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { Inject, InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
+import { Inject, InjectionToken, ModuleWithProviders, NgModule, Type } from '@angular/core';
 import { createStore, Store } from 'redux';
+import { getReduxReducerClassMetadata, IReduxReducerClassMetadata } from './decorator/reducer/reducer';
+import { IReduxState, IReduxStateType } from './decorator/state/state';
 import { ReduxSelectPipe } from './pipe/select/select';
 import { ReduxRegistry } from './registry';
 import { rootReducer } from './root-reducer';
 
-export const REDUX_MODULE_CONFIG = new InjectionToken<IReduxConfig>('REDUX_MODULE_CONFIG');
 export const IS_ROOT_MODULE = new InjectionToken<boolean>('IS_ROOT_MODULE');
-export const STATENAME = new InjectionToken<boolean>('STATENAME');
+export const REDUX_MODULE_CONFIG = new InjectionToken<IReduxModuleRootConfig | IReduxModuleChildConfig>(
+  'REDUX_MODULE_CONFIG',
+);
 
-export interface IReduxConfig {
+export interface IReduxModuleRootConfig {
   store?: Store<{}>;
+}
+
+export interface IReduxModuleChildConfig {
+  state: IReduxStateType;
+}
+
+export interface IReducerType {
+  new (...args: any[]): any;
 }
 
 @NgModule({
@@ -28,7 +39,7 @@ export interface IReduxConfig {
 export class ReduxModule {
 
   constructor(@Inject(IS_ROOT_MODULE) isRootModule: boolean = false,
-              @Inject(REDUX_MODULE_CONFIG) config: IReduxConfig = null,) {
+              @Inject(REDUX_MODULE_CONFIG) config: IReduxModuleRootConfig = null,) {
 
     if (isRootModule) {
       config = Object.assign({
@@ -40,17 +51,17 @@ export class ReduxModule {
 
   }
 
-  public static forChild(stateName: string): ModuleWithProviders {
+  public static forChild(config: IReduxModuleChildConfig): ModuleWithProviders {
     return {
       ngModule: ReduxModule,
       providers: [
         {provide: IS_ROOT_MODULE, useValue: false},
-        {provide: STATENAME, useValue: stateName},
+        {provide: REDUX_MODULE_CONFIG, useValue: config},
       ],
     };
   }
 
-  public static forRoot(config?: IReduxConfig): ModuleWithProviders {
+  public static forRoot(config?: IReduxModuleRootConfig): ModuleWithProviders {
     return {
       ngModule: ReduxModule,
       providers: [

@@ -1,7 +1,11 @@
 import { Reducer, Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { getActionTypeByFunction } from './decorator/action/action';
-import { ReduxReducerActionType, ReduxReducerActionTypeArray } from './decorator/reducer/reducer';
+import {
+  getReduxReducerClassMetadata, IReduxReducerClassMetadata, ReduxReducerActionType,
+  ReduxReducerActionTypeArray
+} from './decorator/reducer/reducer';
+import { getReduxStateMetadata, IReduxState, IReduxStateType } from './decorator/state/state';
 import { IReduxAction } from './interfaces';
 
 export class ReduxRegistryReducerItem {
@@ -47,20 +51,29 @@ export class ReduxRegistry {
 
   }
 
-  public static registerModule(stateName, module: any) {
+  public static registerState(stateType: IReduxStateType) {
     ReduxRegistry.getStore().then((store) => {
 
-      let initialState = {};
-      if (module.onReduxInit) {
-        initialState = module.onReduxInit() || {};
-      }
+      const stateConfig = getReduxStateMetadata(stateType);
+      const state: IReduxState<{}> = new stateType();
 
-      store.dispatch<IReduxAction<IRegisterModulePayload>>({
-        payload: {
-          initialState,
-          stateName,
-        },
-        type: ReduxRegistry.ACTION_REGISTER_MODULE,
+      Promise.resolve(state.initialize()).then((initialState) => {
+
+        stateConfig.reducers
+          .map((reducer) => getReduxReducerClassMetadata(reducer.constructor))
+          .forEach((metadata: IReduxReducerClassMetadata) => {
+            metadata.reducers.forEach(reducer => {
+              ReduxRegistry.registerReducer(stateConfig.name, reducer.types, reducer.reducer);
+            });
+          });
+
+        store.dispatch<IReduxAction<IRegisterModulePayload>>({
+          payload: {
+            initialState,
+            stateName: stateConfig.name,
+          },
+          type: ReduxRegistry.ACTION_REGISTER_MODULE,
+        });
       });
 
     });

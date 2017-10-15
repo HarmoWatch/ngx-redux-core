@@ -31,13 +31,9 @@ export function ReduxReducer<S = any, P = any>(types: ReduxReducerActionTypeArra
     metadata.reducers.push({types, reducer: target[ propertyKey ].bind(target)});
     Reflect[ 'defineMetadata' ](METADATA_KEY, metadata, target.constructor);
 
-    if (typeof target === 'object') {
-      target[ propertyKey ].bind(target);
-    }
-
-    if (!target[ '__@ReduxReducer' ]) {
-      target[ '__@ReduxReducer' ] = [];
-    }
+    // if (typeof target === 'object') {
+    //   target[ propertyKey ].bind(target);
+    // }
 
     return target[ propertyKey ];
   };
