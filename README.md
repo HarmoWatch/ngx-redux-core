@@ -1,7 +1,6 @@
 # [WIP] ngx-redux 
 
-Hey there, the package is still work in progress, but there are no more major changes planned. So the package is ready 
-to use now, but please [check the open the open tasks](https://github.com/HarmoWatch/ngx-redux/projects/1).
+Hey there, the package is still work in progress, please [check the open tasks](https://github.com/HarmoWatch/ngx-redux/projects/1).
 
 ## Decorator driven redux integration for Angular 2+
 
