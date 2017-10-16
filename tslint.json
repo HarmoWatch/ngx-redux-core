@@ -68,7 +68,7 @@
     "interface-name": [false, "always-prefix"],
     "component-class-suffix": true,
     "directive-class-suffix": true,
-    "max-classes-per-file": [true, 2],
+    "max-classes-per-file": [true, 3],
     "import-destructuring-spacing": true,
     "invoke-injectable": true,
     "no-access-missing-member": false,

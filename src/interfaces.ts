@@ -1,4 +1,5 @@
-import { Action } from 'redux';
+import { Action, Store } from 'redux';
+import { IReduxStateType } from './decorator/state/state';
 
 export interface IReduxAction<P = void> extends Action {
   payload?: P;
@@ -10,6 +11,10 @@ export interface IRootState<T = {}> {
   };
 }
 
-export interface OnReduxInit<S = void> {
-  onReduxInit?(): S;
+export interface IReduxModuleRootConfig {
+  store?: Store<{}>;
+}
+
+export interface IReduxModuleChildConfig {
+  state: IReduxStateType;
 }
