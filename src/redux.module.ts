@@ -5,7 +5,7 @@ import { IReduxModuleChildConfig, IReduxModuleRootConfig } from './interfaces';
 import { ReduxSelectPipe } from './pipe/select/select';
 import { ReduxRegistry } from './registry';
 import { rootReducer } from './root-reducer';
-import { REDUX_CHILD_MODULE_CONFIG, REDUX_ROOT_MODULE_CONFIG } from './token';
+import { IS_ROOT_MODULE, REDUX_CHILD_MODULE_CONFIG, REDUX_ROOT_MODULE_CONFIG } from './token';
 
 export interface IReducerType {
   new (...args: any[]): any;
@@ -22,41 +22,26 @@ export interface IReducerType {
     CommonModule,
   ],
 })
-export class ReduxRootModule {
+export class ReduxModule {
 
-  constructor(@Inject(REDUX_ROOT_MODULE_CONFIG) config: IReduxModuleRootConfig = null) {
+  constructor(@Inject(IS_ROOT_MODULE) isRootModule: boolean = false,
+              @Inject(REDUX_ROOT_MODULE_CONFIG) config: IReduxModuleRootConfig = null) {
 
-    config = Object.assign({
-      store: null,
-    }, config || {});
+    if (isRootModule) {
+      config = Object.assign({
+        store: null,
+      }, config || {});
 
-    ReduxRegistry.registerStore(config.store || createStore(rootReducer, {}));
+      ReduxRegistry.registerStore(config.store || createStore(rootReducer, {}));
+    }
 
   }
 
-}
-
-@NgModule({
-  declarations: [
-    ReduxSelectPipe,
-  ],
-  exports: [
-    ReduxSelectPipe,
-  ],
-  imports: [
-    CommonModule,
-  ],
-})
-export class ReduxChildModule {
-
-}
-
-export class ReduxModule {
-
   public static forChild(config: IReduxModuleChildConfig): ModuleWithProviders {
     return {
-      ngModule: ReduxChildModule,
+      ngModule: ReduxModule,
       providers: [
+        {provide: IS_ROOT_MODULE, useValue: false},
         {provide: REDUX_CHILD_MODULE_CONFIG, useValue: config},
       ],
     };
@@ -64,8 +49,9 @@ export class ReduxModule {
 
   public static forRoot(config?: IReduxModuleRootConfig): ModuleWithProviders {
     return {
-      ngModule: ReduxRootModule,
+      ngModule: ReduxModule,
       providers: [
+        {provide: IS_ROOT_MODULE, useValue: true},
         {provide: REDUX_ROOT_MODULE_CONFIG, useValue: config},
       ],
     };
