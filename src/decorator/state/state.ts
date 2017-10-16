@@ -9,7 +9,7 @@ const METADATA_DEFAULT: IReduxStateConfig = {
 };
 
 export interface IReduxState<S> {
-  initialize(): S | Promise<S>;
+  getInitialState(): S | Promise<S>;
 }
 
 export interface IReduxStateType {
@@ -24,7 +24,6 @@ export interface IReduxStateConfig {
 export function ReduxState(config: IReduxStateConfig) {
   return <T extends IReduxStateType>(constructor: T) => {
     Reflect[ 'defineMetadata' ](METADATA_KEY, config, constructor);
-    ReduxRegistry.registerState(constructor);
     return constructor;
   };
 }

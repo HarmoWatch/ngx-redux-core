@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
+import { Inject, Injector, ModuleWithProviders, NgModule, Optional } from '@angular/core';
 import { createStore } from 'redux';
 import { IReduxModuleChildConfig, IReduxModuleRootConfig } from './interfaces';
 import { ReduxSelectPipe } from './pipe/select/select';
@@ -25,14 +25,18 @@ export interface IReducerType {
 export class ReduxModule {
 
   constructor(@Inject(IS_ROOT_MODULE) isRootModule: boolean = false,
-              @Inject(REDUX_ROOT_MODULE_CONFIG) config: IReduxModuleRootConfig = null) {
+              @Optional() @Inject(REDUX_ROOT_MODULE_CONFIG) rootConfig: IReduxModuleRootConfig = null,
+              @Optional() @Inject(REDUX_CHILD_MODULE_CONFIG) childConfig: IReduxModuleChildConfig = null,
+              injector: Injector) {
 
     if (isRootModule) {
-      config = Object.assign({
+      rootConfig = Object.assign({
         store: null,
-      }, config || {});
+      }, rootConfig || {});
 
-      ReduxRegistry.registerStore(config.store || createStore(rootReducer, {}));
+      ReduxRegistry.registerStore(rootConfig.store || createStore(rootReducer, {}));
+    } else {
+      ReduxRegistry.registerState(injector.get(childConfig.state));
     }
 
   }
@@ -41,6 +45,7 @@ export class ReduxModule {
     return {
       ngModule: ReduxModule,
       providers: [
+        config.state,
         {provide: IS_ROOT_MODULE, useValue: false},
         {provide: REDUX_CHILD_MODULE_CONFIG, useValue: config},
       ],

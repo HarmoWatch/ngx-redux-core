@@ -2,10 +2,12 @@ import { Reducer, Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { getActionTypeByFunction } from './decorator/action/action';
 import {
-  getReduxReducerClassMetadata, IReduxReducerClassMetadata, ReduxReducerActionType,
-  ReduxReducerActionTypeArray
+  getReduxReducerClassMetadata,
+  IReduxReducerClassMetadata,
+  ReduxReducerActionType,
+  ReduxReducerActionTypeArray,
 } from './decorator/reducer/reducer';
-import { getReduxStateMetadata, IReduxState, IReduxStateType } from './decorator/state/state';
+import { getReduxStateMetadata, IReduxState } from './decorator/state/state';
 import { IReduxAction } from './interfaces';
 
 export class ReduxRegistryReducerItem {
@@ -51,13 +53,12 @@ export class ReduxRegistry {
 
   }
 
-  public static registerState(stateType: IReduxStateType) {
+  public static registerState(state: IReduxState<{}>) {
     ReduxRegistry.getStore().then((store) => {
 
-      const stateConfig = getReduxStateMetadata(stateType);
-      const state: IReduxState<{}> = new stateType();
+      const stateConfig = getReduxStateMetadata(state.constructor);
 
-      Promise.resolve(state.initialize()).then((initialState) => {
+      Promise.resolve(state.getInitialState()).then((initialState) => {
 
         stateConfig.reducers
           .map((reducer) => getReduxReducerClassMetadata(reducer.constructor))
