@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Inject, ModuleWithProviders, NgModule } from '@angular/core';
 import { createStore } from 'redux';
 import { IReduxModuleChildConfig, IReduxModuleRootConfig } from './interfaces';
+import { ReduxSelectPipe } from './pipe/select/select';
 import { ReduxRegistry } from './registry';
 import { rootReducer } from './root-reducer';
 import { REDUX_CHILD_MODULE_CONFIG, REDUX_ROOT_MODULE_CONFIG } from './token';
@@ -11,6 +12,12 @@ export interface IReducerType {
 }
 
 @NgModule({
+  declarations: [
+    ReduxSelectPipe,
+  ],
+  exports: [
+    ReduxSelectPipe,
+  ],
   imports: [
     CommonModule,
   ],
@@ -31,10 +38,10 @@ export class ReduxRootModule {
 
 @NgModule({
   declarations: [
-    // ReduxSelectPipe,
+    ReduxSelectPipe,
   ],
   exports: [
-    // ReduxSelectPipe,
+    ReduxSelectPipe,
   ],
   imports: [
     CommonModule,
