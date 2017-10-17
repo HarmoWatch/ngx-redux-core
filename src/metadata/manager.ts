@@ -1,6 +1,6 @@
-import { ReduxActionMetadata } from '../decorator/action/metadata';
-import { ReduxReducerMetadata } from '../decorator/reducer/metadata';
-import { ReduxReducerClassType } from '../decorator/reducer/class-type';
+import { ReduxActionDecoratorMetadata } from '../action/decorator/metadata';
+import { ReduxReducerDecoratorMetadata } from '../reducer/decorator/metadata';
+import { ReduxReducerClassType } from '../reducer/class-type';
 
 export interface ActionContextData {
   prefix: string;
@@ -14,7 +14,7 @@ export interface StateData {
 export class MetadataManager {
 
   private static readonly ACTION_KEY = Symbol('@ReduxAction');
-  private static readonly ACTION_DEFAULT: ReduxActionMetadata = {
+  private static readonly ACTION_DEFAULT: ReduxActionDecoratorMetadata = {
     contextClazz: null,
     type: '',
   };
@@ -25,7 +25,7 @@ export class MetadataManager {
   };
 
   private static readonly REDUCER_KEY = Symbol('@ReduxReducer');
-  private static readonly REDUCER_DEFAULT: ReduxReducerMetadata = {
+  private static readonly REDUCER_DEFAULT: ReduxReducerDecoratorMetadata = {
     reducers: [],
   };
 
@@ -35,11 +35,11 @@ export class MetadataManager {
     reducers: [],
   };
 
-  public static setActionMetadata<T>(target: T, data: ReduxActionMetadata) {
+  public static setActionMetadata<T>(target: T, data: ReduxActionDecoratorMetadata) {
     MetadataManager.set(target, MetadataManager.ACTION_KEY, data);
   }
 
-  public static getActionMetadata<T>(target: T): ReduxActionMetadata {
+  public static getActionMetadata<T>(target: T): ReduxActionDecoratorMetadata {
     return MetadataManager.get(target, MetadataManager.ACTION_KEY, MetadataManager.ACTION_DEFAULT);
   }
 
@@ -51,11 +51,11 @@ export class MetadataManager {
     return MetadataManager.get(target, MetadataManager.ACTION_CONTEXT_KEY, MetadataManager.ACTION_CONTEXT_DEFAULT);
   }
 
-  public static setReducerMetadata<T>(target: T, data: ReduxReducerMetadata) {
+  public static setReducerMetadata<T>(target: T, data: ReduxReducerDecoratorMetadata) {
     MetadataManager.set(target, MetadataManager.REDUCER_KEY, data);
   }
 
-  public static getReducerMetadata<T>(target: T): ReduxReducerMetadata {
+  public static getReducerMetadata<T>(target: T): ReduxReducerDecoratorMetadata {
     return MetadataManager.get(target, MetadataManager.REDUCER_KEY, MetadataManager.REDUCER_DEFAULT);
   }
 

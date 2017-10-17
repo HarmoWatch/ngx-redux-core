@@ -1,14 +1,13 @@
 import { Reducer, Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
-import { getActionTypeByFunction } from './decorator/action';
-import {
-  ReduxActionFunctionTypeArray,
-} from './decorator/action/function-type-array';
-import { ReduxStateInterface } from './decorator/state/interface';
-import { IReduxAction } from './interfaces';
+import { ReduxActionInterface } from './action/interface';
+
+import { getActionTypeByFunction } from './action/decorator';
+import { ReduxActionFunctionType } from './action/function-type';
+import { ReduxActionFunctionTypeArray } from './action/function-type-array';
+import { ReduxReducerDecoratorMetadata } from './reducer/decorator/metadata';
+import { ReduxStateInterface } from './state/interface';
 import { MetadataManager } from './metadata/manager';
-import { ReduxReducerMetadata } from './decorator/reducer/metadata';
-import { ReduxActionFunctionType } from './decorator/action/function-type';
 
 export class ReduxRegistryReducerItem {
   stateName: string;
@@ -62,13 +61,13 @@ export class ReduxRegistry {
 
         stateConfig.reducers
           .map((reducer) => MetadataManager.getReducerMetadata(reducer.constructor))
-          .forEach((metadata: ReduxReducerMetadata) => {
+          .forEach((metadata: ReduxReducerDecoratorMetadata) => {
             metadata.reducers.forEach(reducer => {
               ReduxRegistry.registerReducer(stateConfig.name, reducer.types, reducer.reducer);
             });
           });
 
-        store.dispatch<IReduxAction<IRegisterModulePayload>>({
+        store.dispatch<ReduxActionInterface<IRegisterModulePayload>>({
           payload: {
             initialState,
             stateName: stateConfig.name,

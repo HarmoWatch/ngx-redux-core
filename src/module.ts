@@ -5,12 +5,12 @@ import { createStore } from 'redux';
 import { ReduxModuleChildConfig } from './module/child/config';
 import { REDUX_MODULE_CHILD_CONFIG } from './module/child/token';
 import { ReduxModuleRootConfig } from './module/root/config';
+import { ReduxModuleRootReducer } from './module/root/reducer';
 import { REDUX_MODULE_ROOT_CONFIG } from './module/root/token';
 import { IS_ROOT_MODULE } from './module/token';
 
-import { ReduxSelectPipe } from './pipe/select/select';
+import { ReduxSelectPipe } from './select/pipe';
 import { ReduxRegistry } from './registry';
-import { rootReducer } from './root-reducer';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ export class ReduxModule {
         store: null,
       }, rootConfig || {});
 
-      ReduxRegistry.registerStore(rootConfig.store || createStore(rootReducer, {}));
+      ReduxRegistry.registerStore(rootConfig.store || createStore(ReduxModuleRootReducer.reduce, {}));
     } else {
       ReduxRegistry.registerState(injector.get(childConfig.state));
     }

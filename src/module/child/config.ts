@@ -1,4 +1,4 @@
-import { ReduxStateConstructor } from '../../decorator/state/constructor';
+import { ReduxStateConstructor } from '../../state/constructor';
 
 export interface ReduxModuleChildConfig {
   state: ReduxStateConstructor;
