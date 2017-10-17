@@ -4,7 +4,7 @@ import { getActionTypeByFunction } from './decorator/action';
 import {
   ReduxReducerActionTypeArray,
 } from './decorator/action/function';
-import { IReduxState } from './decorator/state/state';
+import { ReduxStateInterface } from './decorator/state/interface';
 import { IReduxAction } from './interfaces';
 import { MetadataManager } from './metadata/manager';
 import { ReduxReducerMetadata } from './decorator/reducer/metadata';
@@ -53,7 +53,7 @@ export class ReduxRegistry {
 
   }
 
-  public static registerState(state: IReduxState<{}>) {
+  public static registerState(state: ReduxStateInterface<{}>) {
     ReduxRegistry.getStore().then((store) => {
 
       const stateConfig = MetadataManager.getStateMetadata(state.constructor);

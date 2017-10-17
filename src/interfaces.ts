@@ -1,5 +1,5 @@
 import { Action, Store } from 'redux';
-import { IReduxStateType } from './decorator/state/state';
+import { ReduxStateConstructor } from './decorator/state/constructor';
 
 export interface IReduxAction<P = void> extends Action {
   payload?: P;
@@ -16,5 +16,5 @@ export interface IReduxModuleRootConfig {
 }
 
 export interface IReduxModuleChildConfig {
-  state: IReduxStateType;
+  state: ReduxStateConstructor;
 }

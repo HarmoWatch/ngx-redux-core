@@ -1,7 +1,7 @@
 import { select } from '../core/select';
-import { IReduxStateType } from './state/state';
+import { ReduxStateConstructor } from './state/constructor';
 
-export function ReduxSelect(selector: string, context?: IReduxStateType): PropertyDecorator {
+export function ReduxSelect(selector: string, context?: ReduxStateConstructor): PropertyDecorator {
   return (target: {}, propertyKey: string) => {
 
     Object.defineProperty(target, propertyKey, {

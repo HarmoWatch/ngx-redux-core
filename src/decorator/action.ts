@@ -2,11 +2,11 @@ import { MetadataManager } from '../metadata/manager';
 import { ReduxRegistry } from '../registry';
 import { ReduxActionConfig } from './action/config';
 import { ReduxActionDecorator } from './action/decorator';
-import { ReduxActionFunc, ReduxReducerActionType } from './action/function';
+import { ReduxActionFunctionType, ReduxReducerActionType } from './action/function';
 
 export function ReduxAction(config?: ReduxActionConfig): ReduxActionDecorator {
 
-  return (target: object, propertyKey, descriptor: TypedPropertyDescriptor<ReduxActionFunc>) => {
+  return (target: object, propertyKey, descriptor: TypedPropertyDescriptor<ReduxActionFunctionType>) => {
 
     config = config || {type: propertyKey};
 

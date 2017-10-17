@@ -1,5 +1,5 @@
-import { ReduxActionFunc } from './function';
+import { ReduxActionFunctionType } from './function';
 
 export type ReduxActionDecorator = (target: object,
                                     propertyKey: string | symbol,
-                                    descriptor: TypedPropertyDescriptor<ReduxActionFunc>) => void;
+                                    descriptor: TypedPropertyDescriptor<ReduxActionFunctionType>) => void;
