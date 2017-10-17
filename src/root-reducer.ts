@@ -1,9 +1,10 @@
 import { Reducer } from 'redux';
-import { IReduxAction, IRootState } from './interfaces';
+import { IReduxAction} from './interfaces';
 import { IRegisterModulePayload, ReduxRegistry } from './registry';
+import { ReduxRootState } from './root-state';
 
-export const rootReducer: Reducer<IRootState> = (state: IRootState,
-                                                 action: IReduxAction<IRegisterModulePayload>): IRootState => {
+export const rootReducer: Reducer<ReduxRootState> = (state: ReduxRootState,
+                                                     action: IReduxAction<IRegisterModulePayload>): ReduxRootState => {
 
   if (action.type === ReduxRegistry.ACTION_REGISTER_MODULE) {
     const {stateName, initialState} = action.payload;

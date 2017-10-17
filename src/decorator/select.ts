@@ -1,13 +1,13 @@
-import { select } from '../core/select';
+import { ReduxSelector } from '../selector';
 import { ReduxStateConstructor } from './state/constructor';
 
-export function ReduxSelect(selector: string, context?: ReduxStateConstructor): PropertyDecorator {
+export function ReduxSelect(expression: string, context?: ReduxStateConstructor): PropertyDecorator {
   return (target: {}, propertyKey: string) => {
 
     Object.defineProperty(target, propertyKey, {
       configurable: true,
       enumerable: true,
-      value: select(selector, context),
+      value: new ReduxSelector(expression, context).subscribe(),
     });
 
   };

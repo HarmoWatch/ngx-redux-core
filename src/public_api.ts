@@ -25,7 +25,11 @@ export * from './decorator/state/constructor';
 export * from './decorator/state/interface';
 
 // module
-export * from './redux.module';
+export * from './module';
 
 export * from './interfaces';
 export { ReduxActionFunctionTypeArray } from './decorator/action/function-type-array';
+export { ReduxRootState } from './root-state';
+export { ReduxModuleRootConfig } from './module/root/config';
+export { ReduxModuleChildConfig } from './module/child/config';
+export { ReduxReducerClassType } from './decorator/reducer/class-type';

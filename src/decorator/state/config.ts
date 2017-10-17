@@ -1,6 +1,6 @@
-import { IReducerType } from '../../redux.module';
+import { ReduxReducerClassType } from '../reducer/class-type';
 
 export interface IReduxStateConfig {
   name: string;
-  reducers?: IReducerType[];
+  reducers?: ReduxReducerClassType[];
 }
