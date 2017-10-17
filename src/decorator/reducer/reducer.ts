@@ -1,11 +1,6 @@
 import { IReduxAction } from '../../interfaces';
+import { MetaDataManager } from '../../meta-data/manager';
 import { ReduxActionFunc } from '../action/action';
-
-const METADATA_KEY = Symbol('@ReduxActionController');
-
-const METADATA_DEFAULT: IReduxReducerClassMetadata = {
-  reducers: [],
-};
 
 export type ReduxReducerFunc<S, P> = (state: S, action?: IReduxAction<P>) => S;
 export type ReduxReducerDecorator<S, P>
@@ -26,20 +21,11 @@ export interface IReduxReducerClassMetadata {
 export function ReduxReducer<S = any, P = any>(types: ReduxReducerActionTypeArray<P>): ReduxReducerDecorator<S, P> {
 
   return (target: object, propertyKey: string) => {
-
-    const metadata = getReduxReducerClassMetadata(target.constructor);
-    metadata.reducers.push({types, reducer: target[ propertyKey ].bind(target)});
-    Reflect[ 'defineMetadata' ](METADATA_KEY, metadata, target.constructor);
-
-    // if (typeof target === 'object') {
-    //   target[ propertyKey ].bind(target);
-    // }
+    const data = MetaDataManager.getReducerMetaData(target.constructor);
+    data.reducers.push({types, reducer: target[ propertyKey ].bind(target)});
+    MetaDataManager.setReducerMetaData(target.constructor, data);
 
     return target[ propertyKey ];
   };
 
-}
-
-export function getReduxReducerClassMetadata(target: any): IReduxReducerClassMetadata {
-  return Object.assign({}, METADATA_DEFAULT, Reflect[ 'getMetadata' ](METADATA_KEY, target));
 }
