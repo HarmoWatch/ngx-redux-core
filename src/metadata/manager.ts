@@ -1,16 +1,9 @@
 import { ReduxActionMetadata } from '../decorator/action/metadata';
-import { ReduxReducerActionTypeArray, ReduxReducerFunc } from '../decorator/reducer/reducer';
+import { ReduxReducerMetadata } from '../decorator/reducer/metadata';
 import { IReducerType } from '../redux.module';
 
 export interface ActionContextData {
   prefix: string;
-}
-
-export interface ReducerData {
-  reducers: Array<{
-    types: ReduxReducerActionTypeArray<{}>,
-    reducer: ReduxReducerFunc<{}, {}>,
-  }>;
 }
 
 export interface StateData {
@@ -32,7 +25,7 @@ export class MetadataManager {
   };
 
   private static readonly REDUCER_KEY = Symbol('@ReduxReducer');
-  private static readonly REDUCER_DEFAULT: ReducerData = {
+  private static readonly REDUCER_DEFAULT: ReduxReducerMetadata = {
     reducers: [],
   };
 
@@ -58,11 +51,11 @@ export class MetadataManager {
     return MetadataManager.get(target, MetadataManager.ACTION_CONTEXT_KEY, MetadataManager.ACTION_CONTEXT_DEFAULT);
   }
 
-  public static setReducerMetadata<T>(target: T, data: ReducerData) {
+  public static setReducerMetadata<T>(target: T, data: ReduxReducerMetadata) {
     MetadataManager.set(target, MetadataManager.REDUCER_KEY, data);
   }
 
-  public static getReducerMetadata<T>(target: T): ReducerData {
+  public static getReducerMetadata<T>(target: T): ReduxReducerMetadata {
     return MetadataManager.get(target, MetadataManager.REDUCER_KEY, MetadataManager.REDUCER_DEFAULT);
   }
 

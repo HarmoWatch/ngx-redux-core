@@ -1,12 +1,8 @@
 import { MetadataManager } from '../metadata/manager';
 import { ReduxRegistry } from '../registry';
-import { ReduxReducerActionType } from './reducer/reducer';
 import { ReduxActionConfig } from './action/config';
-
-export type ReduxActionFunc<P = {} | void> = (...rest) => P;
-export type ReduxActionDecorator = (target: object,
-                                    propertyKey: string | symbol,
-                                    descriptor: TypedPropertyDescriptor<ReduxActionFunc>) => void;
+import { ReduxActionDecorator } from './action/decorator';
+import { ReduxActionFunc, ReduxReducerActionType } from './action/function';
 
 export function ReduxAction(config?: ReduxActionConfig): ReduxActionDecorator {
 

@@ -2,13 +2,13 @@ import { Reducer, Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { getActionTypeByFunction } from './decorator/action';
 import {
-  IReduxReducerClassMetadata,
-  ReduxReducerActionType,
   ReduxReducerActionTypeArray,
-} from './decorator/reducer/reducer';
+} from './decorator/action/function';
 import { IReduxState } from './decorator/state/state';
 import { IReduxAction } from './interfaces';
 import { MetadataManager } from './metadata/manager';
+import { ReduxReducerMetadata } from './decorator/reducer/metadata';
+import { ReduxReducerActionType } from './decorator/action/function';
 
 export class ReduxRegistryReducerItem {
   stateName: string;
@@ -62,7 +62,7 @@ export class ReduxRegistry {
 
         stateConfig.reducers
           .map((reducer) => MetadataManager.getReducerMetadata(reducer.constructor))
-          .forEach((metadata: IReduxReducerClassMetadata) => {
+          .forEach((metadata: ReduxReducerMetadata) => {
             metadata.reducers.forEach(reducer => {
               ReduxRegistry.registerReducer(stateConfig.name, reducer.types, reducer.reducer);
             });
