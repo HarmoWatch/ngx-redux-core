@@ -1,4 +1,4 @@
-###### [ngx-redux](../../README.md) / Decorator
+###### [ngx-redux](../../../README.md) / Decorator
 
 # `@ReduxReducer(actionOrActions)`
 

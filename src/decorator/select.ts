@@ -1,5 +1,5 @@
-import { select } from '../../core/select';
-import { IReduxStateType } from '../state/state';
+import { select } from '../core/select';
+import { IReduxStateType } from './state/state';
 
 export function ReduxSelect(selector: string, context?: IReduxStateType): PropertyDecorator {
   return (target: {}, propertyKey: string) => {

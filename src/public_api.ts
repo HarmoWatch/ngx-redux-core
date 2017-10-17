@@ -3,7 +3,7 @@ export * from './pipe/select/select';
 export * from './decorator/action';
 export * from './decorator/action/controller';
 export * from './decorator/reducer';
-export * from './decorator/select/select';
+export * from './decorator/select';
 export * from './decorator/state/state';
 export * from './interfaces';
 export * from './token';
