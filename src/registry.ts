@@ -1,13 +1,13 @@
 import { Reducer, Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
-import { ReduxActionInterface } from './action/interface';
 
 import { getActionTypeByFunction } from './action/decorator';
 import { ReduxActionFunctionType } from './action/function-type';
 import { ReduxActionFunctionTypeArray } from './action/function-type-array';
+import { ReduxActionInterface } from './action/interface';
+import { MetadataManager } from './metadata/manager';
 import { ReduxReducerDecoratorMetadata } from './reducer/decorator/metadata';
 import { ReduxStateInterface } from './state/interface';
-import { MetadataManager } from './metadata/manager';
 
 export class ReduxRegistryReducerItem {
   stateName: string;

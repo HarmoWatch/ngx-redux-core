@@ -1,6 +1,6 @@
 import { ReduxActionDecoratorMetadata } from '../action/decorator/metadata';
-import { ReduxReducerDecoratorMetadata } from '../reducer/decorator/metadata';
 import { ReduxReducerClassType } from '../reducer/class-type';
+import { ReduxReducerDecoratorMetadata } from '../reducer/decorator/metadata';
 
 export interface ActionContextData {
   prefix: string;

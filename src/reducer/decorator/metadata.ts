@@ -1,4 +1,4 @@
-import { ReduxActionFunctionTypeArray} from '../../action/function-type-array';
+import { ReduxActionFunctionTypeArray } from '../../action/function-type-array';
 import { ReduxReducerFunctionType } from '../function-type';
 
 export interface ReduxReducerDecoratorMetadata {

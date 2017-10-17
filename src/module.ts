@@ -8,9 +8,9 @@ import { ReduxModuleRootConfig } from './module/root/config';
 import { ReduxModuleRootReducer } from './module/root/reducer';
 import { REDUX_MODULE_ROOT_CONFIG } from './module/root/token';
 import { IS_ROOT_MODULE } from './module/token';
+import { ReduxRegistry } from './registry';
 
 import { ReduxSelectPipe } from './select/pipe';
-import { ReduxRegistry } from './registry';
 
 @NgModule({
   declarations: [
