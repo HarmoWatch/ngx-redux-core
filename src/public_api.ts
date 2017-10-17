@@ -3,14 +3,14 @@ export * from './decorator/action';
 export * from './decorator/action/config';
 export * from './decorator/action/controller';
 export * from './decorator/action/decorator';
-export * from './decorator/action/function';
+export * from './decorator/action/function-type';
 export * from './decorator/action/metadata';
 
 // reducer
 export * from './decorator/reducer';
 export * from './decorator/reducer/decorator';
 export * from './decorator/reducer/descriptor';
-export * from './decorator/reducer/function';
+export * from './decorator/reducer/function-type';
 export * from './decorator/reducer/metadata';
 export * from './root-reducer';
 
@@ -28,3 +28,4 @@ export * from './decorator/state/interface';
 export * from './redux.module';
 
 export * from './interfaces';
+export { ReduxActionFunctionTypeArray } from './decorator/action/function-type-array';

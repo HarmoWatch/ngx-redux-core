@@ -1,3 +1,3 @@
-import { ReduxReducerFunction } from './function';
+import { ReduxReducerFunctionType } from './function-type';
 
-export type ReduxReducerDescriptor<S, P> = TypedPropertyDescriptor<ReduxReducerFunction<S, P>>;
+export type ReduxReducerDescriptor<S, P> = TypedPropertyDescriptor<ReduxReducerFunctionType<S, P>>;

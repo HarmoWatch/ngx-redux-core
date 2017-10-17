@@ -1,8 +1,8 @@
 import { MetadataManager } from '../metadata/manager';
-import { ReduxReducerActionTypeArray } from './action/function';
+import { ReduxActionFunctionTypeArray } from './action/function-type-array';
 import { ReduxReducerDecorator } from './reducer/decorator';
 
-export function ReduxReducer<S = any, P = any>(types: ReduxReducerActionTypeArray<P>): ReduxReducerDecorator<S, P> {
+export function ReduxReducer<S = any, P = any>(types: ReduxActionFunctionTypeArray<P>): ReduxReducerDecorator<S, P> {
 
   return (target: object, propertyKey: string) => {
     const data = MetadataManager.getReducerMetadata(target.constructor);

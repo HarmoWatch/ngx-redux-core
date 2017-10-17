@@ -2,18 +2,18 @@ import { Reducer, Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { getActionTypeByFunction } from './decorator/action';
 import {
-  ReduxReducerActionTypeArray,
-} from './decorator/action/function';
+  ReduxActionFunctionTypeArray,
+} from './decorator/action/function-type-array';
 import { ReduxStateInterface } from './decorator/state/interface';
 import { IReduxAction } from './interfaces';
 import { MetadataManager } from './metadata/manager';
 import { ReduxReducerMetadata } from './decorator/reducer/metadata';
-import { ReduxReducerActionType } from './decorator/action/function';
+import { ReduxActionFunctionType } from './decorator/action/function-type';
 
 export class ReduxRegistryReducerItem {
   stateName: string;
   reducer: Reducer<{}>;
-  type: ReduxReducerActionType<{}>;
+  type: ReduxActionFunctionType<{}>;
 }
 
 export interface IRegisterModulePayload {
@@ -33,7 +33,7 @@ export class ReduxRegistry {
     ReduxRegistry._store.complete();
   }
 
-  public static registerReducer(stateName: string, types: ReduxReducerActionTypeArray<{}>, reducer: Reducer<{}>) {
+  public static registerReducer(stateName: string, types: ReduxActionFunctionTypeArray<{}>, reducer: Reducer<{}>) {
 
     if (Array.isArray(types)) {
       types.forEach((type) => {
@@ -47,7 +47,7 @@ export class ReduxRegistry {
       ReduxRegistry._reducers.push({
         reducer,
         stateName,
-        type: types as ReduxReducerActionType<{}>,
+        type: types as ReduxActionFunctionType<{}>,
       });
     }
 

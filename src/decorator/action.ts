@@ -2,7 +2,7 @@ import { MetadataManager } from '../metadata/manager';
 import { ReduxRegistry } from '../registry';
 import { ReduxActionConfig } from './action/config';
 import { ReduxActionDecorator } from './action/decorator';
-import { ReduxActionFunctionType, ReduxReducerActionType } from './action/function';
+import { ReduxActionFunctionType } from './action/function-type';
 
 export function ReduxAction(config?: ReduxActionConfig): ReduxActionDecorator {
 
@@ -37,7 +37,7 @@ export function ReduxAction(config?: ReduxActionConfig): ReduxActionDecorator {
   };
 }
 
-export function getActionTypeByFunction(target: ReduxReducerActionType<{}>) {
+export function getActionTypeByFunction(target: ReduxActionFunctionType<{}>) {
   const {type, contextClazz} = MetadataManager.getActionMetadata(target);
   const {prefix} = MetadataManager.getActionContextMetadata(contextClazz);
   return getActionType(prefix, type);
