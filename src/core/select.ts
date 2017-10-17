@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { IReduxStateType } from '../decorator/state/state';
-import { MetaDataManager } from '../meta-data/manager';
+import { MetadataManager } from '../metadata/manager';
 
 import { ReduxRegistry } from '../registry';
 
@@ -12,7 +12,7 @@ export function selectByState<S>(state: {}, selector: string, context?: IReduxSt
       throw new Error('Relative selectors need to have a state context!');
     }
 
-    selector = `/${MetaDataManager.getStateMetaData(context).name}/${selector}`;
+    selector = `/${MetadataManager.getStateMetadata(context).name}/${selector}`;
   }
 
   const selectorArray: string[] = selector.split('/');

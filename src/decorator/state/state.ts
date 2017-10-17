@@ -1,4 +1,4 @@
-import { MetaDataManager } from '../../meta-data/manager';
+import { MetadataManager } from '../../metadata/manager';
 import { IReducerType } from '../../redux.module';
 
 export interface IReduxState<S> {
@@ -16,7 +16,7 @@ export interface IReduxStateConfig {
 
 export function ReduxState(config: IReduxStateConfig) {
   return <T extends IReduxStateType>(constructor: T) => {
-    MetaDataManager.setStateMetaData(constructor, config);
+    MetadataManager.setStateMetadata(constructor, config);
     return constructor;
   };
 }

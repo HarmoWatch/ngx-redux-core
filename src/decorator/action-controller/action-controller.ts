@@ -1,4 +1,4 @@
-import { MetaDataManager } from '../../meta-data/manager';
+import { MetadataManager } from '../../metadata/manager';
 
 export interface IReduxActionControllerType {
   new (...args: any[]): any;
@@ -6,7 +6,7 @@ export interface IReduxActionControllerType {
 
 export function ReduxActionController(prefix: string) {
   return <T extends IReduxActionControllerType>(constructor: T) => {
-    MetaDataManager.setActionContextMetaData(constructor, {prefix});
+    MetadataManager.setActionContextMetadata(constructor, {prefix});
     return constructor;
   };
 }
