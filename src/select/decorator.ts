@@ -7,7 +7,7 @@ export function ReduxSelectDecorator(expression: string, context?: ReduxStateCon
     Object.defineProperty(target, propertyKey, {
       configurable: true,
       enumerable: true,
-      value: new ReduxStateSelector(expression, context).subscribe(),
+      value: new ReduxStateSelector(expression, context).asObservable(),
     });
 
   };

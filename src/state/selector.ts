@@ -21,7 +21,7 @@ export class ReduxStateSelector {
 
   }
 
-  public subscribe<S>(): Observable<S> {
+  public asObservable<S>(): Observable<S> {
     const subject = new BehaviorSubject<S>(null);
 
     ReduxRegistry.getStore().then(store => {
