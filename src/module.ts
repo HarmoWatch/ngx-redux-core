@@ -36,7 +36,9 @@ export class ReduxModule {
       }, rootConfig || {});
 
       ReduxRegistry.registerStore(rootConfig.store || createStore(ReduxModuleRootReducer.reduce, {}));
-    } else {
+    }
+
+    if (childConfig) {
       ReduxRegistry.registerState(injector.get(childConfig.state));
     }
 
