@@ -1,5 +1,5 @@
-import { PromiseObservable } from 'rxjs/observable/PromiseObservable';
+import { Observable } from 'rxjs/Observable';
 
 export interface ReduxStateInterface<S> {
-  getInitialState(): S | Promise<S> | PromiseObservable<{}>;
+  getInitialState(): S | Promise<S> | Observable<S>;
 }

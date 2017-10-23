@@ -1,5 +1,7 @@
 import { Reducer, Store } from 'redux';
+import 'rxjs/add/operator/toPromise';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
+import { Observable } from 'rxjs/Observable';
 
 import { getActionTypeByFunction } from './action/decorator';
 import { ReduxActionFunctionType } from './action/function-type';
@@ -8,7 +10,6 @@ import { ReduxActionInterface } from './action/interface';
 import { MetadataManager } from './metadata/manager';
 import { ReduxReducerDecoratorMetadata } from './reducer/decorator/metadata';
 import { ReduxStateInterface } from './state/interface';
-import { PromiseObservable } from 'rxjs/observable/PromiseObservable';
 
 export class ReduxRegistryReducerItem {
   stateName: string;
@@ -60,7 +61,7 @@ export class ReduxRegistry {
       const initState = state.getInitialState();
       let initStateToResolve = initState;
 
-      if (initState instanceof PromiseObservable) {
+      if (initState instanceof Observable) {
         initStateToResolve = initState.toPromise();
       }
 
