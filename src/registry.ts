@@ -66,15 +66,6 @@ export class ReduxRegistry {
       }
 
       Promise.resolve(initStateToResolve).then((initialState) => {
-
-        stateConfig.reducers
-          .map((reducer) => MetadataManager.getReducerMetadata(reducer.constructor))
-          .forEach((metadata: ReduxReducerDecoratorMetadata) => {
-            metadata.reducers.forEach(reducer => {
-              ReduxRegistry.registerReducer(stateConfig.name, reducer.types, reducer.reducer);
-            });
-          });
-
         store.dispatch<ReduxActionInterface<IRegisterModulePayload>>({
           payload: {
             initialState,

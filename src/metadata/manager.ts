@@ -1,5 +1,4 @@
 import { ReduxActionDecoratorMetadata } from '../action/decorator/metadata';
-import { ReduxReducerClassType } from '../reducer/class-type';
 import { ReduxReducerDecoratorMetadata } from '../reducer/decorator/metadata';
 
 export interface ActionContextData {
@@ -8,7 +7,6 @@ export interface ActionContextData {
 
 export interface StateData {
   name: string;
-  reducers?: ReduxReducerClassType[];
 }
 
 export class MetadataManager {
@@ -32,7 +30,6 @@ export class MetadataManager {
   private static readonly STATE_KEY = Symbol('@ReduxState');
   private static readonly STATE_DEFAULT: StateData = {
     name: '',
-    reducers: [],
   };
 
   public static getPropertyType<T>(target: T, propertyKey: string): string {
