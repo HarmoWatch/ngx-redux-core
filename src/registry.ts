@@ -8,6 +8,7 @@ import { ReduxActionInterface } from './action/interface';
 import { MetadataManager } from './metadata/manager';
 import { ReduxReducerDecoratorMetadata } from './reducer/decorator/metadata';
 import { ReduxStateInterface } from './state/interface';
+import { PromiseObservable } from 'rxjs/observable/PromiseObservable';
 
 export class ReduxRegistryReducerItem {
   stateName: string;
@@ -56,8 +57,14 @@ export class ReduxRegistry {
     ReduxRegistry.getStore().then((store) => {
 
       const stateConfig = MetadataManager.getStateMetadata(state.constructor);
+      const initState = state.getInitialState();
+      let initStateToResolve = initState;
 
-      Promise.resolve(state.getInitialState()).then((initialState) => {
+      if (initState instanceof PromiseObservable) {
+        initStateToResolve = initState.toPromise();
+      }
+
+      Promise.resolve(initStateToResolve).then((initialState) => {
 
         stateConfig.reducers
           .map((reducer) => MetadataManager.getReducerMetadata(reducer.constructor))
