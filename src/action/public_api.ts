@@ -1,7 +1,7 @@
 export * from './interface';
 
-export { ReduxActionContextDecorator as ReduxActionController } from './context/decorator';
-export { ReduxActionContextDecoratorConfig as ReduxActionControllerConfig } from './context/decorator/config';
+export { ReduxActionContextDecorator as ReduxActionContext } from './context/decorator';
+export { ReduxActionContextDecoratorConfig as ReduxActionContextConfig } from './context/decorator/config';
 
 export { ReduxActionDecorator as ReduxAction } from './decorator';
 export { ReduxActionDecoratorConfig as ReduxActionConfig } from './decorator/config';
