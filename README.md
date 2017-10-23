@@ -137,6 +137,23 @@ The easiest way to get the data from the state is to use the `reduxSelect` pipe 
 
 #### 5.2 Using the `@ReduxSelect` annotation
 
+```ts
+  @ReduxSelect('todo/items', ChildModuleState)
+  private testNull; // default is BehaviorSubject with initial value "null"
+
+  @ReduxSelect('todo/items', ChildModuleState)
+  private testObservable: Observable<string[]>; // get as observable (BehaviorSubject as observable)
+
+  @ReduxSelect('todo/items', ChildModuleState)
+  private testSubject: Subject<string[]>; // get as Subject
+
+  @ReduxSelect('todo/items', ChildModuleState)
+  private testReplaySubject: ReplaySubject<string[]>; // get as ReplaySubject
+
+  @ReduxSelect('todo/items', ChildModuleState)
+  private testBehaviorSubject: BehaviorSubject<string[]>; // get as BehaviorSubject
+```
+
 
 #### 5.3 Using the `ReduxStateSelector` class
 
