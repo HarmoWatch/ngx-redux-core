@@ -32,17 +32,6 @@ export class MetadataManager {
     name: '',
   };
 
-  public static getPropertyType<T>(target: T, propertyKey: string): string {
-    const metadata = Reflect[ 'getMetadata' ]('design:type', target, propertyKey);
-    const fallback = '';
-
-    if (metadata) {
-      return metadata.name || fallback;
-    }
-
-    return fallback;
-  }
-
   public static setActionMetadata<T>(target: T, data: ReduxActionDecoratorMetadata) {
     MetadataManager.set(target, MetadataManager.ACTION_KEY, data);
   }

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { ReduxModuleChildConfig } from '../module/child/config';
 import { REDUX_MODULE_CHILD_CONFIG } from '../module/child/token';
 import { ReduxStateSelector } from '../state/selector';
+import { ReduxStateSelectorSubjectType } from '../state/selector/subject-type';
 
 @Pipe({name: 'reduxSelect'})
 export class ReduxSelectPipe implements PipeTransform {
@@ -11,6 +12,8 @@ export class ReduxSelectPipe implements PipeTransform {
   }
 
   transform(selector: string): Observable<{}> {
-    return new ReduxStateSelector(selector, this.moduleConfig.state).asObservable();
+    return new ReduxStateSelector(selector, this.moduleConfig.state)
+      .getBySubjectType(ReduxStateSelectorSubjectType.DEFAULT)
+      .asObservable();
   }
 }
