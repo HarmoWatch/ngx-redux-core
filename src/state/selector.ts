@@ -1,4 +1,5 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subject } from 'rxjs/Subject';
 import { MetadataManager } from '../metadata/manager';
@@ -23,15 +24,19 @@ export class ReduxStateSelector {
 
   }
 
-  public asBehaviorSubject<S>(): BehaviorSubject<S> {
-    return this.getBySubjectType(ReduxStateSelectorSubjectType.BEHAVIOR_SUBJECT, null) as BehaviorSubject<S>;
+  public getObservable<S>(): Observable<S> {
+    return this.getSubject<S>().asObservable();
   }
 
-  public asReplaySubject<S>(): ReplaySubject<S> {
+  public getBehaviorSubject<S>(initialValue: S): BehaviorSubject<S> {
+    return this.getBySubjectType(ReduxStateSelectorSubjectType.BEHAVIOR_SUBJECT, initialValue) as BehaviorSubject<S>;
+  }
+
+  public getReplaySubject<S>(): ReplaySubject<S> {
     return this.getBySubjectType(ReduxStateSelectorSubjectType.REPLAY_SUBJECT) as ReplaySubject<S>;
   }
 
-  public asSubject<S>(): Subject<S> {
+  public getSubject<S>(): Subject<S> {
     return this.getBySubjectType(ReduxStateSelectorSubjectType.SUBJECT) as Subject<S>;
   }
 

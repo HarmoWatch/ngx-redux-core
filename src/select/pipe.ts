@@ -12,8 +12,6 @@ export class ReduxSelectPipe implements PipeTransform {
   }
 
   transform(selector: string): Observable<{}> {
-    return new ReduxStateSelector(selector, this.moduleConfig.state)
-      .getBySubjectType(ReduxStateSelectorSubjectType.DEFAULT)
-      .asObservable();
+    return new ReduxStateSelector(selector, this.moduleConfig.state).getObservable();
   }
 }
