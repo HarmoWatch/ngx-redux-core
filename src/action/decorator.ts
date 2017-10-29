@@ -8,7 +8,9 @@ export function ReduxActionDecorator(config?: ReduxActionDecoratorConfig): Redux
 
   return (target: object, propertyKey, descriptor: TypedPropertyDescriptor<ReduxActionFunctionType>) => {
 
-    config = config || {type: propertyKey};
+    config = Object.assign({
+      type: propertyKey,
+    }, config || {});
 
     const originalFunction = descriptor.value;
     const proxyFunction = function () {
