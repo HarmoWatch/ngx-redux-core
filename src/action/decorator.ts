@@ -1,12 +1,12 @@
 import { MetadataManager } from '../metadata/manager';
-import { ReduxRegistry } from '../registry';
-import { ReduxActionDecoratorConfig } from './decorator/config';
+import { Registry } from '../registry';
+import { ReduxActionConfig } from './decorator/config';
 import { ReduxActionDecoratorType } from './decorator/type';
-import { ReduxActionFunctionType } from './function-type';
+import { ActionFunctionType } from './function-type';
 
-export function ReduxActionDecorator(config?: ReduxActionDecoratorConfig): ReduxActionDecoratorType {
+export function ReduxAction(config?: ReduxActionConfig): ReduxActionDecoratorType {
 
-  return (target: object, propertyKey, descriptor: TypedPropertyDescriptor<ReduxActionFunctionType>) => {
+  return (target: object, propertyKey, descriptor: TypedPropertyDescriptor<ActionFunctionType>) => {
 
     config = Object.assign({
       type: propertyKey,
@@ -21,7 +21,7 @@ export function ReduxActionDecorator(config?: ReduxActionDecoratorConfig): Redux
 
       Promise.all([
         Promise.resolve(returnValue),
-        ReduxRegistry.getStore(),
+        Registry.getStore(),
       ]).then(([ payload, store ]) => {
         store.dispatch({payload, type});
       });
@@ -39,7 +39,7 @@ export function ReduxActionDecorator(config?: ReduxActionDecoratorConfig): Redux
   };
 }
 
-export function getActionTypeByFunction(target: ReduxActionFunctionType<{}>) {
+export function getActionTypeByFunction(target: ActionFunctionType<{}>) {
   const {type, contextClazz} = MetadataManager.getActionMetadata(target);
   const {prefix} = MetadataManager.getActionContextMetadata(contextClazz);
   return getActionType(prefix, type);

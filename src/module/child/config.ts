@@ -1,7 +1,5 @@
-import { ReduxReducerClassType } from '../../reducer/class-type';
-import { ReduxStateConstructor } from '../../state/constructor';
+import { StateDefinition } from '../../state/definition';
 
 export interface ReduxModuleChildConfig {
-  state?: ReduxStateConstructor;
-  reducers?: ReduxReducerClassType[];
+  state?: StateDefinition;
 }

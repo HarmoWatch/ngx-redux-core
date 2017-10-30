@@ -1,3 +1,3 @@
-import { ReduxActionFunctionType } from './function-type';
+import { ActionFunctionType } from './function-type';
 
-export type ReduxActionFunctionTypeArray<P> = ReduxActionFunctionType<P> | Array<ReduxActionFunctionType<P>>;
+export type ActionFunctionTypeArray<P> = ActionFunctionType<P> | Array<ActionFunctionType<P>>;

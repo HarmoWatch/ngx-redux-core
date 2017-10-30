@@ -1,1 +1,1 @@
-export { ReduxReducerDecorator as ReduxReducer } from './decorator';
+export { ReduxReducer } from './decorator';

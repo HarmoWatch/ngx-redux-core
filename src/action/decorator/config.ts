@@ -1,3 +1,3 @@
-export interface ReduxActionDecoratorConfig {
+export interface ReduxActionConfig {
   type?: string | symbol;
 }

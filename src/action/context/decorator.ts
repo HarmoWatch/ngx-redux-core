@@ -1,8 +1,8 @@
 import { Type } from '@angular/core';
 import { MetadataManager } from '../../metadata/manager';
-import { ReduxActionContextDecoratorConfig } from './decorator/config';
+import { ReduxActionContextConfig } from './decorator/config';
 
-export function ReduxActionContextDecorator(config: ReduxActionContextDecoratorConfig) {
+export function ReduxActionContext(config: ReduxActionContextConfig) {
   return <T extends Type<{}>>(constructor: T) => {
     MetadataManager.setActionContextMetadata(constructor, config);
     return constructor;

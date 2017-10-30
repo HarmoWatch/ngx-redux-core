@@ -1,31 +1,31 @@
-import { ReduxActionInterface } from '../../action/interface';
-import { IRegisterModulePayload, ReduxRegistry } from '../../registry';
-import { ReduxModuleRootState } from './state';
+import { Action } from '../../action/interface';
+import { IRegisterStatePayload, Registry } from '../../registry';
+import { ReduxRootState } from './state';
 
 export class ReduxModuleRootReducer {
 
-  public static reduce(state: ReduxModuleRootState, action: ReduxActionInterface<{}>): ReduxModuleRootState {
-    if (action.type === ReduxRegistry.ACTION_REGISTER_MODULE) {
-      return ReduxModuleRootReducer.reduceRegisterModule(state, action as ReduxActionInterface<IRegisterModulePayload>);
+  public static reduce(state: ReduxRootState, action: Action<{}>): ReduxRootState {
+    if (action.type === Registry.ACTION_REGISTER_STATE) {
+      return ReduxModuleRootReducer.reduceRegisterState(state, action as Action<IRegisterStatePayload>);
     }
 
     return ReduxModuleRootReducer.reduceByRegisteredReducers(state, action);
   }
 
-  public static reduceRegisterModule(state: ReduxModuleRootState,
-                                     action: ReduxActionInterface<IRegisterModulePayload>): ReduxModuleRootState {
-    const {stateName, initialState} = action.payload;
+  public static reduceRegisterState(state: ReduxRootState,
+                                    action: Action<IRegisterStatePayload>): ReduxRootState {
+    const {name, initialValue} = action.payload;
 
     return Object.assign({}, state, {
-      [stateName]: initialState,
+      [name]: initialValue,
     });
 
   }
 
-  public static reduceByRegisteredReducers(state: ReduxModuleRootState,
-                                           action: ReduxActionInterface<{}>): ReduxModuleRootState {
+  public static reduceByRegisteredReducers(state: ReduxRootState,
+                                           action: Action<{}>): ReduxRootState {
 
-    const reducers = ReduxRegistry.getReducerItemsByType(action.type);
+    const reducers = Registry.getReducerItemsByType(action.type);
     return reducers.reduce((stateToReduce, reducerItem) => {
       const {stateName, reducer} = reducerItem;
 

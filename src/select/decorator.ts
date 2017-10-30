@@ -1,8 +1,8 @@
-import { ReduxStateConstructor } from '../state/constructor';
+import { StateConstructor } from '../state/constructor';
 import { ReduxStateSelector } from '../state/selector';
 
-export function ReduxSelectDecorator(expression: string,
-                                     context?: ReduxStateConstructor): PropertyDecorator {
+export function ReduxSelect(expression: string,
+                            context?: StateConstructor): PropertyDecorator {
   return (target: {}, propertyKey: string) => {
     Object.defineProperty(target, propertyKey, {
       configurable: true,

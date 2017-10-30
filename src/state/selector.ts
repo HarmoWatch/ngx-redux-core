@@ -3,8 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subject } from 'rxjs/Subject';
 import { MetadataManager } from '../metadata/manager';
-import { ReduxRegistry } from '../registry';
-import { ReduxStateConstructor } from './constructor';
+import { Registry } from '../registry';
+import { StateConstructor } from './constructor';
 import { ReduxStateSelectorSubjectType } from './selector/subject-type';
 
 export class ReduxStateSelector {
@@ -12,7 +12,7 @@ export class ReduxStateSelector {
   private static readonly DELIMITER = '/';
 
   constructor(private expression: string,
-              private context?: ReduxStateConstructor) {
+              private context?: StateConstructor) {
 
     if (!expression.startsWith(ReduxStateSelector.DELIMITER)) {
       if (!context) {
@@ -56,7 +56,7 @@ export class ReduxStateSelector {
         subject = new BehaviorSubject<S>(initialValue || null);
     }
 
-    ReduxRegistry.getStore().then(store => {
+    Registry.getStore().then(store => {
       subject.next(this.getValueFromState(store.getState()));
       store.subscribe(() => subject.next(this.getValueFromState(store.getState())));
     });

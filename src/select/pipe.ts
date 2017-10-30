@@ -1,17 +1,16 @@
 import { Inject, Pipe, PipeTransform } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { ReduxModuleChildConfig } from '../module/child/config';
-import { REDUX_MODULE_CHILD_CONFIG } from '../module/child/token';
+import { StateDefinition } from '../state/definition';
+import { StateDefToken } from '../state/definition/token';
 import { ReduxStateSelector } from '../state/selector';
-import { ReduxStateSelectorSubjectType } from '../state/selector/subject-type';
 
 @Pipe({name: 'reduxSelect'})
 export class ReduxSelectPipe implements PipeTransform {
 
-  constructor(@Inject(REDUX_MODULE_CHILD_CONFIG) private moduleConfig: ReduxModuleChildConfig) {
+  constructor(@Inject(StateDefToken) private stateDef: StateDefinition) {
   }
 
   transform(selector: string): Observable<{}> {
-    return new ReduxStateSelector(selector, this.moduleConfig.state).getObservable();
+    return new ReduxStateSelector(selector, this.stateDef.provider).getObservable();
   }
 }

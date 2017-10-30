@@ -1,2 +1,2 @@
 export * from './pipe';
-export {ReduxSelectDecorator as ReduxSelect} from './decorator';
+export {ReduxSelect as ReduxSelect} from './decorator';

@@ -1,5 +1,5 @@
-import { ReduxActionDecoratorConfig } from './config';
+import { ReduxActionConfig } from './config';
 
-export interface ReduxActionDecoratorMetadata extends ReduxActionDecoratorConfig {
+export interface ReduxActionDecoratorMetadata extends ReduxActionConfig {
   contextClazz: any;
 }

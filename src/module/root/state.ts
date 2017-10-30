@@ -1,5 +1,3 @@
-export interface ReduxModuleRootState<T = {}> {
-  module: {
-    [key: string]: T;
-  };
+export interface ReduxRootState<T = {}> {
+  [key: string]: T;
 }

@@ -1,5 +1,5 @@
 import { ReduxStateInterface } from './interface';
 
-export interface ReduxStateConstructor {
+export interface StateConstructor {
   new (...args: any[]): ReduxStateInterface<{}>;
 }

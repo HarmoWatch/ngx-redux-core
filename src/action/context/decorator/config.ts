@@ -1,3 +1,3 @@
-export interface ReduxActionContextDecoratorConfig {
+export interface ReduxActionContextConfig {
   prefix: string;
 }

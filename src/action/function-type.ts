@@ -1,1 +1,1 @@
-export type ReduxActionFunctionType<P = {} | void> = (...rest) => Promise<P> | P;
+export type ActionFunctionType<P = {} | void> = (...rest) => Promise<P> | P;

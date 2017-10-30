@@ -4,58 +4,58 @@ import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Observable } from 'rxjs/Observable';
 
 import { getActionTypeByFunction } from './action/decorator';
-import { ReduxActionFunctionType } from './action/function-type';
-import { ReduxActionFunctionTypeArray } from './action/function-type-array';
-import { ReduxActionInterface } from './action/interface';
+import { ActionFunctionType } from './action/function-type';
+import { ActionFunctionTypeArray } from './action/function-type-array';
+import { Action } from './action/interface';
 import { MetadataManager } from './metadata/manager';
 import { ReduxReducerDecoratorMetadata } from './reducer/decorator/metadata';
 import { ReduxStateInterface } from './state/interface';
 
-export class ReduxRegistryReducerItem {
+export class RegistryReducerItem {
   stateName: string;
   reducer: Reducer<{}>;
-  type: ReduxActionFunctionType<{}>;
+  type: ActionFunctionType<{}>;
 }
 
-export interface IRegisterModulePayload {
-  initialState: {};
-  stateName: string;
+export interface IRegisterStatePayload {
+  initialValue: {};
+  name: string;
 }
 
-export class ReduxRegistry {
+export class Registry {
 
-  public static readonly ACTION_REGISTER_MODULE = `${ReduxRegistry.name}://registerModule`;
+  public static readonly ACTION_REGISTER_STATE = `ngx-redux://registerState`;
 
   private static readonly _store = new AsyncSubject<Store<{}>>();
-  private static readonly _reducers: ReduxRegistryReducerItem[] = [];
+  private static readonly _reducers: RegistryReducerItem[] = [];
 
   public static registerStore(store: Store<{}>) {
-    ReduxRegistry._store.next(store);
-    ReduxRegistry._store.complete();
+    Registry._store.next(store);
+    Registry._store.complete();
   }
 
-  public static registerReducer(stateName: string, types: ReduxActionFunctionTypeArray<{}>, reducer: Reducer<{}>) {
+  public static registerReducer(stateName: string, types: ActionFunctionTypeArray<{}>, reducer: Reducer<{}>) {
 
     if (Array.isArray(types)) {
       types.forEach((type) => {
-        ReduxRegistry._reducers.push({
+        Registry._reducers.push({
           reducer,
           stateName,
           type,
         });
       });
     } else {
-      ReduxRegistry._reducers.push({
+      Registry._reducers.push({
         reducer,
         stateName,
-        type: types as ReduxActionFunctionType<{}>,
+        type: types as ActionFunctionType<{}>,
       });
     }
 
   }
 
   public static registerState(state: ReduxStateInterface<{}>) {
-    ReduxRegistry.getStore().then((store) => {
+    Registry.getStore().then((store) => {
 
       const stateConfig = MetadataManager.getStateMetadata(state.constructor);
       const initState = state.getInitialState();
@@ -66,25 +66,25 @@ export class ReduxRegistry {
       }
 
       Promise.resolve(initStateToResolve).then((initialState) => {
-        store.dispatch<ReduxActionInterface<IRegisterModulePayload>>({
+        store.dispatch<Action<IRegisterStatePayload>>({
           payload: {
-            initialState,
-            stateName: stateConfig.name,
+            initialValue: initialState,
+            name: stateConfig.name,
           },
-          type: ReduxRegistry.ACTION_REGISTER_MODULE,
+          type: Registry.ACTION_REGISTER_STATE,
         });
       });
 
     });
   }
 
-  public static getReducerItemsByType(type: string): ReduxRegistryReducerItem[] {
-    return ReduxRegistry._reducers
+  public static getReducerItemsByType(type: string): RegistryReducerItem[] {
+    return Registry._reducers
       .filter(reducerItem => getActionTypeByFunction(reducerItem.type) === type);
   }
 
   public static getStore(): Promise<Store<{}>> {
-    return new Promise(ReduxRegistry._store.subscribe.bind(ReduxRegistry._store));
+    return new Promise(Registry._store.subscribe.bind(Registry._store));
   }
 
 }

@@ -1,3 +1,3 @@
-import { ReduxActionInterface } from '../action/interface';
+import { Action } from '../action/interface';
 
-export type ReduxReducerFunctionType<S, P> = (state: S, action?: ReduxActionInterface<P>) => S;
+export type ReduxReducerFunctionType<S, P> = (state: S, action?: Action<P>) => S;

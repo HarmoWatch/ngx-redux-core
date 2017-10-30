@@ -1,3 +1,3 @@
-export interface ReduxStateDecoratorConfig {
+export interface ReduxStateConfig {
   name: string;
 }

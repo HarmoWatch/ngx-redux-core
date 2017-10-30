@@ -1,18 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Inject, Injector, ModuleWithProviders, NgModule, Optional } from '@angular/core';
-import { createStore } from 'redux';
+import { createStore, Store, StoreEnhancer } from 'redux';
 import { MetadataManager } from './metadata/manager';
 
 import { ReduxModuleChildConfig } from './module/child/config';
-import { REDUX_MODULE_CHILD_CONFIG } from './module/child/token';
 import { ReduxModuleRootConfig } from './module/root/config';
 import { ReduxModuleRootReducer } from './module/root/reducer';
-import { REDUX_MODULE_ROOT_CONFIG } from './module/root/token';
-import { IS_ROOT_MODULE } from './module/token';
 import { ReduxReducerDecoratorMetadata } from './reducer/decorator/metadata';
-import { ReduxRegistry } from './registry';
+import { Registry } from './registry';
 
 import { ReduxSelectPipe } from './select/pipe';
+import { StateDefinition } from './state/definition';
+import { StateDefToken } from './state/definition/token';
+import { ReduxStore } from './store/token';
 
 @NgModule({
   declarations: [
@@ -27,63 +27,71 @@ import { ReduxSelectPipe } from './select/pipe';
 })
 export class ReduxModule {
 
-  constructor(@Inject(IS_ROOT_MODULE) isRootModule: boolean = false,
-              @Optional() @Inject(REDUX_MODULE_ROOT_CONFIG) rootConfig: ReduxModuleRootConfig = null,
-              @Optional() @Inject(REDUX_MODULE_CHILD_CONFIG) childConfig: ReduxModuleChildConfig = null,
+  constructor(@Optional() @Inject(StateDefToken) stateDef: StateDefinition = null,
+              @Optional() @Inject(ReduxStore) store: Store<{}> = null,
               private injector: Injector) {
 
-    if (isRootModule) {
-      rootConfig = Object.assign({
-        store: null,
-      }, rootConfig || {});
-
-      ReduxRegistry.registerStore(rootConfig.store || createStore(ReduxModuleRootReducer.reduce, {}));
+    if (store) {
+      Registry.registerStore(store);
     }
 
-    if (childConfig) {
-      this.initChildConfig(childConfig);
+    if (stateDef) {
+      this.initState(stateDef);
     }
 
   }
 
-  private initChildConfig(childConfig: ReduxModuleChildConfig) {
-    if (childConfig.state) {
-      ReduxRegistry.registerState(this.injector.get(childConfig.state));
+  private initState(stateDef: StateDefinition) {
+    Registry.registerState(this.injector.get(stateDef.provider));
 
-      if (childConfig.reducers) {
-        const stateMetadata = MetadataManager.getStateMetadata(childConfig.state);
+    if (stateDef.reducers) {
+      const stateMetadata = MetadataManager.getStateMetadata(stateDef.provider);
 
-        childConfig.reducers
-          .map((reducer) => MetadataManager.getReducerMetadata(reducer.constructor))
-          .forEach((metadata: ReduxReducerDecoratorMetadata) => {
-            metadata.reducers.forEach(reducer => {
-              ReduxRegistry.registerReducer(stateMetadata.name, reducer.types, reducer.reducer);
-            });
+      stateDef.reducers
+        .map((reducer) => MetadataManager.getReducerMetadata(reducer.constructor))
+        .forEach((metadata: ReduxReducerDecoratorMetadata) => {
+          metadata.reducers.forEach(reducer => {
+            Registry.registerReducer(stateMetadata.name, reducer.types, reducer.reducer);
           });
-      }
+        });
+    }
+  }
+
+  public static forChild(config: ReduxModuleChildConfig = {}): ModuleWithProviders {
+    return {
+      ngModule: ReduxModule,
+      providers: [
+        {provide: StateDefToken, useValue: config.state || null},
+        config.state ? config.state.provider : null,
+      ],
+    };
+  }
+
+  public static forRoot(config: ReduxModuleRootConfig = {}): ModuleWithProviders {
+    return {
+      ngModule: ReduxModule,
+      providers: [
+        config.store || {provide: ReduxStore, useFactory: ReduxModule.defaultStoreFactory},
+        {provide: StateDefToken, useValue: config.state || null},
+        config.state ? config.state.provider : null,
+      ],
+    };
+  }
+
+  private static defaultStoreFactory(): Store<{}> {
+    return createStore(
+      ReduxModuleRootReducer.reduce,
+      {},
+      ReduxModule.defaultEnhancerFactory(),
+    );
+  }
+
+  private static defaultEnhancerFactory(): StoreEnhancer<{}> {
+    if (console && window[ '__REDUX_DEVTOOLS_EXTENSION__' ]) {
+      return window[ '__REDUX_DEVTOOLS_EXTENSION__' ]();
     }
 
-  }
-
-  public static forChild(config: ReduxModuleChildConfig): ModuleWithProviders {
-    return {
-      ngModule: ReduxModule,
-      providers: [
-        config.state,
-        {provide: IS_ROOT_MODULE, useValue: false},
-        {provide: REDUX_MODULE_CHILD_CONFIG, useValue: config},
-      ],
-    };
-  }
-
-  public static forRoot(config?: ReduxModuleRootConfig): ModuleWithProviders {
-    return {
-      ngModule: ReduxModule,
-      providers: [
-        {provide: IS_ROOT_MODULE, useValue: true},
-        {provide: REDUX_MODULE_ROOT_CONFIG, useValue: config},
-      ],
-    };
+    return null;
   }
 
 }
