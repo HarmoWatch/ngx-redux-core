@@ -25,8 +25,13 @@ export class Registry {
 
   public static readonly ACTION_REGISTER_STATE = `ngx-redux://registerState`;
 
-  private static readonly _store = new AsyncSubject<Store<{}>>();
-  private static readonly _reducers: RegistryReducerItem[] = [];
+  private static _store = new AsyncSubject<Store<{}>>();
+  private static _reducers: RegistryReducerItem[] = [];
+
+  public static reset() {
+    Registry._store = new AsyncSubject<Store<{}>>();
+    Registry._reducers = [];
+  }
 
   public static registerStore(store: Store<{}>) {
     Registry._store.next(store);
