@@ -46,5 +46,5 @@ export function getActionTypeByFunction(target: ActionFunctionType<{}>) {
 }
 
 export function getActionType(...rest: Array<string | symbol>): string {
-  return rest.filter((i: string) => i.length > 0).join('/');
+  return rest.filter((i: string) => i.length > 0).join('');
 }

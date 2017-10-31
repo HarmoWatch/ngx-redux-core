@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Inject, Injector, ModuleWithProviders, NgModule, Optional } from '@angular/core';
-import { createStore, Store, StoreEnhancer } from 'redux';
+import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';
+import { createStore, Store, StoreEnhancer, StoreEnhancerStoreCreator } from 'redux';
 import { MetadataManager } from './metadata/manager';
 
 import { ReduxModuleChildConfig } from './module/child/config';
@@ -70,15 +70,18 @@ export class ReduxModule {
   public static forRoot(config: ReduxModuleRootConfig = {}): ModuleWithProviders {
     return {
       ngModule: ReduxModule,
-      providers: [
-        config.store || {provide: ReduxStore, useFactory: ReduxModule.defaultStoreFactory},
+      providers: config.state ? [
+        {provide: ReduxStore, useFactory: config.storeFactory || ReduxModule.defaultStoreFactory},
         {provide: StateDefToken, useValue: config.state || null},
         config.state ? config.state.provider : null,
+      ] : [
+        {provide: ReduxStore, useFactory: config.storeFactory || ReduxModule.defaultStoreFactory},
+        {provide: StateDefToken, useValue: config.state || null},
       ],
     };
   }
 
-  private static defaultStoreFactory(): Store<{}> {
+  public static defaultStoreFactory(): Store<{}> {
     return createStore(
       ReduxModuleRootReducer.reduce,
       {},
@@ -86,12 +89,16 @@ export class ReduxModule {
     );
   }
 
-  private static defaultEnhancerFactory(): StoreEnhancer<{}> {
-    if (console && window[ '__REDUX_DEVTOOLS_EXTENSION__' ]) {
+  public static defaultEnhancerFactory(): StoreEnhancer<{}> {
+    if (console && window[ '__REDUX_DEVTOOLS_EXTENSION__' ] && isDevMode()) {
       return window[ '__REDUX_DEVTOOLS_EXTENSION__' ]();
     }
 
-    return null;
+    return ReduxModule.nullEnhancer;
+  }
+
+  public static nullEnhancer(next: StoreEnhancerStoreCreator<{}>): StoreEnhancerStoreCreator<{}> {
+    return next;
   }
 
 }

@@ -2,10 +2,42 @@
 
 Hey there, the package is still work in progress, please [check the open tasks](https://github.com/HarmoWatch/ngx-redux/projects/1).
 
-## Decorator and annotation driven redux integration for Angular 2+
+## Decorator driven redux integration for Angular 2+
 
 * [Installation](#installation)
 * [Usage](#usage)
+
+## What is Redux?
+
+Redux is a popular and common approach to manage a application state. The three principles of redux are:
+
+- [Single source of truth](http://redux.js.org/docs/introduction/ThreePrinciples.html#single-source-of-truth)
+- [State is read-only](http://redux.js.org/docs/introduction/ThreePrinciples.html#state-is-read-only)
+- [Changes are made with pure functions](http://redux.js.org/docs/introduction/ThreePrinciples.html#changes-are-made-with-pure-functions)
+
+[Read more about Redux](http://redux.js.org/)
+
+## What is ngx-redux?
+
+This package helps you to integrate Redux in your Angular 2+ application. By using *ngx-redux* you'll get the following
+benefits:
+
+- support for [lazy loaded NgModules](https://angular.io/guide/ngmodule#lazy-loading-modules-with-the-router)
+- [Ahead-of-Time Compilation (AOT)](https://angular.io/guide/aot-compiler) support
+- a [Angular Pipe](https://angular.io/guide/pipes) to select the values from the state
+- better typescript and refactoring support
+- a decorator and module driven approach
+- easy to test
+
+## Known violations / conflicts
+
+### Redux principles
+
+#### [Changes are made with pure functions](http://redux.js.org/docs/introduction/ThreePrinciples.html#changes-are-made-with-pure-functions)
+
+One of the principles of Redux is to change the state using **pure functions**, only. Unfortunately there is 
+**no typescript support** to decorate pure functions right now. That's the reason why *ngx-redux* uses classes where the
+reducer functions are shipped by. To find a viable solution the reducer functions shall be written static methods.
 
 ## Installation
 
@@ -20,41 +52,89 @@ npm install redux @harmowatch/ngx-redux-core --save
 
 ## Usage
 
-#### 1. Import the root `ReduxModule`:
+### 1. Import the root `ReduxModule`:
 
-To use ngx-redux-core in your Angular project you have to import `ReduxModule.forRoot()` in the root NgModule of your
+To use *ngx-redux* in your Angular project you have to import `ReduxModule.forRoot()` in the root NgModule of your
 application.
 
 The static [`forRoot`](https://angular.io/docs/ts/latest/guide/ngmodule.html#!#core-for-root) method is a convention
-that provides & configures services at the same time. Make sure you call this method in your root NgModule, only.
+that provides and configures services at the same time. Make sure you call this method in your root NgModule, only!
 
 ###### Example
 
 ```ts
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {ReduxModule} from '@harmowatch/ngx-redux-core'; // (1) Add the import
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReduxModule } from '@harmowatch/ngx-redux-core';
+
+import { AppComponent } from './app.component';
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        ReduxModule.forRoot() // (2) Add the root module to the list of imports
-    ],
-    bootstrap: [AppComponent]
+  declarations: [ AppComponent ],
+  imports: [
+    BrowserModule,
+    ReduxModule.forRoot(),
+  ],
+  bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {
+}
 ```
 
-> Note: Make sure you've called `forRoot` once, otherwise you might end up with different instances of the service(s).
+#### 1.1 Bootstrap your own [Redux Store](http://redux.js.org/docs/basics/Store.html)
 
-### 2. Create a interface representing your module state
+By default *ngx-redux* will bootstrap a [Redux Store](http://redux.js.org/docs/basics/Store.html) for you. 
+Is the app running in [devMode](https://angular.io/api/core/isDevMode), the default store is prepared to work together 
+with the [Redux DevTools](https://github.com/gaearon/redux-devtools).
 
-Ok, now you've to create a interface to describe the structure of your module state.
+If you want to add a [Middleware](http://redux.js.org/docs/advanced/Middleware.html) like logging, you've to provide a
+custom *stateFactory*.
+
+###### Example
+
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReduxModule, ReduxModuleRootReducer } from '@harmowatch/ngx-redux-core';
+import { applyMiddleware, createStore, Store, StoreEnhancer } from 'redux';
+import logger from 'redux-logger';
+
+import { AppComponent } from './app.component';
+
+export function enhancerFactory(): StoreEnhancer<{}> {
+  return applyMiddleware(logger);
+}
+
+export function storeFactory(): Store<{}> {
+  return createStore(
+    ReduxModuleRootReducer.reduce,
+    {},
+    enhancerFactory()
+  );
+}
+
+@NgModule({
+  declarations: [ AppComponent ],
+  imports: [
+    BrowserModule,
+    ReduxModule.forRoot({
+      storeFactory,
+    }),
+  ],
+  bootstrap: [ AppComponent ]
+})
+export class AppModule {
+}
+```
+
+### 2. Describe your state
+
+Ok, now you've to create a interface to describe the structure of your state.
 
 ###### Example 
 
 ```ts
-export interface ChildModuleStateInterface {
+export interface AppModuleStateInterface {
   todo: {
     items: string[];
   };
@@ -63,77 +143,132 @@ export interface ChildModuleStateInterface {
 
 ### 3. Create a class representing your module state
 
-Before you can register your child module to redux, you need to create a class that represents the state of your child
-module.
+Before you can register your state to redux, you need to create a class that represents your state. This class is
+responsible to resolve the initial state.
 
-#### As you can see the class ...
+#### As you can see in the example below, the class ...
 
 ##### ... is decorated by `@ReduxState`
 
 You need to decorate your class by `@ReduxState` and to provide a application wide unique state `name` to it. If you can
-not be sure that your name is unique enough, then you can add a unique id to it. *As in the example shown below*. 
-Furthermore the configuration accepts one more configuration property called `reducers`, but let's talk about that one
-later on.
+not be sure that your name is unique enough, then you can add a unique id to it (*as in the example shown below*). 
 
 ##### ... implements `ReduxStateInterface`
 
-The `@ReduxState` decorator is only valid for classes which implement the `ReduxStateInterface`. As you can see it's an
-generic interface where you've to provide your previously created `ChildModuleStateInterface`. The `ReduxStateInterface`
-compels you to implement a public method `getInitialState`. The method is responsible to know, how the initial state can
-be computed and will return it as an `Promise`, `Observable` or a plain implementation of the state interface directly.
+The `@ReduxState` decorator is only valid for classes which implement the `ReduxStateInterface`. This is an generic 
+interface where you've to provide your previously created `AppModuleStateInterface`. The `ReduxStateInterface` compels 
+you to implement a public method `getInitialState`. This method is responsible to know, how the initial state can be 
+computed and will return it as an `Promise`, `Observable` or an implementation of the state interface directly.
 
-> Note: The method `getInitialState` is called by *ngx-redux* automatically and your module will be registered **after**
-the initial state was resolved successfully. If you return a unresolved `Promise` your module is never registered! 
+> Note: The method `getInitialState` is called by *ngx-redux* automatically! Your state will be registered to the root
+state **after** the initial state was resolved successfully.
  
-###### Example 
+###### Example 1) Interface implementation
 
 ```ts
-import {Injectable} from '@angular/core'; // (1) Add the import
-import {ReduxState, ReduxStateInterface} from '@harmowatch/ngx-redux-core'; // (2) Add the imports
-import {ChildModuleStateInterface} from './child-module-state.interface'; // (3) Import your state interface
+import { ReduxState, ReduxStateInterface } from '@harmowatch/ngx-redux-core';
+import { AppModuleStateInterface } from './app.module.state.interface';
 
-@ReduxState({ // (4) Add the decorator
-  name: 'child-module-7c66b613-20bd-4d35-8611-5181ca4a0b72' // (5) Provide a unique name for your state
+@ReduxState({
+  name: 'app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72'
 })
-@Injectable() // (6) Make it injectable
-export class ChildModuleState implements ReduxStateInterface<ChildModuleStateInterface> { // (7) Implement the interface
+export class AppModuleState implements ReduxStateInterface<AppModuleStateInterface> {
 
-  getInitialState(): StateInterface { // (8) Implement the method
-    return { // You can return a promise or a observable as well 
+  getInitialState(): AppModuleStateInterface {
+    return {
       todo: {
-        items: ['Item 1', 'Item 2'],
+        items: [ 'Item 1', 'Item 2' ],
       }
     };
   }
 
 }
+``` 
+ 
+###### Example 2) Promise
+
+```ts
+import { ReduxState, ReduxStateInterface } from '@harmowatch/ngx-redux-core';
+import { AppModuleStateInterface } from './app.module.state.interface';
+
+@ReduxState({
+  name: 'app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72'
+})
+export class AppModuleState implements ReduxStateInterface<AppModuleStateInterface> {
+
+  getInitialState(): Promise<AppModuleStateInterface> {
+    return Promise.resolve({
+      todo: {
+        items: [ 'Item 1', 'Item 2' ],
+      }
+    });
+  }
+
+}
 ```
 
-### 4. Import the child `ReduxModule`:
+> Note: If you return a unresolved `Promise` your state is never registered!
 
-The next thing you need to do, is to register your child NgModule as an *ngx-redux* module. To do that you just have to
-add `ReduxModule.forChild` to the list of imports. The static `forChild` method requires one configuration argument to 
-be given. The configuration object has one required property `state` where you have to provide a reference to the 
-type of the freshly created `ChildModuleState`. **Don't use the interface here!**
+###### Example 3) Observable
+
+```ts
+import { ReduxState, ReduxStateInterface } from '@harmowatch/ngx-redux-core';
+import { AppModuleStateInterface } from './app.module.state.interface';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+
+@ReduxState({
+  name: 'app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72'
+})
+export class AppModuleState implements ReduxStateInterface<AppModuleStateInterface> {
+
+  getInitialState(): Observable<AppModuleStateInterface> {
+    const subject = new BehaviorSubject<AppModuleStateInterface>({
+      todo: {
+        items: [ 'Item 1', 'Item 2' ],
+      }
+    });
+
+    subject.complete();
+    return subject.asObservable();
+  }
+
+}
+```
+
+> Note: If you return a uncompleted `Observable` your state is never registered!
+
+### 4. Register the state:
+
+The next thing you need to do, is to register your state. For that *ngx-redux* accepts a configuration property `state`. 
 
 ###### Example
 
 ```ts
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {ReduxModule} from '@harmowatch/ngx-redux-core'; // (1) Add the import
-import {ChildModuleState} from './child-module-state'; // (2) Add the import
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReduxModule } from '@harmowatch/ngx-redux-core';
+
+import { AppComponent } from './app.component';
+import { AppModuleState } from './app.module.state';
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        ReduxModule.forChild({ // (3) Add the redux child module to the list of imports
-          state: ChildModuleState // (4) Provide a reference to the state class
-        })
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    ReduxModule.forRoot({
+      state: {
+        provider: AppModuleState,
+      }
+    }),
+  ],
+  providers: [],
+  bootstrap: [ AppComponent ]
 })
-export class ChildModule { }
+export class AppModule {
+}
 ```
 
 Your redux module is ready to run now. Once your initial state was resolved, your redux module is registered to the 
@@ -141,189 +276,176 @@ global redux state like this:
                                        
 ```json
 {
- "child-module-7c66b613-20bd-4d35-8611-5181ca4a0b72": {
-   "todo": {
-     "items": [
-       "Item 1",
-       "Item 2"
-     ]
-   }
- }
+  "app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72": {
+    "todo": {
+      "items": [
+        "Item 1",
+        "Item 2"
+      ]
+    }
+  }
 }
 ```
 
 ### 5. Select data from the state
 
-To select values from the state you can choose between three options:
+To select values from the state you can choose between this three options:
 
-- the select pipe
-- the select annotation
-- the select class
+- a [Angular Pipe](https://angular.io/guide/pipes)
+- a Annotation
+- a Class
 
 Each selector will accept a relative *todo/items* or an absolute path 
-*/child-module-7c66b613-20bd-4d35-8611-5181ca4a0b72/todo/items*. It's recommended to use relative paths only. The 
-absolute path is only available to give you a maximum of flexibility.
+*/app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72/todo/items*. It's recommended to use relative paths only. The 
+absolute path is only there to give you a maximum of flexibility.
 
 #### 5.1 Using the `reduxSelect` pipe
 
-The easiest way to get values from the state, is to use the `reduxSelect` pipe together with Angular's `async` pipe.
+The easiest way to get values from the state, is to use the `reduxSelect` pipe together with Angular's `async` pipe. The
+right state is determined automatically, because you're in a Angular context.
 
-###### Example
+###### Example 1) Relative path (recommended)
 
 ```angular2html
 <pre>{{ 'todo/items' | reduxSelect | async | json }}</pre>
 ```
 
-or using an absolute path:
+###### Example 2) Absolute path (avoid)
 
 ```angular2html
-<pre>{{ '/child-module-7c66b613-20bd-4d35-8611-5181ca4a0b72/todo/items' | reduxSelect | async | json }}</pre> 
+<pre>{{ '/app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72/todo/items' | reduxSelect | async | json }}</pre> 
 ``` 
 
 #### 5.2 Using the `@ReduxSelect` annotation
 
-If you want to access the data in your class  
+If you want to access the state values in your component you can use the `@ReduxSelect` decorator. *ngx-redux* can not
+determine which state you mean automatically, because decorators run outside the Angular context. For that you've to
+pass in a reference to your state class as 2nd argument. When you specify an absolute path, you don't need the 2nd 
+argument anymore.
 
-###### Example
+###### Example 1) Relative path (recommended)
 
 ```ts
-import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {ReduxSelect} from '@harmowatch/ngx-redux-core'; // (1) Add the import
-import {ChildModuleState} from './child-module-state'; // (2) Add the import
+import { Component } from '@angular/core';
+import { ReduxSelect } from '@harmowatch/ngx-redux-core';
+import { AppModuleState } from './app.module.state';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'app-todo',
-  templateUrl: './todo.component.html',
-  styleUrls: [ './todo.component.css' ]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
 })
-export class TodoComponent implements OnInit {
+export class AppComponent {
 
-  @ReduxSelect( // (3) Decorate the class property
-    'todo/items', // (4) Pass in the relative path
-    ChildModuleState // (5) Pass in a reference to the state where you want to select from
-  ) 
+  @ReduxSelect('todo/items', AppModuleState)
   private todoItems: Observable<string[]>;
+
+  constructor() {
+    this.todoItems.subscribe((items) => console.log('ITEMS', items));
+  }
 
 }
 ```
 
-or using an absolute path:
+###### Example 2) Absolute path (avoid)
 
 ```ts
-import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {ReduxSelect} from '@harmowatch/ngx-redux-core'; // (1) Add the import
+import { Component } from '@angular/core';
+import { ReduxSelect } from '@harmowatch/ngx-redux-core';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'app-todo',
-  templateUrl: './todo.component.html',
-  styleUrls: [ './todo.component.css' ]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
 })
-export class TodoComponent implements OnInit {
+export class AppComponent {
 
-  @ReduxSelect( // (3) Decorate the class property
-    '/child-module-7c66b613-20bd-4d35-8611-5181ca4a0b72/todo/items', // (4) Pass in the absolute path
-  ) // (5) Note: When you use absolute paths you don't need to provide the state reference   
+
+  @ReduxSelect('/app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72/todo/items')
   private todoItems: Observable<string[]>;
+
+  constructor() {
+    this.todoItems.subscribe((items) => console.log('ITEMS', items));
+  }
 
 }
 ```
 
 #### 5.3 Using the `ReduxStateSelector` class
 
-###### Example
+###### Example 1) Relative path (recommended)
 
 ```ts
-import {ReduxStateSelector} from '@harmowatch/ngx-redux-core'; // (1) Add the import
-import {ChildModuleState} from './child-module-state'; // (2) Add the import
-
-// (3) Instantiate the selector
-const selector = new ReduxStateSelector('todo/items', ChildModuleState);
-
-selector.getObservable(); // (recommended)
-selector.getSubject();
-selector.getBehaviorSubject(['Initial TodoItems']);
-selector.getReplaySubject();
-```
-
-or using an absolute path:
-
-```ts
-import {ReduxStateSelector} from '@harmowatch/ngx-redux-core'; // (1) Add the import
-
-// (2) Instantiate the selector
-const selector = new ReduxStateSelector('/child-module-7c66b613-20bd-4d35-8611-5181ca4a0b72/todo/items');
-
-selector.getObservable(); // (recommended)
-selector.getSubject();
-selector.getBehaviorSubject(['Initial TodoItems']);
-selector.getReplaySubject();
-```
-
-### 6. Dispatch an action
-
-To dispatch an action is very easy. Just annotate your class method by `@ReduxAction`. Everytime your method is called 
-*ngx-redux* will dispatch a redux action for you automatically! The `return` value of the decorated method will become
-the payload of the dispatched action and the name of the method is used as the action type.
-
-> Note: It's very useful to write a provider, where the action method(s) are delivered by. See the example below. 
-
-###### Example
-
-```ts
-import { Injectable } from '@angular/core'; // (1) Add the import
-import { ReduxAction } from '@harmowatch/ngx-redux-core'; // (2) Add the import
-
-@Injectable() // (3) Make it injectable
-class TodoActionsProvider {
-
-  @ReduxAction() // (4) Add the annotation
-  add(todo: string) : string {
-    return todo;
-  }
-
-}
-```
-
-Now you can inject the provider somewhere:
-
-###### Example
-
-```ts
-import { Injectable } from '@angular/core'; // (1) Add the import
-import { TodoActionsProvider } from 'path-to-the-provider.ts'; // (2) Add the import
+import { Component } from '@angular/core';
+import { ReduxStateSelector } from '@harmowatch/ngx-redux-core';
+import { AppModuleState } from './app.module.state';
 
 @Component({
-  selector: 'app-todo',
-  templateUrl: './todo.component.html',
-  styleUrls: [ './todo.component.css' ]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
 })
-export class TodoComponent implements OnInit {
+export class AppComponent {
 
-  constructor(public todoActions: TodoActionsProvider) { // (3) Add it as constructor argument
+  constructor() {
+    const selector = new ReduxStateSelector('todo/items', AppModuleState);
+
+    selector.getSubject().subscribe((items) => console.log('ITEMS', items));
+
+    // or
+    selector.getReplaySubject().subscribe((items) => console.log('ITEMS', items));
+
+    // or
+    selector.getObservable().subscribe((items) => console.log('ITEMS', items));
+
+    // or
+    selector.getBehaviorSubject([ 'Default Item' ]).subscribe((items) => console.log('ITEMS', items));
   }
 
-  public onAddTodoButtonClick() {
-    this.todoActions.add('SomeTodo'); // (4) Call the action method
+}
+```
+
+###### Example 2) Absolute path (avoid)
+
+```ts
+import { Component } from '@angular/core';
+import { ReduxStateSelector } from '@harmowatch/ngx-redux-core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
+})
+export class AppComponent {
+
+  constructor() {
+    const selector = new ReduxStateSelector('/app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72/todo/items');
+
+    selector.getSubject().subscribe((items) => console.log('ITEMS', items));
+
+    // or
+    selector.getReplaySubject().subscribe((items) => console.log('ITEMS', items));
+
+    // or
+    selector.getObservable().subscribe((items) => console.log('ITEMS', items));
+
+    // or
+    selector.getBehaviorSubject([ 'Default Item' ]).subscribe((items) => console.log('ITEMS', items));
   }
-}
 
-```
-
-Ok, when the `TodoActionsProvider`'s method `add` is called *ngx-redux* will dispatch the following redux action:
-
-```json
-{
-  "type": "add",
-  "payload": "SomeTodo" 
 }
 ```
 
-Ok that's cool, but there's no information in the action type that this was a todo action, right?
-But don't worry we can fix that very easy.
+### 6. Dispatch an [Redux Action](http://redux.js.org/docs/basics/Actions.html)
 
-#### By providing a configuration object to `@ReduxAction`
+To dispatch an action is very easy. Just annotate your class method by `@ReduxAction`. Everytime your method is called 
+*ngx-redux* will dispatch a [Redux Action](http://redux.js.org/docs/basics/Actions.html) for you automatically! 
+The `return` value of the decorated method will become the payload of the action and the name of the method is used as 
+the action type.
+
+> Note: It's very useful to write a provider, where the action method(s) are delivered by. See the example below. 
 
 ###### Example
 
@@ -332,81 +454,191 @@ import { Injectable } from '@angular/core';
 import { ReduxAction } from '@harmowatch/ngx-redux-core';
 
 @Injectable()
-class TodoActionsProvider {
+export class AppActions {
 
-  @ReduxAction({
-    type: 'todo/add' // (1) Provide a type name
-  })
-  add(todo: string) : string {
+  @ReduxAction()
+  public addTodo(todo: string): string {
     return todo;
   }
 
 }
 ```
 
-Then the payload will look like this:
+Then register the provider to your module:
 
-```json
-{
-  "type": "todo/add",
-  "payload": "SomeTodo" 
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReduxModule } from '@harmowatch/ngx-redux-core';
+import { AppActions } from './app.actions'; // (1) Add the import
+
+import { AppComponent } from './app.component';
+import { AppModuleState } from './app.module.state';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    ReduxModule.forRoot({
+      state: {
+        provider: AppModuleState,
+      }
+    }),
+  ],
+  providers: [ AppActions ], // (2) Add to the provider list
+  bootstrap: [ AppComponent ]
+})
+export class AppModule {
 }
 ```
 
-#### Or by using the `@ReduxActionContext` decorator (recommended)
+Now you can inject the provider to your component:
 
 ###### Example
 
 ```ts
+import { Component } from '@angular/core';
+import { AppActions } from './app.actions';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: [ './app.component.css' ]
+})
+export class AppComponent {
+
+  constructor(appActions: AppActions) {
+    appActions.addTodo('SampleTodo');
+  }
+
+}
+```
+
+The example above will dispatch the following action:
+
+```json
+{
+  "payload": "SampleTodo",
+  "type": "addTodo"
+}
+```
+
+Ok that's cool, but there's no information in the action type that this was an `AppActions` action, right?
+But don't worry you can follow two different and very easy ways to fix that.
+
+###### Example 1) Provide a action type
+
+```ts
 import { Injectable } from '@angular/core';
-import { ReduxAction, ReduxActionContext } from '@harmowatch/ngx-redux-core'; // (1) Add the import
+import { ReduxAction } from '@harmowatch/ngx-redux-core';
 
 @Injectable()
-@ReduxActionContext({ // (2) Add the annotation
-  prefix: 'todo' // (3) Provide a prefix
-})
-class TodoActionsProvider {
+export class AppActions {
 
-  @ReduxAction()
-  add(todo: string) : string {
+  @ReduxAction({
+    type: 'AppActions://addTodo'
+  })
+  public addTodo(todo: string): string {
     return todo;
   }
 
 }
 ```
 
-Then the payload will look like this:
+`addTodo` will dispatch the following action from now on:
+
+```json
+{
+  "payload": "SampleTodo",
+  "type": "AppActions://addTodo"
+}
+```
+
+#### Example 2) Provide a action context (recommended)
+
+```ts
+import { Injectable } from '@angular/core';
+import { ReduxAction, ReduxActionContext } from '@harmowatch/ngx-redux-core';
+
+@ReduxActionContext({
+  prefix: 'AppActions://'
+})
+@Injectable()
+export class AppActions {
+
+  @ReduxAction()
+  public addTodo(todo: string): string {
+    return todo;
+  }
+
+}
+```
+
+`addTodo` will dispatch the following action from now on:
 
 ```json
 {
   "type": "todo/add",
   "payload": "SomeTodo" 
+}
+```
+
+### Example 3) Combine the ReduxContext and action type
+
+```ts
+import { Injectable } from '@angular/core';
+import { ReduxAction, ReduxActionContext } from '@harmowatch/ngx-redux-core';
+
+@ReduxActionContext({
+  prefix: 'AppActions://'
+})
+@Injectable()
+export class AppActions {
+
+  @ReduxAction({
+    type: 'add-todo'
+  })
+  public addTodo(todo: string): string {
+    return todo;
+  }
+
+}
+```
+
+`addTodo` will dispatch the following action from now on:
+
+```json
+{
+  "payload": "SampleTodo",
+  "type": "AppActions://add-todo"
 }
 ```
 
 ### 7. Reduce the state
 
-Ok, now we can read the values from the state, but have no possibility to manipulate them. We want to change this
-in this step by creating a reducer class.
+We have no way to manipulate the data that are stored in the [Redux Store](http://redux.js.org/docs/basics/Store.html)
+yet. For that we need a reducer.
 
 ###### Example
 
 ```ts
-import { ReduxReducer, ReduxActionInterface } from '@harmowatch/ngx-redux-core'; // (1) Add the import
-import { TodoActionsProvider } from 'path-to-the-provider.ts'; // (2) Add the import
-import { ChildModuleStateInterface } from './child-module-state.interface'; // (3) Add the import
+import { Action, ReduxReducer } from '@harmowatch/ngx-redux-core';
+import { AppActions } from './app.actions';
+import { AppModuleStateInterface } from './app.module.state.interface';
 
-class TodoActionsReducer {
+export class AppModuleReducer {
 
-  @ReduxReducer(TodoActionsProvider.prototype.add) // (4) Add the annotation and provide a reference to the action method.
-  add(state: ChildModuleStateInterface, action: ReduxActionInterface<string>) {
-    return { // (5) Return a reduced state
-        ...state,
-        todo : {
-            ...state.todo,
-            items : state.todo.items.concat(action.payload)
-        }
-    }  
+  @ReduxReducer(AppActions.prototype.addTodo)
+  static addTodo(state: AppModuleStateInterface, action: Action<string>) {
+    return {
+      ...state,
+      todo : {
+        ...state.todo,
+        items : state.todo.items.concat(action.payload)
+      }
+    }
   }
 
 }
@@ -417,25 +649,31 @@ The last thing you need to do, is to wire the reducer against the state:
 ###### Example 
 
 ```ts
-import { Injectable } from '@angular/core';
-import { ReduxState, ReduxStateInterface } from '@harmowatch/ngx-redux-core';
-import { ChildModuleStateInterface } from './child-module-state.interface';
-import { TodoActionsReducer } from 'path-to-the-reducer.ts'; // (1) Add the import
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { ReduxModule } from '@harmowatch/ngx-redux-core';
+import { AppActions } from './app.actions';
 
-@ReduxState({
-  name: 'child-module-7c66b613-20bd-4d35-8611-5181ca4a0b72',
-  reducers: [TodoActionsReducer] // (2) Wire the reducer class to the state
-})
-@Injectable()
-export class ChildModuleState implements ReduxStateInterface<ChildModuleStateInterface> {
+import { AppComponent } from './app.component';
+import { AppModuleReducer } from './app.module.reducer'; // (1) Add the import
+import { AppModuleState } from './app.module.state';
 
-  getInitialState(): Promise<StateInterface> {
-    return Promise.resolve({ // You can return a promise
-      todo: {
-        items: ['Item 1', 'Item 2'],
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    ReduxModule.forRoot({
+      state: {
+        provider: AppModuleState,
+        reducers: [ AppModuleReducer ] // (2) Register the reducer
       }
-    });
-  }
-
+    }),
+  ],
+  providers: [ AppActions ],
+  bootstrap: [ AppComponent ]
+})
+export class AppModule {
 }
 ```
