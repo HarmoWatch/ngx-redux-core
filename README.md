@@ -4,12 +4,9 @@ Hey there, the package is still work in progress, please [check the open tasks](
 
 ## Decorator driven redux integration for Angular 2+
 
-* [What is Redux?](#what-is-redux)
-* [What is ngx-redux?](#what-is-ngx-redux)
-
-* [Known violations / conflicts](#known-violations--conflicts)
-  * [Redux principles](#redux-principles)
-    * [Changes are made with pure functions](#changes-are-made-with-pure-functions)
+* What is ...
+  * [Redux?](#what-is-redux)
+  * [ngx-redux?](#what-is-ngx-redux)
 
 * [Installation](#installation)
 * [Usage](#usage)
@@ -21,6 +18,8 @@ Hey there, the package is still work in progress, please [check the open tasks](
   * [5. Select data from the state](#5-select-data-from-the-state)
   * [6. Dispatch an Redux Action](#6-dispatch-an-redux-action)
   * [7. Reduce the State](#7-reduce-the-state)
+  
+* [Known violations / conflicts](#known-violations--conflicts)
 
 ## What is Redux?
 
@@ -43,16 +42,6 @@ benefits:
 - better typescript and refactoring support
 - a decorator and module driven approach
 - easy to test
-
-## Known violations / conflicts
-
-### Redux principles
-
-#### [Changes are made with pure functions](http://redux.js.org/docs/introduction/ThreePrinciples.html#changes-are-made-with-pure-functions)
-
-One of the principles of Redux is to change the state using **pure functions**, only. Unfortunately there is 
-**no typescript support** to decorate pure functions right now. That's the reason why *ngx-redux* uses classes where the
-reducer functions are shipped by. To find a viable solution the reducer functions shall be written static methods.
 
 ## Installation
 
@@ -692,3 +681,13 @@ import { AppModuleState } from './app.module.state';
 export class AppModule {
 }
 ```
+
+## Known violations / conflicts
+
+### Redux principles
+
+#### [Changes are made with pure functions](http://redux.js.org/docs/introduction/ThreePrinciples.html#changes-are-made-with-pure-functions)
+
+One of the principles of Redux is to change the state using **pure functions**, only. Unfortunately there is 
+**no typescript support** to decorate pure functions right now. That's the reason why *ngx-redux* uses classes where the
+reducer functions are shipped by. To find a viable solution the reducer functions shall be written as static methods.
