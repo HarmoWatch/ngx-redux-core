@@ -4,8 +4,23 @@ Hey there, the package is still work in progress, please [check the open tasks](
 
 ## Decorator driven redux integration for Angular 2+
 
+* [What is Redux?](#what-is-redux)
+* [What is ngx-redux?](#what-is-ngx-redux)
+
+* [Known violations / conflicts](#known-violations--conflicts)
+  * [Redux principles](#redux-principles)
+    * [Changes are made with pure functions](#changes-are-made-with-pure-functions)
+
 * [Installation](#installation)
 * [Usage](#usage)
+  * [1. Import the root `ReduxModule`](#1-import-the-root-reduxmodule)
+    * [1.1 Bootstrap your own Redux Store](#11-bootstrap-your-own-redux-store)
+  * [2. Describe your state](#2-describe-your-state)
+  * [3. Create a class representing your module state](#3-create-a-class-representing-your-module-state)
+  * [4. Register the state](#4-register-the-state)
+  * [5. Select data from the state](#5-select-data-from-the-state)
+  * [6. Dispatch an Redux Action](#6-dispatch-an-redux-action)
+  * [7. Reduce the State](#7-reduce-the-state)
 
 ## What is Redux?
 
@@ -616,7 +631,7 @@ export class AppActions {
 }
 ```
 
-### 7. Reduce the state
+### 7. Reduce the State
 
 We have no way to manipulate the data that are stored in the [Redux Store](http://redux.js.org/docs/basics/Store.html)
 yet. For that we need a reducer.
