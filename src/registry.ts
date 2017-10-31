@@ -6,9 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { getActionTypeByFunction } from './action/decorator';
 import { ActionFunctionType } from './action/function-type';
 import { ActionFunctionTypeArray } from './action/function-type-array';
-import { Action } from './action/interface';
+import { ActionInterface } from './action/interface';
 import { MetadataManager } from './metadata/manager';
-import { ReduxReducerDecoratorMetadata } from './reducer/decorator/metadata';
 import { ReduxStateInterface } from './state/interface';
 
 export class RegistryReducerItem {
@@ -66,7 +65,7 @@ export class Registry {
       }
 
       Promise.resolve(initStateToResolve).then((initialState) => {
-        store.dispatch<Action<IRegisterStatePayload>>({
+        store.dispatch<ActionInterface<IRegisterStatePayload>>({
           payload: {
             initialValue: initialState,
             name: stateConfig.name,

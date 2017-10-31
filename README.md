@@ -628,14 +628,14 @@ yet. For that we need a reducer.
 ###### Example
 
 ```ts
-import { Action, ReduxReducer } from '@harmowatch/ngx-redux-core';
+import { ActionInterface, ReduxReducer } from '@harmowatch/ngx-redux-core';
 import { AppActions } from './app.actions';
 import { AppModuleStateInterface } from './app.module.state.interface';
 
 export class AppModuleReducer {
 
   @ReduxReducer(AppActions.prototype.addTodo)
-  static addTodo(state: AppModuleStateInterface, action: Action<string>) {
+  static addTodo(state: AppModuleStateInterface, action: ActionInterface<string>) {
     return {
       ...state,
       todo : {
