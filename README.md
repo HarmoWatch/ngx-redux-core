@@ -275,6 +275,8 @@ export class AppModule {
 }
 ```
 
+> Note: For lazy loaded modules you've to use `forChild`.
+
 Your redux module is ready to run now. Once your initial state was resolved, your redux module is registered to the 
 global redux state like this:
                                        
