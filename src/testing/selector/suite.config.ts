@@ -1,5 +1,5 @@
 import { MetadataManager } from '../../metadata/manager';
-import { TestingState } from '../testing.state';
+import { TestingState } from '../state';
 
 export interface SelectorTestCase {
   given: {

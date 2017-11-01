@@ -1,16 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';
 import { createStore, Store, StoreEnhancer, StoreEnhancerStoreCreator } from 'redux';
-import { MetadataManager } from './metadata/manager';
 
 import { ReduxModuleChildConfig } from './module/child/config';
 import { ReduxModuleRootConfig } from './module/root/config';
 import { ReduxModuleRootReducer } from './module/root/reducer';
-import { ReduxReducerDecoratorMetadata } from './reducer/decorator/metadata';
 import { Registry } from './registry';
 
 import { ReduxSelectPipe } from './select/pipe';
 import { StateDefinition } from './state/definition';
+import { StateDefinitionManager } from './state/definition/manager';
 import { StateDefToken } from './state/definition/token';
 import { ReduxStore } from './store/token';
 
@@ -43,18 +42,7 @@ export class ReduxModule {
 
   private initState(stateDef: StateDefinition) {
     Registry.registerState(this.injector.get(stateDef.provider));
-
-    if (stateDef.reducers) {
-      const stateMetadata = MetadataManager.getStateMetadata(stateDef.provider);
-
-      stateDef.reducers
-        .map((reducer) => MetadataManager.getReducerMetadata(reducer.constructor))
-        .forEach((metadata: ReduxReducerDecoratorMetadata) => {
-          metadata.reducers.forEach(reducer => {
-            Registry.registerReducer(stateMetadata.name, reducer.types, reducer.reducer);
-          });
-        });
-    }
+    StateDefinitionManager.registerReducers(stateDef);
   }
 
   public static forChild(config: ReduxModuleChildConfig = {}): ModuleWithProviders {

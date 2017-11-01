@@ -2,7 +2,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { ReduxTestingModule } from '../testing/module';
 import { selectorSuiteFactory } from '../testing/selector/suite.config';
-import { TestingState } from '../testing/testing.state';
+import { TestingState } from '../testing/state';
 import { ReduxSelectPipe } from './pipe';
 
 describe('select/pipe', () => {
