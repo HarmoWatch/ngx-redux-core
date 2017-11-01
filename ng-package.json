@@ -4,7 +4,8 @@
     "entryFile": "src/public_api.ts",
     "externals": {
       "redux": "redux",
-      "redux/index": "redux"
+      "redux/index": "redux",
+      "@angular/core/testing": "@angular/core/testing"
     }
   }
 }
