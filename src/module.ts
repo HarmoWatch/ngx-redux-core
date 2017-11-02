@@ -1,17 +1,18 @@
-import { CommonModule } from '@angular/common';
-import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';
-import { createStore, Store, StoreEnhancer, StoreEnhancerStoreCreator } from 'redux';
+import {CommonModule} from '@angular/common';
+import {Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional} from '@angular/core';
+import {createStore, Store, StoreEnhancer, StoreEnhancerStoreCreator} from 'redux';
 
-import { ReduxModuleChildConfig } from './module/child/config';
-import { ReduxModuleRootConfig } from './module/root/config';
-import { ReduxModuleRootReducer } from './module/root/reducer';
-import { Registry } from './registry';
+import {ReduxModuleChildConfig} from './module/child/config';
+import {ReduxModuleRootConfig} from './module/root/config';
+import {ReduxModuleRootReducer} from './module/root/reducer';
+import {Registry} from './registry';
 
-import { ReduxSelectPipe } from './select/pipe';
-import { StateDefinition } from './state/definition';
-import { StateDefinitionManager } from './state/definition/manager';
-import { StateDefToken } from './state/definition/token';
-import { ReduxStore } from './store/token';
+import {ReduxSelectPipe} from './select/pipe';
+import {StateDefinition} from './state/definition';
+import {StateDefinitionManager} from './state/definition/manager';
+import {StateDefToken} from './state/definition/token';
+import {ReduxStore} from './store/token';
+import {MetadataManager} from "./metadata/manager";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,9 @@ import { ReduxStore } from './store/token';
 })
 export class ReduxModule {
 
-  constructor(@Optional() @Inject(StateDefToken) stateDef: StateDefinition = null,
+  private static knownStateDefinitions: { [name: string]: StateDefinition } = {};
+
+  constructor(@Optional() @Inject(StateDefToken) stateDefs: StateDefinition[] = [],
               @Optional() @Inject(ReduxStore) store: Store<{}> = null,
               private injector: Injector) {
 
@@ -34,10 +37,19 @@ export class ReduxModule {
       Registry.registerStore(store);
     }
 
-    if (stateDef) {
-      this.initState(stateDef);
-    }
-
+    stateDefs
+      .filter(stateDef => !!stateDef)
+      .map(stateDef => {
+        return {
+          metadata: MetadataManager.getStateMetadata(stateDef.provider),
+          stateDef,
+        }
+      })
+      .filter(({metadata}) => !ReduxModule.knownStateDefinitions[metadata.name])
+      .forEach(({metadata, stateDef}) => {
+        this.initState(stateDef);
+        ReduxModule.knownStateDefinitions[metadata.name] = stateDef;
+      });
   }
 
   private initState(stateDef: StateDefinition) {
@@ -49,7 +61,7 @@ export class ReduxModule {
     return {
       ngModule: ReduxModule,
       providers: [
-        {provide: StateDefToken, useValue: config.state || null},
+        {provide: StateDefToken, useValue: config.state || null, multi: true},
         config.state ? config.state.provider : null,
       ],
     };
@@ -60,11 +72,11 @@ export class ReduxModule {
       ngModule: ReduxModule,
       providers: config.state ? [
         {provide: ReduxStore, useFactory: config.storeFactory || ReduxModule.defaultStoreFactory},
-        {provide: StateDefToken, useValue: config.state || null},
+        {provide: StateDefToken, useValue: config.state || null, multi: true},
         config.state ? config.state.provider : null,
       ] : [
         {provide: ReduxStore, useFactory: config.storeFactory || ReduxModule.defaultStoreFactory},
-        {provide: StateDefToken, useValue: config.state || null},
+        {provide: StateDefToken, useValue: config.state || null, multi: true},
       ],
     };
   }
