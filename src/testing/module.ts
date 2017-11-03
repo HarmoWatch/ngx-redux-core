@@ -4,17 +4,10 @@ import { TestBed } from '@angular/core/testing';
 import { createStore, Store } from 'redux';
 import { ReduxModuleRootReducer } from '../module/root/reducer';
 import { Registry } from '../registry';
-import { ReduxSelectPipe } from '../select/pipe';
 import { StateDefinition } from '../state/definition';
 import { StateDefinitionManager } from '../state/definition/manager';
 
 @NgModule({
-  declarations: [
-    ReduxSelectPipe,
-  ],
-  exports: [
-    ReduxSelectPipe,
-  ],
   imports: [
     CommonModule,
   ],

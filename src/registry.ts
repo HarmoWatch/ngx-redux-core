@@ -23,7 +23,7 @@ export interface IRegisterStatePayload {
 
 export class Registry {
 
-  public static readonly ACTION_REGISTER_STATE = `ngx-redux://registerState`;
+  public static readonly ACTION_REGISTER_STATE = `@harmowatch/ngx-redux-core/registerState`;
 
   private static _store = new AsyncSubject<Store<{}>>();
   private static _reducers: RegistryReducerItem[] = [];
