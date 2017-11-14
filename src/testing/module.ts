@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { createStore, Store } from 'redux';
+import { ReduxCommonModule } from '../common/module';
 import { ReduxModuleRootReducer } from '../module/root/reducer';
 import { Registry } from '../registry';
 import { StateDefinition } from '../state/definition';
@@ -10,6 +11,7 @@ import { StateDefinitionManager } from '../state/definition/manager';
 @NgModule({
   imports: [
     CommonModule,
+    ReduxCommonModule,
   ],
 })
 export class ReduxTestingModule {

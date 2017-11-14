@@ -1,27 +1,21 @@
-import {CommonModule} from '@angular/common';
-import {Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional} from '@angular/core';
-import {createStore, Store, StoreEnhancer, StoreEnhancerStoreCreator} from 'redux';
+import { CommonModule } from '@angular/common';
+import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';
+import { createStore, Store, StoreEnhancer, StoreEnhancerStoreCreator } from 'redux';
+import { ReduxCommonModule } from './common/module';
+import { MetadataManager } from './metadata/manager';
 
-import {ReduxModuleChildConfig} from './module/child/config';
-import {ReduxModuleRootConfig} from './module/root/config';
-import {ReduxModuleRootReducer} from './module/root/reducer';
-import {Registry} from './registry';
-
-import {ReduxSelectPipe} from './select/pipe';
-import {StateDefinition} from './state/definition';
-import {StateDefinitionManager} from './state/definition/manager';
-import {StateDefToken} from './state/definition/token';
-import {ReduxStore} from './store/token';
-import {MetadataManager} from "./metadata/manager";
+import { ReduxModuleChildConfig } from './module/child/config';
+import { ReduxModuleRootConfig } from './module/root/config';
+import { ReduxModuleRootReducer } from './module/root/reducer';
+import { Registry } from './registry';
+import { StateDefinition } from './state/definition';
+import { StateDefinitionManager } from './state/definition/manager';
+import { StateDefToken } from './state/definition/token';
+import { ReduxStore } from './store/token';
 
 @NgModule({
-  declarations: [
-    ReduxSelectPipe,
-  ],
-  exports: [
-    ReduxSelectPipe,
-  ],
   imports: [
+    ReduxCommonModule,
     CommonModule,
   ],
 })
