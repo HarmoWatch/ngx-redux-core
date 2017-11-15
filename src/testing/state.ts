@@ -3,6 +3,7 @@ import { ReduxStateInterface } from '../state/interface';
 
 export interface TestingStateInterface {
   todo: {
+    isFetching: boolean;
     items: string[];
   };
 }
@@ -14,6 +15,7 @@ export class TestingState implements ReduxStateInterface<TestingStateInterface> 
 
   public static readonly INITIAL_STATE: TestingStateInterface = {
     todo: {
+      isFetching: false,
       items: [ 'Item 1', 'Item 2' ],
     },
   };

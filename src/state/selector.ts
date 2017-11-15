@@ -68,7 +68,7 @@ export class ReduxStateSelector {
     return this.expression.split(ReduxStateSelector.DELIMITER)
       .filter(ReduxStateSelector.isPropertyKeyValid)
       .reduce((previousValue, propertyKey) => {
-        if (!previousValue || !previousValue[ propertyKey ]) {
+        if (!previousValue || !previousValue.hasOwnProperty(propertyKey)) {
           return null;
         }
 

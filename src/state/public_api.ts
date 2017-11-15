@@ -1,3 +1,4 @@
+export * from './constructor';
 export * from './definition';
 export * from './interface';
 export * from './selector';
