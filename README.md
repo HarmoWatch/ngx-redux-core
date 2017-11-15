@@ -1,6 +1,4 @@
-# [WIP] @harmowatch/ngx-redux-core
-
-Hey there, the package is still work in progress, please [check the open tasks](https://github.com/HarmoWatch/ngx-redux/projects/1).
+# @harmowatch/ngx-redux-core
 
 ## Decorator driven redux integration for Angular 2+
 
@@ -18,6 +16,7 @@ Hey there, the package is still work in progress, please [check the open tasks](
   * [5. Select data from the state](#5-select-data-from-the-state)
   * [6. Dispatch an Redux Action](#6-dispatch-an-redux-action)
   * [7. Reduce the State](#7-reduce-the-state)
+  * 8. How to test (TBW)
   
 * [Known violations / conflicts](#known-violations--conflicts)
 
@@ -526,8 +525,8 @@ The example above will dispatch the following action:
 
 ```json
 {
-  "payload": "SampleTodo",
-  "type": "addTodo"
+  "type": "addTodo",
+  "payload": "SampleTodo"
 }
 ```
 
@@ -557,8 +556,8 @@ export class AppActions {
 
 ```json
 {
-  "payload": "SampleTodo",
-  "type": "AppActions://addTodo"
+  "type": "AppActions://addTodo",
+  "payload": "SampleTodo"
 }
 ```
 
@@ -586,7 +585,7 @@ export class AppActions {
 
 ```json
 {
-  "type": "todo/add",
+  "type": "AppActions://addTodo",
   "payload": "SomeTodo" 
 }
 ```
