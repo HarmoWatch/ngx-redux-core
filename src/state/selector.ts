@@ -16,7 +16,7 @@ export class ReduxStateSelector {
 
     if (!expression.startsWith(ReduxStateSelector.DELIMITER)) {
       if (!context) {
-        throw new Error('You need to provide a state context if you want to use relativ selectors');
+        throw new Error('You need to provide a state context if you want to use relative selectors');
       }
 
       this.expression = `/${MetadataManager.getStateMetadata(context).name}/${this.expression}`;
