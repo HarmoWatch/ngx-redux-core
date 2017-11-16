@@ -7,7 +7,10 @@ import { ReduxStateSelector } from '../state/selector';
 @Pipe({name: 'reduxSelect'})
 export class ReduxSelectPipe implements PipeTransform {
 
-  constructor(@Inject(StateDefToken) private stateDef: StateDefinition) {
+  private stateDef: StateDefinition;
+
+  constructor(@Inject(StateDefToken) stateDefs: StateDefinition[] = []) {
+    this.stateDef = stateDefs[ 0 ];
   }
 
   transform(selector: string): Observable<{}> {

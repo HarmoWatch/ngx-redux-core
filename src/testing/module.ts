@@ -9,9 +9,11 @@ import { StateDefinition } from '../state/definition';
 import { StateDefinitionManager } from '../state/definition/manager';
 
 @NgModule({
+  exports: [
+    ReduxCommonModule,
+  ],
   imports: [
     CommonModule,
-    ReduxCommonModule,
   ],
 })
 export class ReduxTestingModule {

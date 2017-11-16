@@ -14,8 +14,10 @@ import { StateDefToken } from './state/definition/token';
 import { ReduxStore } from './store/token';
 
 @NgModule({
-  imports: [
+  exports: [
     ReduxCommonModule,
+  ],
+  imports: [
     CommonModule,
   ],
 })
@@ -37,12 +39,12 @@ export class ReduxModule {
         return {
           metadata: MetadataManager.getStateMetadata(stateDef.provider),
           stateDef,
-        }
+        };
       })
-      .filter(({metadata}) => !ReduxModule.knownStateDefinitions[metadata.name])
+      .filter(({metadata}) => !ReduxModule.knownStateDefinitions[ metadata.name ])
       .forEach(({metadata, stateDef}) => {
         this.initState(stateDef);
-        ReduxModule.knownStateDefinitions[metadata.name] = stateDef;
+        ReduxModule.knownStateDefinitions[ metadata.name ] = stateDef;
       });
   }
 
