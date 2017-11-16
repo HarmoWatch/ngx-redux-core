@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@harmowatch/ngx-redux-core",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "Decorator driven redux integration for Angular 2+",
   "scripts": {
     "replace": "replace",
