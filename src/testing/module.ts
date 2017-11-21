@@ -1,12 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
-import { createStore, Store } from 'redux';
 import { ReduxCommonModule } from '../common/module';
-import { ReduxModuleRootReducer } from '../module/root/reducer';
 import { Registry } from '../registry';
-import { StateDefinition } from '../state/definition';
-import { StateDefinitionManager } from '../state/definition/manager';
+import { StateConstructor } from '../state/constructor';
+import { TestingStore } from './store';
 
 @NgModule({
   exports: [
@@ -15,24 +12,25 @@ import { StateDefinitionManager } from '../state/definition/manager';
   imports: [
     CommonModule,
   ],
+  providers: [
+    TestingStore,
+  ],
 })
 export class ReduxTestingModule {
 
-  constructor() {
-    Registry.reset();
-    Registry.registerStore(ReduxTestingModule.storeFactory());
+  private static store: TestingStore;
+
+  public static setState<S>(clazz: StateConstructor, value: S): any {
+    if (!ReduxTestingModule.store) {
+      ReduxTestingModule.initTestingStore();
+    }
+
+    ReduxTestingModule.store.setState(clazz, value);
   }
 
-  public static addStateDefinition(stateDef: StateDefinition) {
-    Registry.registerState(TestBed.get(stateDef.provider));
-    StateDefinitionManager.registerReducers(stateDef);
-  }
-
-  private static storeFactory(): Store<{}> {
-    return createStore(
-      ReduxModuleRootReducer.reduce,
-      {},
-    );
+  private static initTestingStore() {
+    ReduxTestingModule.store = new TestingStore();
+    Registry.registerStore(ReduxTestingModule.store);
   }
 
 }

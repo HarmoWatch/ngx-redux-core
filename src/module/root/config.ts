@@ -1,7 +1,6 @@
-import { Provider } from '@angular/core';
-import { ReduxModuleChildConfig } from '../child/config';
 import { Store } from 'redux';
+import { ReduxModuleChildConfig } from '../child/config';
 
 export interface ReduxModuleRootConfig extends ReduxModuleChildConfig {
-  storeFactory?: () => Store<{}>;
+  storeFactory?(): Store<{}>;
 }

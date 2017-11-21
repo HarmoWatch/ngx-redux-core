@@ -4,6 +4,8 @@ import { ReduxTestingModule } from '../testing/module';
 import { selectorSuiteFactory } from '../testing/selector/suite.config';
 import { TestingState } from '../testing/state';
 import { ReduxSelect } from './decorator';
+import { TestingStore } from '../testing/store';
+import { Registry } from '../registry';
 
 class TestClass {
 
@@ -32,17 +34,7 @@ describe('select/decorator', () => {
   let fixture: TestClass;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        ReduxTestingModule,
-      ],
-      providers: [ TestingState ],
-    });
-
-    ReduxTestingModule.addStateDefinition({
-      provider: TestingState,
-    });
-
+    ReduxTestingModule.setState(TestingState, TestingState.INITIAL_STATE);
     fixture = new TestClass();
   }));
 
