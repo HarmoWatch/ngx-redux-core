@@ -12,11 +12,9 @@ export class TestingStore implements Store<{}> {
   public setState<S>(state: StateConstructor, value: S): any {
     const {name} = MetadataManager.getStateMetadata(state);
 
-    const newState: S = Object.assign({}, this.state.getValue(), {
+    this.state.next(Object.assign({}, this.state.getValue(), {
       [name]: value,
-    });
-
-    this.state.next(newState);
+    }));
   }
 
   public getState(): {} {
