@@ -22,7 +22,7 @@ describe('select/pipe', () => {
       provider: TestingState,
     });
 
-    pipe = new ReduxSelectPipe({provider: TestingState});
+    pipe = new ReduxSelectPipe([ {provider: TestingState} ]);
     transformedValue = pipe.transform('todo/items');
   }));
 
