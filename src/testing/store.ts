@@ -5,7 +5,7 @@ import { MetadataManager } from '../metadata/manager';
 import { StateConstructor } from '../state/constructor';
 
 @Injectable()
-export class TestingStore implements Store<{}> {
+export class ReduxTestingStore implements Store<{}> {
 
   private state = new BehaviorSubject({});
 

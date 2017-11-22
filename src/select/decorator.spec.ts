@@ -3,9 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { ReduxTestingModule } from '../testing/module';
 import { selectorSuiteFactory } from '../testing/selector/suite.config';
 import { TestingState } from '../testing/state';
+import { ReduxTestingStore } from '../testing/store';
 import { ReduxSelect } from './decorator';
-import { TestingStore } from '../testing/store';
-import { Registry } from '../registry';
 
 class TestClass {
 
@@ -29,12 +28,21 @@ class TestClass {
 
 }
 
-describe('select/decorator', () => {
+fdescribe('select/decorator', () => {
 
   let fixture: TestClass;
+  let store: ReduxTestingStore;
 
   beforeEach(async(() => {
-    ReduxTestingModule.setState(TestingState, TestingState.INITIAL_STATE);
+
+    TestBed.configureTestingModule({
+      imports: [
+        ReduxTestingModule,
+      ],
+    });
+
+    store = TestBed.get(ReduxTestingStore);
+    store.setState(TestingState, TestingState.INITIAL_STATE);
     fixture = new TestClass();
   }));
 
