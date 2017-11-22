@@ -3,15 +3,26 @@ import { Observable } from 'rxjs/Observable';
 import { ReduxTestingModule } from '../testing/module';
 import { selectorSuiteFactory } from '../testing/selector/suite.config';
 import { TestingState } from '../testing/state';
+import { ReduxTestingStore } from '../testing/store';
 import { ReduxSelectPipe } from './pipe';
 
 describe('select/pipe', () => {
 
   let pipe: ReduxSelectPipe;
   let transformedValue: Observable<{}>;
+  let store: ReduxTestingStore;
 
   beforeEach(async(() => {
-    ReduxTestingModule.setState(TestingState, TestingState.INITIAL_STATE);
+
+    TestBed.configureTestingModule({
+      imports: [
+        ReduxTestingModule,
+      ],
+    });
+
+    store = TestBed.get(ReduxTestingStore);
+
+    store.setState(TestingState, TestingState.INITIAL_STATE);
     pipe = new ReduxSelectPipe([ {provider: TestingState} ]);
     transformedValue = pipe.transform('todo/items');
   }));

@@ -4,8 +4,7 @@
   "license": "MIT",
   "scripts": {
     "replace": "replace",
-    "clean:package": "rimraf .ng_build dist",
-    "build:package": "npm run clean:package && ng-packagr -p ng-package.json && npm run hotfix:ng-packagr:issue101",
+    "build:package": "ng-packagr -p ng-package.json && npm run hotfix:ng-packagr:issue101",
     "version:minor": "npm version minor",
     "version:patch": "npm version patch",
     "hotfix:ng-packagr:issue101": "replace \"'redux/index';\" \"'redux';\" dist/**/*",
@@ -25,7 +24,6 @@
     "decorator"
   ],
   "author": "Kay Schecker",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/HarmoWatch/ngx-redux-core/issues"
   },
@@ -35,7 +33,6 @@
     "redux": ">=3.0.0"
   },
   "dependencies": {
-    "@angular/animations": "^5.0.0",
     "@angular/common": "^5.0.0",
     "@angular/compiler": "^5.0.0",
     "@angular/core": "^5.0.0",
@@ -50,11 +47,14 @@
   },
   "devDependencies": {
     "@angular/cli": "1.5.3",
+    "@angular/core": ">=5.0.0",
     "@angular/compiler-cli": "^5.0.0",
     "@angular/language-service": "^5.0.0",
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
+    "@types/redux-logger": "^3.0.5",
+    "redux": ">=3.0.0",
     "codelyzer": "~3.2.0",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
@@ -64,8 +64,10 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "redux-logger": "^3.0.6",
     "ng-packagr": "^1.6.0",
     "protractor": "~5.1.2",
+    "replace": "^0.3.0",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
     "typescript": "~2.4.2"

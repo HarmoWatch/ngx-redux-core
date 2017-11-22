@@ -1,4 +1,4 @@
-###### [ngx-redux](../../README.md) / Pipe
+###### [ngx-redux](../../../README.md) / Pipe
 
 # `reduxSelect`
 

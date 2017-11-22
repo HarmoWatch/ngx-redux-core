@@ -9,26 +9,26 @@ import { ReduxSelect } from './decorator';
 class TestClass {
 
   @ReduxSelect('', TestingState)
-  empty: Observable;
+  empty: Observable<{}>;
 
   @ReduxSelect('todo', TestingState)
-  todo: Observable;
+  todo: Observable<{}>;
 
   @ReduxSelect('todo/items', TestingState)
-  todoItems: Observable;
+  todoItems: Observable<{}>;
 
   @ReduxSelect('todo/items/', TestingState)
-  todoItemsTrailingSlash: Observable;
+  todoItemsTrailingSlash: Observable<{}>;
 
   @ReduxSelect('/', TestingState)
-  root: Observable;
+  root: Observable<{}>;
 
   @ReduxSelect('unknown', TestingState)
-  unknown: Observable;
+  unknown: Observable<{}>;
 
 }
 
-fdescribe('select/decorator', () => {
+describe('select/decorator', () => {
 
   let fixture: TestClass;
   let store: ReduxTestingStore;
