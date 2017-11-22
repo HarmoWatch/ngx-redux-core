@@ -1,5 +1,5 @@
 {
-  "name": "ngx-redux",
+  "name": "@harmowatch/ngx-redux-core",
   "version": "0.1.18",
   "license": "MIT",
   "scripts": {
