@@ -1,21 +1,22 @@
+import { Observable } from 'rxjs/Observable';
 import { StateConstructor } from '../state/constructor';
 import { ReduxStateSelector } from '../state/selector';
 
-export function ReduxSelect(expression: string,
-                            context?: StateConstructor): PropertyDecorator {
+export function ReduxSelect<S = {}>(expression: string,
+                                    context?: StateConstructor): PropertyDecorator {
   return (target: {}, propertyKey: string) => {
 
-    let selector: ReduxStateSelector;
+    let observable: Observable<S>;
 
     Object.defineProperty(target, propertyKey, {
       configurable: true,
       enumerable: true,
       get: () => { // use a getter to be lazy
-        if (!selector) {
-          selector = new ReduxStateSelector(expression, context);
+        if (!observable) {
+          observable = new ReduxStateSelector<S>(expression, context).asObservable();
         }
 
-        return selector.getObservable();
+        return observable;
       },
     });
 

@@ -7,12 +7,14 @@ import { Registry } from '../registry';
 import { StateConstructor } from './constructor';
 import { ReduxStateSelectorSubjectType } from './selector/subject-type';
 
-export class ReduxStateSelector {
+export class ReduxStateSelector<S = {}> {
 
   private static readonly DELIMITER = '/';
+  private subject: Subject<S> = new BehaviorSubject<S>(null);
 
   constructor(private expression: string,
               private context?: StateConstructor) {
+
 
     if (!expression.startsWith(ReduxStateSelector.DELIMITER)) {
       if (!context) {
@@ -22,24 +24,49 @@ export class ReduxStateSelector {
       this.expression = `/${MetadataManager.getStateMetadata(context).name}/${this.expression}`;
     }
 
+    Registry.getStore().then(store => {
+      this.subject.next(this.getValueFromState(store.getState()));
+      store.subscribe(() => this.subject.next(this.getValueFromState(store.getState())));
+    });
+
   }
 
+  public asObservable(): Observable<S> {
+    return this.subject.asObservable();
+  }
+
+  /**
+   * @deprecated
+   * Use asObservable instead
+   */
   public getObservable<S>(): Observable<S> {
     return this.getSubject<S>().asObservable();
   }
 
+  /**
+   * @deprecated This method will be removed
+   */
   public getBehaviorSubject<S>(initialValue: S): BehaviorSubject<S> {
     return this.getBySubjectType(ReduxStateSelectorSubjectType.BEHAVIOR_SUBJECT, initialValue) as BehaviorSubject<S>;
   }
 
+  /**
+   * @deprecated This method will be removed
+   */
   public getReplaySubject<S>(): ReplaySubject<S> {
     return this.getBySubjectType(ReduxStateSelectorSubjectType.REPLAY_SUBJECT) as ReplaySubject<S>;
   }
 
+  /**
+   * @deprecated This method will be removed
+   */
   public getSubject<S>(): Subject<S> {
     return this.getBySubjectType(ReduxStateSelectorSubjectType.SUBJECT) as Subject<S>;
   }
 
+  /**
+   * @deprecated This method will be removed
+   */
   public getBySubjectType<S>(type: ReduxStateSelectorSubjectType,
                              initialValue?: S): ReplaySubject<S> | Subject<S> | BehaviorSubject<S> {
 

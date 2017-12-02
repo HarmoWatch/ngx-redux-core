@@ -396,17 +396,7 @@ export class AppComponent {
 
   constructor() {
     const selector = new ReduxStateSelector('todo/items', AppModuleState);
-
-    selector.getSubject().subscribe((items) => console.log('ITEMS', items));
-
-    // or
-    selector.getReplaySubject().subscribe((items) => console.log('ITEMS', items));
-
-    // or
-    selector.getObservable().subscribe((items) => console.log('ITEMS', items));
-
-    // or
-    selector.getBehaviorSubject([ 'Default Item' ]).subscribe((items) => console.log('ITEMS', items));
+    selector.asObservable().subscribe((items) => console.log('ITEMS', items));
   }
 
 }
@@ -427,17 +417,7 @@ export class AppComponent {
 
   constructor() {
     const selector = new ReduxStateSelector('/app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72/todo/items');
-
-    selector.getSubject().subscribe((items) => console.log('ITEMS', items));
-
-    // or
-    selector.getReplaySubject().subscribe((items) => console.log('ITEMS', items));
-
-    // or
-    selector.getObservable().subscribe((items) => console.log('ITEMS', items));
-
-    // or
-    selector.getBehaviorSubject([ 'Default Item' ]).subscribe((items) => console.log('ITEMS', items));
+    selector.asObservable().subscribe((items) => console.log('ITEMS', items));
   }
 
 }
