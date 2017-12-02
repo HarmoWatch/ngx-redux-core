@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { Action, Store, Unsubscribe } from 'redux';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { MetadataManager } from '../metadata/manager';
-import { StateConstructor } from '../state/constructor';
+import {Injectable} from '@angular/core';
+import {Action, Store, Unsubscribe} from 'redux';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {MetadataManager} from '../metadata/manager';
+import {StateConstructor} from '../state/constructor';
 
 @Injectable()
 export class ReduxTestingStore implements Store<{}> {
 
-  private state = new BehaviorSubject({});
+  private state = new BehaviorSubject(null);
 
   public setState<S>(state: StateConstructor, value: S): any {
     const {name} = MetadataManager.getStateMetadata(state);

@@ -1,10 +1,10 @@
-import { async, TestBed } from '@angular/core/testing';
-import { Observable } from 'rxjs/Observable';
-import { ReduxTestingModule } from '../testing/module';
-import { selectorSuiteFactory } from '../testing/selector/suite.config';
-import { TestingState } from '../testing/state';
-import { ReduxTestingStore } from '../testing/store';
-import { ReduxSelect } from './decorator';
+import {async, TestBed} from '@angular/core/testing';
+import {Observable} from 'rxjs/Observable';
+import {ReduxTestingModule} from '../testing/module';
+import {selectorSuiteFactory} from '../testing/selector/suite.config';
+import {TestingState} from '../testing/state';
+import {ReduxTestingStore} from '../testing/store';
+import {ReduxSelect} from './decorator';
 
 class TestClass {
 
@@ -37,7 +37,12 @@ describe('select/decorator', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        ReduxTestingModule,
+        ReduxTestingModule.forRoot({
+          state: {
+            provider: TestingState,
+            reducers: [],
+          },
+        }),
       ],
     });
 
@@ -51,7 +56,7 @@ describe('select/decorator', () => {
     describe(`property "${cfg.given.name}"`, () => {
 
       it('injects an observable', () => {
-        expect(fixture[ cfg.given.name ] instanceof Observable).toBeTruthy();
+        expect(fixture[cfg.given.name] instanceof Observable).toBeTruthy();
       });
 
       it('directly returns the initial state', ((done) => {

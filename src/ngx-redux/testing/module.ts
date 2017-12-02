@@ -1,8 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { ReduxCommonModule } from '../common/module';
-import { Registry } from '../registry';
-import { ReduxTestingStore } from './store';
+import {CommonModule} from '@angular/common';
+import {Inject, ModuleWithProviders, NgModule, Optional} from '@angular/core';
+import {ReduxCommonModule} from '../common/module';
+import {Registry} from '../registry';
+import {ReduxTestingStore} from './store';
+import {ReduxModuleRootConfig} from '../module/root/config';
+import {StateDefToken} from '../state/definition/token';
+import {Store} from 'redux';
 
 @NgModule({
   exports: [
@@ -17,9 +20,30 @@ import { ReduxTestingStore } from './store';
 })
 export class ReduxTestingModule {
 
-  constructor(private store: ReduxTestingStore) {
-    Registry.reset();
-    Registry.registerStore(this.store);
+  constructor(@Optional() @Inject(ReduxTestingStore) store: Store<{}> = null) {
+    if (store) {
+      Registry.reset();
+      Registry.registerStore(store);
+    }
   }
+
+  public static forRoot(config: ReduxModuleRootConfig = {}): ModuleWithProviders {
+    return {
+      ngModule: ReduxTestingModule,
+      providers: config.state ? [
+        {provide: ReduxTestingStore, useFactory: config.storeFactory || ReduxTestingModule.defaultStoreFactory},
+        {provide: StateDefToken, useValue: config.state || null, multi: true},
+        config.state ? config.state.provider : null,
+      ] : [
+        {provide: ReduxTestingStore, useFactory: config.storeFactory || ReduxTestingModule.defaultStoreFactory},
+        {provide: StateDefToken, useValue: config.state || null, multi: true},
+      ],
+    };
+  }
+
+  public static defaultStoreFactory(): Store<{}> {
+    return new ReduxTestingStore();
+  }
+
 
 }
