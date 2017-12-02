@@ -4,10 +4,9 @@
   "license": "MIT",
   "scripts": {
     "replace": "replace",
-    "build:package": "ng-packagr -p ng-package.json && npm run hotfix:ng-packagr:issue101",
+    "build:package": "ng-packagr -p ng-package.json",
     "version:minor": "npm version minor",
     "version:patch": "npm version patch",
-    "hotfix:ng-packagr:issue101": "replace \"'redux/index';\" \"'redux';\" dist/**/*",
     "publish:package": "npm run build:package && npm publish ./dist/ --access=public"
   },
   "private": false,
@@ -62,7 +61,6 @@
     "protractor": "^5.2.0",
     "redux": ">=3.0.0",
     "redux-logger": "^3.0.6",
-    "replace": "^0.3.0",
     "rxjs": "^5.5.2",
     "ts-node": "^3.3.0",
     "tslint": "^5.8.0",
