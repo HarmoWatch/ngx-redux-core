@@ -25,7 +25,7 @@ describe('ReduxStateSelector', () => {
 
     fixture = new ReduxStateSelector('todo/isFetching', TestingState);
 
-    fixture.getSubject().subscribe((value) => {
+    fixture.asObservable().subscribe((value) => {
       expect(value).toEqual(false);
       done();
     });

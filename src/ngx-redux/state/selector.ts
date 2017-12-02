@@ -1,8 +1,12 @@
+import 'rxjs/add/operator/map';
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { Observer } from 'rxjs/Observer';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subject } from 'rxjs/Subject';
 import { MetadataManager } from '../metadata/manager';
+import { ReduxRootState } from '../module/root/state';
 import { Registry } from '../registry';
 import { StateConstructor } from './constructor';
 import { ReduxStateSelectorSubjectType } from './selector/subject-type';
@@ -10,7 +14,7 @@ import { ReduxStateSelectorSubjectType } from './selector/subject-type';
 export class ReduxStateSelector<S = {}> {
 
   private static readonly DELIMITER = '/';
-  private subject: Subject<S> = new BehaviorSubject<S>(null);
+  private observable: Observable<S>;
 
   constructor(private expression: string,
               private context?: StateConstructor) {
@@ -24,15 +28,17 @@ export class ReduxStateSelector<S = {}> {
       this.expression = `/${MetadataManager.getStateMetadata(context).name}/${this.expression}`;
     }
 
-    Registry.getStore().then(store => {
-      this.subject.next(this.getValueFromState(store.getState()));
-      store.subscribe(() => this.subject.next(this.getValueFromState(store.getState())));
-    });
+    this.observable = Observable.create((observer: Observer<ReduxRootState>) => {
+      Registry.getStore().then(store => {
+        observer.next(store.getState());
+        store.subscribe(() => observer.next(store.getState()));
+      });
+    }).map(state => this.getValueFromState<S>(state));
 
   }
 
   public asObservable(): Observable<S> {
-    return this.subject.asObservable();
+    return this.observable;
   }
 
   /**
@@ -91,7 +97,7 @@ export class ReduxStateSelector<S = {}> {
     return subject;
   }
 
-  public getValueFromState<T, S = {}>(state: S): T {
+  public getValueFromState<T>(state: {}): T {
     return this.expression.split(ReduxStateSelector.DELIMITER)
       .filter(ReduxStateSelector.isPropertyKeyValid)
       .reduce((previousValue, propertyKey) => {
