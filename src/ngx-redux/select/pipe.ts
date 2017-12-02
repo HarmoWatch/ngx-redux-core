@@ -1,3 +1,5 @@
+import 'rxjs/add/operator/distinctUntilChanged';
+
 import { Inject, Pipe, PipeTransform } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { StateDefinition } from '../state/definition';
@@ -14,6 +16,8 @@ export class ReduxSelectPipe implements PipeTransform {
   }
 
   transform(selector: string): Observable<{}> {
-    return new ReduxStateSelector(selector, this.stateDef.provider).getObservable();
+    return new ReduxStateSelector(selector, this.stateDef.provider)
+      .asObservable()
+      .distinctUntilChanged();
   }
 }
