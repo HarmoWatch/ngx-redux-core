@@ -5,3 +5,6 @@ export * from './selector';
 export * from './selector/subject-type';
 export * from './decorator';
 export * from './decorator/config';
+export * from './provider';
+export { ReduxStateProvider } from './provider';
+export { ReduxStateProviderConstructor } from './provider.constructor';

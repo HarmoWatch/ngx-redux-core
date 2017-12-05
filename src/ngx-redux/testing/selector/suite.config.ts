@@ -1,5 +1,5 @@
 import { MetadataManager } from '../../metadata/manager';
-import { TestingState } from '../state';
+import { TestingStateProvider } from '../state';
 
 export interface SelectorTestCase {
   given: {
@@ -13,9 +13,9 @@ export interface SelectorTestCase {
 
 export function selectorSuiteFactory(): SelectorTestCase[] {
 
-  const state = TestingState.INITIAL_STATE;
+  const state = TestingStateProvider.INITIAL_STATE;
   const rootState = {
-    [MetadataManager.getStateMetadata(TestingState).name]: state,
+    [MetadataManager.getStateMetadata(TestingStateProvider).name]: state,
   };
 
   return [ {

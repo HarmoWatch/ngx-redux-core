@@ -2,7 +2,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { ReduxTestingModule } from '../testing/module';
 import { selectorSuiteFactory } from '../testing/selector/suite.config';
-import { TestingState } from '../testing/state';
+import { TestingStateProvider } from '../testing/state';
 import { ReduxTestingStore } from '../testing/store';
 import { ReduxSelectPipe } from './pipe';
 
@@ -22,8 +22,8 @@ describe('select/pipe', () => {
 
     store = TestBed.get(ReduxTestingStore);
 
-    store.setState(TestingState, TestingState.INITIAL_STATE);
-    pipe = new ReduxSelectPipe([ {provider: TestingState} ]);
+    store.setState(TestingStateProvider, TestingStateProvider.INITIAL_STATE);
+    pipe = new ReduxSelectPipe([ {provider: TestingStateProvider} ]);
     transformedValue = pipe.transform('todo/items');
   }));
 

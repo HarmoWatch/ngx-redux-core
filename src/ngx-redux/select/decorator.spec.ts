@@ -2,28 +2,28 @@ import {async, TestBed} from '@angular/core/testing';
 import {Observable} from 'rxjs/Observable';
 import {ReduxTestingModule} from '../testing/module';
 import {selectorSuiteFactory} from '../testing/selector/suite.config';
-import {TestingState} from '../testing/state';
+import {TestingStateProvider} from '../testing/state';
 import {ReduxTestingStore} from '../testing/store';
 import {ReduxSelect} from './decorator';
 
 class TestClass {
 
-  @ReduxSelect('', TestingState)
+  @ReduxSelect('', TestingStateProvider)
   empty: Observable<{}>;
 
-  @ReduxSelect('todo', TestingState)
+  @ReduxSelect('todo', TestingStateProvider)
   todo: Observable<{}>;
 
-  @ReduxSelect('todo/items', TestingState)
+  @ReduxSelect('todo/items', TestingStateProvider)
   todoItems: Observable<{}>;
 
-  @ReduxSelect('todo/items/', TestingState)
+  @ReduxSelect('todo/items/', TestingStateProvider)
   todoItemsTrailingSlash: Observable<{}>;
 
-  @ReduxSelect('/', TestingState)
+  @ReduxSelect('/', TestingStateProvider)
   root: Observable<{}>;
 
-  @ReduxSelect('unknown', TestingState)
+  @ReduxSelect('unknown', TestingStateProvider)
   unknown: Observable<{}>;
 
 }
@@ -39,7 +39,7 @@ describe('select/decorator', () => {
       imports: [
         ReduxTestingModule.forRoot({
           state: {
-            provider: TestingState,
+            provider: TestingStateProvider,
             reducers: [],
           },
         }),
@@ -47,7 +47,7 @@ describe('select/decorator', () => {
     });
 
     store = TestBed.get(ReduxTestingStore);
-    store.setState(TestingState, TestingState.INITIAL_STATE);
+    store.setState(TestingStateProvider, TestingStateProvider.INITIAL_STATE);
     fixture = new TestClass();
   }));
 

@@ -137,17 +137,16 @@ Ok, now you've to create a interface to describe the structure of your state.
 ###### Example 
 
 ```ts
-export interface AppModuleStateInterface {
+export interface AppModuleState {
   todo: {
     items: string[];
   };
 }
 ```
 
-### 3. Create a class representing your module state
+### 3. Create a state provider
 
-Before you can register your state to redux, you need to create a class that represents your state. This class is
-responsible to resolve the initial state.
+Before you can register your state to redux, you have to implement the `ReduxStateProvider`.
 
 #### As you can see in the example below, the class ...
 
@@ -156,12 +155,12 @@ responsible to resolve the initial state.
 You need to decorate your class by `@ReduxState` and to provide a application wide unique state `name` to it. If you can
 not be sure that your name is unique enough, then you can add a unique id to it (*as in the example shown below*). 
 
-##### ... implements `ReduxStateInterface`
+##### ... implements `ReduxStateProvider`
 
-The `@ReduxState` decorator is only valid for classes which implement the `ReduxStateInterface`. This is an generic 
-interface where you've to provide your previously created `AppModuleStateInterface`. The `ReduxStateInterface` compels 
-you to implement a public method `getInitialState`. This method is responsible to know, how the initial state can be 
-computed and will return it as an `Promise`, `Observable` or an implementation of the state interface directly.
+The `@ReduxState` decorator is only valid for classes implementing the `ReduxStateProvider`. This is a generic interface, where 
+you've to provide your previously created `AppModuleState`. The `ReduxStateProvider` enforces the implementation of the public 
+method `getInitialState`. This method is responsible for knowing what the initial state can look like. You can return a 
+`Promise`, `Observable` or an implementation of the state interface.
 
 > Note: The method `getInitialState` is called by *ngx-redux* automatically! Your state will be registered to the root
 state **after** the initial state was resolved successfully.
@@ -169,15 +168,15 @@ state **after** the initial state was resolved successfully.
 ###### Example 1) Interface implementation
 
 ```ts
-import { ReduxState, ReduxStateInterface } from '@harmowatch/ngx-redux-core';
-import { AppModuleStateInterface } from './app.module.state.interface';
+import { ReduxState, ReduxStateProvider } from '@harmowatch/ngx-redux-core';
+import { AppModuleState } from './app.module.state';
 
 @ReduxState({
   name: 'app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72'
 })
-export class AppModuleState implements ReduxStateInterface<AppModuleStateInterface> {
+export class AppModuleStateProvider implements ReduxStateProvider<AppModuleState> {
 
-  getInitialState(): AppModuleStateInterface {
+  getInitialState(): AppModuleState {
     return {
       todo: {
         items: [ 'Item 1', 'Item 2' ],
@@ -191,15 +190,15 @@ export class AppModuleState implements ReduxStateInterface<AppModuleStateInterfa
 ###### Example 2) Promise
 
 ```ts
-import { ReduxState, ReduxStateInterface } from '@harmowatch/ngx-redux-core';
-import { AppModuleStateInterface } from './app.module.state.interface';
+import { ReduxState, ReduxStateProvider } from '@harmowatch/ngx-redux-core';
+import { AppModuleState } from './app.module.state';
 
 @ReduxState({
   name: 'app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72'
 })
-export class AppModuleState implements ReduxStateInterface<AppModuleStateInterface> {
+export class AppModuleStateProvider implements ReduxStateProvider<AppModuleState> {
 
-  getInitialState(): Promise<AppModuleStateInterface> {
+  getInitialState(): Promise<AppModuleState> {
     return Promise.resolve({
       todo: {
         items: [ 'Item 1', 'Item 2' ],
@@ -210,23 +209,23 @@ export class AppModuleState implements ReduxStateInterface<AppModuleStateInterfa
 }
 ```
 
-> Note: If you return a unresolved `Promise` your state is never registered!
+> Note: If you return a rejected or unresolved `Promise` your state is never registered!
 
 ###### Example 3) Observable
 
 ```ts
-import { ReduxState, ReduxStateInterface } from '@harmowatch/ngx-redux-core';
-import { AppModuleStateInterface } from './app.module.state.interface';
+import { ReduxState, ReduxStateProvider } from '@harmowatch/ngx-redux-core';
+import { AppModuleState } from './app.module.state';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 
 @ReduxState({
   name: 'app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72'
 })
-export class AppModuleState implements ReduxStateInterface<AppModuleStateInterface> {
+export class AppModuleStateProvider implements ReduxStateProvider<AppModuleState> {
 
-  getInitialState(): Observable<AppModuleStateInterface> {
-    const subject = new BehaviorSubject<AppModuleStateInterface>({
+  getInitialState(): Observable<AppModuleState> {
+    const subject = new BehaviorSubject<AppModuleState>({
       todo: {
         items: [ 'Item 1', 'Item 2' ],
       }
@@ -239,11 +238,11 @@ export class AppModuleState implements ReduxStateInterface<AppModuleStateInterfa
 }
 ```
 
-> Note: If you return a uncompleted `Observable` your state is never registered!
+> Note: If you return a uncompleted or rejected `Observable` your state is never registered!
 
 ### 4. Register the state:
 
-The next thing you need to do, is to register your state. For that *ngx-redux* accepts a configuration property `state`. 
+The next thing you need to do, is to register your state. For that *ngx-redux* accepts a configuration property `state.provider`. 
 
 ###### Example
 
@@ -253,7 +252,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReduxModule } from '@harmowatch/ngx-redux-core';
 
 import { AppComponent } from './app.component';
-import { AppModuleState } from './app.module.state';
+import { AppModuleStateProvider } from './app.module.state';
 
 @NgModule({
   declarations: [
@@ -263,7 +262,7 @@ import { AppModuleState } from './app.module.state';
     BrowserModule,
     ReduxModule.forRoot({
       state: {
-        provider: AppModuleState,
+        provider: AppModuleStateProvider,
       }
     }),
   ],
@@ -296,18 +295,20 @@ global redux state like this:
 
 To select values from the state you can choose between this three options:
 
-- a [Angular Pipe](https://angular.io/guide/pipes)
-- a Annotation
-- a Class
+- the `reduxSelect` [Angular Pipe](https://angular.io/guide/pipes)
+- the `ReduxSelect` decorator
+- the `ReduxSelector` class
 
-Each selector will accept a relative *todo/items* or an absolute path 
+Each selector option will accept a relative *todo/items* or an absolute path 
 */app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72/todo/items*. It's recommended to use relative paths only. The 
 absolute path is only there to give you a maximum of flexibility.
 
 #### 5.1 Using the `reduxSelect` pipe
 
 The easiest way to get values from the state, is to use the `reduxSelect` pipe together with Angular's `async` pipe. The
-right state is determined automatically, because you're in a Angular context.
+right state provider is determined automatically, because you're in a Angular context.
+
+> Note: You can use the same selector multiple times, *ngx-redux* will cache it for you ;)
 
 ###### Example 1) Relative path (recommended)
 
@@ -333,7 +334,7 @@ argument anymore.
 ```ts
 import { Component } from '@angular/core';
 import { ReduxSelect } from '@harmowatch/ngx-redux-core';
-import { AppModuleState } from './app.module.state';
+import { AppModuleStateProvider } from './app.module.state';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -343,7 +344,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class AppComponent {
 
-  @ReduxSelect('todo/items', AppModuleState)
+  @ReduxSelect('todo/items', AppModuleStateProvider)
   private todoItems: Observable<string[]>;
 
   constructor() {
@@ -378,14 +379,17 @@ export class AppComponent {
 }
 ```
 
-#### 5.3 Using the `ReduxStateSelector` class
+#### 5.3 Using the `ReduxSelector` class
+
+The `ReduxSelector` extends the `rxjs.Observable`, that means that you can use all the `rxjs` power here 🎉
 
 ###### Example 1) Relative path (recommended)
 
 ```ts
+import { Observable } from 'rxjs/Observable';
 import { Component } from '@angular/core';
-import { ReduxStateSelector } from '@harmowatch/ngx-redux-core';
-import { AppModuleState } from './app.module.state';
+import { ReduxSelector } from '@harmowatch/ngx-redux-core';
+import { AppModuleStateProvider } from './app.module.state';
 
 @Component({
   selector: 'app-root',
@@ -395,8 +399,8 @@ import { AppModuleState } from './app.module.state';
 export class AppComponent {
 
   constructor() {
-    const selector = new ReduxStateSelector('todo/items', AppModuleState);
-    selector.asObservable().subscribe((items) => console.log('ITEMS', items));
+    const selector: Observable<string[]> = new ReduxSelector('todo/items', AppModuleStateProvider);
+    selector.subscribe(items => console.log('ITEMS', items));
   }
 
 }
@@ -405,8 +409,9 @@ export class AppComponent {
 ###### Example 2) Absolute path (avoid)
 
 ```ts
+import { Observable } from 'rxjs/Observable';
 import { Component } from '@angular/core';
-import { ReduxStateSelector } from '@harmowatch/ngx-redux-core';
+import { ReduxSelector } from '@harmowatch/ngx-redux-core';
 
 @Component({
   selector: 'app-root',
@@ -416,8 +421,8 @@ import { ReduxStateSelector } from '@harmowatch/ngx-redux-core';
 export class AppComponent {
 
   constructor() {
-    const selector = new ReduxStateSelector('/app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72/todo/items');
-    selector.asObservable().subscribe((items) => console.log('ITEMS', items));
+      const selector: Observable<string[]> = new ReduxSelector('/app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72/todo/items');
+      selector.subscribe(items => console.log('ITEMS', items));
   }
 
 }
@@ -458,7 +463,7 @@ import { ReduxModule } from '@harmowatch/ngx-redux-core';
 import { AppActions } from './app.actions'; // (1) Add the import
 
 import { AppComponent } from './app.component';
-import { AppModuleState } from './app.module.state';
+import { AppModuleStateProvider } from './app.module.state';
 
 @NgModule({
   declarations: [
@@ -468,7 +473,7 @@ import { AppModuleState } from './app.module.state';
     BrowserModule,
     ReduxModule.forRoot({
       state: {
-        provider: AppModuleState,
+        provider: AppModuleStateProvider,
       }
     }),
   ],
@@ -611,12 +616,12 @@ yet. For that we need a reducer.
 ```ts
 import { ActionInterface, ReduxReducer } from '@harmowatch/ngx-redux-core';
 import { AppActions } from './app.actions';
-import { AppModuleStateInterface } from './app.module.state.interface';
+import { AppModuleState } from './app.module.state';
 
 export class AppModuleReducer {
 
   @ReduxReducer(AppActions.prototype.addTodo)
-  static addTodo(state: AppModuleStateInterface, action: ActionInterface<string>) {
+  static addTodo(state: AppModuleState, action: ActionInterface<string>) {
     return {
       ...state,
       todo : {
@@ -641,7 +646,7 @@ import { AppActions } from './app.actions';
 
 import { AppComponent } from './app.component';
 import { AppModuleReducer } from './app.module.reducer'; // (1) Add the import
-import { AppModuleState } from './app.module.state';
+import { AppModuleStateProvider } from './app.module.state';
 
 @NgModule({
   declarations: [
@@ -651,7 +656,7 @@ import { AppModuleState } from './app.module.state';
     BrowserModule,
     ReduxModule.forRoot({
       state: {
-        provider: AppModuleState,
+        provider: AppModuleStateProvider,
         reducers: [ AppModuleReducer ] // (2) Register the reducer
       }
     }),

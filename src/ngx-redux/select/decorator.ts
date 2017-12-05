@@ -1,11 +1,11 @@
 import 'rxjs/add/operator/distinctUntilChanged';
 
 import { Observable } from 'rxjs/Observable';
-import { StateConstructor } from '../state/constructor';
-import { ReduxStateSelector } from '../state/selector';
+import { ReduxSelector } from '../selector';
+import { ReduxStateProviderConstructor } from '../state/provider.constructor';
 
 export function ReduxSelect<S = {}>(expression: string,
-                                    context?: StateConstructor): PropertyDecorator {
+                                    context?: ReduxStateProviderConstructor): PropertyDecorator {
   return (target: {}, propertyKey: string) => {
 
     let observable: Observable<S>;
@@ -15,9 +15,7 @@ export function ReduxSelect<S = {}>(expression: string,
       enumerable: true,
       get: () => { // use a getter to be lazy
         if (!observable) {
-          observable = new ReduxStateSelector<S>(expression, context)
-            .asObservable()
-            .distinctUntilChanged();
+          observable = new ReduxSelector<S>(expression, context).distinctUntilChanged();
         }
 
         return observable;

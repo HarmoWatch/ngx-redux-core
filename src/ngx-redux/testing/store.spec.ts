@@ -1,6 +1,6 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ReduxTestingModule } from './module';
-import { TestingState } from './state';
+import { TestingStateProvider } from './state';
 import { ReduxTestingStore } from './store';
 
 describe('ReduxTestingStore', () => {
@@ -12,7 +12,7 @@ describe('ReduxTestingStore', () => {
       imports: [
         ReduxTestingModule.forRoot({
           state: {
-            provider: TestingState,
+            provider: TestingStateProvider,
           }
         }),
       ],
@@ -25,8 +25,8 @@ describe('ReduxTestingStore', () => {
   describe('setState', () => {
 
     it('returns a promise that is resolved after the state was set', (done) => {
-      const expectedState = TestingState.INITIAL_STATE;
-      store.setState(TestingState, expectedState).then((givenState) => {
+      const expectedState = TestingStateProvider.INITIAL_STATE;
+      store.setState(TestingStateProvider, expectedState).then((givenState) => {
         expect(givenState).toEqual({
           'testing-7c66b613-20bd-4d35-8611-5181ca4a0b72': expectedState,
         });

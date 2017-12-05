@@ -2,9 +2,9 @@ import 'rxjs/add/operator/distinctUntilChanged';
 
 import { Inject, Pipe, PipeTransform } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { ReduxSelectorCacheFactory } from '../selector/cache/selector-cache-factory';
 import { StateDefinition } from '../state/definition';
 import { StateDefToken } from '../state/definition/token';
-import { ReduxStateSelector } from '../state/selector';
 
 @Pipe({name: 'reduxSelect'})
 export class ReduxSelectPipe implements PipeTransform {
@@ -16,8 +16,7 @@ export class ReduxSelectPipe implements PipeTransform {
   }
 
   transform(selector: string): Observable<{}> {
-    return new ReduxStateSelector(selector, this.stateDef.provider)
-      .asObservable()
+    return ReduxSelectorCacheFactory.getOrCreate(selector, this.stateDef.provider)
       .distinctUntilChanged();
   }
 }

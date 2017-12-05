@@ -1,6 +1,6 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ReduxTestingModule } from '../testing/module';
-import { TestingState } from '../testing/state';
+import { TestingStateProvider } from '../testing/state';
 import { ReduxStateSelector } from './selector';
 import { ReduxTestingStore } from '../testing/store';
 
@@ -18,12 +18,12 @@ describe('ReduxStateSelector', () => {
     });
 
     store = TestBed.get(ReduxTestingStore);
-    store.setState(TestingState, TestingState.INITIAL_STATE);
+    store.setState(TestingStateProvider, TestingStateProvider.INITIAL_STATE);
   }));
 
   it('can handle falsy values', (done) => {
 
-    fixture = new ReduxStateSelector('todo/isFetching', TestingState);
+    fixture = new ReduxStateSelector('todo/isFetching', TestingStateProvider);
 
     fixture.asObservable().subscribe((value) => {
       expect(value).toEqual(false);
