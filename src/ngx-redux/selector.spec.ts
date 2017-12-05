@@ -108,6 +108,7 @@ describe('ReduxSelector', () => {
       };
 
       const expectedSequence: string[][] = [
+        [],
         state1.todo.items,
         state2.todo.items,
       ];

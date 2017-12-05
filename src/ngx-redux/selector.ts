@@ -16,9 +16,9 @@ export class ReduxSelector<T> extends Observable<T> {
 
     super(observer => {
       Registry.getStore().then(store => {
-        store.subscribe(() => {
-          observer.next(ReduxSelector.getValueByState(store.getState(), selector, stateProvider));
-        });
+        const next = () => observer.next(ReduxSelector.getValueByState(store.getState(), selector, stateProvider));
+        store.subscribe(() => next());
+        next(); // we need to trigger a initial value, otherwise we've to wait until the first state change
       });
     });
 
