@@ -310,6 +310,8 @@ right state provider is determined automatically, because you're in a Angular co
 
 > Note: You can use the same selector multiple times, *ngx-redux* will cache it for you ;)
 
+> Note: [distinctUntilChanged](http://rxmarbles.com/#distinctUntilChanged) is applied automatically
+
 ###### Example 1) Relative path (recommended)
 
 ```angular2html
@@ -328,6 +330,8 @@ If you want to access the state values in your component you can use the `@Redux
 determine which state you mean automatically, because decorators run outside the Angular context. For that you've to
 pass in a reference to your state class as 2nd argument. When you specify an absolute path, you don't need the 2nd 
 argument anymore.
+
+> Note: [distinctUntilChanged](http://rxmarbles.com/#distinctUntilChanged) is applied automatically
 
 ###### Example 1) Relative path (recommended)
 
@@ -382,6 +386,8 @@ export class AppComponent {
 #### 5.3 Using the `ReduxSelector` class
 
 The `ReduxSelector` extends the `rxjs.Observable`, that means that you can use all the `rxjs` power here 🎉
+
+> Note: [distinctUntilChanged](http://rxmarbles.com/#distinctUntilChanged) is NOT applied automatically
 
 ###### Example 1) Relative path (recommended)
 
