@@ -7,7 +7,7 @@
     "build:package": "ng-packagr -p ng-package.json",
     "version:minor": "npm version minor",
     "version:patch": "npm version patch",
-    "publish:package": "npm run build:package && npm publish ./dist/ --access=public"
+    "publish:package": "npm run build:package && npm publish ./dist/ --access=public --registry https://registry.npmjs.org/"
   },
   "private": false,
   "keywords": [
@@ -25,6 +25,10 @@
   "author": "Kay Schecker",
   "bugs": {
     "url": "https://github.com/HarmoWatch/ngx-redux-core/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarmoWatch/ngx-redux.git"
   },
   "homepage": "https://github.com/HarmoWatch/ngx-redux-core#readme",
   "peerDependencies": {
