@@ -22,4 +22,14 @@ export class ReduxActionManager {
     });
   }
 
+  public static createProxy<P>(descriptor: TypedPropertyDescriptor<ActionFunctionType<P>>): ActionFunctionType<P> {
+    const originalFunction = descriptor.value;
+
+    return function () {
+      const returnValue = originalFunction.apply(this, arguments);
+      ReduxActionManager.dispatch(descriptor.value, returnValue);
+      return returnValue;
+    };
+  }
+
 }

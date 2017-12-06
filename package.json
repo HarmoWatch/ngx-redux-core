@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HarmoWatch/ngx-redux.git"
+    "url": "git+https://github.com/HarmoWatch/ngx-redux-core.git"
   },
   "homepage": "https://github.com/HarmoWatch/ngx-redux-core#readme",
   "peerDependencies": {

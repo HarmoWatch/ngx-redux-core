@@ -13,19 +13,13 @@ export function ReduxAction(config?: ReduxActionConfig): ReduxActionDecoratorTyp
       ...config,
     };
 
-    const originalFunction = descriptor.value;
-    const proxyFunction = function () {
-      const returnValue = originalFunction.apply(this, arguments);
-      ReduxActionManager.dispatch(target[ propertyKey ], returnValue);
-      return returnValue;
-    };
-
-    MetadataManager.setActionMetadata(proxyFunction, {
+    const proxy = ReduxActionManager.createProxy(descriptor);
+    MetadataManager.setActionMetadata(proxy, {
       contextClazz: target.constructor,
       type: config.type,
     });
 
-    descriptor.value = proxyFunction;
+    descriptor.value = proxy;
 
   };
 }

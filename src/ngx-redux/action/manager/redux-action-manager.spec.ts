@@ -6,7 +6,7 @@ import { ReduxActionManager } from './redux-action-manager';
 
 describe('ReduxActionManager', () => {
 
-  describe('getType', () => {
+  describe('getType()', () => {
 
     beforeEach(() => {
       spyOn(MetadataManager, 'getActionMetadata').and.callFake(t => t.metadata);
@@ -30,7 +30,7 @@ describe('ReduxActionManager', () => {
 
   });
 
-  describe('dispatch', () => {
+  describe('dispatch()', () => {
 
     let dispatch: jasmine.Spy;
     let target: ActionFunctionType<{}>;
@@ -97,6 +97,23 @@ describe('ReduxActionManager', () => {
         });
       });
 
+    });
+
+  });
+
+  describe('createProxy()', () => {
+
+    it('creates a proxy function', () => {
+      spyOn(ReduxActionManager, 'dispatch');
+
+      const payload = {sample: 'payload'};
+      const value = jasmine.createSpy('PropertyDescriptor.value').and.returnValue(payload);
+      const proxy = ReduxActionManager.createProxy({value} as {} as PropertyDescriptor);
+
+      expect(proxy('foo', 'bar', 132)).toEqual(payload);
+      expect(value).toHaveBeenCalledTimes(1);
+      expect(ReduxActionManager.dispatch).toHaveBeenCalledTimes(1);
+      expect(ReduxActionManager.dispatch).toHaveBeenCalledWith(value, payload);
     });
 
   });
