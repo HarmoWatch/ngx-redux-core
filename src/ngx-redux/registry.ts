@@ -1,12 +1,12 @@
-import { Reducer, Store } from 'redux';
 import 'rxjs/add/operator/toPromise';
+
+import { Reducer, Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Observable } from 'rxjs/Observable';
-
-import { getActionTypeByFunction } from './action/decorator';
 import { ActionFunctionType } from './action/function-type';
 import { ActionFunctionTypeArray } from './action/function-type-array';
 import { ActionInterface } from './action/interface';
+import { ReduxActionManager } from './action/manager/redux-action-manager';
 import { MetadataManager } from './metadata/manager';
 import { ReduxStateInterface } from './state/interface';
 
@@ -83,12 +83,11 @@ export class Registry {
   }
 
   public static getReducerItemsByType(type: string): RegistryReducerItem[] {
-    return Registry._reducers
-      .filter(reducerItem => getActionTypeByFunction(reducerItem.type) === type);
+    return Registry._reducers.filter(reducerItem => ReduxActionManager.getType(reducerItem.type) === type);
   }
 
   public static getStore(): Promise<Store<{}>> {
-    return new Promise(Registry._store.subscribe.bind(Registry._store));
+    return Registry._store.toPromise();
   }
 
 }
