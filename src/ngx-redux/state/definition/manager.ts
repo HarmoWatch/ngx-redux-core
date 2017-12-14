@@ -10,7 +10,7 @@ export class StateDefinitionManager {
       const stateMetadata = MetadataManager.getStateMetadata(stateDef.provider);
 
       stateDef.reducers
-        .map((reducer) => MetadataManager.getReducerMetadata(reducer.constructor))
+        .map((reducer) => MetadataManager.getReducerMetadata(reducer))
         .forEach((metadata: ReduxReducerDecoratorMetadata) => {
           metadata.reducers.forEach(reducer => {
             Registry.registerReducer(stateMetadata.name, reducer.types, reducer.reducer);
