@@ -1,5 +1,7 @@
+import * as reduxCore from '@harmowatch/redux-core';
+
 import { CommonModule } from '@angular/common';
-import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';
+import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, NgModuleRef, Optional } from '@angular/core';
 import { createStore, Store, StoreEnhancer, StoreEnhancerStoreCreator } from 'redux';
 import { ReduxCommonModule } from './common/module';
 import { MetadataManager } from './metadata/manager';
@@ -27,7 +29,17 @@ export class ReduxModule {
 
   constructor(@Optional() @Inject(StateDefToken) stateDefs: StateDefinition[] = [],
               @Optional() @Inject(ReduxStore) store: Store<{}> = null,
+              ref: NgModuleRef<{}>,
               private injector: Injector) {
+
+    const reduxModuleConfig = reduxCore.ReduxModuleDecorator.instance.get(ref.instance.constructor);
+
+    if (reduxModuleConfig) {
+      stateDefs.push({
+        provider: reduxModuleConfig.state,
+        reducers: reduxModuleConfig.reducers,
+      });
+    }
 
     if (store) {
       Registry.registerStore(store);

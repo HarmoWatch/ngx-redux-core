@@ -1,8 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { ReduxModuleClassDecorator } from '@harmowatch/redux-core';
+import { ReduxModule } from '../ngx-redux/module';
 
 import { AppComponent } from './app.component';
+import { AppModuleStateProvider } from './app.module.state.provider';
 
 
 @NgModule({
@@ -10,9 +12,17 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    ReduxModule.forRoot(),
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    AppModuleStateProvider,
+  ],
+  bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+@ReduxModuleClassDecorator({
+  state: AppModuleStateProvider,
+  reducers: [],
+})
+export class AppModule {
+}

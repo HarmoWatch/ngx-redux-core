@@ -1,3 +1,4 @@
+import * as reduxCore from '@harmowatch/redux-core';
 import { ReduxActionDecoratorMetadata } from '../action/decorator/metadata';
 import { ReduxReducerDecoratorMetadata } from '../reducer/decorator/metadata';
 
@@ -61,14 +62,17 @@ export class MetadataManager {
   }
 
   public static getStateMetadata<T>(target: T): StateData {
-    return MetadataManager.get(target, MetadataManager.STATE_KEY, MetadataManager.STATE_DEFAULT);
+    return {
+      ...MetadataManager.STATE_DEFAULT,
+      ...reduxCore.ReduxStateDecorator.instance.get(target),
+    };
   }
 
-  private static set <D, T>(target: T, key: string | symbol, data: D) {
+  private static set<D, T>(target: T, key: string | symbol, data: D) {
     Reflect[ 'defineMetadata' ](key, data, target);
   }
 
-  private static get <D, T>(target: T, key: string | symbol, defaultData: D): D {
+  private static get<D, T>(target: T, key: string | symbol, defaultData: D): D {
     defaultData = defaultData || {} as D;
     return Object.assign({}, defaultData, Reflect[ 'getMetadata' ](key, target));
   }
