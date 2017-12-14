@@ -29,10 +29,6 @@ export class ReduxModule {
               @Optional() @Inject(ReduxStore) store: Store<{}> = null,
               private injector: Injector) {
 
-    if (store) {
-      Registry.registerStore(store);
-    }
-
     stateDefs
       .filter(stateDef => !!stateDef)
       .map(stateDef => {
@@ -65,7 +61,7 @@ export class ReduxModule {
 
   public static forRoot(config: ReduxModuleRootConfig = {}): ModuleWithProviders {
     return {
-      ngModule: ReduxModule,
+      ngModule: ReduxRootModule,
       providers: config.state ? [
         {provide: ReduxStore, useFactory: config.storeFactory || ReduxModule.defaultStoreFactory},
         {provide: StateDefToken, useValue: config.state || null, multi: true},
@@ -95,6 +91,25 @@ export class ReduxModule {
 
   public static nullEnhancer(next: StoreEnhancerStoreCreator<{}>): StoreEnhancerStoreCreator<{}> {
     return next;
+  }
+
+}
+
+@NgModule({
+  exports: [
+    ReduxCommonModule,
+  ],
+  imports: [
+    CommonModule,
+  ],
+})
+export class ReduxRootModule {
+
+  constructor(@Optional() @Inject(ReduxStore) store: Store<{}> = null) {
+
+    if (store) {
+      Registry.registerStore(store);
+    }
   }
 
 }
