@@ -1,3 +1,4 @@
+[![npm version](https://badge.fury.io/js/%40harmowatch%2Fngx-redux-core.svg)](https://badge.fury.io/js/%40harmowatch%2Fngx-redux-core)
 # @harmowatch/ngx-redux-core
 
 ## Decorator driven redux integration for Angular 2+
