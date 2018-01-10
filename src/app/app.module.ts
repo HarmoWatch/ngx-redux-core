@@ -15,7 +15,7 @@ import { AppComponent } from './app.component';
     RouterModule.forRoot([
       {path: 'todo', loadChildren: './todo/todo.module#TodoModule'},
       {path: '', redirectTo: 'todo', pathMatch: 'prefix'},
-    ])
+    ], {useHash: true})
   ],
   exports: [
     AppComponent,
