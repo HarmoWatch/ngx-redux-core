@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReduxModuleClassDecorator } from '@harmowatch/redux-core';
+import { RouterModule } from '@angular/router';
 import { ReduxModule } from '../ngx-redux/module';
 
 import { AppComponent } from './app.component';
-import { AppModuleStateProvider } from './app.module.state.provider';
-
 
 @NgModule({
   declarations: [
@@ -14,15 +12,15 @@ import { AppModuleStateProvider } from './app.module.state.provider';
   imports: [
     BrowserModule,
     ReduxModule.forRoot(),
+    RouterModule.forRoot([
+      {path: 'todo', loadChildren: './todo/todo.module#TodoModule'},
+      {path: '', redirectTo: 'todo', pathMatch: 'prefix'},
+    ])
   ],
-  providers: [
-    AppModuleStateProvider,
+  exports: [
+    AppComponent,
   ],
   bootstrap: [ AppComponent ]
-})
-@ReduxModuleClassDecorator({
-  state: AppModuleStateProvider,
-  reducers: [],
 })
 export class AppModule {
 }

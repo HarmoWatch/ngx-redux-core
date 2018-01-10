@@ -1,10 +1,7 @@
-import * as reduxCore from '@harmowatch/redux-core';
-
 import { CommonModule } from '@angular/common';
-import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, NgModuleRef, Optional } from '@angular/core';
+import { Inject, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';
 import { createStore, Store, StoreEnhancer, StoreEnhancerStoreCreator } from 'redux';
 import { ReduxCommonModule } from './common/module';
-import { MetadataManager } from './metadata/manager';
 
 import { ReduxModuleChildConfig } from './module/child/config';
 import { ReduxModuleRootConfig } from './module/root/config';
@@ -22,47 +19,38 @@ import { ReduxStore } from './store/token';
   imports: [
     CommonModule,
   ],
+  providers: [
+    StateDefinitionManager,
+  ]
+})
+export class ReduxRootModule {
+
+  constructor(@Inject(ReduxStore) store: Store<{}> = null,
+              private stateDefinitionManager: StateDefinitionManager,
+              @Optional() @Inject(StateDefToken) stateDefs: StateDefinition[] = []) {
+    Registry.registerStore(store);
+    this.stateDefinitionManager.add(stateDefs);
+  }
+
+}
+
+@NgModule({
+  exports: [
+    ReduxCommonModule,
+  ],
+  imports: [
+    CommonModule,
+  ],
+  providers: [
+    StateDefinitionManager,
+  ]
 })
 export class ReduxModule {
 
-  private static knownStateDefinitions: { [name: string]: StateDefinition } = {};
-
   constructor(@Optional() @Inject(StateDefToken) stateDefs: StateDefinition[] = [],
-              @Optional() @Inject(ReduxStore) store: Store<{}> = null,
-              ref: NgModuleRef<{}>,
-              private injector: Injector) {
+              private stateDefinitionManager: StateDefinitionManager) {
 
-    const reduxModuleConfig = reduxCore.ReduxModuleDecorator.instance.get(ref.instance.constructor);
-
-    if (reduxModuleConfig) {
-      stateDefs.push({
-        provider: reduxModuleConfig.state,
-        reducers: reduxModuleConfig.reducers,
-      });
-    }
-
-    if (store) {
-      Registry.registerStore(store);
-    }
-
-    stateDefs
-      .filter(stateDef => !!stateDef)
-      .map(stateDef => {
-        return {
-          metadata: MetadataManager.getStateMetadata(stateDef.provider),
-          stateDef,
-        };
-      })
-      .filter(({metadata}) => !ReduxModule.knownStateDefinitions[ metadata.name ])
-      .forEach(({metadata, stateDef}) => {
-        this.initState(stateDef);
-        ReduxModule.knownStateDefinitions[ metadata.name ] = stateDef;
-      });
-  }
-
-  private initState(stateDef: StateDefinition) {
-    Registry.registerState(this.injector.get(stateDef.provider));
-    StateDefinitionManager.registerReducers(stateDef);
+    this.stateDefinitionManager.add(stateDefs);
   }
 
   public static forChild(config: ReduxModuleChildConfig = {}): ModuleWithProviders {
@@ -77,7 +65,7 @@ export class ReduxModule {
 
   public static forRoot(config: ReduxModuleRootConfig = {}): ModuleWithProviders {
     return {
-      ngModule: ReduxModule,
+      ngModule: ReduxRootModule,
       providers: config.state ? [
         {provide: ReduxStore, useFactory: config.storeFactory || ReduxModule.defaultStoreFactory},
         {provide: StateDefToken, useValue: config.state || null, multi: true},
@@ -102,10 +90,10 @@ export class ReduxModule {
       return window[ '__REDUX_DEVTOOLS_EXTENSION__' ]();
     }
 
-    return ReduxModule.nullEnhancer;
+    return ReduxModule.noopEnhancer;
   }
 
-  public static nullEnhancer(next: StoreEnhancerStoreCreator<{}>): StoreEnhancerStoreCreator<{}> {
+  public static noopEnhancer(next: StoreEnhancerStoreCreator<{}>): StoreEnhancerStoreCreator<{}> {
     return next;
   }
 

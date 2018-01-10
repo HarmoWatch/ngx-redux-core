@@ -1,22 +1,42 @@
-import { MetadataManager } from '../../metadata/manager';
-import { ReduxReducerDecoratorMetadata } from '../../reducer/decorator/metadata';
+import { Injectable, Injector } from '@angular/core';
+import { ReduxReducerType } from '@harmowatch/redux-core/reducer/redux-reducer.type';
+import { ReduxReducerDecorator, ReduxStateDecorator } from '@harmowatch/redux-decorators';
 import { Registry } from '../../registry';
 import { StateDefinition } from '../definition';
 
+@Injectable()
 export class StateDefinitionManager {
 
-  public static registerReducers(stateDef: StateDefinition) {
-    if (stateDef.reducers) {
-      const stateMetadata = MetadataManager.getStateMetadata(stateDef.provider);
+  private knownStateDefinitions: { [name: string]: StateDefinition } = {};
 
-      stateDef.reducers
-        .map((reducer) => MetadataManager.getReducerMetadata(reducer.constructor))
-        .forEach((metadata: ReduxReducerDecoratorMetadata) => {
-          metadata.reducers.forEach(reducer => {
-            Registry.registerReducer(stateMetadata.name, reducer.types, reducer.reducer);
-          });
-        });
-    }
+  constructor(private injector: Injector) {
+  }
+
+  public add(stateDefs: StateDefinition[]) {
+    stateDefs
+      .filter(def => def != null)
+      .forEach(def => {
+        const {name} = ReduxStateDecorator.get(def.provider);
+
+        if (!this.knownStateDefinitions[ name ]) {
+          Registry.registerState(this.injector.get(def.provider));
+
+          if (Array.isArray(def.reducers)) {
+            this.registerReducers(name, def.reducers);
+          }
+
+          this.knownStateDefinitions[ name ] = def;
+        }
+      });
+  }
+
+  private registerReducers(stateName: string, reducers: ReduxReducerType[]) {
+    reducers.forEach(reducerClass => Object.values(reducerClass.prototype)
+      .forEach(reducerMethod => {
+        const type = ReduxReducerDecorator.get(reducerMethod);
+        Registry.registerReducer(stateName, Array.isArray(type) ? type : [ type ], reducerMethod);
+      })
+    );
   }
 
 }

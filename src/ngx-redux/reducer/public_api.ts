@@ -1,1 +1,3 @@
-export { ReduxReducer } from './decorator';
+import { ReduxReducerDecorator } from '@harmowatch/redux-decorators';
+
+export const ReduxReducer = ReduxReducerDecorator.forMethod;

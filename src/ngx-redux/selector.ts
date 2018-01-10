@@ -1,7 +1,7 @@
+import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
 import 'rxjs/add/operator/map';
 
 import { Observable } from 'rxjs/Observable';
-import { MetadataManager } from './metadata/manager';
 import { ReduxRootState } from './module/root/state';
 import { Registry } from './registry';
 import { ReduxSelectorCacheFactory } from './selector/cache/selector-cache-factory';
@@ -37,7 +37,7 @@ export class ReduxSelector<T> extends Observable<T> {
         throw new Error('You need to provide a state provider, if you use relative selectors');
       }
 
-      return `/${MetadataManager.getStateMetadata(stateProvider).name}/${selector}`;
+      return `/${ReduxStateDecorator.get(stateProvider).name}/${selector}`;
     }
 
     return selector;

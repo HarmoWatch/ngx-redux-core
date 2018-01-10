@@ -1,5 +1,5 @@
-import { ReduxState } from '../state/decorator';
 import { ReduxStateProvider } from '../state/provider';
+import { ReduxState } from '../state/public_api';
 
 export interface TestingState {
   todo: {

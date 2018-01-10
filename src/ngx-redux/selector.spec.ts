@@ -64,7 +64,7 @@ describe('ReduxSelector', () => {
 
   });
 
-  describe('instantiation with a relative selector, but not state provider reference was given', () => {
+  describe('instantiation with a relative selector, but no state provider reference was given', () => {
 
     it('throws an exception', () => {
       expect(function () {

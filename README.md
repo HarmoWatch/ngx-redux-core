@@ -608,7 +608,7 @@ export class AppActions {
 ```json
 {
   "payload": "SampleTodo",
-  "type": "AppActions://add-todo"
+  "type": addDefinitionIfUnknown
 }
 ```
 

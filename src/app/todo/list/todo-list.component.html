@@ -1,0 +1,8 @@
+
+<input #todo type="text" />
+<button (click)="add(todo.value)">Add todo</button>
+
+<ul class="todo-list">
+  <li *ngFor="let todo of ('items' | reduxSelect | async)">{{todo}}</li>
+</ul>
+

@@ -1,13 +1,11 @@
+import { ReduxActionDispatcher, ReduxStateDecorator } from '@harmowatch/redux-decorators';
+import { Action, Reducer, Store } from 'redux';
 import 'rxjs/add/operator/toPromise';
-
-import { Reducer, Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Observable } from 'rxjs/Observable';
 import { ActionFunctionType } from './action/function-type';
 import { ActionFunctionTypeArray } from './action/function-type-array';
 import { ActionInterface } from './action/interface';
-import { ReduxActionManager } from './action/manager/redux-action-manager';
-import { MetadataManager } from './metadata/manager';
 import { ReduxStateInterface } from './state/interface';
 
 export class RegistryReducerItem {
@@ -36,6 +34,10 @@ export class Registry {
   public static registerStore(store: Store<{}>) {
     Registry._store.next(store);
     Registry._store.complete();
+
+    ReduxActionDispatcher.dispatchedActions.subscribe(action => {
+      store.dispatch(action as Action);
+    });
   }
 
   public static registerReducer(stateName: string, types: ActionFunctionTypeArray<{}>, reducer: Reducer<{}>) {
@@ -61,7 +63,7 @@ export class Registry {
   public static registerState(state: ReduxStateInterface<{}>) {
     Registry.getStore().then((store) => {
 
-      const stateConfig = MetadataManager.getStateMetadata(state.constructor);
+      const stateConfig = ReduxStateDecorator.get(state.constructor);
       const initState = state.getInitialState();
       let initStateToResolve = initState;
 
@@ -83,11 +85,12 @@ export class Registry {
   }
 
   public static getReducerItemsByType(type: string): RegistryReducerItem[] {
-    return Registry._reducers.filter(reducerItem => ReduxActionManager.getType(reducerItem.type) === type);
+    return Registry._reducers
+      .filter(reducerItem => ReduxActionDispatcher.getType(reducerItem.type) === type);
   }
 
   public static getStore(): Promise<Store<{}>> {
-    return Registry._store.toPromise();
+    return new Promise(Registry._store.subscribe.bind(Registry._store));
   }
 
 }

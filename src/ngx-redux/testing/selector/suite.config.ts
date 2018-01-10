@@ -1,4 +1,4 @@
-import { MetadataManager } from '../../metadata/manager';
+import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
 import { TestingStateProvider } from '../state';
 
 export interface SelectorTestCase {
@@ -15,7 +15,7 @@ export function selectorSuiteFactory(): SelectorTestCase[] {
 
   const state = TestingStateProvider.INITIAL_STATE;
   const rootState = {
-    [MetadataManager.getStateMetadata(TestingStateProvider).name]: state,
+    [ReduxStateDecorator.get(TestingStateProvider).name]: state,
   };
 
   return [ {
