@@ -9,6 +9,7 @@ install:
 script:
   - npm run ci:test
   - npm run ci:lint
+  - npm run ci:build:github:page
 
 before_install:
   - export DISPLAY=:99.0
@@ -16,3 +17,12 @@ before_install:
 
 addons:
   chrome: stable
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  keep-history: true
+  local-dir: "github-page"
+  on:
+    branch: next
