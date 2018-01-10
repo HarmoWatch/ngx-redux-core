@@ -57,7 +57,7 @@
     "@types/redux-logger": "3.0.5",
     "codelyzer": "4.0.2",
     "core-js": "2.5.3",
-    "coveralls": "^3.0.0",
+    "coveralls": "3.0.0",
     "jasmine-core": "2.8.0",
     "jasmine-spec-reporter": "4.2.1",
     "karma": "1.7.1",
