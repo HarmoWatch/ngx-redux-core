@@ -20,6 +20,7 @@
   * [Redux?](#what-is-redux)
   * [ngx-redux?](#what-is-ngx-redux)
 
+* [Demo (WIP)](https://harmowatch.github.io/ngx-redux-core/)
 * [Installation](#installation)
 * [Usage](#usage)
   * [1.) Import the root `ReduxModule`](#1-import-the-root-reduxmodule)
