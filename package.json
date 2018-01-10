@@ -3,12 +3,13 @@
   "version": "0.1.25",
   "license": "MIT",
   "scripts": {
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "replace": "replace",
     "build:package": "ng-packagr -p ng-package.json",
     "version:minor": "npm version minor",
     "version:patch": "npm version patch",
     "publish:package": "npm run build:package && npm publish ./dist/ --access=public --registry https://registry.npmjs.org/",
-    "ci:test": "ng test --single-run",
+    "ci:test": "ng test --single-run && npm run coveralls",
     "ci:lint": "ng lint"
   },
   "private": false,
@@ -55,6 +56,7 @@
     "@types/redux-logger": "3.0.5",
     "codelyzer": "4.0.2",
     "core-js": "2.5.3",
+    "coveralls": "^3.0.0",
     "jasmine-core": "2.8.0",
     "jasmine-spec-reporter": "4.2.1",
     "karma": "1.7.1",
