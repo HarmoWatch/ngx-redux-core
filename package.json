@@ -11,7 +11,7 @@
     "publish:package": "npm run build:package && npm publish ./dist/ --access=public --registry https://registry.npmjs.org/",
     "ci:test": "ng test --code-coverage --single-run && npm run coveralls",
     "ci:lint": "ng lint",
-    "ci:build:github:page": "ng build --output-path github-page --deploy-url=https://harmowatch.github.io/ngx-redux-core/"
+    "ci:build:github:page": "ng build --output-path github-page --deploy-url=https://harmowatch.github.io/ngx-redux-core/ --base-href=/ngx-redux-core/"
   },
   "private": false,
   "keywords": [
