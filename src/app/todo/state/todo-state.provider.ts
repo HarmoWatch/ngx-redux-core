@@ -2,7 +2,7 @@ import { ReduxStateInterface } from '@harmowatch/redux-decorators/state/redux-st
 import { ReduxState } from '../../../ngx-redux/public_api';
 
 export interface TodoState {
-  items: string[],
+  items: string[];
 }
 
 @ReduxState({name: 'todo'})

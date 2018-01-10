@@ -15,7 +15,7 @@ export function selectorSuiteFactory(): SelectorTestCase[] {
 
   const state = TestingStateProvider.INITIAL_STATE;
   const rootState = {
-    [ReduxStateDecorator.get(TestingStateProvider).name]: state,
+    [ ReduxStateDecorator.get(TestingStateProvider).name ]: state,
   };
 
   return [ {
@@ -26,7 +26,7 @@ export function selectorSuiteFactory(): SelectorTestCase[] {
     result: {
       initialState: null,
     },
-  },{
+  }, {
     given: {
       name: 'empty',
       path: '',
