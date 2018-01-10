@@ -1,4 +1,4 @@
-import { ReduxStateInterface } from './interface';
+import { ReduxStateInterface } from '@harmowatch/redux-decorators';
 
 /**
  * @deprecated Use StateProviderType instead

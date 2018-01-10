@@ -1,7 +1,7 @@
 import { Type } from '@angular/core';
-import { StateConstructor } from './constructor';
+import { ReduxStateType } from '@harmowatch/redux-decorators';
 
-export interface StateDefinition {
-  provider: StateConstructor;
-  reducers?: Type<{}>[];
+export interface StateDefinition<S = {}> {
+  provider: ReduxStateType;
+  reducers?: Type<S>[];
 }

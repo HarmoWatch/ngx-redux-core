@@ -1,5 +1,5 @@
+import { ReduxStateType } from '@harmowatch/redux-decorators';
 import { ReduxSelector } from '../../selector';
-import { ReduxStateProviderConstructor } from '../../state/provider.constructor';
 
 export class ReduxSelectorCacheFactory {
 
@@ -11,7 +11,7 @@ export class ReduxSelectorCacheFactory {
     ReduxSelectorCacheFactory.selectors = {};
   }
 
-  public static getOrCreate<T>(selector: string, stateProvider?: ReduxStateProviderConstructor): ReduxSelector<T> {
+  public static getOrCreate<T>(selector: string, stateProvider?: ReduxStateType): ReduxSelector<T> {
     if (ReduxSelectorCacheFactory.has(selector, stateProvider)) {
       return ReduxSelectorCacheFactory.get(selector, stateProvider);
     }
@@ -19,22 +19,22 @@ export class ReduxSelectorCacheFactory {
     return new ReduxSelector(selector, stateProvider);
   }
 
-  public static get<T>(selector: string, stateProvider?: ReduxStateProviderConstructor): ReduxSelector<T> {
+  public static get<T>(selector: string, stateProvider?: ReduxStateType): ReduxSelector<T> {
     const key = ReduxSelectorCacheFactory.getKey(selector, stateProvider);
     return ReduxSelectorCacheFactory.selectors[ key ] as ReduxSelector<T>;
   }
 
-  public static set(reduxSelector: ReduxSelector<{}>, selector: string, stateProvider?: ReduxStateProviderConstructor) {
+  public static set(reduxSelector: ReduxSelector<{}>, selector: string, stateProvider?: ReduxStateType) {
     const key = ReduxSelectorCacheFactory.getKey(selector, stateProvider);
     ReduxSelectorCacheFactory.selectors[ key ] = reduxSelector;
   }
 
-  public static has(selector: string, stateProvider?: ReduxStateProviderConstructor): boolean {
+  public static has(selector: string, stateProvider?: ReduxStateType): boolean {
     const key = ReduxSelectorCacheFactory.getKey(selector, stateProvider);
     return !!ReduxSelectorCacheFactory.selectors[ key ];
   }
 
-  private static getKey(selector: string, stateProvider?: ReduxStateProviderConstructor): string {
+  private static getKey(selector: string, stateProvider?: ReduxStateType): string {
     return ReduxSelector.getAbsoluteSelector(selector, stateProvider);
   }
 

@@ -1,18 +1,17 @@
-import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
+import { ReduxStateDecorator, ReduxStateType } from '@harmowatch/redux-decorators';
 import 'rxjs/add/operator/map';
 
 import { Observable } from 'rxjs/Observable';
 import { ReduxRootState } from './module/root/state';
 import { Registry } from './registry';
 import { ReduxSelectorCacheFactory } from './selector/cache/selector-cache-factory';
-import { ReduxStateProviderConstructor } from './state/provider.constructor';
 
 export class ReduxSelector<T> extends Observable<T> {
 
   private static readonly DELIMITER = '/';
 
   constructor(selector = '/',
-              stateProvider?: ReduxStateProviderConstructor) {
+              stateProvider?: ReduxStateType) {
 
     super(observer => {
       Registry.getStore().then(store => {
@@ -27,11 +26,11 @@ export class ReduxSelector<T> extends Observable<T> {
     }
   }
 
-  public static create<T>(selector: string, stateProvider?: ReduxStateProviderConstructor): ReduxSelector<T> {
+  public static create<T>(selector: string, stateProvider?: ReduxStateType): ReduxSelector<T> {
     return new ReduxSelector(selector, stateProvider);
   }
 
-  public static getAbsoluteSelector(selector: string, stateProvider?: ReduxStateProviderConstructor): string {
+  public static getAbsoluteSelector(selector: string, stateProvider?: ReduxStateType): string {
     if (!selector.startsWith(ReduxSelector.DELIMITER)) {
       if (!stateProvider) {
         throw new Error('You need to provide a state provider, if you use relative selectors');
@@ -43,7 +42,7 @@ export class ReduxSelector<T> extends Observable<T> {
     return selector;
   }
 
-  public static getValueByState<S>(state: ReduxRootState<S>, selector: string, stateProvider?: ReduxStateProviderConstructor): S {
+  public static getValueByState<S>(state: ReduxRootState<S>, selector: string, stateProvider?: ReduxStateType): S {
     return ReduxSelector.getAbsoluteSelector(selector, stateProvider).split(ReduxSelector.DELIMITER)
       .filter(propertyKey => propertyKey !== '')
       .reduce((previousValue, propertyKey) => {

@@ -9,7 +9,7 @@
     "version:minor": "npm version minor",
     "version:patch": "npm version patch",
     "publish:package": "npm run build:package && npm publish ./dist/ --access=public --registry https://registry.npmjs.org/",
-    "ci:test": "ng test --single-run && npm run coveralls",
+    "ci:test": "ng test --code-coverage --single-run && npm run coveralls",
     "ci:lint": "ng lint"
   },
   "private": false,

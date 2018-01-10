@@ -1,17 +1,19 @@
-import { ReduxActionDispatcher, ReduxStateDecorator } from '@harmowatch/redux-decorators';
+import {
+  ReduxActionDispatcher,
+  ReduxActionFunction,
+  ReduxStateDecorator,
+  ReduxStateInterface
+} from '@harmowatch/redux-decorators';
 import { Action, Reducer, Store } from 'redux';
 import 'rxjs/add/operator/toPromise';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Observable } from 'rxjs/Observable';
-import { ActionFunctionType } from './action/function-type';
-import { ActionFunctionTypeArray } from './action/function-type-array';
 import { ActionInterface } from './action/interface';
-import { ReduxStateInterface } from './state/interface';
 
 export class RegistryReducerItem {
   stateName: string;
   reducer: Reducer<{}>;
-  type: ActionFunctionType<{}>;
+  type: ReduxActionFunction<{}>;
 }
 
 export interface IRegisterStatePayload {
@@ -40,7 +42,7 @@ export class Registry {
     });
   }
 
-  public static registerReducer(stateName: string, types: ActionFunctionTypeArray<{}>, reducer: Reducer<{}>) {
+  public static registerReducer(stateName: string, types: ReduxActionFunction<{}>[], reducer: Reducer<{}>) {
 
     if (Array.isArray(types)) {
       types.forEach((type) => {
@@ -54,7 +56,7 @@ export class Registry {
       Registry._reducers.push({
         reducer,
         stateName,
-        type: types as ActionFunctionType<{}>,
+        type: types as ReduxActionFunction<{}>,
       });
     }
 
