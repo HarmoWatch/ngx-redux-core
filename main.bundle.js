@@ -116,7 +116,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* RouterModule */].forRoot([
                     { path: 'todo', loadChildren: './todo/todo.module#TodoModule' },
                     { path: '', redirectTo: 'todo', pathMatch: 'prefix' },
-                ])
+                ], { useHash: true })
             ],
             exports: [
                 __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */],
