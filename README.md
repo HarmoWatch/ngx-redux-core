@@ -7,7 +7,7 @@
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovateapp.com/)
 [![Build Status](https://travis-ci.org/HarmoWatch/ngx-redux-core.svg?branch=next)](https://travis-ci.org/HarmoWatch/ngx-redux-core)
 [![Coverage Status](https://coveralls.io/repos/github/HarmoWatch/ngx-redux-core/badge.svg?branch=next)](https://coveralls.io/github/HarmoWatch/ngx-redux-core?branch=next)
-[![Maintainability](https://api.codeclimate.com/v1/badges/e2f8abd1a70656b59a63/maintainability)](https://codeclimate.com/github/HarmoWatch/ngx-redux-core/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/24a417a5e870fbe5e94e/maintainability)](https://codeclimate.com/github/HarmoWatch/ngx-redux-core/maintainability)
 
 [![bitHound Overall Score](https://www.bithound.io/github/HarmoWatch/ngx-redux-core/badges/score.svg)](https://www.bithound.io/github/HarmoWatch/ngx-redux-core)
 [![bitHound Dependencies](https://www.bithound.io/github/HarmoWatch/ngx-redux-core/badges/dependencies.svg)](https://www.bithound.io/github/HarmoWatch/ngx-redux-core/next/dependencies/npm)
