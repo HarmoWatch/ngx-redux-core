@@ -53,7 +53,7 @@
     "@angular/router": "5.2.0",
     "@types/jasmine": "2.8.4",
     "@types/jasminewd2": "2.0.3",
-    "@types/node": "8.5.8",
+    "@types/node": "8.5.9",
     "@types/redux-logger": "3.0.5",
     "codelyzer": "4.1.0",
     "core-js": "2.5.3",
