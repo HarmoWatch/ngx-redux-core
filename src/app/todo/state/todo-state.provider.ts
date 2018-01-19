@@ -1,4 +1,4 @@
-import { ReduxStateInterface } from '@harmowatch/redux-decorators/state/redux-state.interface';
+import { ReduxStateInterface } from '@harmowatch/redux-decorators';
 import { ReduxState } from '../../../ngx-redux/public_api';
 
 export interface TodoState {

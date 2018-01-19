@@ -8,12 +8,6 @@
 [![Build Status](https://travis-ci.org/HarmoWatch/ngx-redux-core.svg?branch=next)](https://travis-ci.org/HarmoWatch/ngx-redux-core)
 [![Coverage Status](https://coveralls.io/repos/github/HarmoWatch/ngx-redux-core/badge.svg?branch=next)](https://coveralls.io/github/HarmoWatch/ngx-redux-core?branch=next)
 [![Maintainability](https://api.codeclimate.com/v1/badges/24a417a5e870fbe5e94e/maintainability)](https://codeclimate.com/github/HarmoWatch/ngx-redux-core/maintainability)
-
-[![bitHound Overall Score](https://www.bithound.io/github/HarmoWatch/ngx-redux-core/badges/score.svg)](https://www.bithound.io/github/HarmoWatch/ngx-redux-core)
-[![bitHound Dependencies](https://www.bithound.io/github/HarmoWatch/ngx-redux-core/badges/dependencies.svg)](https://www.bithound.io/github/HarmoWatch/ngx-redux-core/next/dependencies/npm)
-[![bitHound Dev Dependencies](https://www.bithound.io/github/HarmoWatch/ngx-redux-core/badges/devDependencies.svg)](https://www.bithound.io/github/HarmoWatch/ngx-redux-core/next/dependencies/npm)
-[![bitHound Code](https://www.bithound.io/github/HarmoWatch/ngx-redux-core/badges/code.svg)](https://www.bithound.io/github/HarmoWatch/ngx-redux-core)
-
 [![codebeat badge](https://codebeat.co/badges/9c43bf4d-4eab-4c5c-837d-473faf297f77)](https://codebeat.co/projects/github-com-harmowatch-ngx-redux-core-next)
 
 * What is ...

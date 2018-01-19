@@ -1,6 +1,6 @@
 {
   "name": "@harmowatch/ngx-redux-core",
-  "version": "0.1.25",
+  "version": "0.1.27",
   "license": "MIT",
   "scripts": {
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
@@ -77,6 +77,6 @@
     "zone.js": "0.8.20"
   },
   "dependencies": {
-    "@harmowatch/redux-decorators": "0.0.2"
+    "@harmowatch/redux-decorators": "0.0.3"
   }
 }
