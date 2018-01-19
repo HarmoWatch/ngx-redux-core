@@ -43,7 +43,7 @@ export class ReduxSelector<T> extends Observable<T> {
   }
 
   public static getValueByState<S>(state: ReduxRootState<S>, selector: string, stateProvider?: ReduxStateType): S {
-    return ReduxSelector.getAbsoluteSelector(selector, stateProvider).split(ReduxSelector.DELIMITER)
+    const value: S = ReduxSelector.getAbsoluteSelector(selector, stateProvider).split(ReduxSelector.DELIMITER)
       .filter(propertyKey => propertyKey !== '')
       .reduce((previousValue, propertyKey) => {
         if (!previousValue || !previousValue.hasOwnProperty(propertyKey)) {
@@ -52,6 +52,8 @@ export class ReduxSelector<T> extends Observable<T> {
 
         return previousValue[ propertyKey ];
       }, state as {});
+
+    return value;
   }
 
 }

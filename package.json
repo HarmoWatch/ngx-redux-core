@@ -1,17 +1,27 @@
 {
+  "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "@harmowatch/ngx-redux-core",
   "version": "0.1.28-0",
   "license": "MIT",
   "scripts": {
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "replace": "replace",
-    "build:package": "ng-packagr -p ng-package.json",
+    "build:package": "ng-packagr -p package.json",
     "version:minor": "npm version minor",
     "version:patch": "npm version patch",
     "publish:package": "npm run build:package && npm publish ./dist/ --access=public --registry https://registry.npmjs.org/",
     "ci:test": "ng test --code-coverage --single-run && npm run coveralls",
     "ci:lint": "ng lint",
     "ci:build:github:page": "ng build --output-path github-page --deploy-url=https://harmowatch.github.io/ngx-redux-core/ --base-href=/ngx-redux-core/"
+  },
+  "ngPackage": {
+    "lib": {
+      "entryFile": "src/ngx-redux/public_api.ts",
+      "languageLevel": [
+        "dom",
+        "es2017"
+      ]
+    }
   },
   "private": false,
   "keywords": [
@@ -66,7 +76,7 @@
     "karma-coverage-istanbul-reporter": "1.3.3",
     "karma-jasmine": "1.1.1",
     "karma-jasmine-html-reporter": "0.2.2",
-    "ng-packagr": "1.6.0",
+    "ng-packagr": "^2.0.0-rc.11",
     "protractor": "5.2.2",
     "redux": "3.7.2",
     "redux-logger": "3.0.6",

@@ -87,8 +87,10 @@ export class Registry {
   }
 
   public static getReducerItemsByType(type: string): RegistryReducerItem[] {
-    return Registry._reducers
+    const reducerItemsByType: RegistryReducerItem[] = Registry._reducers
       .filter(reducerItem => ReduxActionDispatcher.getType(reducerItem.type) === type);
+
+    return reducerItemsByType;
   }
 
   public static getStore(): Promise<Store<{}>> {
