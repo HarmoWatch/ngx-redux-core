@@ -204,12 +204,13 @@ var ActionInterface = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxAction; });
 /* unused harmony export ReduxActionContext */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/@harmowatch/redux-decorators.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__interface__ = __webpack_require__("../../../../../src/ngx-redux/action/interface.ts");
 /* unused harmony namespace reexport */
 
-var ReduxAction = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["b" /* ReduxActionDecorator */].forMethod;
-var ReduxActionContext = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["a" /* ReduxActionContextDecorator */].forClass;
+var ReduxAction = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["ReduxActionDecorator"].forMethod;
+var ReduxActionContext = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["ReduxActionContextDecorator"].forClass;
 
 
 
@@ -269,9 +270,10 @@ var ReduxActionContext = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorator
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxReducer; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/@harmowatch/redux-decorators.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__);
 
-var ReduxReducer = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["d" /* ReduxReducerDecorator */].forMethod;
+var ReduxReducer = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["ReduxReducerDecorator"].forMethod;
 
 
 /***/ }),
@@ -323,12 +325,13 @@ function ReduxSelect(expression, context) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxState; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/@harmowatch/redux-decorators.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__selector__ = __webpack_require__("../../../../../src/ngx-redux/state/selector.ts");
 /* unused harmony namespace reexport */
 
 
-var ReduxState = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["e" /* ReduxStateDecorator */].forClass;
+var ReduxState = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["ReduxStateDecorator"].forClass;
 
 
 /***/ }),
@@ -471,7 +474,8 @@ var ReduxTestingModule = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxTestingStore; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/@harmowatch/redux-decorators.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__harmowatch_redux_decorators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__harmowatch_redux_decorators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_takeWhile__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/takeWhile.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/toPromise.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
@@ -493,7 +497,7 @@ var ReduxTestingStore = (function () {
     }
     ReduxTestingStore.prototype.setState = function (state, value) {
         var _this = this;
-        var name = __WEBPACK_IMPORTED_MODULE_1__harmowatch_redux_decorators__["e" /* ReduxStateDecorator */].get(state).name;
+        var name = __WEBPACK_IMPORTED_MODULE_1__harmowatch_redux_decorators__["ReduxStateDecorator"].get(state).name;
         var nextState = Object.assign({}, this.state.getValue(), (_a = {},
             _a[name] = value,
             _a));
@@ -533,7 +537,7 @@ var ReduxTestingStore = (function () {
 /** PURE_IMPORTS_START .._.._Observable,.._.._operator_takeWhile PURE_IMPORTS_END */
 
 
-__WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */].prototype.takeWhile = __WEBPACK_IMPORTED_MODULE_1__operator_takeWhile__["a" /* takeWhile */];
+__WEBPACK_IMPORTED_MODULE_0__Observable__["Observable"].prototype.takeWhile = __WEBPACK_IMPORTED_MODULE_1__operator_takeWhile__["a" /* takeWhile */];
 //# sourceMappingURL=takeWhile.js.map 
 
 

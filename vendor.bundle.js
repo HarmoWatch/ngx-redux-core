@@ -1,20 +1,10 @@
 webpackJsonp(["vendor"],{
 
-/***/ "../../../../@harmowatch/redux-decorators/@harmowatch/redux-decorators.es5.js":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "../../../../@harmowatch/redux-decorators/lib/action/context/decorator/redux-action-context-decorator.js":
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global, process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ReduxActionDecorator; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ReduxActionDispatcher; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxActionContextDecorator; });
-/* unused harmony export ReduxModuleDecorator */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ReduxReducerDecorator; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ReduxStateDecorator; });
-/* unused harmony export ɵa */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/toPromise.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__ = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -25,1147 +15,136 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+Object.defineProperty(exports, "__esModule", { value: true });
+var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js");
+var ReduxActionContextDecorator = /** @class */ (function (_super) {
+    __extends(ReduxActionContextDecorator, _super);
+    function ReduxActionContextDecorator() {
+        return _super.call(this, 'ReduxActionContext') || this;
+    }
+    ReduxActionContextDecorator.instance = new ReduxActionContextDecorator();
+    ReduxActionContextDecorator.get = ReduxActionContextDecorator.instance.get.bind(ReduxActionContextDecorator.instance);
+    ReduxActionContextDecorator.forClass = ReduxActionContextDecorator.instance.forClass;
+    return ReduxActionContextDecorator;
+}(generic_decorator_1.GenericDecorator));
+exports.ReduxActionContextDecorator = ReduxActionContextDecorator;
+//# sourceMappingURL=redux-action-context-decorator.js.map
 
+/***/ }),
 
+/***/ "../../../../@harmowatch/redux-decorators/lib/action/decorator/redux-action-decorator.js":
+/***/ (function(module, exports, __webpack_require__) {
 
-var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-/*! *****************************************************************************
-Copyright (C) Microsoft. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
+"use strict";
 
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__("../../../../rxjs/_esm5/add/operator/toPromise.js");
+var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js");
+var redux_action_dispatcher_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/action/dispatcher/redux-action-dispatcher.js");
+var ReduxActionDecorator = /** @class */ (function (_super) {
+    __extends(ReduxActionDecorator, _super);
+    function ReduxActionDecorator() {
+        return _super.call(this, 'ReduxAction') || this;
+    }
+    Object.defineProperty(ReduxActionDecorator.prototype, "forMethod", {
+        get: function () {
+            var _this = this;
+            return function (config) { return function (target, propertyKey, descriptor) {
+                config = Object.assign({
+                    type: String(propertyKey),
+                    contextClass: target.constructor,
+                }, config);
+                var originalFunction = descriptor.value;
+                var proxyFunction = function () {
+                    var returnValue = originalFunction.apply(this, arguments);
+                    redux_action_dispatcher_1.ReduxActionDispatcher.dispatch(proxyFunction, returnValue);
+                    return returnValue;
+                };
+                _this.defineMetadata(proxyFunction, config);
+                descriptor.value = proxyFunction;
+            }; };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ReduxActionDecorator.instance = new ReduxActionDecorator();
+    ReduxActionDecorator.get = ReduxActionDecorator.instance.get.bind(ReduxActionDecorator.instance);
+    ReduxActionDecorator.forMethod = ReduxActionDecorator.instance.forMethod;
+    return ReduxActionDecorator;
+}(generic_decorator_1.GenericDecorator));
+exports.ReduxActionDecorator = ReduxActionDecorator;
+//# sourceMappingURL=redux-action-decorator.js.map
 
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-var Reflect$1;
-(function (Reflect) {
-    var hasOwn = Object.prototype.hasOwnProperty;
-    // feature test for Symbol support
-    var supportsSymbol = typeof Symbol === "function";
-    var toPrimitiveSymbol = supportsSymbol && typeof Symbol.toPrimitive !== "undefined" ? Symbol.toPrimitive : "@@toPrimitive";
-    var iteratorSymbol = supportsSymbol && typeof Symbol.iterator !== "undefined" ? Symbol.iterator : "@@iterator";
-    var HashMap;
-    (function (HashMap) {
-        var supportsCreate = typeof Object.create === "function"; // feature test for Object.create support
-        var supportsProto = { __proto__: [] } instanceof Array; // feature test for __proto__ support
-        var downLevel = !supportsCreate && !supportsProto;
-        // create an object in dictionary mode (a.k.a. "slow" mode in v8)
-        HashMap.create = supportsCreate
-            ? function () { return MakeDictionary(Object.create(null)); }
-            : supportsProto
-                ? function () { return MakeDictionary({ __proto__: null }); }
-                : function () { return MakeDictionary({}); };
-        HashMap.has = downLevel
-            ? function (map, key) { return hasOwn.call(map, key); }
-            : function (map, key) { return key in map; };
-        HashMap.get = downLevel
-            ? function (map, key) { return hasOwn.call(map, key) ? map[key] : undefined; }
-            : function (map, key) { return map[key]; };
-    })(HashMap || (HashMap = {}));
-    // Load global or shim versions of Map, Set, and WeakMap
-    var functionPrototype = Object.getPrototypeOf(Function);
-    var usePolyfill = typeof process === "object" && process.env && process.env["REFLECT_METADATA_USE_MAP_POLYFILL"] === "true";
-    var _Map = !usePolyfill && typeof Map === "function" && typeof Map.prototype.entries === "function" ? Map : CreateMapPolyfill();
-    var _Set = !usePolyfill && typeof Set === "function" && typeof Set.prototype.entries === "function" ? Set : CreateSetPolyfill();
-    var _WeakMap = !usePolyfill && typeof WeakMap === "function" ? WeakMap : CreateWeakMapPolyfill();
-    // [[Metadata]] internal slot
-    // https://rbuckton.github.io/reflect-metadata/#ordinary-object-internal-methods-and-internal-slots
-    var Metadata = new _WeakMap();
-    /**
-      * Applies a set of decorators to a property of a target object.
-      * @param decorators An array of decorators.
-      * @param target The target object.
-      * @param propertyKey (Optional) The property key to decorate.
-      * @param attributes (Optional) The property descriptor for the target key.
-      * @remarks Decorators are applied in reverse order.
-      * @example
-      *
-      *     class Example {
-      *         // property declarations are not part of ES6, though they are valid in TypeScript:
-      *         // static staticProperty;
-      *         // property;
-      *
-      *         constructor(p) { }
-      *         static staticMethod(p) { }
-      *         method(p) { }
-      *     }
-      *
-      *     // constructor
-      *     Example = Reflect.decorate(decoratorsArray, Example);
-      *
-      *     // property (on constructor)
-      *     Reflect.decorate(decoratorsArray, Example, "staticProperty");
-      *
-      *     // property (on prototype)
-      *     Reflect.decorate(decoratorsArray, Example.prototype, "property");
-      *
-      *     // method (on constructor)
-      *     Object.defineProperty(Example, "staticMethod",
-      *         Reflect.decorate(decoratorsArray, Example, "staticMethod",
-      *             Object.getOwnPropertyDescriptor(Example, "staticMethod")));
-      *
-      *     // method (on prototype)
-      *     Object.defineProperty(Example.prototype, "method",
-      *         Reflect.decorate(decoratorsArray, Example.prototype, "method",
-      *             Object.getOwnPropertyDescriptor(Example.prototype, "method")));
-      *
-      */
-    function decorate(decorators, target, propertyKey, attributes) {
-        if (!IsUndefined(propertyKey)) {
-            if (!IsArray(decorators))
-                throw new TypeError();
-            if (!IsObject(target))
-                throw new TypeError();
-            if (!IsObject(attributes) && !IsUndefined(attributes) && !IsNull(attributes))
-                throw new TypeError();
-            if (IsNull(attributes))
-                attributes = undefined;
-            propertyKey = ToPropertyKey(propertyKey);
-            return DecorateProperty(decorators, target, propertyKey, attributes);
+/***/ }),
+
+/***/ "../../../../@harmowatch/redux-decorators/lib/action/dispatcher/redux-action-dispatcher.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var Observable_1 = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
+var Subject_1 = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+var redux_action_context_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/action/context/decorator/redux-action-context-decorator.js");
+var redux_action_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/action/decorator/redux-action-decorator.js");
+var ReduxActionDispatcher = /** @class */ (function () {
+    function ReduxActionDispatcher() {
+    }
+    ReduxActionDispatcher.getType = function (target) {
+        var action = redux_action_decorator_1.ReduxActionDecorator.get(target);
+        if (!action) {
+            return null;
         }
-        else {
-            if (!IsArray(decorators))
-                throw new TypeError();
-            if (!IsConstructor(target))
-                throw new TypeError();
-            return DecorateConstructor(decorators, target);
-        }
-    }
-    Reflect.decorate = decorate;
-    // 4.1.2 Reflect.metadata(metadataKey, metadataValue)
-    // https://rbuckton.github.io/reflect-metadata/#reflect.metadata
-    /**
-      * A default metadata decorator factory that can be used on a class, class member, or parameter.
-      * @param metadataKey The key for the metadata entry.
-      * @param metadataValue The value for the metadata entry.
-      * @returns A decorator function.
-      * @remarks
-      * If `metadataKey` is already defined for the target and target key, the
-      * metadataValue for that key will be overwritten.
-      * @example
-      *
-      *     // constructor
-      *     @Reflect.metadata(key, value)
-      *     class Example {
-      *     }
-      *
-      *     // property (on constructor, TypeScript only)
-      *     class Example {
-      *         @Reflect.metadata(key, value)
-      *         static staticProperty;
-      *     }
-      *
-      *     // property (on prototype, TypeScript only)
-      *     class Example {
-      *         @Reflect.metadata(key, value)
-      *         property;
-      *     }
-      *
-      *     // method (on constructor)
-      *     class Example {
-      *         @Reflect.metadata(key, value)
-      *         static staticMethod() { }
-      *     }
-      *
-      *     // method (on prototype)
-      *     class Example {
-      *         @Reflect.metadata(key, value)
-      *         method() { }
-      *     }
-      *
-      */
-    function metadata(metadataKey, metadataValue) {
-        function decorator(target, propertyKey) {
-            if (!IsObject(target))
-                throw new TypeError();
-            if (!IsUndefined(propertyKey) && !IsPropertyKey(propertyKey))
-                throw new TypeError();
-            OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, propertyKey);
-        }
-        return decorator;
-    }
-    Reflect.metadata = metadata;
-    /**
-      * Define a unique metadata entry on the target.
-      * @param metadataKey A key used to store and retrieve metadata.
-      * @param metadataValue A value that contains attached metadata.
-      * @param target The target object on which to define metadata.
-      * @param propertyKey (Optional) The property key for the target.
-      * @example
-      *
-      *     class Example {
-      *         // property declarations are not part of ES6, though they are valid in TypeScript:
-      *         // static staticProperty;
-      *         // property;
-      *
-      *         constructor(p) { }
-      *         static staticMethod(p) { }
-      *         method(p) { }
-      *     }
-      *
-      *     // constructor
-      *     Reflect.defineMetadata("custom:annotation", options, Example);
-      *
-      *     // property (on constructor)
-      *     Reflect.defineMetadata("custom:annotation", options, Example, "staticProperty");
-      *
-      *     // property (on prototype)
-      *     Reflect.defineMetadata("custom:annotation", options, Example.prototype, "property");
-      *
-      *     // method (on constructor)
-      *     Reflect.defineMetadata("custom:annotation", options, Example, "staticMethod");
-      *
-      *     // method (on prototype)
-      *     Reflect.defineMetadata("custom:annotation", options, Example.prototype, "method");
-      *
-      *     // decorator factory as metadata-producing annotation.
-      *     function MyAnnotation(options): Decorator {
-      *         return (target, key?) => Reflect.defineMetadata("custom:annotation", options, target, key);
-      *     }
-      *
-      */
-    function defineMetadata(metadataKey, metadataValue, target, propertyKey) {
-        if (!IsObject(target))
-            throw new TypeError();
-        if (!IsUndefined(propertyKey))
-            propertyKey = ToPropertyKey(propertyKey);
-        return OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, propertyKey);
-    }
-    Reflect.defineMetadata = defineMetadata;
-    /**
-      * Gets a value indicating whether the target object or its prototype chain has the provided metadata key defined.
-      * @param metadataKey A key used to store and retrieve metadata.
-      * @param target The target object on which the metadata is defined.
-      * @param propertyKey (Optional) The property key for the target.
-      * @returns `true` if the metadata key was defined on the target object or its prototype chain; otherwise, `false`.
-      * @example
-      *
-      *     class Example {
-      *         // property declarations are not part of ES6, though they are valid in TypeScript:
-      *         // static staticProperty;
-      *         // property;
-      *
-      *         constructor(p) { }
-      *         static staticMethod(p) { }
-      *         method(p) { }
-      *     }
-      *
-      *     // constructor
-      *     result = Reflect.hasMetadata("custom:annotation", Example);
-      *
-      *     // property (on constructor)
-      *     result = Reflect.hasMetadata("custom:annotation", Example, "staticProperty");
-      *
-      *     // property (on prototype)
-      *     result = Reflect.hasMetadata("custom:annotation", Example.prototype, "property");
-      *
-      *     // method (on constructor)
-      *     result = Reflect.hasMetadata("custom:annotation", Example, "staticMethod");
-      *
-      *     // method (on prototype)
-      *     result = Reflect.hasMetadata("custom:annotation", Example.prototype, "method");
-      *
-      */
-    function hasMetadata(metadataKey, target, propertyKey) {
-        if (!IsObject(target))
-            throw new TypeError();
-        if (!IsUndefined(propertyKey))
-            propertyKey = ToPropertyKey(propertyKey);
-        return OrdinaryHasMetadata(metadataKey, target, propertyKey);
-    }
-    Reflect.hasMetadata = hasMetadata;
-    /**
-      * Gets a value indicating whether the target object has the provided metadata key defined.
-      * @param metadataKey A key used to store and retrieve metadata.
-      * @param target The target object on which the metadata is defined.
-      * @param propertyKey (Optional) The property key for the target.
-      * @returns `true` if the metadata key was defined on the target object; otherwise, `false`.
-      * @example
-      *
-      *     class Example {
-      *         // property declarations are not part of ES6, though they are valid in TypeScript:
-      *         // static staticProperty;
-      *         // property;
-      *
-      *         constructor(p) { }
-      *         static staticMethod(p) { }
-      *         method(p) { }
-      *     }
-      *
-      *     // constructor
-      *     result = Reflect.hasOwnMetadata("custom:annotation", Example);
-      *
-      *     // property (on constructor)
-      *     result = Reflect.hasOwnMetadata("custom:annotation", Example, "staticProperty");
-      *
-      *     // property (on prototype)
-      *     result = Reflect.hasOwnMetadata("custom:annotation", Example.prototype, "property");
-      *
-      *     // method (on constructor)
-      *     result = Reflect.hasOwnMetadata("custom:annotation", Example, "staticMethod");
-      *
-      *     // method (on prototype)
-      *     result = Reflect.hasOwnMetadata("custom:annotation", Example.prototype, "method");
-      *
-      */
-    function hasOwnMetadata(metadataKey, target, propertyKey) {
-        if (!IsObject(target))
-            throw new TypeError();
-        if (!IsUndefined(propertyKey))
-            propertyKey = ToPropertyKey(propertyKey);
-        return OrdinaryHasOwnMetadata(metadataKey, target, propertyKey);
-    }
-    Reflect.hasOwnMetadata = hasOwnMetadata;
-    /**
-      * Gets the metadata value for the provided metadata key on the target object or its prototype chain.
-      * @param metadataKey A key used to store and retrieve metadata.
-      * @param target The target object on which the metadata is defined.
-      * @param propertyKey (Optional) The property key for the target.
-      * @returns The metadata value for the metadata key if found; otherwise, `undefined`.
-      * @example
-      *
-      *     class Example {
-      *         // property declarations are not part of ES6, though they are valid in TypeScript:
-      *         // static staticProperty;
-      *         // property;
-      *
-      *         constructor(p) { }
-      *         static staticMethod(p) { }
-      *         method(p) { }
-      *     }
-      *
-      *     // constructor
-      *     result = Reflect.getMetadata("custom:annotation", Example);
-      *
-      *     // property (on constructor)
-      *     result = Reflect.getMetadata("custom:annotation", Example, "staticProperty");
-      *
-      *     // property (on prototype)
-      *     result = Reflect.getMetadata("custom:annotation", Example.prototype, "property");
-      *
-      *     // method (on constructor)
-      *     result = Reflect.getMetadata("custom:annotation", Example, "staticMethod");
-      *
-      *     // method (on prototype)
-      *     result = Reflect.getMetadata("custom:annotation", Example.prototype, "method");
-      *
-      */
-    function getMetadata(metadataKey, target, propertyKey) {
-        if (!IsObject(target))
-            throw new TypeError();
-        if (!IsUndefined(propertyKey))
-            propertyKey = ToPropertyKey(propertyKey);
-        return OrdinaryGetMetadata(metadataKey, target, propertyKey);
-    }
-    Reflect.getMetadata = getMetadata;
-    /**
-      * Gets the metadata value for the provided metadata key on the target object.
-      * @param metadataKey A key used to store and retrieve metadata.
-      * @param target The target object on which the metadata is defined.
-      * @param propertyKey (Optional) The property key for the target.
-      * @returns The metadata value for the metadata key if found; otherwise, `undefined`.
-      * @example
-      *
-      *     class Example {
-      *         // property declarations are not part of ES6, though they are valid in TypeScript:
-      *         // static staticProperty;
-      *         // property;
-      *
-      *         constructor(p) { }
-      *         static staticMethod(p) { }
-      *         method(p) { }
-      *     }
-      *
-      *     // constructor
-      *     result = Reflect.getOwnMetadata("custom:annotation", Example);
-      *
-      *     // property (on constructor)
-      *     result = Reflect.getOwnMetadata("custom:annotation", Example, "staticProperty");
-      *
-      *     // property (on prototype)
-      *     result = Reflect.getOwnMetadata("custom:annotation", Example.prototype, "property");
-      *
-      *     // method (on constructor)
-      *     result = Reflect.getOwnMetadata("custom:annotation", Example, "staticMethod");
-      *
-      *     // method (on prototype)
-      *     result = Reflect.getOwnMetadata("custom:annotation", Example.prototype, "method");
-      *
-      */
-    function getOwnMetadata(metadataKey, target, propertyKey) {
-        if (!IsObject(target))
-            throw new TypeError();
-        if (!IsUndefined(propertyKey))
-            propertyKey = ToPropertyKey(propertyKey);
-        return OrdinaryGetOwnMetadata(metadataKey, target, propertyKey);
-    }
-    Reflect.getOwnMetadata = getOwnMetadata;
-    /**
-      * Gets the metadata keys defined on the target object or its prototype chain.
-      * @param target The target object on which the metadata is defined.
-      * @param propertyKey (Optional) The property key for the target.
-      * @returns An array of unique metadata keys.
-      * @example
-      *
-      *     class Example {
-      *         // property declarations are not part of ES6, though they are valid in TypeScript:
-      *         // static staticProperty;
-      *         // property;
-      *
-      *         constructor(p) { }
-      *         static staticMethod(p) { }
-      *         method(p) { }
-      *     }
-      *
-      *     // constructor
-      *     result = Reflect.getMetadataKeys(Example);
-      *
-      *     // property (on constructor)
-      *     result = Reflect.getMetadataKeys(Example, "staticProperty");
-      *
-      *     // property (on prototype)
-      *     result = Reflect.getMetadataKeys(Example.prototype, "property");
-      *
-      *     // method (on constructor)
-      *     result = Reflect.getMetadataKeys(Example, "staticMethod");
-      *
-      *     // method (on prototype)
-      *     result = Reflect.getMetadataKeys(Example.prototype, "method");
-      *
-      */
-    function getMetadataKeys(target, propertyKey) {
-        if (!IsObject(target))
-            throw new TypeError();
-        if (!IsUndefined(propertyKey))
-            propertyKey = ToPropertyKey(propertyKey);
-        return OrdinaryMetadataKeys(target, propertyKey);
-    }
-    Reflect.getMetadataKeys = getMetadataKeys;
-    /**
-      * Gets the unique metadata keys defined on the target object.
-      * @param target The target object on which the metadata is defined.
-      * @param propertyKey (Optional) The property key for the target.
-      * @returns An array of unique metadata keys.
-      * @example
-      *
-      *     class Example {
-      *         // property declarations are not part of ES6, though they are valid in TypeScript:
-      *         // static staticProperty;
-      *         // property;
-      *
-      *         constructor(p) { }
-      *         static staticMethod(p) { }
-      *         method(p) { }
-      *     }
-      *
-      *     // constructor
-      *     result = Reflect.getOwnMetadataKeys(Example);
-      *
-      *     // property (on constructor)
-      *     result = Reflect.getOwnMetadataKeys(Example, "staticProperty");
-      *
-      *     // property (on prototype)
-      *     result = Reflect.getOwnMetadataKeys(Example.prototype, "property");
-      *
-      *     // method (on constructor)
-      *     result = Reflect.getOwnMetadataKeys(Example, "staticMethod");
-      *
-      *     // method (on prototype)
-      *     result = Reflect.getOwnMetadataKeys(Example.prototype, "method");
-      *
-      */
-    function getOwnMetadataKeys(target, propertyKey) {
-        if (!IsObject(target))
-            throw new TypeError();
-        if (!IsUndefined(propertyKey))
-            propertyKey = ToPropertyKey(propertyKey);
-        return OrdinaryOwnMetadataKeys(target, propertyKey);
-    }
-    Reflect.getOwnMetadataKeys = getOwnMetadataKeys;
-    /**
-      * Deletes the metadata entry from the target object with the provided key.
-      * @param metadataKey A key used to store and retrieve metadata.
-      * @param target The target object on which the metadata is defined.
-      * @param propertyKey (Optional) The property key for the target.
-      * @returns `true` if the metadata entry was found and deleted; otherwise, false.
-      * @example
-      *
-      *     class Example {
-      *         // property declarations are not part of ES6, though they are valid in TypeScript:
-      *         // static staticProperty;
-      *         // property;
-      *
-      *         constructor(p) { }
-      *         static staticMethod(p) { }
-      *         method(p) { }
-      *     }
-      *
-      *     // constructor
-      *     result = Reflect.deleteMetadata("custom:annotation", Example);
-      *
-      *     // property (on constructor)
-      *     result = Reflect.deleteMetadata("custom:annotation", Example, "staticProperty");
-      *
-      *     // property (on prototype)
-      *     result = Reflect.deleteMetadata("custom:annotation", Example.prototype, "property");
-      *
-      *     // method (on constructor)
-      *     result = Reflect.deleteMetadata("custom:annotation", Example, "staticMethod");
-      *
-      *     // method (on prototype)
-      *     result = Reflect.deleteMetadata("custom:annotation", Example.prototype, "method");
-      *
-      */
-    function deleteMetadata(metadataKey, target, propertyKey) {
-        if (!IsObject(target))
-            throw new TypeError();
-        if (!IsUndefined(propertyKey))
-            propertyKey = ToPropertyKey(propertyKey);
-        var metadataMap = GetOrCreateMetadataMap(target, propertyKey, /*Create*/ false);
-        if (IsUndefined(metadataMap))
-            return false;
-        if (!metadataMap.delete(metadataKey))
-            return false;
-        if (metadataMap.size > 0)
-            return true;
-        var targetMetadata = Metadata.get(target);
-        targetMetadata.delete(propertyKey);
-        if (targetMetadata.size > 0)
-            return true;
-        Metadata.delete(target);
-        return true;
-    }
-    Reflect.deleteMetadata = deleteMetadata;
-    function DecorateConstructor(decorators, target) {
-        for (var i = decorators.length - 1; i >= 0; --i) {
-            var decorator = decorators[i];
-            var decorated = decorator(target);
-            if (!IsUndefined(decorated) && !IsNull(decorated)) {
-                if (!IsConstructor(decorated))
-                    throw new TypeError();
-                target = decorated;
-            }
-        }
-        return target;
-    }
-    function DecorateProperty(decorators, target, propertyKey, descriptor) {
-        for (var i = decorators.length - 1; i >= 0; --i) {
-            var decorator = decorators[i];
-            var decorated = decorator(target, propertyKey, descriptor);
-            if (!IsUndefined(decorated) && !IsNull(decorated)) {
-                if (!IsObject(decorated))
-                    throw new TypeError();
-                descriptor = decorated;
-            }
-        }
-        return descriptor;
-    }
-    function GetOrCreateMetadataMap(O, P, Create) {
-        var targetMetadata = Metadata.get(O);
-        if (IsUndefined(targetMetadata)) {
-            if (!Create)
-                return undefined;
-            targetMetadata = new _Map();
-            Metadata.set(O, targetMetadata);
-        }
-        var metadataMap = targetMetadata.get(P);
-        if (IsUndefined(metadataMap)) {
-            if (!Create)
-                return undefined;
-            metadataMap = new _Map();
-            targetMetadata.set(P, metadataMap);
-        }
-        return metadataMap;
-    }
-    // 3.1.1.1 OrdinaryHasMetadata(MetadataKey, O, P)
-    // https://rbuckton.github.io/reflect-metadata/#ordinaryhasmetadata
-    function OrdinaryHasMetadata(MetadataKey, O, P) {
-        var hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
-        if (hasOwn)
-            return true;
-        var parent = OrdinaryGetPrototypeOf(O);
-        if (!IsNull(parent))
-            return OrdinaryHasMetadata(MetadataKey, parent, P);
-        return false;
-    }
-    // 3.1.2.1 OrdinaryHasOwnMetadata(MetadataKey, O, P)
-    // https://rbuckton.github.io/reflect-metadata/#ordinaryhasownmetadata
-    function OrdinaryHasOwnMetadata(MetadataKey, O, P) {
-        var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
-        if (IsUndefined(metadataMap))
-            return false;
-        return ToBoolean(metadataMap.has(MetadataKey));
-    }
-    // 3.1.3.1 OrdinaryGetMetadata(MetadataKey, O, P)
-    // https://rbuckton.github.io/reflect-metadata/#ordinarygetmetadata
-    function OrdinaryGetMetadata(MetadataKey, O, P) {
-        var hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
-        if (hasOwn)
-            return OrdinaryGetOwnMetadata(MetadataKey, O, P);
-        var parent = OrdinaryGetPrototypeOf(O);
-        if (!IsNull(parent))
-            return OrdinaryGetMetadata(MetadataKey, parent, P);
-        return undefined;
-    }
-    // 3.1.4.1 OrdinaryGetOwnMetadata(MetadataKey, O, P)
-    // https://rbuckton.github.io/reflect-metadata/#ordinarygetownmetadata
-    function OrdinaryGetOwnMetadata(MetadataKey, O, P) {
-        var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
-        if (IsUndefined(metadataMap))
-            return undefined;
-        return metadataMap.get(MetadataKey);
-    }
-    // 3.1.5.1 OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P)
-    // https://rbuckton.github.io/reflect-metadata/#ordinarydefineownmetadata
-    function OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P) {
-        var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ true);
-        metadataMap.set(MetadataKey, MetadataValue);
-    }
-    // 3.1.6.1 OrdinaryMetadataKeys(O, P)
-    // https://rbuckton.github.io/reflect-metadata/#ordinarymetadatakeys
-    function OrdinaryMetadataKeys(O, P) {
-        var ownKeys = OrdinaryOwnMetadataKeys(O, P);
-        var parent = OrdinaryGetPrototypeOf(O);
-        if (parent === null)
-            return ownKeys;
-        var parentKeys = OrdinaryMetadataKeys(parent, P);
-        if (parentKeys.length <= 0)
-            return ownKeys;
-        if (ownKeys.length <= 0)
-            return parentKeys;
-        var set = new _Set();
-        var keys = [];
-        for (var _i = 0, ownKeys_1 = ownKeys; _i < ownKeys_1.length; _i++) {
-            var key = ownKeys_1[_i];
-            var hasKey = set.has(key);
-            if (!hasKey) {
-                set.add(key);
-                keys.push(key);
-            }
-        }
-        for (var _a = 0, parentKeys_1 = parentKeys; _a < parentKeys_1.length; _a++) {
-            var key = parentKeys_1[_a];
-            var hasKey = set.has(key);
-            if (!hasKey) {
-                set.add(key);
-                keys.push(key);
-            }
-        }
-        return keys;
-    }
-    // 3.1.7.1 OrdinaryOwnMetadataKeys(O, P)
-    // https://rbuckton.github.io/reflect-metadata/#ordinaryownmetadatakeys
-    function OrdinaryOwnMetadataKeys(O, P) {
-        var keys = [];
-        var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
-        if (IsUndefined(metadataMap))
-            return keys;
-        var keysObj = metadataMap.keys();
-        var iterator = GetIterator(keysObj);
-        var k = 0;
-        while (true) {
-            var next = IteratorStep(iterator);
-            if (!next) {
-                keys.length = k;
-                return keys;
-            }
-            var nextValue = IteratorValue(next);
-            try {
-                keys[k] = nextValue;
-            }
-            catch (e) {
-                try {
-                    IteratorClose(iterator);
-                }
-                finally {
-                    throw e;
-                }
-            }
-            k++;
-        }
-    }
-    // 6 ECMAScript Data Typ0es and Values
-    // https://tc39.github.io/ecma262/#sec-ecmascript-data-types-and-values
-    function Type(x) {
-        if (x === null)
-            return 1 /* Null */;
-        switch (typeof x) {
-            case "undefined": return 0 /* Undefined */;
-            case "boolean": return 2 /* Boolean */;
-            case "string": return 3 /* String */;
-            case "symbol": return 4 /* Symbol */;
-            case "number": return 5 /* Number */;
-            case "object": return x === null ? 1 /* Null */ : 6 /* Object */;
-            default: return 6 /* Object */;
-        }
-    }
-    // 6.1.1 The Undefined Type
-    // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-undefined-type
-    function IsUndefined(x) {
-        return x === undefined;
-    }
-    // 6.1.2 The Null Type
-    // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-null-type
-    function IsNull(x) {
-        return x === null;
-    }
-    // 6.1.5 The Symbol Type
-    // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-symbol-type
-    function IsSymbol(x) {
-        return typeof x === "symbol";
-    }
-    // 6.1.7 The Object Type
-    // https://tc39.github.io/ecma262/#sec-object-type
-    function IsObject(x) {
-        return typeof x === "object" ? x !== null : typeof x === "function";
-    }
-    // 7.1 Type Conversion
-    // https://tc39.github.io/ecma262/#sec-type-conversion
-    // 7.1.1 ToPrimitive(input [, PreferredType])
-    // https://tc39.github.io/ecma262/#sec-toprimitive
-    function ToPrimitive(input, PreferredType) {
-        switch (Type(input)) {
-            case 0 /* Undefined */: return input;
-            case 1 /* Null */: return input;
-            case 2 /* Boolean */: return input;
-            case 3 /* String */: return input;
-            case 4 /* Symbol */: return input;
-            case 5 /* Number */: return input;
-        }
-        var hint = PreferredType === 3 /* String */ ? "string" : PreferredType === 5 /* Number */ ? "number" : "default";
-        var exoticToPrim = GetMethod(input, toPrimitiveSymbol);
-        if (exoticToPrim !== undefined) {
-            var result = exoticToPrim.call(input, hint);
-            if (IsObject(result))
-                throw new TypeError();
-            return result;
-        }
-        return OrdinaryToPrimitive(input, hint === "default" ? "number" : hint);
-    }
-    // 7.1.1.1 OrdinaryToPrimitive(O, hint)
-    // https://tc39.github.io/ecma262/#sec-ordinarytoprimitive
-    function OrdinaryToPrimitive(O, hint) {
-        if (hint === "string") {
-            var toString_1 = O.toString;
-            if (IsCallable(toString_1)) {
-                var result = toString_1.call(O);
-                if (!IsObject(result))
-                    return result;
-            }
-            var valueOf = O.valueOf;
-            if (IsCallable(valueOf)) {
-                var result = valueOf.call(O);
-                if (!IsObject(result))
-                    return result;
-            }
-        }
-        else {
-            var valueOf = O.valueOf;
-            if (IsCallable(valueOf)) {
-                var result = valueOf.call(O);
-                if (!IsObject(result))
-                    return result;
-            }
-            var toString_2 = O.toString;
-            if (IsCallable(toString_2)) {
-                var result = toString_2.call(O);
-                if (!IsObject(result))
-                    return result;
-            }
-        }
-        throw new TypeError();
-    }
-    // 7.1.2 ToBoolean(argument)
-    // https://tc39.github.io/ecma262/2016/#sec-toboolean
-    function ToBoolean(argument) {
-        return !!argument;
-    }
-    // 7.1.12 ToString(argument)
-    // https://tc39.github.io/ecma262/#sec-tostring
-    function ToString(argument) {
-        return "" + argument;
-    }
-    // 7.1.14 ToPropertyKey(argument)
-    // https://tc39.github.io/ecma262/#sec-topropertykey
-    function ToPropertyKey(argument) {
-        var key = ToPrimitive(argument, 3 /* String */);
-        if (IsSymbol(key))
-            return key;
-        return ToString(key);
-    }
-    // 7.2 Testing and Comparison Operations
-    // https://tc39.github.io/ecma262/#sec-testing-and-comparison-operations
-    // 7.2.2 IsArray(argument)
-    // https://tc39.github.io/ecma262/#sec-isarray
-    function IsArray(argument) {
-        return Array.isArray
-            ? Array.isArray(argument)
-            : argument instanceof Object
-                ? argument instanceof Array
-                : Object.prototype.toString.call(argument) === "[object Array]";
-    }
-    // 7.2.3 IsCallable(argument)
-    // https://tc39.github.io/ecma262/#sec-iscallable
-    function IsCallable(argument) {
-        // NOTE: This is an approximation as we cannot check for [[Call]] internal method.
-        return typeof argument === "function";
-    }
-    // 7.2.4 IsConstructor(argument)
-    // https://tc39.github.io/ecma262/#sec-isconstructor
-    function IsConstructor(argument) {
-        // NOTE: This is an approximation as we cannot check for [[Construct]] internal method.
-        return typeof argument === "function";
-    }
-    // 7.2.7 IsPropertyKey(argument)
-    // https://tc39.github.io/ecma262/#sec-ispropertykey
-    function IsPropertyKey(argument) {
-        switch (Type(argument)) {
-            case 3 /* String */: return true;
-            case 4 /* Symbol */: return true;
-            default: return false;
-        }
-    }
-    // 7.3 Operations on Objects
-    // https://tc39.github.io/ecma262/#sec-operations-on-objects
-    // 7.3.9 GetMethod(V, P)
-    // https://tc39.github.io/ecma262/#sec-getmethod
-    function GetMethod(V, P) {
-        var func = V[P];
-        if (func === undefined || func === null)
-            return undefined;
-        if (!IsCallable(func))
-            throw new TypeError();
-        return func;
-    }
-    // 7.4 Operations on Iterator Objects
-    // https://tc39.github.io/ecma262/#sec-operations-on-iterator-objects
-    function GetIterator(obj) {
-        var method = GetMethod(obj, iteratorSymbol);
-        if (!IsCallable(method))
-            throw new TypeError(); // from Call
-        var iterator = method.call(obj);
-        if (!IsObject(iterator))
-            throw new TypeError();
-        return iterator;
-    }
-    // 7.4.4 IteratorValue(iterResult)
-    // https://tc39.github.io/ecma262/2016/#sec-iteratorvalue
-    function IteratorValue(iterResult) {
-        return iterResult.value;
-    }
-    // 7.4.5 IteratorStep(iterator)
-    // https://tc39.github.io/ecma262/#sec-iteratorstep
-    function IteratorStep(iterator) {
-        var result = iterator.next();
-        return result.done ? false : result;
-    }
-    // 7.4.6 IteratorClose(iterator, completion)
-    // https://tc39.github.io/ecma262/#sec-iteratorclose
-    function IteratorClose(iterator) {
-        var f = iterator["return"];
-        if (f)
-            f.call(iterator);
-    }
-    // 9.1 Ordinary Object Internal Methods and Internal Slots
-    // https://tc39.github.io/ecma262/#sec-ordinary-object-internal-methods-and-internal-slots
-    // 9.1.1.1 OrdinaryGetPrototypeOf(O)
-    // https://tc39.github.io/ecma262/#sec-ordinarygetprototypeof
-    function OrdinaryGetPrototypeOf(O) {
-        var proto = Object.getPrototypeOf(O);
-        if (typeof O !== "function" || O === functionPrototype)
-            return proto;
-        // TypeScript doesn't set __proto__ in ES5, as it's non-standard.
-        // Try to determine the superclass constructor. Compatible implementations
-        // must either set __proto__ on a subclass constructor to the superclass constructor,
-        // or ensure each class has a valid `constructor` property on its prototype that
-        // points back to the constructor.
-        // If this is not the same as Function.[[Prototype]], then this is definately inherited.
-        // This is the case when in ES6 or when using __proto__ in a compatible browser.
-        if (proto !== functionPrototype)
-            return proto;
-        // If the super prototype is Object.prototype, null, or undefined, then we cannot determine the heritage.
-        var prototype = O.prototype;
-        var prototypeProto = prototype && Object.getPrototypeOf(prototype);
-        if (prototypeProto == null || prototypeProto === Object.prototype)
-            return proto;
-        // If the constructor was not a function, then we cannot determine the heritage.
-        var constructor = prototypeProto.constructor;
-        if (typeof constructor !== "function")
-            return proto;
-        // If we have some kind of self-reference, then we cannot determine the heritage.
-        if (constructor === O)
-            return proto;
-        // we have a pretty good guess at the heritage.
-        return constructor;
-    }
-    // naive Map shim
-    function CreateMapPolyfill() {
-        var cacheSentinel = {};
-        var arraySentinel = [];
-        var MapIterator = (function () {
-            function MapIterator(keys, values, selector) {
-                this._index = 0;
-                this._keys = keys;
-                this._values = values;
-                this._selector = selector;
-            }
-            MapIterator.prototype["@@iterator"] = function () { return this; };
-            MapIterator.prototype[iteratorSymbol] = function () { return this; };
-            MapIterator.prototype.next = function () {
-                var index = this._index;
-                if (index >= 0 && index < this._keys.length) {
-                    var result = this._selector(this._keys[index], this._values[index]);
-                    if (index + 1 >= this._keys.length) {
-                        this._index = -1;
-                        this._keys = arraySentinel;
-                        this._values = arraySentinel;
-                    }
-                    else {
-                        this._index++;
-                    }
-                    return { value: result, done: false };
-                }
-                return { value: undefined, done: true };
-            };
-            MapIterator.prototype.throw = function (error) {
-                if (this._index >= 0) {
-                    this._index = -1;
-                    this._keys = arraySentinel;
-                    this._values = arraySentinel;
-                }
-                throw error;
-            };
-            MapIterator.prototype.return = function (value) {
-                if (this._index >= 0) {
-                    this._index = -1;
-                    this._keys = arraySentinel;
-                    this._values = arraySentinel;
-                }
-                return { value: value, done: true };
-            };
-            return MapIterator;
-        }());
-        return (function () {
-            function Map() {
-                this._keys = [];
-                this._values = [];
-                this._cacheKey = cacheSentinel;
-                this._cacheIndex = -2;
-            }
-            Object.defineProperty(Map.prototype, "size", {
-                get: function () { return this._keys.length; },
-                enumerable: true,
-                configurable: true
-            });
-            Map.prototype.has = function (key) { return this._find(key, /*insert*/ false) >= 0; };
-            Map.prototype.get = function (key) {
-                var index = this._find(key, /*insert*/ false);
-                return index >= 0 ? this._values[index] : undefined;
-            };
-            Map.prototype.set = function (key, value) {
-                var index = this._find(key, /*insert*/ true);
-                this._values[index] = value;
-                return this;
-            };
-            Map.prototype.delete = function (key) {
-                var index = this._find(key, /*insert*/ false);
-                if (index >= 0) {
-                    var size = this._keys.length;
-                    for (var i = index + 1; i < size; i++) {
-                        this._keys[i - 1] = this._keys[i];
-                        this._values[i - 1] = this._values[i];
-                    }
-                    this._keys.length--;
-                    this._values.length--;
-                    if (key === this._cacheKey) {
-                        this._cacheKey = cacheSentinel;
-                        this._cacheIndex = -2;
-                    }
-                    return true;
-                }
-                return false;
-            };
-            Map.prototype.clear = function () {
-                this._keys.length = 0;
-                this._values.length = 0;
-                this._cacheKey = cacheSentinel;
-                this._cacheIndex = -2;
-            };
-            Map.prototype.keys = function () { return new MapIterator(this._keys, this._values, getKey); };
-            Map.prototype.values = function () { return new MapIterator(this._keys, this._values, getValue); };
-            Map.prototype.entries = function () { return new MapIterator(this._keys, this._values, getEntry); };
-            Map.prototype["@@iterator"] = function () { return this.entries(); };
-            Map.prototype[iteratorSymbol] = function () { return this.entries(); };
-            Map.prototype._find = function (key, insert) {
-                if (this._cacheKey !== key) {
-                    this._cacheIndex = this._keys.indexOf(this._cacheKey = key);
-                }
-                if (this._cacheIndex < 0 && insert) {
-                    this._cacheIndex = this._keys.length;
-                    this._keys.push(key);
-                    this._values.push(undefined);
-                }
-                return this._cacheIndex;
-            };
-            return Map;
-        }());
-        function getKey(key, _) {
-            return key;
-        }
-        function getValue(_, value) {
-            return value;
-        }
-        function getEntry(key, value) {
-            return [key, value];
-        }
-    }
-    // naive Set shim
-    function CreateSetPolyfill() {
-        return (function () {
-            function Set() {
-                this._map = new _Map();
-            }
-            Object.defineProperty(Set.prototype, "size", {
-                get: function () { return this._map.size; },
-                enumerable: true,
-                configurable: true
-            });
-            Set.prototype.has = function (value) { return this._map.has(value); };
-            Set.prototype.add = function (value) { return this._map.set(value, value), this; };
-            Set.prototype.delete = function (value) { return this._map.delete(value); };
-            Set.prototype.clear = function () { this._map.clear(); };
-            Set.prototype.keys = function () { return this._map.keys(); };
-            Set.prototype.values = function () { return this._map.values(); };
-            Set.prototype.entries = function () { return this._map.entries(); };
-            Set.prototype["@@iterator"] = function () { return this.keys(); };
-            Set.prototype[iteratorSymbol] = function () { return this.keys(); };
-            return Set;
-        }());
-    }
-    // naive WeakMap shim
-    function CreateWeakMapPolyfill() {
-        var UUID_SIZE = 16;
-        var keys = HashMap.create();
-        var rootKey = CreateUniqueKey();
-        return (function () {
-            function WeakMap() {
-                this._key = CreateUniqueKey();
-            }
-            WeakMap.prototype.has = function (target) {
-                var table = GetOrCreateWeakMapTable(target, /*create*/ false);
-                return table !== undefined ? HashMap.has(table, this._key) : false;
-            };
-            WeakMap.prototype.get = function (target) {
-                var table = GetOrCreateWeakMapTable(target, /*create*/ false);
-                return table !== undefined ? HashMap.get(table, this._key) : undefined;
-            };
-            WeakMap.prototype.set = function (target, value) {
-                var table = GetOrCreateWeakMapTable(target, /*create*/ true);
-                table[this._key] = value;
-                return this;
-            };
-            WeakMap.prototype.delete = function (target) {
-                var table = GetOrCreateWeakMapTable(target, /*create*/ false);
-                return table !== undefined ? delete table[this._key] : false;
-            };
-            WeakMap.prototype.clear = function () {
-                // NOTE: not a real clear, just makes the previous data unreachable
-                this._key = CreateUniqueKey();
-            };
-            return WeakMap;
-        }());
-        function CreateUniqueKey() {
-            var key;
-            do
-                key = "@@WeakMap@@" + CreateUUID();
-            while (HashMap.has(keys, key));
-            keys[key] = true;
-            return key;
-        }
-        function GetOrCreateWeakMapTable(target, create) {
-            if (!hasOwn.call(target, rootKey)) {
-                if (!create)
-                    return undefined;
-                Object.defineProperty(target, rootKey, { value: HashMap.create() });
-            }
-            return target[rootKey];
-        }
-        function FillRandomBytes(buffer, size) {
-            for (var i = 0; i < size; ++i)
-                buffer[i] = Math.random() * 0xff | 0;
-            return buffer;
-        }
-        function GenRandomBytes(size) {
-            if (typeof Uint8Array === "function") {
-                if (typeof crypto !== "undefined")
-                    return crypto.getRandomValues(new Uint8Array(size));
-                if (typeof msCrypto !== "undefined")
-                    return msCrypto.getRandomValues(new Uint8Array(size));
-                return FillRandomBytes(new Uint8Array(size), size);
-            }
-            return FillRandomBytes(new Array(size), size);
-        }
-        function CreateUUID() {
-            var data = GenRandomBytes(UUID_SIZE);
-            // mark as random - RFC 4122 § 4.4
-            data[6] = data[6] & 0x4f | 0x40;
-            data[8] = data[8] & 0xbf | 0x80;
-            var result = "";
-            for (var offset = 0; offset < UUID_SIZE; ++offset) {
-                var byte = data[offset];
-                if (offset === 4 || offset === 6 || offset === 8)
-                    result += "-";
-                if (byte < 16)
-                    result += "0";
-                result += byte.toString(16).toLowerCase();
-            }
-            return result;
-        }
-    }
-    // uses a heuristic used by v8 and chakra to force an object into dictionary mode.
-    function MakeDictionary(obj) {
-        obj.__ = undefined;
-        delete obj.__;
-        return obj;
-    }
-    // patch global Reflect
-    (function (__global) {
-        if (typeof __global.Reflect !== "undefined") {
-            if (__global.Reflect !== Reflect) {
-                for (var p in Reflect) {
-                    if (hasOwn.call(Reflect, p)) {
-                        __global.Reflect[p] = Reflect[p];
-                    }
-                }
-            }
-        }
-        else {
-            __global.Reflect = Reflect;
-        }
-    })(typeof commonjsGlobal !== "undefined" ? commonjsGlobal :
-        typeof self !== "undefined" ? self :
-            Function("return this;")());
-})(Reflect$1 || (Reflect$1 = {}));
-/**
- * @abstract
- */
+        var _a = redux_action_decorator_1.ReduxActionDecorator.get(target), type = _a.type, contextClass = _a.contextClass;
+        var context = __assign({ prefix: '' }, redux_action_context_decorator_1.ReduxActionContextDecorator.get(contextClass));
+        return "" + context.prefix + type;
+    };
+    ReduxActionDispatcher.dispatch = function (target, payload) {
+        return Promise
+            .resolve(payload instanceof Observable_1.Observable ? payload.toPromise() : payload)
+            .then(function (p) {
+            var type = ReduxActionDispatcher.getType(target);
+            type ? ReduxActionDispatcher.dispatchedActions.next({ type: type, payload: p }) : null;
+        });
+    };
+    ReduxActionDispatcher.dispatchedActions = new Subject_1.Subject();
+    return ReduxActionDispatcher;
+}());
+exports.ReduxActionDispatcher = ReduxActionDispatcher;
+//# sourceMappingURL=redux-action-dispatcher.js.map
+
+/***/ }),
+
+/***/ "../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__("../../../../reflect-metadata/Reflect.js");
 var GenericDecorator = /** @class */ (function () {
-    /**
-     * @param {?} key
-     */
     function GenericDecorator(key) {
         this.key = key;
     }
     Object.defineProperty(GenericDecorator.prototype, "forClass", {
-        /**
-         * @return {?}
-         */
         get: function () {
             var _this = this;
             return function (value) {
@@ -1179,9 +158,6 @@ var GenericDecorator = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(GenericDecorator.prototype, "forMethod", {
-        /**
-         * @return {?}
-         */
         get: function () {
             var _this = this;
             return function (value) {
@@ -1193,137 +169,139 @@ var GenericDecorator = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    /**
-     * @param {?} target
-     * @return {?}
-     */
     GenericDecorator.prototype.get = function (target) {
-        return /** @type {?} */ (Reflect.getMetadata(this.key, target));
+        return Reflect.getMetadata(this.key, target);
     };
-    /**
-     * @param {?} target
-     * @param {?} value
-     * @return {?}
-     */
     GenericDecorator.prototype.defineMetadata = function (target, value) {
         Reflect.defineMetadata(this.key, value, target);
     };
     return GenericDecorator;
 }());
-var ReduxActionContextDecorator = /** @class */ (function (_super) {
-    __extends(ReduxActionContextDecorator, _super);
-    function ReduxActionContextDecorator() {
-        return _super.call(this, Symbol('ReduxActionContext')) || this;
-    }
-    return ReduxActionContextDecorator;
-}(GenericDecorator));
-ReduxActionContextDecorator.instance = new ReduxActionContextDecorator();
-ReduxActionContextDecorator.get = ReduxActionContextDecorator.instance.get.bind(ReduxActionContextDecorator.instance);
-ReduxActionContextDecorator.forClass = ReduxActionContextDecorator.instance.forClass;
-var ReduxActionDispatcher = /** @class */ (function () {
-    function ReduxActionDispatcher() {
-    }
-    /**
-     * @param {?} target
-     * @return {?}
-     */
-    ReduxActionDispatcher.getType = function (target) {
-        var /** @type {?} */ action = ReduxActionDecorator.get(target);
-        if (!action) {
-            return null;
-        }
-        var _b = ReduxActionDecorator.get(target), type = _b.type, contextClass = _b.contextClass;
-        var /** @type {?} */ context = Object.assign({ prefix: '' }, ReduxActionContextDecorator.get(contextClass));
-        return "" + context.prefix + type;
+exports.GenericDecorator = GenericDecorator;
+//# sourceMappingURL=generic-decorator.js.map
+
+/***/ }),
+
+/***/ "../../../../@harmowatch/redux-decorators/lib/index.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+// action
+__export(__webpack_require__("../../../../@harmowatch/redux-decorators/lib/action/decorator/redux-action-decorator.js"));
+__export(__webpack_require__("../../../../@harmowatch/redux-decorators/lib/action/dispatcher/redux-action-dispatcher.js"));
+// action context
+__export(__webpack_require__("../../../../@harmowatch/redux-decorators/lib/action/context/decorator/redux-action-context-decorator.js"));
+// module
+__export(__webpack_require__("../../../../@harmowatch/redux-decorators/lib/module/decorator/redux-module-decorator.js"));
+// reducer
+__export(__webpack_require__("../../../../@harmowatch/redux-decorators/lib/reducer/decorator/redux-reducer-decorator.js"));
+// state
+__export(__webpack_require__("../../../../@harmowatch/redux-decorators/lib/state/decorator/redux-state-decorator.js"));
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "../../../../@harmowatch/redux-decorators/lib/module/decorator/redux-module-decorator.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
-    /**
-     * @param {?} target
-     * @param {?=} payload
-     * @return {?}
-     */
-    ReduxActionDispatcher.dispatch = function (target, payload) {
-        return Promise
-            .resolve(payload instanceof __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["a" /* Observable */] ? payload.toPromise() : payload)
-            .then(function (p) {
-            var /** @type {?} */ type = ReduxActionDispatcher.getType(target);
-            type ? ReduxActionDispatcher.dispatchedActions.next({ type: type, payload: p }) : null;
-        });
-    };
-    return ReduxActionDispatcher;
-}());
-ReduxActionDispatcher.dispatchedActions = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Subject__["a" /* Subject */]();
-var ReduxActionDecorator = /** @class */ (function (_super) {
-    __extends(ReduxActionDecorator, _super);
-    function ReduxActionDecorator() {
-        return _super.call(this, Symbol('ReduxAction')) || this;
-    }
-    Object.defineProperty(ReduxActionDecorator.prototype, "forMethod", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            var _this = this;
-            return function (config) { return function (target, propertyKey, descriptor) {
-                config = Object.assign({
-                    type: String(propertyKey),
-                    contextClass: target.constructor,
-                }, config);
-                var /** @type {?} */ originalFunction = descriptor.value;
-                var /** @type {?} */ proxyFunction = (function () {
-                    var /** @type {?} */ returnValue = originalFunction.apply(this, arguments);
-                    ReduxActionDispatcher.dispatch(proxyFunction, returnValue);
-                    return returnValue;
-                });
-                _this.defineMetadata(proxyFunction, config);
-                descriptor.value = proxyFunction;
-            }; };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return ReduxActionDecorator;
-}(GenericDecorator));
-ReduxActionDecorator.instance = new ReduxActionDecorator();
-ReduxActionDecorator.get = ReduxActionDecorator.instance.get.bind(ReduxActionDecorator.instance);
-ReduxActionDecorator.forMethod = ReduxActionDecorator.instance.forMethod;
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js");
+/**
+ * @todo check if we really need this decorator
+ */
 var ReduxModuleDecorator = /** @class */ (function (_super) {
     __extends(ReduxModuleDecorator, _super);
     function ReduxModuleDecorator() {
-        return _super.call(this, Symbol('ReduxModule')) || this;
+        return _super.call(this, 'ReduxModule') || this;
     }
+    ReduxModuleDecorator.instance = new ReduxModuleDecorator();
+    ReduxModuleDecorator.get = ReduxModuleDecorator.instance.get.bind(ReduxModuleDecorator.instance);
+    ReduxModuleDecorator.forClass = ReduxModuleDecorator.instance.forClass;
     return ReduxModuleDecorator;
-}(GenericDecorator));
-ReduxModuleDecorator.instance = new ReduxModuleDecorator();
-ReduxModuleDecorator.get = ReduxModuleDecorator.instance.get.bind(ReduxModuleDecorator.instance);
-ReduxModuleDecorator.forClass = ReduxModuleDecorator.instance.forClass;
+}(generic_decorator_1.GenericDecorator));
+exports.ReduxModuleDecorator = ReduxModuleDecorator;
+//# sourceMappingURL=redux-module-decorator.js.map
+
+/***/ }),
+
+/***/ "../../../../@harmowatch/redux-decorators/lib/reducer/decorator/redux-reducer-decorator.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js");
 var ReduxReducerDecorator = /** @class */ (function (_super) {
     __extends(ReduxReducerDecorator, _super);
     function ReduxReducerDecorator() {
-        return _super.call(this, Symbol('ReduxReducer')) || this;
+        return _super.call(this, 'ReduxReducer') || this;
     }
+    ReduxReducerDecorator.instance = new ReduxReducerDecorator();
+    ReduxReducerDecorator.get = ReduxReducerDecorator.instance.get.bind(ReduxReducerDecorator.instance);
+    ReduxReducerDecorator.forMethod = ReduxReducerDecorator.instance.forMethod;
     return ReduxReducerDecorator;
-}(GenericDecorator));
-ReduxReducerDecorator.instance = new ReduxReducerDecorator();
-ReduxReducerDecorator.get = ReduxReducerDecorator.instance.get.bind(ReduxReducerDecorator.instance);
-ReduxReducerDecorator.forMethod = ReduxReducerDecorator.instance.forMethod;
+}(generic_decorator_1.GenericDecorator));
+exports.ReduxReducerDecorator = ReduxReducerDecorator;
+//# sourceMappingURL=redux-reducer-decorator.js.map
+
+/***/ }),
+
+/***/ "../../../../@harmowatch/redux-decorators/lib/state/decorator/redux-state-decorator.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js");
 var ReduxStateDecorator = /** @class */ (function (_super) {
     __extends(ReduxStateDecorator, _super);
     function ReduxStateDecorator() {
-        return _super.call(this, Symbol('ReduxState')) || this;
+        return _super.call(this, 'ReduxState') || this;
     }
+    ReduxStateDecorator.instance = new ReduxStateDecorator();
+    ReduxStateDecorator.get = ReduxStateDecorator.instance.get.bind(ReduxStateDecorator.instance);
+    ReduxStateDecorator.forClass = ReduxStateDecorator.instance.forClass;
     return ReduxStateDecorator;
-}(GenericDecorator));
-ReduxStateDecorator.instance = new ReduxStateDecorator();
-ReduxStateDecorator.get = ReduxStateDecorator.instance.get.bind(ReduxStateDecorator.instance);
-ReduxStateDecorator.forClass = ReduxStateDecorator.instance.forClass;
-// action
-/**
- * Generated bundle index. Do not edit.
- */
-
-//# sourceMappingURL=redux-decorators.es5.js.map
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__("../../../../webpack/buildin/global.js"), __webpack_require__("../../../../process/browser.js")))
+}(generic_decorator_1.GenericDecorator));
+exports.ReduxStateDecorator = ReduxStateDecorator;
+//# sourceMappingURL=redux-state-decorator.js.map
 
 /***/ }),
 
@@ -2539,6 +1517,1138 @@ function warning(message) {
 
 /***/ }),
 
+/***/ "../../../../reflect-metadata/Reflect.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process, global) {/*! *****************************************************************************
+Copyright (C) Microsoft. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+var Reflect;
+(function (Reflect) {
+    "use strict";
+    var hasOwn = Object.prototype.hasOwnProperty;
+    // feature test for Symbol support
+    var supportsSymbol = typeof Symbol === "function";
+    var toPrimitiveSymbol = supportsSymbol && typeof Symbol.toPrimitive !== "undefined" ? Symbol.toPrimitive : "@@toPrimitive";
+    var iteratorSymbol = supportsSymbol && typeof Symbol.iterator !== "undefined" ? Symbol.iterator : "@@iterator";
+    var HashMap;
+    (function (HashMap) {
+        var supportsCreate = typeof Object.create === "function"; // feature test for Object.create support
+        var supportsProto = { __proto__: [] } instanceof Array; // feature test for __proto__ support
+        var downLevel = !supportsCreate && !supportsProto;
+        // create an object in dictionary mode (a.k.a. "slow" mode in v8)
+        HashMap.create = supportsCreate
+            ? function () { return MakeDictionary(Object.create(null)); }
+            : supportsProto
+                ? function () { return MakeDictionary({ __proto__: null }); }
+                : function () { return MakeDictionary({}); };
+        HashMap.has = downLevel
+            ? function (map, key) { return hasOwn.call(map, key); }
+            : function (map, key) { return key in map; };
+        HashMap.get = downLevel
+            ? function (map, key) { return hasOwn.call(map, key) ? map[key] : undefined; }
+            : function (map, key) { return map[key]; };
+    })(HashMap || (HashMap = {}));
+    // Load global or shim versions of Map, Set, and WeakMap
+    var functionPrototype = Object.getPrototypeOf(Function);
+    var usePolyfill = typeof process === "object" && process.env && process.env["REFLECT_METADATA_USE_MAP_POLYFILL"] === "true";
+    var _Map = !usePolyfill && typeof Map === "function" && typeof Map.prototype.entries === "function" ? Map : CreateMapPolyfill();
+    var _Set = !usePolyfill && typeof Set === "function" && typeof Set.prototype.entries === "function" ? Set : CreateSetPolyfill();
+    var _WeakMap = !usePolyfill && typeof WeakMap === "function" ? WeakMap : CreateWeakMapPolyfill();
+    // [[Metadata]] internal slot
+    // https://rbuckton.github.io/reflect-metadata/#ordinary-object-internal-methods-and-internal-slots
+    var Metadata = new _WeakMap();
+    /**
+      * Applies a set of decorators to a property of a target object.
+      * @param decorators An array of decorators.
+      * @param target The target object.
+      * @param propertyKey (Optional) The property key to decorate.
+      * @param attributes (Optional) The property descriptor for the target key.
+      * @remarks Decorators are applied in reverse order.
+      * @example
+      *
+      *     class Example {
+      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+      *         // static staticProperty;
+      *         // property;
+      *
+      *         constructor(p) { }
+      *         static staticMethod(p) { }
+      *         method(p) { }
+      *     }
+      *
+      *     // constructor
+      *     Example = Reflect.decorate(decoratorsArray, Example);
+      *
+      *     // property (on constructor)
+      *     Reflect.decorate(decoratorsArray, Example, "staticProperty");
+      *
+      *     // property (on prototype)
+      *     Reflect.decorate(decoratorsArray, Example.prototype, "property");
+      *
+      *     // method (on constructor)
+      *     Object.defineProperty(Example, "staticMethod",
+      *         Reflect.decorate(decoratorsArray, Example, "staticMethod",
+      *             Object.getOwnPropertyDescriptor(Example, "staticMethod")));
+      *
+      *     // method (on prototype)
+      *     Object.defineProperty(Example.prototype, "method",
+      *         Reflect.decorate(decoratorsArray, Example.prototype, "method",
+      *             Object.getOwnPropertyDescriptor(Example.prototype, "method")));
+      *
+      */
+    function decorate(decorators, target, propertyKey, attributes) {
+        if (!IsUndefined(propertyKey)) {
+            if (!IsArray(decorators))
+                throw new TypeError();
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsObject(attributes) && !IsUndefined(attributes) && !IsNull(attributes))
+                throw new TypeError();
+            if (IsNull(attributes))
+                attributes = undefined;
+            propertyKey = ToPropertyKey(propertyKey);
+            return DecorateProperty(decorators, target, propertyKey, attributes);
+        }
+        else {
+            if (!IsArray(decorators))
+                throw new TypeError();
+            if (!IsConstructor(target))
+                throw new TypeError();
+            return DecorateConstructor(decorators, target);
+        }
+    }
+    Reflect.decorate = decorate;
+    // 4.1.2 Reflect.metadata(metadataKey, metadataValue)
+    // https://rbuckton.github.io/reflect-metadata/#reflect.metadata
+    /**
+      * A default metadata decorator factory that can be used on a class, class member, or parameter.
+      * @param metadataKey The key for the metadata entry.
+      * @param metadataValue The value for the metadata entry.
+      * @returns A decorator function.
+      * @remarks
+      * If `metadataKey` is already defined for the target and target key, the
+      * metadataValue for that key will be overwritten.
+      * @example
+      *
+      *     // constructor
+      *     @Reflect.metadata(key, value)
+      *     class Example {
+      *     }
+      *
+      *     // property (on constructor, TypeScript only)
+      *     class Example {
+      *         @Reflect.metadata(key, value)
+      *         static staticProperty;
+      *     }
+      *
+      *     // property (on prototype, TypeScript only)
+      *     class Example {
+      *         @Reflect.metadata(key, value)
+      *         property;
+      *     }
+      *
+      *     // method (on constructor)
+      *     class Example {
+      *         @Reflect.metadata(key, value)
+      *         static staticMethod() { }
+      *     }
+      *
+      *     // method (on prototype)
+      *     class Example {
+      *         @Reflect.metadata(key, value)
+      *         method() { }
+      *     }
+      *
+      */
+    function metadata(metadataKey, metadataValue) {
+        function decorator(target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey) && !IsPropertyKey(propertyKey))
+                throw new TypeError();
+            OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, propertyKey);
+        }
+        return decorator;
+    }
+    Reflect.metadata = metadata;
+    /**
+      * Define a unique metadata entry on the target.
+      * @param metadataKey A key used to store and retrieve metadata.
+      * @param metadataValue A value that contains attached metadata.
+      * @param target The target object on which to define metadata.
+      * @param propertyKey (Optional) The property key for the target.
+      * @example
+      *
+      *     class Example {
+      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+      *         // static staticProperty;
+      *         // property;
+      *
+      *         constructor(p) { }
+      *         static staticMethod(p) { }
+      *         method(p) { }
+      *     }
+      *
+      *     // constructor
+      *     Reflect.defineMetadata("custom:annotation", options, Example);
+      *
+      *     // property (on constructor)
+      *     Reflect.defineMetadata("custom:annotation", options, Example, "staticProperty");
+      *
+      *     // property (on prototype)
+      *     Reflect.defineMetadata("custom:annotation", options, Example.prototype, "property");
+      *
+      *     // method (on constructor)
+      *     Reflect.defineMetadata("custom:annotation", options, Example, "staticMethod");
+      *
+      *     // method (on prototype)
+      *     Reflect.defineMetadata("custom:annotation", options, Example.prototype, "method");
+      *
+      *     // decorator factory as metadata-producing annotation.
+      *     function MyAnnotation(options): Decorator {
+      *         return (target, key?) => Reflect.defineMetadata("custom:annotation", options, target, key);
+      *     }
+      *
+      */
+    function defineMetadata(metadataKey, metadataValue, target, propertyKey) {
+        if (!IsObject(target))
+            throw new TypeError();
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        return OrdinaryDefineOwnMetadata(metadataKey, metadataValue, target, propertyKey);
+    }
+    Reflect.defineMetadata = defineMetadata;
+    /**
+      * Gets a value indicating whether the target object or its prototype chain has the provided metadata key defined.
+      * @param metadataKey A key used to store and retrieve metadata.
+      * @param target The target object on which the metadata is defined.
+      * @param propertyKey (Optional) The property key for the target.
+      * @returns `true` if the metadata key was defined on the target object or its prototype chain; otherwise, `false`.
+      * @example
+      *
+      *     class Example {
+      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+      *         // static staticProperty;
+      *         // property;
+      *
+      *         constructor(p) { }
+      *         static staticMethod(p) { }
+      *         method(p) { }
+      *     }
+      *
+      *     // constructor
+      *     result = Reflect.hasMetadata("custom:annotation", Example);
+      *
+      *     // property (on constructor)
+      *     result = Reflect.hasMetadata("custom:annotation", Example, "staticProperty");
+      *
+      *     // property (on prototype)
+      *     result = Reflect.hasMetadata("custom:annotation", Example.prototype, "property");
+      *
+      *     // method (on constructor)
+      *     result = Reflect.hasMetadata("custom:annotation", Example, "staticMethod");
+      *
+      *     // method (on prototype)
+      *     result = Reflect.hasMetadata("custom:annotation", Example.prototype, "method");
+      *
+      */
+    function hasMetadata(metadataKey, target, propertyKey) {
+        if (!IsObject(target))
+            throw new TypeError();
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        return OrdinaryHasMetadata(metadataKey, target, propertyKey);
+    }
+    Reflect.hasMetadata = hasMetadata;
+    /**
+      * Gets a value indicating whether the target object has the provided metadata key defined.
+      * @param metadataKey A key used to store and retrieve metadata.
+      * @param target The target object on which the metadata is defined.
+      * @param propertyKey (Optional) The property key for the target.
+      * @returns `true` if the metadata key was defined on the target object; otherwise, `false`.
+      * @example
+      *
+      *     class Example {
+      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+      *         // static staticProperty;
+      *         // property;
+      *
+      *         constructor(p) { }
+      *         static staticMethod(p) { }
+      *         method(p) { }
+      *     }
+      *
+      *     // constructor
+      *     result = Reflect.hasOwnMetadata("custom:annotation", Example);
+      *
+      *     // property (on constructor)
+      *     result = Reflect.hasOwnMetadata("custom:annotation", Example, "staticProperty");
+      *
+      *     // property (on prototype)
+      *     result = Reflect.hasOwnMetadata("custom:annotation", Example.prototype, "property");
+      *
+      *     // method (on constructor)
+      *     result = Reflect.hasOwnMetadata("custom:annotation", Example, "staticMethod");
+      *
+      *     // method (on prototype)
+      *     result = Reflect.hasOwnMetadata("custom:annotation", Example.prototype, "method");
+      *
+      */
+    function hasOwnMetadata(metadataKey, target, propertyKey) {
+        if (!IsObject(target))
+            throw new TypeError();
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        return OrdinaryHasOwnMetadata(metadataKey, target, propertyKey);
+    }
+    Reflect.hasOwnMetadata = hasOwnMetadata;
+    /**
+      * Gets the metadata value for the provided metadata key on the target object or its prototype chain.
+      * @param metadataKey A key used to store and retrieve metadata.
+      * @param target The target object on which the metadata is defined.
+      * @param propertyKey (Optional) The property key for the target.
+      * @returns The metadata value for the metadata key if found; otherwise, `undefined`.
+      * @example
+      *
+      *     class Example {
+      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+      *         // static staticProperty;
+      *         // property;
+      *
+      *         constructor(p) { }
+      *         static staticMethod(p) { }
+      *         method(p) { }
+      *     }
+      *
+      *     // constructor
+      *     result = Reflect.getMetadata("custom:annotation", Example);
+      *
+      *     // property (on constructor)
+      *     result = Reflect.getMetadata("custom:annotation", Example, "staticProperty");
+      *
+      *     // property (on prototype)
+      *     result = Reflect.getMetadata("custom:annotation", Example.prototype, "property");
+      *
+      *     // method (on constructor)
+      *     result = Reflect.getMetadata("custom:annotation", Example, "staticMethod");
+      *
+      *     // method (on prototype)
+      *     result = Reflect.getMetadata("custom:annotation", Example.prototype, "method");
+      *
+      */
+    function getMetadata(metadataKey, target, propertyKey) {
+        if (!IsObject(target))
+            throw new TypeError();
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        return OrdinaryGetMetadata(metadataKey, target, propertyKey);
+    }
+    Reflect.getMetadata = getMetadata;
+    /**
+      * Gets the metadata value for the provided metadata key on the target object.
+      * @param metadataKey A key used to store and retrieve metadata.
+      * @param target The target object on which the metadata is defined.
+      * @param propertyKey (Optional) The property key for the target.
+      * @returns The metadata value for the metadata key if found; otherwise, `undefined`.
+      * @example
+      *
+      *     class Example {
+      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+      *         // static staticProperty;
+      *         // property;
+      *
+      *         constructor(p) { }
+      *         static staticMethod(p) { }
+      *         method(p) { }
+      *     }
+      *
+      *     // constructor
+      *     result = Reflect.getOwnMetadata("custom:annotation", Example);
+      *
+      *     // property (on constructor)
+      *     result = Reflect.getOwnMetadata("custom:annotation", Example, "staticProperty");
+      *
+      *     // property (on prototype)
+      *     result = Reflect.getOwnMetadata("custom:annotation", Example.prototype, "property");
+      *
+      *     // method (on constructor)
+      *     result = Reflect.getOwnMetadata("custom:annotation", Example, "staticMethod");
+      *
+      *     // method (on prototype)
+      *     result = Reflect.getOwnMetadata("custom:annotation", Example.prototype, "method");
+      *
+      */
+    function getOwnMetadata(metadataKey, target, propertyKey) {
+        if (!IsObject(target))
+            throw new TypeError();
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        return OrdinaryGetOwnMetadata(metadataKey, target, propertyKey);
+    }
+    Reflect.getOwnMetadata = getOwnMetadata;
+    /**
+      * Gets the metadata keys defined on the target object or its prototype chain.
+      * @param target The target object on which the metadata is defined.
+      * @param propertyKey (Optional) The property key for the target.
+      * @returns An array of unique metadata keys.
+      * @example
+      *
+      *     class Example {
+      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+      *         // static staticProperty;
+      *         // property;
+      *
+      *         constructor(p) { }
+      *         static staticMethod(p) { }
+      *         method(p) { }
+      *     }
+      *
+      *     // constructor
+      *     result = Reflect.getMetadataKeys(Example);
+      *
+      *     // property (on constructor)
+      *     result = Reflect.getMetadataKeys(Example, "staticProperty");
+      *
+      *     // property (on prototype)
+      *     result = Reflect.getMetadataKeys(Example.prototype, "property");
+      *
+      *     // method (on constructor)
+      *     result = Reflect.getMetadataKeys(Example, "staticMethod");
+      *
+      *     // method (on prototype)
+      *     result = Reflect.getMetadataKeys(Example.prototype, "method");
+      *
+      */
+    function getMetadataKeys(target, propertyKey) {
+        if (!IsObject(target))
+            throw new TypeError();
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        return OrdinaryMetadataKeys(target, propertyKey);
+    }
+    Reflect.getMetadataKeys = getMetadataKeys;
+    /**
+      * Gets the unique metadata keys defined on the target object.
+      * @param target The target object on which the metadata is defined.
+      * @param propertyKey (Optional) The property key for the target.
+      * @returns An array of unique metadata keys.
+      * @example
+      *
+      *     class Example {
+      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+      *         // static staticProperty;
+      *         // property;
+      *
+      *         constructor(p) { }
+      *         static staticMethod(p) { }
+      *         method(p) { }
+      *     }
+      *
+      *     // constructor
+      *     result = Reflect.getOwnMetadataKeys(Example);
+      *
+      *     // property (on constructor)
+      *     result = Reflect.getOwnMetadataKeys(Example, "staticProperty");
+      *
+      *     // property (on prototype)
+      *     result = Reflect.getOwnMetadataKeys(Example.prototype, "property");
+      *
+      *     // method (on constructor)
+      *     result = Reflect.getOwnMetadataKeys(Example, "staticMethod");
+      *
+      *     // method (on prototype)
+      *     result = Reflect.getOwnMetadataKeys(Example.prototype, "method");
+      *
+      */
+    function getOwnMetadataKeys(target, propertyKey) {
+        if (!IsObject(target))
+            throw new TypeError();
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        return OrdinaryOwnMetadataKeys(target, propertyKey);
+    }
+    Reflect.getOwnMetadataKeys = getOwnMetadataKeys;
+    /**
+      * Deletes the metadata entry from the target object with the provided key.
+      * @param metadataKey A key used to store and retrieve metadata.
+      * @param target The target object on which the metadata is defined.
+      * @param propertyKey (Optional) The property key for the target.
+      * @returns `true` if the metadata entry was found and deleted; otherwise, false.
+      * @example
+      *
+      *     class Example {
+      *         // property declarations are not part of ES6, though they are valid in TypeScript:
+      *         // static staticProperty;
+      *         // property;
+      *
+      *         constructor(p) { }
+      *         static staticMethod(p) { }
+      *         method(p) { }
+      *     }
+      *
+      *     // constructor
+      *     result = Reflect.deleteMetadata("custom:annotation", Example);
+      *
+      *     // property (on constructor)
+      *     result = Reflect.deleteMetadata("custom:annotation", Example, "staticProperty");
+      *
+      *     // property (on prototype)
+      *     result = Reflect.deleteMetadata("custom:annotation", Example.prototype, "property");
+      *
+      *     // method (on constructor)
+      *     result = Reflect.deleteMetadata("custom:annotation", Example, "staticMethod");
+      *
+      *     // method (on prototype)
+      *     result = Reflect.deleteMetadata("custom:annotation", Example.prototype, "method");
+      *
+      */
+    function deleteMetadata(metadataKey, target, propertyKey) {
+        if (!IsObject(target))
+            throw new TypeError();
+        if (!IsUndefined(propertyKey))
+            propertyKey = ToPropertyKey(propertyKey);
+        var metadataMap = GetOrCreateMetadataMap(target, propertyKey, /*Create*/ false);
+        if (IsUndefined(metadataMap))
+            return false;
+        if (!metadataMap.delete(metadataKey))
+            return false;
+        if (metadataMap.size > 0)
+            return true;
+        var targetMetadata = Metadata.get(target);
+        targetMetadata.delete(propertyKey);
+        if (targetMetadata.size > 0)
+            return true;
+        Metadata.delete(target);
+        return true;
+    }
+    Reflect.deleteMetadata = deleteMetadata;
+    function DecorateConstructor(decorators, target) {
+        for (var i = decorators.length - 1; i >= 0; --i) {
+            var decorator = decorators[i];
+            var decorated = decorator(target);
+            if (!IsUndefined(decorated) && !IsNull(decorated)) {
+                if (!IsConstructor(decorated))
+                    throw new TypeError();
+                target = decorated;
+            }
+        }
+        return target;
+    }
+    function DecorateProperty(decorators, target, propertyKey, descriptor) {
+        for (var i = decorators.length - 1; i >= 0; --i) {
+            var decorator = decorators[i];
+            var decorated = decorator(target, propertyKey, descriptor);
+            if (!IsUndefined(decorated) && !IsNull(decorated)) {
+                if (!IsObject(decorated))
+                    throw new TypeError();
+                descriptor = decorated;
+            }
+        }
+        return descriptor;
+    }
+    function GetOrCreateMetadataMap(O, P, Create) {
+        var targetMetadata = Metadata.get(O);
+        if (IsUndefined(targetMetadata)) {
+            if (!Create)
+                return undefined;
+            targetMetadata = new _Map();
+            Metadata.set(O, targetMetadata);
+        }
+        var metadataMap = targetMetadata.get(P);
+        if (IsUndefined(metadataMap)) {
+            if (!Create)
+                return undefined;
+            metadataMap = new _Map();
+            targetMetadata.set(P, metadataMap);
+        }
+        return metadataMap;
+    }
+    // 3.1.1.1 OrdinaryHasMetadata(MetadataKey, O, P)
+    // https://rbuckton.github.io/reflect-metadata/#ordinaryhasmetadata
+    function OrdinaryHasMetadata(MetadataKey, O, P) {
+        var hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
+        if (hasOwn)
+            return true;
+        var parent = OrdinaryGetPrototypeOf(O);
+        if (!IsNull(parent))
+            return OrdinaryHasMetadata(MetadataKey, parent, P);
+        return false;
+    }
+    // 3.1.2.1 OrdinaryHasOwnMetadata(MetadataKey, O, P)
+    // https://rbuckton.github.io/reflect-metadata/#ordinaryhasownmetadata
+    function OrdinaryHasOwnMetadata(MetadataKey, O, P) {
+        var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
+        if (IsUndefined(metadataMap))
+            return false;
+        return ToBoolean(metadataMap.has(MetadataKey));
+    }
+    // 3.1.3.1 OrdinaryGetMetadata(MetadataKey, O, P)
+    // https://rbuckton.github.io/reflect-metadata/#ordinarygetmetadata
+    function OrdinaryGetMetadata(MetadataKey, O, P) {
+        var hasOwn = OrdinaryHasOwnMetadata(MetadataKey, O, P);
+        if (hasOwn)
+            return OrdinaryGetOwnMetadata(MetadataKey, O, P);
+        var parent = OrdinaryGetPrototypeOf(O);
+        if (!IsNull(parent))
+            return OrdinaryGetMetadata(MetadataKey, parent, P);
+        return undefined;
+    }
+    // 3.1.4.1 OrdinaryGetOwnMetadata(MetadataKey, O, P)
+    // https://rbuckton.github.io/reflect-metadata/#ordinarygetownmetadata
+    function OrdinaryGetOwnMetadata(MetadataKey, O, P) {
+        var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
+        if (IsUndefined(metadataMap))
+            return undefined;
+        return metadataMap.get(MetadataKey);
+    }
+    // 3.1.5.1 OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P)
+    // https://rbuckton.github.io/reflect-metadata/#ordinarydefineownmetadata
+    function OrdinaryDefineOwnMetadata(MetadataKey, MetadataValue, O, P) {
+        var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ true);
+        metadataMap.set(MetadataKey, MetadataValue);
+    }
+    // 3.1.6.1 OrdinaryMetadataKeys(O, P)
+    // https://rbuckton.github.io/reflect-metadata/#ordinarymetadatakeys
+    function OrdinaryMetadataKeys(O, P) {
+        var ownKeys = OrdinaryOwnMetadataKeys(O, P);
+        var parent = OrdinaryGetPrototypeOf(O);
+        if (parent === null)
+            return ownKeys;
+        var parentKeys = OrdinaryMetadataKeys(parent, P);
+        if (parentKeys.length <= 0)
+            return ownKeys;
+        if (ownKeys.length <= 0)
+            return parentKeys;
+        var set = new _Set();
+        var keys = [];
+        for (var _i = 0, ownKeys_1 = ownKeys; _i < ownKeys_1.length; _i++) {
+            var key = ownKeys_1[_i];
+            var hasKey = set.has(key);
+            if (!hasKey) {
+                set.add(key);
+                keys.push(key);
+            }
+        }
+        for (var _a = 0, parentKeys_1 = parentKeys; _a < parentKeys_1.length; _a++) {
+            var key = parentKeys_1[_a];
+            var hasKey = set.has(key);
+            if (!hasKey) {
+                set.add(key);
+                keys.push(key);
+            }
+        }
+        return keys;
+    }
+    // 3.1.7.1 OrdinaryOwnMetadataKeys(O, P)
+    // https://rbuckton.github.io/reflect-metadata/#ordinaryownmetadatakeys
+    function OrdinaryOwnMetadataKeys(O, P) {
+        var keys = [];
+        var metadataMap = GetOrCreateMetadataMap(O, P, /*Create*/ false);
+        if (IsUndefined(metadataMap))
+            return keys;
+        var keysObj = metadataMap.keys();
+        var iterator = GetIterator(keysObj);
+        var k = 0;
+        while (true) {
+            var next = IteratorStep(iterator);
+            if (!next) {
+                keys.length = k;
+                return keys;
+            }
+            var nextValue = IteratorValue(next);
+            try {
+                keys[k] = nextValue;
+            }
+            catch (e) {
+                try {
+                    IteratorClose(iterator);
+                }
+                finally {
+                    throw e;
+                }
+            }
+            k++;
+        }
+    }
+    // 6 ECMAScript Data Typ0es and Values
+    // https://tc39.github.io/ecma262/#sec-ecmascript-data-types-and-values
+    function Type(x) {
+        if (x === null)
+            return 1 /* Null */;
+        switch (typeof x) {
+            case "undefined": return 0 /* Undefined */;
+            case "boolean": return 2 /* Boolean */;
+            case "string": return 3 /* String */;
+            case "symbol": return 4 /* Symbol */;
+            case "number": return 5 /* Number */;
+            case "object": return x === null ? 1 /* Null */ : 6 /* Object */;
+            default: return 6 /* Object */;
+        }
+    }
+    // 6.1.1 The Undefined Type
+    // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-undefined-type
+    function IsUndefined(x) {
+        return x === undefined;
+    }
+    // 6.1.2 The Null Type
+    // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-null-type
+    function IsNull(x) {
+        return x === null;
+    }
+    // 6.1.5 The Symbol Type
+    // https://tc39.github.io/ecma262/#sec-ecmascript-language-types-symbol-type
+    function IsSymbol(x) {
+        return typeof x === "symbol";
+    }
+    // 6.1.7 The Object Type
+    // https://tc39.github.io/ecma262/#sec-object-type
+    function IsObject(x) {
+        return typeof x === "object" ? x !== null : typeof x === "function";
+    }
+    // 7.1 Type Conversion
+    // https://tc39.github.io/ecma262/#sec-type-conversion
+    // 7.1.1 ToPrimitive(input [, PreferredType])
+    // https://tc39.github.io/ecma262/#sec-toprimitive
+    function ToPrimitive(input, PreferredType) {
+        switch (Type(input)) {
+            case 0 /* Undefined */: return input;
+            case 1 /* Null */: return input;
+            case 2 /* Boolean */: return input;
+            case 3 /* String */: return input;
+            case 4 /* Symbol */: return input;
+            case 5 /* Number */: return input;
+        }
+        var hint = PreferredType === 3 /* String */ ? "string" : PreferredType === 5 /* Number */ ? "number" : "default";
+        var exoticToPrim = GetMethod(input, toPrimitiveSymbol);
+        if (exoticToPrim !== undefined) {
+            var result = exoticToPrim.call(input, hint);
+            if (IsObject(result))
+                throw new TypeError();
+            return result;
+        }
+        return OrdinaryToPrimitive(input, hint === "default" ? "number" : hint);
+    }
+    // 7.1.1.1 OrdinaryToPrimitive(O, hint)
+    // https://tc39.github.io/ecma262/#sec-ordinarytoprimitive
+    function OrdinaryToPrimitive(O, hint) {
+        if (hint === "string") {
+            var toString_1 = O.toString;
+            if (IsCallable(toString_1)) {
+                var result = toString_1.call(O);
+                if (!IsObject(result))
+                    return result;
+            }
+            var valueOf = O.valueOf;
+            if (IsCallable(valueOf)) {
+                var result = valueOf.call(O);
+                if (!IsObject(result))
+                    return result;
+            }
+        }
+        else {
+            var valueOf = O.valueOf;
+            if (IsCallable(valueOf)) {
+                var result = valueOf.call(O);
+                if (!IsObject(result))
+                    return result;
+            }
+            var toString_2 = O.toString;
+            if (IsCallable(toString_2)) {
+                var result = toString_2.call(O);
+                if (!IsObject(result))
+                    return result;
+            }
+        }
+        throw new TypeError();
+    }
+    // 7.1.2 ToBoolean(argument)
+    // https://tc39.github.io/ecma262/2016/#sec-toboolean
+    function ToBoolean(argument) {
+        return !!argument;
+    }
+    // 7.1.12 ToString(argument)
+    // https://tc39.github.io/ecma262/#sec-tostring
+    function ToString(argument) {
+        return "" + argument;
+    }
+    // 7.1.14 ToPropertyKey(argument)
+    // https://tc39.github.io/ecma262/#sec-topropertykey
+    function ToPropertyKey(argument) {
+        var key = ToPrimitive(argument, 3 /* String */);
+        if (IsSymbol(key))
+            return key;
+        return ToString(key);
+    }
+    // 7.2 Testing and Comparison Operations
+    // https://tc39.github.io/ecma262/#sec-testing-and-comparison-operations
+    // 7.2.2 IsArray(argument)
+    // https://tc39.github.io/ecma262/#sec-isarray
+    function IsArray(argument) {
+        return Array.isArray
+            ? Array.isArray(argument)
+            : argument instanceof Object
+                ? argument instanceof Array
+                : Object.prototype.toString.call(argument) === "[object Array]";
+    }
+    // 7.2.3 IsCallable(argument)
+    // https://tc39.github.io/ecma262/#sec-iscallable
+    function IsCallable(argument) {
+        // NOTE: This is an approximation as we cannot check for [[Call]] internal method.
+        return typeof argument === "function";
+    }
+    // 7.2.4 IsConstructor(argument)
+    // https://tc39.github.io/ecma262/#sec-isconstructor
+    function IsConstructor(argument) {
+        // NOTE: This is an approximation as we cannot check for [[Construct]] internal method.
+        return typeof argument === "function";
+    }
+    // 7.2.7 IsPropertyKey(argument)
+    // https://tc39.github.io/ecma262/#sec-ispropertykey
+    function IsPropertyKey(argument) {
+        switch (Type(argument)) {
+            case 3 /* String */: return true;
+            case 4 /* Symbol */: return true;
+            default: return false;
+        }
+    }
+    // 7.3 Operations on Objects
+    // https://tc39.github.io/ecma262/#sec-operations-on-objects
+    // 7.3.9 GetMethod(V, P)
+    // https://tc39.github.io/ecma262/#sec-getmethod
+    function GetMethod(V, P) {
+        var func = V[P];
+        if (func === undefined || func === null)
+            return undefined;
+        if (!IsCallable(func))
+            throw new TypeError();
+        return func;
+    }
+    // 7.4 Operations on Iterator Objects
+    // https://tc39.github.io/ecma262/#sec-operations-on-iterator-objects
+    function GetIterator(obj) {
+        var method = GetMethod(obj, iteratorSymbol);
+        if (!IsCallable(method))
+            throw new TypeError(); // from Call
+        var iterator = method.call(obj);
+        if (!IsObject(iterator))
+            throw new TypeError();
+        return iterator;
+    }
+    // 7.4.4 IteratorValue(iterResult)
+    // https://tc39.github.io/ecma262/2016/#sec-iteratorvalue
+    function IteratorValue(iterResult) {
+        return iterResult.value;
+    }
+    // 7.4.5 IteratorStep(iterator)
+    // https://tc39.github.io/ecma262/#sec-iteratorstep
+    function IteratorStep(iterator) {
+        var result = iterator.next();
+        return result.done ? false : result;
+    }
+    // 7.4.6 IteratorClose(iterator, completion)
+    // https://tc39.github.io/ecma262/#sec-iteratorclose
+    function IteratorClose(iterator) {
+        var f = iterator["return"];
+        if (f)
+            f.call(iterator);
+    }
+    // 9.1 Ordinary Object Internal Methods and Internal Slots
+    // https://tc39.github.io/ecma262/#sec-ordinary-object-internal-methods-and-internal-slots
+    // 9.1.1.1 OrdinaryGetPrototypeOf(O)
+    // https://tc39.github.io/ecma262/#sec-ordinarygetprototypeof
+    function OrdinaryGetPrototypeOf(O) {
+        var proto = Object.getPrototypeOf(O);
+        if (typeof O !== "function" || O === functionPrototype)
+            return proto;
+        // TypeScript doesn't set __proto__ in ES5, as it's non-standard.
+        // Try to determine the superclass constructor. Compatible implementations
+        // must either set __proto__ on a subclass constructor to the superclass constructor,
+        // or ensure each class has a valid `constructor` property on its prototype that
+        // points back to the constructor.
+        // If this is not the same as Function.[[Prototype]], then this is definately inherited.
+        // This is the case when in ES6 or when using __proto__ in a compatible browser.
+        if (proto !== functionPrototype)
+            return proto;
+        // If the super prototype is Object.prototype, null, or undefined, then we cannot determine the heritage.
+        var prototype = O.prototype;
+        var prototypeProto = prototype && Object.getPrototypeOf(prototype);
+        if (prototypeProto == null || prototypeProto === Object.prototype)
+            return proto;
+        // If the constructor was not a function, then we cannot determine the heritage.
+        var constructor = prototypeProto.constructor;
+        if (typeof constructor !== "function")
+            return proto;
+        // If we have some kind of self-reference, then we cannot determine the heritage.
+        if (constructor === O)
+            return proto;
+        // we have a pretty good guess at the heritage.
+        return constructor;
+    }
+    // naive Map shim
+    function CreateMapPolyfill() {
+        var cacheSentinel = {};
+        var arraySentinel = [];
+        var MapIterator = (function () {
+            function MapIterator(keys, values, selector) {
+                this._index = 0;
+                this._keys = keys;
+                this._values = values;
+                this._selector = selector;
+            }
+            MapIterator.prototype["@@iterator"] = function () { return this; };
+            MapIterator.prototype[iteratorSymbol] = function () { return this; };
+            MapIterator.prototype.next = function () {
+                var index = this._index;
+                if (index >= 0 && index < this._keys.length) {
+                    var result = this._selector(this._keys[index], this._values[index]);
+                    if (index + 1 >= this._keys.length) {
+                        this._index = -1;
+                        this._keys = arraySentinel;
+                        this._values = arraySentinel;
+                    }
+                    else {
+                        this._index++;
+                    }
+                    return { value: result, done: false };
+                }
+                return { value: undefined, done: true };
+            };
+            MapIterator.prototype.throw = function (error) {
+                if (this._index >= 0) {
+                    this._index = -1;
+                    this._keys = arraySentinel;
+                    this._values = arraySentinel;
+                }
+                throw error;
+            };
+            MapIterator.prototype.return = function (value) {
+                if (this._index >= 0) {
+                    this._index = -1;
+                    this._keys = arraySentinel;
+                    this._values = arraySentinel;
+                }
+                return { value: value, done: true };
+            };
+            return MapIterator;
+        }());
+        return (function () {
+            function Map() {
+                this._keys = [];
+                this._values = [];
+                this._cacheKey = cacheSentinel;
+                this._cacheIndex = -2;
+            }
+            Object.defineProperty(Map.prototype, "size", {
+                get: function () { return this._keys.length; },
+                enumerable: true,
+                configurable: true
+            });
+            Map.prototype.has = function (key) { return this._find(key, /*insert*/ false) >= 0; };
+            Map.prototype.get = function (key) {
+                var index = this._find(key, /*insert*/ false);
+                return index >= 0 ? this._values[index] : undefined;
+            };
+            Map.prototype.set = function (key, value) {
+                var index = this._find(key, /*insert*/ true);
+                this._values[index] = value;
+                return this;
+            };
+            Map.prototype.delete = function (key) {
+                var index = this._find(key, /*insert*/ false);
+                if (index >= 0) {
+                    var size = this._keys.length;
+                    for (var i = index + 1; i < size; i++) {
+                        this._keys[i - 1] = this._keys[i];
+                        this._values[i - 1] = this._values[i];
+                    }
+                    this._keys.length--;
+                    this._values.length--;
+                    if (key === this._cacheKey) {
+                        this._cacheKey = cacheSentinel;
+                        this._cacheIndex = -2;
+                    }
+                    return true;
+                }
+                return false;
+            };
+            Map.prototype.clear = function () {
+                this._keys.length = 0;
+                this._values.length = 0;
+                this._cacheKey = cacheSentinel;
+                this._cacheIndex = -2;
+            };
+            Map.prototype.keys = function () { return new MapIterator(this._keys, this._values, getKey); };
+            Map.prototype.values = function () { return new MapIterator(this._keys, this._values, getValue); };
+            Map.prototype.entries = function () { return new MapIterator(this._keys, this._values, getEntry); };
+            Map.prototype["@@iterator"] = function () { return this.entries(); };
+            Map.prototype[iteratorSymbol] = function () { return this.entries(); };
+            Map.prototype._find = function (key, insert) {
+                if (this._cacheKey !== key) {
+                    this._cacheIndex = this._keys.indexOf(this._cacheKey = key);
+                }
+                if (this._cacheIndex < 0 && insert) {
+                    this._cacheIndex = this._keys.length;
+                    this._keys.push(key);
+                    this._values.push(undefined);
+                }
+                return this._cacheIndex;
+            };
+            return Map;
+        }());
+        function getKey(key, _) {
+            return key;
+        }
+        function getValue(_, value) {
+            return value;
+        }
+        function getEntry(key, value) {
+            return [key, value];
+        }
+    }
+    // naive Set shim
+    function CreateSetPolyfill() {
+        return (function () {
+            function Set() {
+                this._map = new _Map();
+            }
+            Object.defineProperty(Set.prototype, "size", {
+                get: function () { return this._map.size; },
+                enumerable: true,
+                configurable: true
+            });
+            Set.prototype.has = function (value) { return this._map.has(value); };
+            Set.prototype.add = function (value) { return this._map.set(value, value), this; };
+            Set.prototype.delete = function (value) { return this._map.delete(value); };
+            Set.prototype.clear = function () { this._map.clear(); };
+            Set.prototype.keys = function () { return this._map.keys(); };
+            Set.prototype.values = function () { return this._map.values(); };
+            Set.prototype.entries = function () { return this._map.entries(); };
+            Set.prototype["@@iterator"] = function () { return this.keys(); };
+            Set.prototype[iteratorSymbol] = function () { return this.keys(); };
+            return Set;
+        }());
+    }
+    // naive WeakMap shim
+    function CreateWeakMapPolyfill() {
+        var UUID_SIZE = 16;
+        var keys = HashMap.create();
+        var rootKey = CreateUniqueKey();
+        return (function () {
+            function WeakMap() {
+                this._key = CreateUniqueKey();
+            }
+            WeakMap.prototype.has = function (target) {
+                var table = GetOrCreateWeakMapTable(target, /*create*/ false);
+                return table !== undefined ? HashMap.has(table, this._key) : false;
+            };
+            WeakMap.prototype.get = function (target) {
+                var table = GetOrCreateWeakMapTable(target, /*create*/ false);
+                return table !== undefined ? HashMap.get(table, this._key) : undefined;
+            };
+            WeakMap.prototype.set = function (target, value) {
+                var table = GetOrCreateWeakMapTable(target, /*create*/ true);
+                table[this._key] = value;
+                return this;
+            };
+            WeakMap.prototype.delete = function (target) {
+                var table = GetOrCreateWeakMapTable(target, /*create*/ false);
+                return table !== undefined ? delete table[this._key] : false;
+            };
+            WeakMap.prototype.clear = function () {
+                // NOTE: not a real clear, just makes the previous data unreachable
+                this._key = CreateUniqueKey();
+            };
+            return WeakMap;
+        }());
+        function CreateUniqueKey() {
+            var key;
+            do
+                key = "@@WeakMap@@" + CreateUUID();
+            while (HashMap.has(keys, key));
+            keys[key] = true;
+            return key;
+        }
+        function GetOrCreateWeakMapTable(target, create) {
+            if (!hasOwn.call(target, rootKey)) {
+                if (!create)
+                    return undefined;
+                Object.defineProperty(target, rootKey, { value: HashMap.create() });
+            }
+            return target[rootKey];
+        }
+        function FillRandomBytes(buffer, size) {
+            for (var i = 0; i < size; ++i)
+                buffer[i] = Math.random() * 0xff | 0;
+            return buffer;
+        }
+        function GenRandomBytes(size) {
+            if (typeof Uint8Array === "function") {
+                if (typeof crypto !== "undefined")
+                    return crypto.getRandomValues(new Uint8Array(size));
+                if (typeof msCrypto !== "undefined")
+                    return msCrypto.getRandomValues(new Uint8Array(size));
+                return FillRandomBytes(new Uint8Array(size), size);
+            }
+            return FillRandomBytes(new Array(size), size);
+        }
+        function CreateUUID() {
+            var data = GenRandomBytes(UUID_SIZE);
+            // mark as random - RFC 4122 § 4.4
+            data[6] = data[6] & 0x4f | 0x40;
+            data[8] = data[8] & 0xbf | 0x80;
+            var result = "";
+            for (var offset = 0; offset < UUID_SIZE; ++offset) {
+                var byte = data[offset];
+                if (offset === 4 || offset === 6 || offset === 8)
+                    result += "-";
+                if (byte < 16)
+                    result += "0";
+                result += byte.toString(16).toLowerCase();
+            }
+            return result;
+        }
+    }
+    // uses a heuristic used by v8 and chakra to force an object into dictionary mode.
+    function MakeDictionary(obj) {
+        obj.__ = undefined;
+        delete obj.__;
+        return obj;
+    }
+    // patch global Reflect
+    (function (__global) {
+        if (typeof __global.Reflect !== "undefined") {
+            if (__global.Reflect !== Reflect) {
+                for (var p in Reflect) {
+                    if (hasOwn.call(Reflect, p)) {
+                        __global.Reflect[p] = Reflect[p];
+                    }
+                }
+            }
+        }
+        else {
+            __global.Reflect = Reflect;
+        }
+    })(typeof global !== "undefined" ? global :
+        typeof self !== "undefined" ? self :
+            Function("return this;")());
+})(Reflect || (Reflect = {}));
+//# sourceMappingURL=Reflect.js.map
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("../../../../process/browser.js"), __webpack_require__("../../../../webpack/buildin/global.js")))
+
+/***/ }),
+
 /***/ "../../../../rxjs/_esm5/AsyncSubject.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2598,7 +2708,7 @@ var AsyncSubject = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         _super.prototype.complete.call(this);
     };
     return AsyncSubject;
-}(__WEBPACK_IMPORTED_MODULE_0__Subject__["a" /* Subject */]));
+}(__WEBPACK_IMPORTED_MODULE_0__Subject__["Subject"]));
 //# sourceMappingURL=AsyncSubject.js.map 
 
 
@@ -2659,7 +2769,7 @@ var BehaviorSubject = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         _super.prototype.next.call(this, this._value = value);
     };
     return BehaviorSubject;
-}(__WEBPACK_IMPORTED_MODULE_0__Subject__["a" /* Subject */]));
+}(__WEBPACK_IMPORTED_MODULE_0__Subject__["Subject"]));
 //# sourceMappingURL=BehaviorSubject.js.map 
 
 
@@ -2801,11 +2911,11 @@ var Notification = /*@__PURE__*/ (/*@__PURE__*/ function () {
         var kind = this.kind;
         switch (kind) {
             case 'N':
-                return __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */].of(this.value);
+                return __WEBPACK_IMPORTED_MODULE_0__Observable__["Observable"].of(this.value);
             case 'E':
-                return __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */].throw(this.error);
+                return __WEBPACK_IMPORTED_MODULE_0__Observable__["Observable"].throw(this.error);
             case 'C':
-                return __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */].empty();
+                return __WEBPACK_IMPORTED_MODULE_0__Observable__["Observable"].empty();
         }
         throw new Error('unexpected notification kind value');
     };
@@ -2852,7 +2962,8 @@ var Notification = /*@__PURE__*/ (/*@__PURE__*/ function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Observable; });
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Observable", function() { return Observable; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_root__ = __webpack_require__("../../../../rxjs/_esm5/util/root.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util_toSubscriber__ = __webpack_require__("../../../../rxjs/_esm5/util/toSubscriber.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__symbol_observable__ = __webpack_require__("../../../../rxjs/_esm5/symbol/observable.js");
@@ -3227,9 +3338,10 @@ var OuterSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SubjectSubscriber; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Subject; });
-/* unused harmony export AnonymousSubject */
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SubjectSubscriber", function() { return SubjectSubscriber; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Subject", function() { return Subject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AnonymousSubject", function() { return AnonymousSubject; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Subscriber__ = __webpack_require__("../../../../rxjs/_esm5/Subscriber.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
@@ -3354,7 +3466,7 @@ var Subject = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         }
     };
     Subject.prototype.asObservable = function () {
-        var observable = new __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */]();
+        var observable = new __WEBPACK_IMPORTED_MODULE_0__Observable__["Observable"]();
         observable.source = this;
         return observable;
     };
@@ -3362,7 +3474,7 @@ var Subject = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         return new AnonymousSubject(destination, source);
     };
     return Subject;
-}(__WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */]));
+}(__WEBPACK_IMPORTED_MODULE_0__Observable__["Observable"]));
 /**
  * @class AnonymousSubject<T>
  */
@@ -3953,7 +4065,7 @@ function flattenUnsubscriptionErrors(errors) {
 /** PURE_IMPORTS_START .._.._Observable,.._.._operator_distinctUntilChanged PURE_IMPORTS_END */
 
 
-__WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */].prototype.distinctUntilChanged = __WEBPACK_IMPORTED_MODULE_1__operator_distinctUntilChanged__["a" /* distinctUntilChanged */];
+__WEBPACK_IMPORTED_MODULE_0__Observable__["Observable"].prototype.distinctUntilChanged = __WEBPACK_IMPORTED_MODULE_1__operator_distinctUntilChanged__["a" /* distinctUntilChanged */];
 //# sourceMappingURL=distinctUntilChanged.js.map 
 
 
@@ -3968,7 +4080,7 @@ __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */].prototype.distin
 /** PURE_IMPORTS_START .._.._Observable,.._.._operator_map PURE_IMPORTS_END */
 
 
-__WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */].prototype.map = __WEBPACK_IMPORTED_MODULE_1__operator_map__["a" /* map */];
+__WEBPACK_IMPORTED_MODULE_0__Observable__["Observable"].prototype.map = __WEBPACK_IMPORTED_MODULE_1__operator_map__["a" /* map */];
 //# sourceMappingURL=map.js.map 
 
 
@@ -4061,7 +4173,7 @@ var ArrayLikeObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         }
     };
     return ArrayLikeObservable;
-}(__WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */]));
+}(__WEBPACK_IMPORTED_MODULE_0__Observable__["Observable"]));
 //# sourceMappingURL=ArrayLikeObservable.js.map 
 
 
@@ -4197,7 +4309,7 @@ var ArrayObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         }
     };
     return ArrayObservable;
-}(__WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */]));
+}(__WEBPACK_IMPORTED_MODULE_0__Observable__["Observable"]));
 //# sourceMappingURL=ArrayObservable.js.map 
 
 
@@ -4270,7 +4382,7 @@ var ConnectableObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         return Object(__WEBPACK_IMPORTED_MODULE_4__operators_refCount__["a" /* refCount */])()(this);
     };
     return ConnectableObservable;
-}(__WEBPACK_IMPORTED_MODULE_1__Observable__["a" /* Observable */]));
+}(__WEBPACK_IMPORTED_MODULE_1__Observable__["Observable"]));
 var connectableProto = ConnectableObservable.prototype;
 var connectableObservableDescriptor = {
     operator: { value: null },
@@ -4312,7 +4424,7 @@ var ConnectableSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         }
     };
     return ConnectableSubscriber;
-}(__WEBPACK_IMPORTED_MODULE_0__Subject__["b" /* SubjectSubscriber */]));
+}(__WEBPACK_IMPORTED_MODULE_0__Subject__["SubjectSubscriber"]));
 var RefCountOperator = /*@__PURE__*/ (/*@__PURE__*/ function () {
     function RefCountOperator(connectable) {
         this.connectable = connectable;
@@ -4475,7 +4587,7 @@ var EmptyObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         }
     };
     return EmptyObservable;
-}(__WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */]));
+}(__WEBPACK_IMPORTED_MODULE_0__Observable__["Observable"]));
 //# sourceMappingURL=EmptyObservable.js.map 
 
 
@@ -4587,7 +4699,7 @@ var FromObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     FromObservable.create = function (ish, scheduler) {
         if (ish != null) {
             if (typeof ish[__WEBPACK_IMPORTED_MODULE_10__symbol_observable__["a" /* observable */]] === 'function') {
-                if (ish instanceof __WEBPACK_IMPORTED_MODULE_8__Observable__["a" /* Observable */] && !scheduler) {
+                if (ish instanceof __WEBPACK_IMPORTED_MODULE_8__Observable__["Observable"] && !scheduler) {
                     return ish;
                 }
                 return new FromObservable(ish, scheduler);
@@ -4618,7 +4730,7 @@ var FromObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         }
     };
     return FromObservable;
-}(__WEBPACK_IMPORTED_MODULE_8__Observable__["a" /* Observable */]));
+}(__WEBPACK_IMPORTED_MODULE_8__Observable__["Observable"]));
 //# sourceMappingURL=FromObservable.js.map 
 
 
@@ -4710,7 +4822,7 @@ var IteratorObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         }
     };
     return IteratorObservable;
-}(__WEBPACK_IMPORTED_MODULE_1__Observable__["a" /* Observable */]));
+}(__WEBPACK_IMPORTED_MODULE_1__Observable__["Observable"]));
 var StringIterator = /*@__PURE__*/ (/*@__PURE__*/ function () {
     function StringIterator(str, idx, len) {
         if (idx === void 0) {
@@ -4922,7 +5034,7 @@ var PromiseObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         }
     };
     return PromiseObservable;
-}(__WEBPACK_IMPORTED_MODULE_1__Observable__["a" /* Observable */]));
+}(__WEBPACK_IMPORTED_MODULE_1__Observable__["Observable"]));
 function dispatchNext(arg) {
     var value = arg.value, subscriber = arg.subscriber;
     if (!subscriber.closed) {
@@ -5004,7 +5116,7 @@ var ScalarObservable = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
         }
     };
     return ScalarObservable;
-}(__WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */]));
+}(__WEBPACK_IMPORTED_MODULE_0__Observable__["Observable"]));
 //# sourceMappingURL=ScalarObservable.js.map 
 
 
@@ -5130,7 +5242,7 @@ function merge() {
     else if (typeof last === 'number') {
         concurrent = observables.pop();
     }
-    if (scheduler === null && observables.length === 1 && observables[0] instanceof __WEBPACK_IMPORTED_MODULE_0__Observable__["a" /* Observable */]) {
+    if (scheduler === null && observables.length === 1 && observables[0] instanceof __WEBPACK_IMPORTED_MODULE_0__Observable__["Observable"]) {
         return observables[0];
     }
     return Object(__WEBPACK_IMPORTED_MODULE_3__operators_mergeAll__["a" /* mergeAll */])(concurrent)(new __WEBPACK_IMPORTED_MODULE_1__ArrayObservable__["a" /* ArrayObservable */](observables, scheduler));
@@ -7748,7 +7860,7 @@ var ScanSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
 
 
 function shareSubjectFactory() {
-    return new __WEBPACK_IMPORTED_MODULE_2__Subject__["a" /* Subject */]();
+    return new __WEBPACK_IMPORTED_MODULE_2__Subject__["Subject"]();
 }
 /**
  * Returns a new Observable that multicasts (shares) the original Observable. As long as there is at least one
@@ -8358,7 +8470,7 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
     if (destination.closed) {
         return null;
     }
-    if (result instanceof __WEBPACK_IMPORTED_MODULE_4__Observable__["a" /* Observable */]) {
+    if (result instanceof __WEBPACK_IMPORTED_MODULE_4__Observable__["Observable"]) {
         if (result._isScalar) {
             destination.next(result.value);
             destination.complete();
@@ -55497,7 +55609,7 @@ var EventEmitter = /** @class */ (function (_super) {
         return _super.prototype.subscribe.call(this, schedulerFn, errorFn, completeFn);
     };
     return EventEmitter;
-}(__WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["a" /* Subject */]));
+}(__WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]));
 
 /**
  * @fileoverview added by tsickle
@@ -56878,7 +56990,7 @@ var ApplicationRef = /** @class */ (function () {
         this.components = [];
         this._enforceNoNewChanges = isDevMode();
         this._zone.onMicrotaskEmpty.subscribe({ next: function () { _this._zone.run(function () { _this.tick(); }); } });
-        var /** @type {?} */ isCurrentlyStable = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["a" /* Observable */](function (observer) {
+        var /** @type {?} */ isCurrentlyStable = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"](function (observer) {
             _this._stable = _this._zone.isStable && !_this._zone.hasPendingMacrotasks &&
                 !_this._zone.hasPendingMicrotasks;
             _this._zone.runOutsideAngular(function () {
@@ -56886,7 +56998,7 @@ var ApplicationRef = /** @class */ (function () {
                 observer.complete();
             });
         });
-        var /** @type {?} */ isStable = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["a" /* Observable */](function (observer) {
+        var /** @type {?} */ isStable = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"](function (observer) {
             // Create the subscription to onStable outside the Angular Zone so that
             // the callback is run outside the Angular Zone.
             var /** @type {?} */ stableSub;
@@ -78154,21 +78266,21 @@ var AbsoluteRedirect = /** @class */ (function () {
  * @return {?}
  */
 function noMatch(segmentGroup) {
-    return new __WEBPACK_IMPORTED_MODULE_9_rxjs_Observable__["a" /* Observable */](function (obs) { return obs.error(new NoMatch(segmentGroup)); });
+    return new __WEBPACK_IMPORTED_MODULE_9_rxjs_Observable__["Observable"](function (obs) { return obs.error(new NoMatch(segmentGroup)); });
 }
 /**
  * @param {?} newTree
  * @return {?}
  */
 function absoluteRedirect(newTree) {
-    return new __WEBPACK_IMPORTED_MODULE_9_rxjs_Observable__["a" /* Observable */](function (obs) { return obs.error(new AbsoluteRedirect(newTree)); });
+    return new __WEBPACK_IMPORTED_MODULE_9_rxjs_Observable__["Observable"](function (obs) { return obs.error(new AbsoluteRedirect(newTree)); });
 }
 /**
  * @param {?} redirectTo
  * @return {?}
  */
 function namedOutletsRedirect(redirectTo) {
-    return new __WEBPACK_IMPORTED_MODULE_9_rxjs_Observable__["a" /* Observable */](function (obs) {
+    return new __WEBPACK_IMPORTED_MODULE_9_rxjs_Observable__["Observable"](function (obs) {
         return obs.error(new Error("Only absolute redirects can have named outlets. redirectTo: '" + redirectTo + "'"));
     });
 }
@@ -78177,7 +78289,7 @@ function namedOutletsRedirect(redirectTo) {
  * @return {?}
  */
 function canLoadFails(route) {
-    return new __WEBPACK_IMPORTED_MODULE_9_rxjs_Observable__["a" /* Observable */](function (obs) {
+    return new __WEBPACK_IMPORTED_MODULE_9_rxjs_Observable__["Observable"](function (obs) {
         return obs.error(navigationCancelingError("Cannot load children because the guard of the route \"path: '" + route.path + "'\" returned false"));
     });
 }
@@ -80588,7 +80700,7 @@ var Recognizer = /** @class */ (function () {
             return Object(__WEBPACK_IMPORTED_MODULE_5_rxjs_observable_of__["a" /* of */])(routeState);
         }
         catch (/** @type {?} */ e) {
-            return new __WEBPACK_IMPORTED_MODULE_9_rxjs_Observable__["a" /* Observable */](function (obs) { return obs.error(e); });
+            return new __WEBPACK_IMPORTED_MODULE_9_rxjs_Observable__["Observable"](function (obs) { return obs.error(e); });
         }
     };
     /**
@@ -81216,7 +81328,7 @@ var Router = /** @class */ (function () {
         this.config = config;
         this.navigations = new __WEBPACK_IMPORTED_MODULE_3_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](/** @type {?} */ ((null)));
         this.navigationId = 0;
-        this.events = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["a" /* Subject */]();
+        this.events = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]();
         /**
          * Error handler that is invoked when a navigation errors.
          *
@@ -83794,7 +83906,7 @@ var RouterInitializer = /** @class */ (function () {
     function RouterInitializer(injector) {
         this.injector = injector;
         this.initNavigation = false;
-        this.resultOfPreactivationDone = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["a" /* Subject */]();
+        this.resultOfPreactivationDone = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]();
     }
     /**
      * @return {?}
