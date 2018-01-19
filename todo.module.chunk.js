@@ -71,7 +71,7 @@ var TodoStateProvider = (function () {
         });
     };
     TodoStateProvider = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__ngx_redux_public_api__["b" /* ReduxState */])({ name: 'todo' })
+        Object(__WEBPACK_IMPORTED_MODULE_0__ngx_redux_public_api__["ReduxState"])({ name: 'todo' })
     ], TodoStateProvider);
     return TodoStateProvider;
 }());
@@ -115,7 +115,7 @@ var TodoStateReducer = (function () {
         return __assign({}, state, { items: state.items.concat(action.payload || '- null -') });
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__ngx_redux_public_api__["a" /* ReduxReducer */])([
+        Object(__WEBPACK_IMPORTED_MODULE_1__ngx_redux_public_api__["ReduxReducer"])([
             __WEBPACK_IMPORTED_MODULE_2__list_todo_list_component__["a" /* TodoListComponent */].prototype.add,
         ]),
         __metadata("design:type", Function),
@@ -231,26 +231,31 @@ var ReduxActionContext = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorator
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__action_public_api__ = __webpack_require__("../../../../../src/ngx-redux/action/public_api.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__);
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__, "ReduxReducer")) __webpack_require__.d(__webpack_exports__, "ReduxReducer", function() { return __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["ReduxReducer"]; });
+/* harmony namespace reexport (by used) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__, "ReduxState")) __webpack_require__.d(__webpack_exports__, "ReduxState", function() { return __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["ReduxState"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__action_public_api__ = __webpack_require__("../../../../../src/ngx-redux/action/public_api.ts");
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__module_public_api__ = __webpack_require__("../../../../../src/ngx-redux/module/public_api.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__module_public_api__ = __webpack_require__("../../../../../src/ngx-redux/module/public_api.ts");
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reducer_public_api__ = __webpack_require__("../../../../../src/ngx-redux/reducer/public_api.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2__reducer_public_api__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__select_public_api__ = __webpack_require__("../../../../../src/ngx-redux/select/public_api.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reducer_public_api__ = __webpack_require__("../../../../../src/ngx-redux/reducer/public_api.ts");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "ReduxReducer", function() { return __WEBPACK_IMPORTED_MODULE_3__reducer_public_api__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__select_public_api__ = __webpack_require__("../../../../../src/ngx-redux/select/public_api.ts");
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__state_public_api__ = __webpack_require__("../../../../../src/ngx-redux/state/public_api.ts");
-/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_4__state_public_api__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store_public_api__ = __webpack_require__("../../../../../src/ngx-redux/store/public_api.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__state_public_api__ = __webpack_require__("../../../../../src/ngx-redux/state/public_api.ts");
+/* harmony namespace reexport (by used) */ __webpack_require__.d(__webpack_exports__, "ReduxState", function() { return __WEBPACK_IMPORTED_MODULE_5__state_public_api__["a"]; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store_public_api__ = __webpack_require__("../../../../../src/ngx-redux/store/public_api.ts");
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__testing_public_api__ = __webpack_require__("../../../../../src/ngx-redux/testing/public_api.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__testing_public_api__ = __webpack_require__("../../../../../src/ngx-redux/testing/public_api.ts");
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__selector__ = __webpack_require__("../../../../../src/ngx-redux/selector.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__selector__ = __webpack_require__("../../../../../src/ngx-redux/selector.ts");
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__selector_cache_selector_cache_factory__ = __webpack_require__("../../../../../src/ngx-redux/selector/cache/selector-cache-factory.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__selector_cache_selector_cache_factory__ = __webpack_require__("../../../../../src/ngx-redux/selector/cache/selector-cache-factory.ts");
 /* unused harmony namespace reexport */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__module__ = __webpack_require__("../../../../../src/ngx-redux/module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__module__ = __webpack_require__("../../../../../src/ngx-redux/module.ts");
 /* unused harmony namespace reexport */
+
 
 
 
