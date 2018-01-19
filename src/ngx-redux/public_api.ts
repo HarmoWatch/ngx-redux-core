@@ -1,3 +1,4 @@
+export * from '@harmowatch/redux-decorators';
 export * from './action/public_api';
 export * from './module/public_api';
 export * from './reducer/public_api';
