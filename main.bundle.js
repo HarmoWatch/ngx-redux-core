@@ -447,8 +447,9 @@ var Registry = (function () {
         });
     };
     Registry.getReducerItemsByType = function (type) {
-        return Registry._reducers
+        var reducerItemsByType = Registry._reducers
             .filter(function (reducerItem) { return __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["ReduxActionDispatcher"].getType(reducerItem.type) === type; });
+        return reducerItemsByType;
     };
     Registry.getStore = function () {
         return new Promise(Registry._store.subscribe.bind(Registry._store));
@@ -563,7 +564,7 @@ var ReduxSelector = (function (_super) {
         return selector;
     };
     ReduxSelector.getValueByState = function (state, selector, stateProvider) {
-        return ReduxSelector.getAbsoluteSelector(selector, stateProvider).split(ReduxSelector.DELIMITER)
+        var value = ReduxSelector.getAbsoluteSelector(selector, stateProvider).split(ReduxSelector.DELIMITER)
             .filter(function (propertyKey) { return propertyKey !== ''; })
             .reduce(function (previousValue, propertyKey) {
             if (!previousValue || !previousValue.hasOwnProperty(propertyKey)) {
@@ -571,6 +572,7 @@ var ReduxSelector = (function (_super) {
             }
             return previousValue[propertyKey];
         }, state);
+        return value;
     };
     ReduxSelector.DELIMITER = '/';
     return ReduxSelector;
