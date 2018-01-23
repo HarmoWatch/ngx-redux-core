@@ -4,15 +4,12 @@
   "version": "0.1.28-3",
   "license": "MIT",
   "scripts": {
+    "lint": "ng lint",
+    "test": "test",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
-    "replace": "replace",
     "build:package": "ng-packagr -p package.json",
-    "version:minor": "npm version minor",
-    "version:patch": "npm version patch",
+    "build:github-page": "ng build --output-path github-page --deploy-url=https://harmowatch.github.io/ngx-redux-core/ --base-href=/ngx-redux-core/"
     "publish:package": "npm run build:package && npm publish ./dist/ --access=public --registry https://registry.npmjs.org/",
-    "ci:test": "ng test --code-coverage --single-run && npm run coveralls",
-    "ci:lint": "ng lint",
-    "ci:build:github:page": "ng build --output-path github-page --deploy-url=https://harmowatch.github.io/ngx-redux-core/ --base-href=/ngx-redux-core/"
   },
   "ngPackage": {
     "lib": {
