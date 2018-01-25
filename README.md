@@ -1,7 +1,5 @@
 # @harmowatch/ngx-redux-core
 
-# NOTE: This is the README for the next version! Please check the [master branch](https://github.com/HarmoWatch/ngx-redux-core/tree/master)
-
 ## Decorator driven redux integration for Angular 2+
 
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovateapp.com/)
@@ -616,8 +614,8 @@ export class AppActions {
 
 ```json
 {
-  "payload": "SampleTodo",
-  "type": addDefinitionIfUnknown
+  "type": "AppActions://add-todo",
+  "payload": "SomeTodo" 
 }
 ```
 
