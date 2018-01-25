@@ -70,7 +70,7 @@ the root NgModule of your application.
 The static [`forRoot`](https://angular.io/docs/ts/latest/guide/ngmodule.html#!#core-for-root) method is a convention
 that provides and configures services at the same time. Make sure you call this method in your root NgModule, only!
 
-###### Example
+###### [Example](./src/example-app/app.module.ts)
 
 ```ts
 import { NgModule } from '@angular/core';
@@ -141,7 +141,8 @@ export class AppModule {
 
 Now you have to create an interface in which the structure of your redux state is described.
 
-###### Example 
+###### Example
+###### [Example](./src/example-app/app.module.ts) 
 
 ```ts
 export interface AppModuleState {

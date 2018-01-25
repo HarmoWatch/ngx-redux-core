@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ReduxAction } from '../../../ngx-redux/action/public_api';
+import { ReduxAction } from '@harmowatch/ngx-redux-core';
 
 @Component({
   templateUrl: './todo-list.component.html',

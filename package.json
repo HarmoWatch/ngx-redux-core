@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "ng lint",
     "test": "ng test --code-coverage --single-run && npm run coveralls",
+    "start": "ng serve",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "build:package": "ng-packagr -p package.json",
     "build:github-page": "ng build --output-path github-page --deploy-url=https://harmowatch.github.io/ngx-redux-core/ --base-href=/ngx-redux-core/",
@@ -13,7 +14,7 @@
   },
   "ngPackage": {
     "lib": {
-      "entryFile": "src/ngx-redux/public_api.ts",
+      "entryFile": "src/@harmowatch/ngx-redux-core/index.ts",
       "languageLevel": [
         "dom",
         "es2017"

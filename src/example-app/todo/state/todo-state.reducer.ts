@@ -1,7 +1,6 @@
-import { ActionInterface } from '../../../ngx-redux/action/interface';
-import { ReduxReducer } from '../../../ngx-redux/public_api';
+import { ActionInterface, ReduxReducer } from '@harmowatch/ngx-redux-core';
 import { TodoListComponent } from '../list/todo-list.component';
-import { TodoState } from './todo-state.provider';
+import { TodoState } from '../todo.module.state';
 
 export class TodoStateReducer {
 

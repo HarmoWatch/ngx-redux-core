@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ReduxModule } from '../../ngx-redux/module';
+import { ReduxModule } from '@harmowatch/ngx-redux-core';
 import { TodoListComponent } from './list/todo-list.component';
-import { TodoStateProvider } from './state/todo-state.provider';
 import { TodoStateReducer } from './state/todo-state.reducer';
+import { TodoModuleStateProvider } from './todo.module.state.provider';
 
 @NgModule({
   imports: [
     CommonModule,
     ReduxModule.forChild({
       state: {
-        provider: TodoStateProvider,
+        provider: TodoModuleStateProvider,
         reducers: [ TodoStateReducer ],
       }
     }),
