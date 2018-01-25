@@ -2,6 +2,13 @@
   "extends": [
     "config:base"
   ],
-  "baseBranch": "next",
-  "rebaseStalePrs": true
+  "rebaseStalePrs": true,
+  "automerge": true,
+  "automergeType": "branch-push",
+  "major": {
+    "automerge": false
+  },
+  "devDependencies": {
+    "automerge": true
+  }
 }
