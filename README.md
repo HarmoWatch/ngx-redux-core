@@ -39,15 +39,14 @@ Redux is a popular and common approach to manage a application state. The three 
 
 ## What is ngx-redux?
 
-This package helps you to integrate Redux in your Angular 2+ application. By using *ngx-redux* you'll get the following
-benefits:
+This package helps you to integrate Redux into your Angular 2+ application. Using *ngx-redux* gives you the following benefits:
 
 - support for [lazy loaded NgModules](https://angular.io/guide/ngmodule#lazy-loading-modules-with-the-router)
 - [Ahead-of-Time Compilation (AOT)](https://angular.io/guide/aot-compiler) support
 - a [Angular Pipe](https://angular.io/guide/pipes) to select the values from the state
-- better typescript and refactoring support
+- a better typescript and refactoring support
 - a decorator and module driven approach
-- easy to test
+- a easy way to test 
 
 ## Installation
 
@@ -64,8 +63,8 @@ npm install redux @harmowatch/ngx-redux-core --save
 
 ### 1. Import the root `ReduxModule`:
 
-To use *ngx-redux* in your Angular project you have to import `ReduxModule.forRoot()` in the root NgModule of your
-application.
+To be able to use *ngx-redux* in your Angular project, you need to add `ReduxModule. forRoot ()` to 
+the root NgModule of your application.
 
 The static [`forRoot`](https://angular.io/docs/ts/latest/guide/ngmodule.html#!#core-for-root) method is a convention
 that provides and configures services at the same time. Make sure you call this method in your root NgModule, only!
@@ -93,9 +92,9 @@ export class AppModule {
 
 #### 1.1 Bootstrap your own [Redux Store](http://redux.js.org/docs/basics/Store.html)
 
-By default *ngx-redux* will bootstrap a [Redux Store](http://redux.js.org/docs/basics/Store.html) for you. 
-Is the app running in [devMode](https://angular.io/api/core/isDevMode), the default store is prepared to work together 
-with the [Redux DevTools](https://github.com/gaearon/redux-devtools).
+By default *ngx-redux* will boot a [Redux Store](http://redux.js.org/docs/basics/Store.html) for you. If the app 
+runs in [devMode](https://angular.io/api/core/isDevMode), the Default Store is prepared for working with the 
+[Redux DevTools](https://github.com/gaearon/redux-devtools).
 
 If you want to add a [Middleware](http://redux.js.org/docs/advanced/Middleware.html) like logging, you've to provide a
 custom *stateFactory*.
@@ -139,7 +138,7 @@ export class AppModule {
 
 ### 2. Describe your state
 
-Ok, now you've to create a interface to describe the structure of your state.
+Now you have to create an interface in which the structure of your redux state is described.
 
 ###### Example 
 
@@ -159,18 +158,18 @@ Before you can register your state to redux, you have to implement the `ReduxSta
 
 ##### ... is decorated by `@ReduxState`
 
-You need to decorate your class by `@ReduxState` and to provide a application wide unique state `name` to it. If you can
-not be sure that your name is unique enough, then you can add a unique id to it (*as in the example shown below*). 
+Now you have to decorate your class with `@ReduxState` to give it an application wide, unique name. 
+If you are not sure if your `name` is unique enough, then just add a unique-id as in the example shown below.
 
 ##### ... implements `ReduxStateProvider`
 
-The `@ReduxState` decorator is only valid for classes implementing the `ReduxStateProvider`. This is a generic interface, where 
-you've to provide your previously created `AppModuleState`. The `ReduxStateProvider` enforces the implementation of the public 
-method `getInitialState`. This method is responsible for knowing what the initial state can look like. You can return a 
-`Promise`, `Observable` or an implementation of the state interface.
+The `@ReduxState` decorator is only valid for classes implementing the `ReduxStateProvider`. This is a generic 
+interface where you have to specify your previously created `AppModuleState`. The `ReduxStateProvider` enforces
+the implementation of the public method `getInitialState`. This method is responsible for knowing how to initialize 
+the initial state. You can return a `Promise`, `Observable` or an implementation of the state interface.
 
-> Note: The method `getInitialState` is called by *ngx-redux* automatically! Your state will be registered to the root
-state **after** the initial state was resolved successfully.
+> Note: The method `getInitialState` is called automatically by *ngx-redux*! The state is only registered in the 
+  root state, after the initial state has been resolved successfully.
  
 ###### Example 1) Interface implementation
 
@@ -307,8 +306,7 @@ To select values from the state you can choose between this three options:
 - the `ReduxSelector` class
 
 Each selector option will accept a relative *todo/items* or an absolute path 
-*/app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72/todo/items*. It's recommended to use relative paths only. The 
-absolute path is only there to give you a maximum of flexibility.
+*/app-module-7c66b613-20bd-4d35-8611-5181ca4a0b72/todo/items*.
 
 #### 5.1 Using the `reduxSelect` pipe
 
@@ -317,7 +315,7 @@ right state provider is determined automatically, because you're in a Angular co
 
 > Note: You can use the same selector multiple times, *ngx-redux* will cache it for you ;)
 
-> Note: [distinctUntilChanged](http://rxmarbles.com/#distinctUntilChanged) is applied automatically
+> Note: [distinctUntilChanged](http://rxmarbles.com/#distinctUntilChanged) is applied for you automatically
 
 ###### Example 1) Relative path (recommended)
 
@@ -334,8 +332,8 @@ right state provider is determined automatically, because you're in a Angular co
 #### 5.2 Using the `@ReduxSelect` annotation
 
 If you want to access the state values in your component you can use the `@ReduxSelect` decorator. *ngx-redux* can not
-determine which state you mean automatically, because decorators run outside the Angular context. For that you've to
-pass in a reference to your state class as 2nd argument. When you specify an absolute path, you don't need the 2nd 
+determine which state you mean, because decorators run outside the Angular context. For that you've to
+pass in a reference to your state class as the 2nd argument. When you specify an absolute path, you don't need the 2nd 
 argument anymore.
 
 > Note: [distinctUntilChanged](http://rxmarbles.com/#distinctUntilChanged) is applied automatically
@@ -689,4 +687,4 @@ export class AppModule {
 
 One of the principles of Redux is to change the state using **pure functions**, only. Unfortunately there is 
 **no typescript support** to decorate pure functions right now. That's the reason why *ngx-redux* uses classes where the
-reducer functions are shipped by. To find a viable solution the reducer functions shall be written as static methods.
+reducer functions are shipped by. To find a viable solution the reducer functions can be written as static methods.
