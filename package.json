@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "ng lint",
-    "test": "test",
+    "test": "ng test --code-coverage --single-run && npm run coveralls",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "build:package": "ng-packagr -p package.json",
     "build:github-page": "ng build --output-path github- page --deploy-url=https://harmowatch.github.io/ngx-redux-core/ --base-href=/ngx-redux-core/",
