@@ -48,7 +48,7 @@
     "redux": ">=3.0.0"
   },
   "devDependencies": {
-    "@angular/cli": "1.6.5",
+    "@angular/cli": "1.6.6",
     "@angular/common": "5.2.2",
     "@angular/compiler": "5.2.2",
     "@angular/compiler-cli": "5.2.2",
