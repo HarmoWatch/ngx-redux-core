@@ -688,37 +688,8 @@ var StateDefToken = /** @class */ (function (_super) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxState; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__selector__ = __webpack_require__("../../../../../src/@harmowatch/ngx-redux-core/state/selector.ts");
-/* unused harmony namespace reexport */
-
 
 var ReduxState = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["ReduxStateDecorator"].forClass;
-
-
-/***/ }),
-
-/***/ "../../../../../src/@harmowatch/ngx-redux-core/state/selector.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export ReduxStateSelector */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__selector_selector__ = __webpack_require__("../../../../../src/@harmowatch/ngx-redux-core/selector/selector.ts");
-
-
-/**
- * @deprecated Use "ReduxSelector" instead
- */
-var ReduxStateSelector = /** @class */ (function () {
-    function ReduxStateSelector(expression, context) {
-        this.selector = new __WEBPACK_IMPORTED_MODULE_1__selector_selector__["a" /* ReduxSelector */](expression, context);
-    }
-    ReduxStateSelector.prototype.asObservable = function () {
-        return this.selector;
-    };
-    return ReduxStateSelector;
-}());
-
 
 
 /***/ }),
