@@ -2,7 +2,7 @@ import 'rxjs/add/operator/map';
 
 import { ReduxStateType } from '@harmowatch/redux-decorators';
 import { Observable } from 'rxjs/Observable';
-import { ReduxSelector } from '../selector';
+import { ReduxSelector } from '../selector/selector';
 
 /**
  * @deprecated Use "ReduxSelector" instead

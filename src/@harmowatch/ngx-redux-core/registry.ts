@@ -1,14 +1,17 @@
+import 'rxjs/add/operator/toPromise';
+
 import {
   ReduxActionDispatcher,
   ReduxActionFunction,
   ReduxStateDecorator,
   ReduxStateInterface
 } from '@harmowatch/redux-decorators';
+
 import { Action, Reducer, Store } from 'redux';
-import 'rxjs/add/operator/toPromise';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Observable } from 'rxjs/Observable';
-import { ActionInterface } from './action/interface';
+
+import { ActionWithPayload } from './';
 
 export class RegistryReducerItem {
   stateName: string;
@@ -74,7 +77,7 @@ export class Registry {
       }
 
       Promise.resolve(initStateToResolve).then((initialState) => {
-        store.dispatch<ActionInterface<IRegisterStatePayload>>({
+        store.dispatch<ActionWithPayload<IRegisterStatePayload>>({
           payload: {
             initialValue: initialState,
             name: stateConfig.name,

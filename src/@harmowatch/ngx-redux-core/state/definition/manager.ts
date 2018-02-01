@@ -1,5 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { ReduxReducerDecorator, ReduxStateDecorator, ReduxReducerType } from '@harmowatch/redux-decorators';
+
 import { Registry } from '../../registry';
 import { StateDefinition } from '../definition';
 

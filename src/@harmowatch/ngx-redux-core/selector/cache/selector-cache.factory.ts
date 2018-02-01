@@ -1,5 +1,5 @@
 import { ReduxStateType } from '@harmowatch/redux-decorators';
-import { ReduxSelector } from '../../selector';
+import { ReduxSelector } from '../selector';
 
 export class ReduxSelectorCacheFactory {
 

@@ -1,10 +1,10 @@
-import {async, TestBed} from '@angular/core/testing';
-import {Observable} from 'rxjs/Observable';
-import {ReduxTestingModule} from '../testing/module';
-import {selectorSuiteFactory} from '../testing/selector/suite.config';
-import {TestingStateProvider} from '../testing/state';
-import {ReduxTestingStore} from '../testing/store';
-import {ReduxSelect} from './decorator';
+import { async, TestBed } from '@angular/core/testing';
+import { Observable } from 'rxjs/Observable';
+import { ReduxTestingModule } from '../testing/module';
+import { selectorSuiteFactory } from '../testing/selector/suite.config';
+import { TestingStateProvider } from '../testing/state';
+import { ReduxTestingStore } from '../testing/store';
+import { ReduxSelect } from './decorator';
 
 class TestClass {
 

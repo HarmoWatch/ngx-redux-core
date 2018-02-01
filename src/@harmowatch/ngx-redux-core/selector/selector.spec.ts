@@ -1,10 +1,11 @@
 import { async, TestBed } from '@angular/core/testing';
+import { Registry } from '@harmowatch/ngx-redux-core/registry';
 import { Observable } from 'rxjs/Observable';
-import { ReduxRootState } from './module/root/state';
+import { ReduxRootState } from '../module/root/state';
 import { ReduxSelector } from './selector';
-import { ReduxTestingModule } from './testing/module';
-import { TestingState, TestingStateProvider } from './testing/state';
-import { ReduxTestingStore } from './testing/store';
+import { ReduxTestingModule } from '../testing/module';
+import { TestingState, TestingStateProvider } from '../testing/state';
+import { ReduxTestingStore } from '../testing/store';
 
 describe('ReduxSelector', () => {
 
@@ -125,6 +126,16 @@ describe('ReduxSelector', () => {
 
     });
 
+  });
+
+  it('it will not create an observerable for each observer', () => {
+    spyOn(Registry, 'getStore').and.callThrough();
+    const selector = new ReduxSelector('todo/items', TestingStateProvider);
+
+    selector.subscribe(() => null);
+    selector.subscribe(() => null);
+
+    expect(Registry.getStore).toHaveBeenCalledTimes(1);
   });
 
 });

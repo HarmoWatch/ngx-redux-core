@@ -1,7 +1,7 @@
 import { Inject, Pipe, PipeTransform } from '@angular/core';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { Observable } from 'rxjs/Observable';
-import { ReduxSelectorCacheFactory } from '../selector/cache/selector-cache-factory';
+import { ReduxSelectorCacheFactory } from '../selector/cache/selector-cache.factory';
 import { StateDefinition } from '../state/definition';
 import { StateDefToken } from '../state/definition/token';
 

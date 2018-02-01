@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Inject, ModuleWithProviders, NgModule, Optional } from '@angular/core';
 import { ReduxCommonModule } from '../common/module';
 import { Registry } from '../registry';
-import { ReduxSelectorCacheFactory } from '../selector/cache/selector-cache-factory';
+import { ReduxSelectorCacheFactory } from '../selector/cache/selector-cache.factory';
 import { ReduxTestingStore } from './store';
 import { ReduxModuleRootConfig } from '../module/root/config';
 import { StateDefToken } from '../state/definition/token';
