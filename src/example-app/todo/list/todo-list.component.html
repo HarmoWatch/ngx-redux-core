@@ -1,8 +1,29 @@
-
-<input #todo type="text" />
-<button (click)="add(todo.value)">Add todo</button>
-
-<ul class="todo-list">
-  <li *ngFor="let todo of ('items' | reduxSelect | async)">{{todo}}</li>
-</ul>
-
+<div class="row">
+  <div class="col-7">
+    <div class="card">
+      <div class="card-header">
+        Redux State
+      </div>
+      <div class="card-block">
+        <blockquote class="card-blockquote">
+          <pre>{{ '/' | reduxSelect | async | json }}</pre>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <form (submit)="add(todo.value)">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <input #todo type="text" class="form-control"  placeholder="Enter a todo and press enter">
+        </li>
+        <li class="list-group-item justify-content-between" *ngFor="let todo of ('items' | reduxSelect | async)">
+          <span>{{todo.label}}</span>
+          <button type="button" class="close" (click)="remove(todo)">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </li>
+      </ul>
+    </form>
+  </div>
+</div>
