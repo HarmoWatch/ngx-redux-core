@@ -42,7 +42,11 @@ export class ReduxSelector<T> extends Subject<T> {
   }
 
   public static getValueByState<S>(state: ReduxRootState<S>, selector: string, stateProvider?: ReduxStateType): S {
-    return ReduxSelector.getAbsoluteSelector(selector, stateProvider).split(ReduxSelector.DELIMITER)
+    /* save the return value in a constant to prevent
+     * "Metadata collected contains an error that will be reported at runtime: Lambda not supported."
+     * error
+     */
+    const value: S = ReduxSelector.getAbsoluteSelector(selector, stateProvider).split(ReduxSelector.DELIMITER)
       .filter(propertyKey => propertyKey !== '')
       .reduce((previousValue, propertyKey) => {
         if (!previousValue || !previousValue.hasOwnProperty(propertyKey)) {
@@ -51,6 +55,8 @@ export class ReduxSelector<T> extends Subject<T> {
 
         return previousValue[ propertyKey ];
       }, state as {});
+
+    return value;
   }
 
 }

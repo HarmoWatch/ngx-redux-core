@@ -1,5 +1,6 @@
+import { Reducer } from 'redux';
 import { Injectable, Injector } from '@angular/core';
-import { ReduxReducerDecorator, ReduxStateDecorator, ReduxReducerType } from '@harmowatch/redux-decorators';
+import { ReduxReducerDecorator, ReduxReducerType, ReduxStateDecorator } from '@harmowatch/redux-decorators';
 
 import { Registry } from '../../registry';
 import { StateDefinition } from '../definition';
@@ -32,9 +33,15 @@ export class StateDefinitionManager {
 
   private registerReducers(stateName: string, reducers: ReduxReducerType[]) {
     reducers.forEach(reducerClass => Object.values(reducerClass.prototype)
-      .forEach(reducerMethod => {
-        const type = ReduxReducerDecorator.get(reducerMethod);
-        Registry.registerReducer(stateName, Array.isArray(type) ? type : [ type ], reducerMethod);
+      .map(reducerMethod => {
+        return {
+          reducerMethod,
+          type: ReduxReducerDecorator.get(reducerMethod),
+        };
+      })
+      .filter(type => type != null)
+      .forEach(({reducerMethod, type}) => {
+        Registry.registerReducer(stateName, Array.isArray(type) ? type : [ type ], reducerMethod as Reducer<{}>);
       })
     );
   }
