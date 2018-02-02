@@ -1,3 +1,4 @@
+import { Injector } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
 import { ReduxTestingModule } from '../testing/module';
@@ -13,18 +14,29 @@ describe('select/pipe', () => {
   let store: ReduxTestingStore;
 
   beforeEach(async(() => {
-
     TestBed.configureTestingModule({
       imports: [
-        ReduxTestingModule,
+        ReduxTestingModule.forRoot({
+          state: {
+            provider: TestingStateProvider,
+          }
+        }),
       ],
+      providers: [
+        TestingStateProvider,
+      ]
     });
 
     store = TestBed.get(ReduxTestingStore);
 
     store.setState(TestingStateProvider, TestingStateProvider.INITIAL_STATE);
-    pipe = new ReduxSelectPipe([ {provider: TestingStateProvider} ]);
+    pipe = new ReduxSelectPipe(
+      [ {provider: TestingStateProvider} ],
+      TestBed.get(Injector),
+    );
+
     transformedValue = pipe.transform('todo/items');
+
   }));
 
   it('returns an observable', () => {
@@ -33,7 +45,7 @@ describe('select/pipe', () => {
 
   selectorSuiteFactory().forEach((cfg) => {
 
-    describe(`relative path "${cfg.given.path}"`, () => {
+    describe(`select "${cfg.given.path}"`, () => {
 
       it('directly returns the initial state', ((done) => {
 
@@ -43,6 +55,16 @@ describe('select/pipe', () => {
         });
 
       }));
+
+      it('returns the same selector instance ', () => {
+        const firstInstance = pipe.transform(cfg.given.path);
+        const secondInstance = pipe.transform(cfg.given.path);
+        expect(firstInstance === secondInstance).toBeTruthy();
+      });
+
+      it('is distinct', () => {
+
+      });
 
     });
 

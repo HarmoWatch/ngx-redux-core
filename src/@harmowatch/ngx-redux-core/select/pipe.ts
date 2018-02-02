@@ -1,20 +1,22 @@
-import { Inject, Pipe, PipeTransform } from '@angular/core';
+import { Inject, Injector, Pipe, PipeTransform } from '@angular/core';
+import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
 import 'rxjs/add/operator/distinctUntilChanged';
+
 import { Observable } from 'rxjs/Observable';
-import { ReduxSelectorCacheFactory } from '../selector/cache/selector-cache.factory';
 import { StateDefinition } from '../state/definition';
 import { StateDefToken } from '../state/definition/token';
 
 @Pipe({name: 'reduxSelect'})
 export class ReduxSelectPipe implements PipeTransform {
 
-  private stateDef: StateDefinition;
+  private provider: ReduxStateProvider<{}>;
 
-  constructor(@Inject(StateDefToken) stateDefs: StateDefinition[] = []) {
-    this.stateDef = stateDefs[ 0 ];
+  constructor(@Inject(StateDefToken) stateDefs: StateDefinition[] = [], injector: Injector) {
+    this.provider = injector.get(stateDefs[ 0 ].provider) as ReduxStateProvider<{}>;
   }
 
   transform(selector: string): Observable<{}> {
-    return ReduxSelectorCacheFactory.getOrCreate(selector, this.stateDef.provider).distinctUntilChanged();
+    return this.provider.select(selector);
   }
+
 }

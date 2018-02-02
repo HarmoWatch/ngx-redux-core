@@ -22,5 +22,6 @@ import { TodoModuleStateProvider } from './todo.module.state.provider';
     ]),
   ],
   declarations: [TodoListComponent],
+  providers: [TodoModuleStateProvider]
 })
 export class TodoModule { }

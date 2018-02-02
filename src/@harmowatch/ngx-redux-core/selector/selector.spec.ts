@@ -37,13 +37,6 @@ describe('ReduxSelector', () => {
     });
   });
 
-  it('can be created via the static "create" method as well', done => {
-    ReduxSelector.create('todo/items', TestingStateProvider).subscribe(todoItems => {
-      expect(todoItems).toEqual(TestingStateProvider.INITIAL_STATE.todo.items);
-      done();
-    });
-  });
-
   describe('instantiation without parameter', () => {
 
     let selector: Observable<ReduxRootState>;

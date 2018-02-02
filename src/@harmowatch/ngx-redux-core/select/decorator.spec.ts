@@ -1,12 +1,16 @@
-import { async, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReduxSelect } from '@harmowatch/ngx-redux-core';
+import { selectorSuiteFactory } from '@harmowatch/ngx-redux-core/testing/selector/suite.config';
 import { Observable } from 'rxjs/Observable';
 import { ReduxTestingModule } from '../testing/module';
-import { selectorSuiteFactory } from '../testing/selector/suite.config';
 import { TestingStateProvider } from '../testing/state';
 import { ReduxTestingStore } from '../testing/store';
-import { ReduxSelect } from './decorator';
 
-class TestClass {
+@Component({
+  template: '',
+})
+class TestComponent {
 
   @ReduxSelect('', TestingStateProvider)
   empty: Observable<{}>;
@@ -30,12 +34,13 @@ class TestClass {
 
 describe('select/decorator', () => {
 
-  let fixture: TestClass;
+  let fixture: ComponentFixture<TestComponent>;
   let store: ReduxTestingStore;
 
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
+      declarations: [ TestComponent ],
       imports: [
         ReduxTestingModule.forRoot({
           state: {
@@ -44,11 +49,21 @@ describe('select/decorator', () => {
           },
         }),
       ],
+      providers: [
+        TestingStateProvider,
+      ]
     });
+
+    TestBed.get(TestingStateProvider);
+    TestBed.compileComponents();
 
     store = TestBed.get(ReduxTestingStore);
     store.setState(TestingStateProvider, TestingStateProvider.INITIAL_STATE);
-    fixture = new TestClass();
+    fixture = TestBed.createComponent(TestComponent);
+  }));
+
+  beforeEach(async(() => {
+    fixture.detectChanges();
   }));
 
   selectorSuiteFactory().forEach((cfg) => {
@@ -56,12 +71,11 @@ describe('select/decorator', () => {
     describe(`property "${cfg.given.name}"`, () => {
 
       it('injects an observable', () => {
-        expect(fixture[cfg.given.name] instanceof Observable).toBeTruthy();
+        expect(fixture.componentInstance[ cfg.given.name ] instanceof Observable).toBeTruthy();
       });
 
       it('directly returns the initial state', ((done) => {
-
-        fixture[ cfg.given.name ].subscribe((value) => {
+        fixture.componentInstance[ cfg.given.name ].subscribe((value) => {
           expect(value).toEqual(cfg.result.initialState);
           done();
         });

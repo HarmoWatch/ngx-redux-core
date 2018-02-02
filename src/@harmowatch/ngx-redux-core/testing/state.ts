@@ -1,4 +1,4 @@
-import { ReduxStateInterface } from '@harmowatch/redux-decorators';
+import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
 import { ReduxState } from '../state/public_api';
 
 export interface TestingState {
@@ -9,7 +9,7 @@ export interface TestingState {
 }
 
 @ReduxState({name: TestingStateProvider.NAME})
-export class TestingStateProvider implements ReduxStateInterface<TestingState> {
+export class TestingStateProvider extends ReduxStateProvider<TestingState> {
 
   public static readonly NAME = 'testing-7c66b613-20bd-4d35-8611-5181ca4a0b72';
 

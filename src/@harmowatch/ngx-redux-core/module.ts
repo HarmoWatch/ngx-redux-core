@@ -1,14 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Inject, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';
+import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';
+import { ReducerProvider } from '@harmowatch/ngx-redux-core/reducer/reducer.provider';
 import { createStore, Store, StoreEnhancer, StoreEnhancerStoreCreator } from 'redux';
 import { ReduxCommonModule } from './common/module';
 
 import { ReduxModuleChildConfig } from './module/child/config';
 import { ReduxModuleRootConfig } from './module/root/config';
-import { ReduxModuleRootReducer } from './module/root/reducer';
 import { Registry } from './registry';
 import { StateDefinition } from './state/definition';
-import { StateDefinitionManager } from './state/definition/manager';
 import { StateDefToken } from './state/definition/token';
 import { ReduxStore } from './store/token';
 
@@ -19,17 +18,19 @@ import { ReduxStore } from './store/token';
   imports: [
     CommonModule,
   ],
-  providers: [
-    StateDefinitionManager,
-  ]
 })
 export class ReduxRootModule {
 
   constructor(@Inject(ReduxStore) store: Store<{}> = null,
-              private stateDefinitionManager: StateDefinitionManager,
+              private reducer: ReducerProvider,
+              private injector: Injector,
               @Optional() @Inject(StateDefToken) stateDefs: StateDefinition[] = []) {
     Registry.registerStore(store);
-    this.stateDefinitionManager.add(stateDefs);
+
+    stateDefs
+      .filter(def => def && def.provider)
+      .map(def => this.injector.get(def.provider))
+      .forEach(provider => this.reducer.addStateProvider(provider));
   }
 
 }
@@ -41,16 +42,17 @@ export class ReduxRootModule {
   imports: [
     CommonModule,
   ],
-  providers: [
-    StateDefinitionManager,
-  ]
 })
 export class ReduxModule {
 
   constructor(@Optional() @Inject(StateDefToken) stateDefs: StateDefinition[] = [],
-              private stateDefinitionManager: StateDefinitionManager) {
+              private reducer: ReducerProvider,
+              private injector: Injector) {
 
-    this.stateDefinitionManager.add(stateDefs);
+    stateDefs
+      .filter(def => def && def.provider)
+      .map(def => this.injector.get(def.provider))
+      .forEach(provider => this.reducer.addStateProvider(provider));
   }
 
   public static forChild(config: ReduxModuleChildConfig = {}): ModuleWithProviders {
@@ -58,7 +60,6 @@ export class ReduxModule {
       ngModule: ReduxModule,
       providers: [
         {provide: StateDefToken, useValue: config.state || null, multi: true},
-        config.state ? config.state.provider : null,
       ],
     };
   }
@@ -66,20 +67,21 @@ export class ReduxModule {
   public static forRoot(config: ReduxModuleRootConfig = {}): ModuleWithProviders {
     return {
       ngModule: ReduxRootModule,
-      providers: config.state ? [
-        {provide: ReduxStore, useFactory: config.storeFactory || ReduxModule.defaultStoreFactory},
-        {provide: StateDefToken, useValue: config.state || null, multi: true},
-        config.state ? config.state.provider : null,
-      ] : [
-        {provide: ReduxStore, useFactory: config.storeFactory || ReduxModule.defaultStoreFactory},
+      providers: [
+        ReducerProvider,
+        {
+          provide: ReduxStore,
+          useFactory: config.storeFactory || ReduxModule.defaultStoreFactory,
+          deps: [ ReducerProvider ]
+        },
         {provide: StateDefToken, useValue: config.state || null, multi: true},
       ],
     };
   }
 
-  public static defaultStoreFactory(): Store<{}> {
+  public static defaultStoreFactory(reducer: ReducerProvider): Store<{}> {
     return createStore(
-      ReduxModuleRootReducer.reduce,
+      reducer.reduce.bind(reducer),
       {},
       ReduxModule.defaultEnhancerFactory(),
     );

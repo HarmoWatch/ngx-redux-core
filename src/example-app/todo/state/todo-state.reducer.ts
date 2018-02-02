@@ -10,6 +10,7 @@ export class TodoStateReducer {
     TodoListComponent.prototype.add,
   ])
   addTodo(state: TodoState, action: ActionWithPayload<TodoListItem>): TodoState {
+    console.log('add todo :)');
     return {
       ...state,
       items: state.items.concat(action.payload),

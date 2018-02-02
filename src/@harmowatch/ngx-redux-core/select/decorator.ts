@@ -1,19 +1,26 @@
-import 'rxjs/add/operator/distinctUntilChanged';
-
-import { ReduxSelectorCacheFactory } from '../selector/cache/selector-cache.factory';
-import { ReduxStateType } from '@harmowatch/redux-decorators';
+import { Injector } from '@angular/core';
+import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
+import { ReduxStateDecorator, ReduxStateType } from '@harmowatch/redux-decorators';
 
 export function ReduxSelect<S = {}>(expression: string,
-                                    context?: ReduxStateType): PropertyDecorator {
-  return (target: {}, propertyKey: string) => {
+                                    context?: ReduxStateType<ReduxStateProvider<{}>>): PropertyDecorator {
 
-    Object.defineProperty(target, propertyKey, {
-      configurable: true,
-      enumerable: true,
-      get: () => { // use a getter to be lazy
-        return ReduxSelectorCacheFactory.getOrCreate(expression, context)
-          .distinctUntilChanged();
-      },
+  return (target: {}, propertyKey: string) => {
+    const originalOnInit = target[ 'ngOnInit' ];
+
+    Object.defineProperty(target, 'ngOnInit', {
+      value: function (injector: Injector) {
+
+        const stateName = ReduxStateDecorator.get(context).name;
+
+        Object.defineProperty(target, propertyKey, {
+          value: ReduxStateProvider.instancesByName[ stateName ].select(expression)
+        });
+
+        if (originalOnInit) {
+          originalOnInit.apply(target, arguments);
+        }
+      }
     });
 
   };
