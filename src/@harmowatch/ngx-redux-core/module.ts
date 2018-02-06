@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';
-import { ReducerProvider } from '@harmowatch/ngx-redux-core/reducer/reducer.provider';
 import { createStore, Store, StoreEnhancer, StoreEnhancerStoreCreator } from 'redux';
 import { ReduxCommonModule } from './common/module';
 
+import { ReducerProvider } from './reducer/reducer.provider';
 import { ReduxModuleChildConfig } from './module/child/config';
 import { ReduxModuleRootConfig } from './module/root/config';
 import { Registry } from './registry';

@@ -1,8 +1,9 @@
-import { Inject, Injector, Pipe, PipeTransform } from '@angular/core';
-import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
 import 'rxjs/add/operator/distinctUntilChanged';
 
 import { Observable } from 'rxjs/Observable';
+import { Inject, Injector, Pipe, PipeTransform } from '@angular/core';
+
+import { ReduxStateProvider } from '../state/state.provider';
 import { StateDefinition } from '../state/definition';
 import { StateDefToken } from '../state/definition/token';
 

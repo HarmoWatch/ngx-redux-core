@@ -1,16 +1,17 @@
+import 'rxjs/add/operator/distinctUntilChanged';
+
 import { Inject } from '@angular/core';
-import { ActionWithPayload, getActionType } from '@harmowatch/ngx-redux-core';
-import { IRegisterStatePayload, Registry } from '@harmowatch/ngx-redux-core/registry';
-import { ReduxSelector } from '@harmowatch/ngx-redux-core/selector/selector';
-import { StateDefinition } from '@harmowatch/ngx-redux-core/state/definition';
-import { StateDefToken } from '@harmowatch/ngx-redux-core/state/definition/token';
 import {
   ReduxReducerDecorator,
   ReduxStateDecorator,
   ReduxStateInterface,
   ReduxStateType
 } from '@harmowatch/redux-decorators';
-import 'rxjs/add/operator/distinctUntilChanged';
+
+import { ActionWithPayload, getActionType } from '../';
+import { ReduxSelector } from '../selector/selector';
+import { StateDefinition } from '../state/definition';
+import { StateDefToken } from '../state/definition/token';
 import { Observable } from 'rxjs/Observable';
 
 export abstract class ReduxStateProvider<S> implements ReduxStateInterface<S> {

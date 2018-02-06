@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { projectionDef } from '@angular/core/src/render3/instructions';
-import { ActionWithPayload, ReduxRootState } from '@harmowatch/ngx-redux-core';
-import { IRegisterStatePayload, Registry } from '@harmowatch/ngx-redux-core/registry';
-import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
+
+import { ActionWithPayload, ReduxRootState } from '../index';
+import { IRegisterStatePayload, Registry } from '../registry';
+import { ReduxStateProvider } from '../state/state.provider';
 
 @Injectable()
 export class ReducerProvider {

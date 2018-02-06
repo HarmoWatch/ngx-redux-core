@@ -1,8 +1,9 @@
-import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
-import { ReduxStateDecorator, ReduxStateType } from '@harmowatch/redux-decorators';
 import 'rxjs/add/operator/map';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
+import { ReduxStateDecorator, ReduxStateType } from '@harmowatch/redux-decorators';
+
+import { ReduxStateProvider } from '../state/state.provider';
 import { ReduxRootState } from '../module/root/state';
 import { Registry } from '../registry';
 
