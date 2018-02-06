@@ -1,5 +1,5 @@
 import { async, TestBed } from '@angular/core/testing';
-import { Registry } from '@harmowatch/ngx-redux-core/registry';
+import { Registry } from '../registry';
 import { Observable } from 'rxjs/Observable';
 import { ReduxRootState } from '../module/root/state';
 import { ReduxSelector } from './selector';

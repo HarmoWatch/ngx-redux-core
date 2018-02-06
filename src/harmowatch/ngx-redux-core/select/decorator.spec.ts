@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReduxSelect } from '@harmowatch/ngx-redux-core';
-import { selectorSuiteFactory } from '@harmowatch/ngx-redux-core/testing/selector/suite.config';
+import { ReduxSelect } from '../index';
+import { selectorSuiteFactory } from '../testing/selector/suite.config';
 import { Observable } from 'rxjs/Observable';
 import { ReduxTestingModule } from '../testing/module';
 import { TestingStateProvider } from '../testing/state';
