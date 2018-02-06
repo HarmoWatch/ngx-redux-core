@@ -3,7 +3,7 @@ webpackJsonp(["todo.module"],{
 /***/ "../../../../../src/example-app/todo/list/todo-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <div class=\"col-7\">\n    <div class=\"card\">\n      <div class=\"card-header\">\n        Redux State\n      </div>\n      <div class=\"card-block\">\n        <blockquote class=\"card-blockquote\">\n          <pre>{{ '/' | reduxSelect | async | json }}</pre>\n        </blockquote>\n      </div>\n    </div>\n  </div>\n  <div class=\"col\">\n    <form (submit)=\"add(todo.value)\">\n      <ul class=\"list-group\">\n        <li class=\"list-group-item\">\n          <input #todo type=\"text\" class=\"form-control\"  placeholder=\"Enter a todo and press enter\">\n        </li>\n        <li class=\"list-group-item justify-content-between\" *ngFor=\"let todo of ('items' | reduxSelect | async)\">\n          <span>{{todo.label}}</span>\n          <button type=\"button\" class=\"close\" (click)=\"remove(todo)\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n        </li>\n      </ul>\n    </form>\n  </div>\n</div>\n"
+module.exports = "<div class=\"row\">\n  <div class=\"col-7\">\n    <div class=\"card\">\n      <div class=\"card-header\">\n        Redux State\n      </div>\n      <div class=\"card-block\">\n        <blockquote class=\"card-blockquote\">\n          <pre>{{ state | async | json }}</pre>\n        </blockquote>\n      </div>\n    </div>\n  </div>\n  <div class=\"col\">\n    <form (submit)=\"add(todo.value)\">\n      <ul class=\"list-group\">\n        <li class=\"list-group-item\">\n          <input #todo type=\"text\" class=\"form-control\"  placeholder=\"Enter a todo and press enter\">\n        </li>\n        <li class=\"list-group-item justify-content-between\" *ngFor=\"let todo of ('items' | reduxSelect | async)\">\n          <span>{{todo.label}}</span>\n          <button type=\"button\" class=\"close\" (click)=\"remove(todo)\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n        </li>\n      </ul>\n    </form>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -12,10 +12,12 @@ module.exports = "<div class=\"row\">\n  <div class=\"col-7\">\n    <div class=\
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TodoListComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uuid__ = __webpack_require__("../../../../uuid/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_uuid__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__harmowatch_ngx_redux_core__ = __webpack_require__("../../../../../src/@harmowatch/ngx-redux-core/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core__ = __webpack_require__("../../../../../src/@harmowatch/ngx-redux-core/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_uuid__ = __webpack_require__("../../../../uuid/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_uuid__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__todo_module_state_provider__ = __webpack_require__("../../../../../src/example-app/todo/todo.module.state.provider.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -28,12 +30,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var TodoListComponent = /** @class */ (function () {
     function TodoListComponent() {
     }
     TodoListComponent.prototype.add = function (label) {
         return {
-            uuid: Object(__WEBPACK_IMPORTED_MODULE_0_uuid__["v4"])(),
+            uuid: Object(__WEBPACK_IMPORTED_MODULE_3_uuid__["v4"])(),
             label: label,
             creationDate: new Date().toISOString(),
         };
@@ -42,22 +46,26 @@ var TodoListComponent = /** @class */ (function () {
         return todo;
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_2__harmowatch_ngx_redux_core__["a" /* ReduxAction */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core__["e" /* ReduxSelect */])('', __WEBPACK_IMPORTED_MODULE_4__todo_module_state_provider__["a" /* TodoModuleStateProvider */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"])
+    ], TodoListComponent.prototype, "state", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core__["a" /* ReduxAction */])(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [String]),
         __metadata("design:returntype", Object)
     ], TodoListComponent.prototype, "add", null);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_2__harmowatch_ngx_redux_core__["a" /* ReduxAction */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core__["a" /* ReduxAction */])(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
     ], TodoListComponent.prototype, "remove", null);
     TodoListComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["n" /* Component */])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             template: __webpack_require__("../../../../../src/example-app/todo/list/todo-list.component.html"),
         }),
-        Object(__WEBPACK_IMPORTED_MODULE_2__harmowatch_ngx_redux_core__["b" /* ReduxActionContext */])({ prefix: 'TodoListComponent://' })
+        Object(__WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core__["b" /* ReduxActionContext */])({ prefix: 'TodoListComponent://' })
     ], TodoListComponent);
     return TodoListComponent;
 }());
@@ -130,6 +138,17 @@ var TodoStateReducer = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TodoModuleStateProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_ngx_redux_core__ = __webpack_require__("../../../../../src/@harmowatch/ngx-redux-core/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core_state_state_provider__ = __webpack_require__("../../../../../src/@harmowatch/ngx-redux-core/state/state.provider.ts");
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -137,8 +156,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
-var TodoModuleStateProvider = /** @class */ (function () {
+
+var TodoModuleStateProvider = /** @class */ (function (_super) {
+    __extends(TodoModuleStateProvider, _super);
     function TodoModuleStateProvider() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     TodoModuleStateProvider.prototype.getInitialState = function () {
         return Promise.resolve({
@@ -146,10 +168,10 @@ var TodoModuleStateProvider = /** @class */ (function () {
         });
     };
     TodoModuleStateProvider = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__harmowatch_ngx_redux_core__["e" /* ReduxState */])({ name: 'todo' })
+        Object(__WEBPACK_IMPORTED_MODULE_0__harmowatch_ngx_redux_core__["f" /* ReduxState */])({ name: 'todo' })
     ], TodoModuleStateProvider);
     return TodoModuleStateProvider;
-}());
+}(__WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core_state_state_provider__["a" /* ReduxStateProvider */]));
 
 
 
@@ -202,6 +224,7 @@ var TodoModule = /** @class */ (function () {
                 ]),
             ],
             declarations: [__WEBPACK_IMPORTED_MODULE_5__list_todo_list_component__["a" /* TodoListComponent */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_7__todo_module_state_provider__["a" /* TodoModuleStateProvider */]]
         })
     ], TodoModule);
     return TodoModule;
