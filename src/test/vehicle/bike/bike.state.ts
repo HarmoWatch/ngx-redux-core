@@ -1,6 +1,6 @@
 export interface BikeState {
   velocity: {
     maximum: number,
-  },
-  licensePlates: string[],
+  };
+  licensePlates: string[];
 }

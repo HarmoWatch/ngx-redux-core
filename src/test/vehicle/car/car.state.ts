@@ -1,6 +1,6 @@
 export interface CarState {
   velocity: {
     maximum: number,
-  },
-  licensePlates: string[],
+  };
+  licensePlates: string[];
 }
