@@ -37,32 +37,13 @@ export class Registry {
   }
 
   public static registerStore(store: Store<{}>) {
+    Registry.reset();
     Registry._store.next(store);
     Registry._store.complete();
 
     ReduxActionDispatcher.dispatchedActions.subscribe(action => {
       store.dispatch(action as Action);
     });
-  }
-
-  public static registerReducer(stateName: string, types: ReduxActionFunction<{}>[], reducer: Reducer<{}>) {
-
-    if (Array.isArray(types)) {
-      types.forEach((type) => {
-        Registry._reducers.push({
-          reducer,
-          stateName,
-          type,
-        });
-      });
-    } else {
-      Registry._reducers.push({
-        reducer,
-        stateName,
-        type: types as ReduxActionFunction<{}>,
-      });
-    }
-
   }
 
   public static registerState(state: ReduxStateInterface<{}>) {
@@ -76,7 +57,7 @@ export class Registry {
         initStateToResolve = initState.toPromise();
       }
 
-      Promise.resolve(initStateToResolve).then((initialState) => {
+      Promise.resolve(initStateToResolve).then(initialState => {
         store.dispatch<ActionWithPayload<IRegisterStatePayload>>({
           payload: {
             initialValue: initialState,
@@ -87,13 +68,6 @@ export class Registry {
       });
 
     });
-  }
-
-  public static getReducerItemsByType(type: string): RegistryReducerItem[] {
-    const reducerItemsByType: RegistryReducerItem[] = Registry._reducers
-      .filter(reducerItem => ReduxActionDispatcher.getType(reducerItem.type) === type);
-
-    return reducerItemsByType;
   }
 
   public static getStore(): Promise<Store<{}>> {

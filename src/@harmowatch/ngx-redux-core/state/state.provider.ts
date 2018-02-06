@@ -62,7 +62,7 @@ export abstract class ReduxStateProvider<S> implements ReduxStateInterface<S> {
     throw new Error('Method "getInitialState" not implemented.');
   }
 
-  select<T>(selector: string): Observable<T> {
+  select<T>(selector = ''): Observable<T> {
 
     const stateType = this.constructor as ReduxStateType<ReduxStateProvider<S>>;
     selector = ReduxSelector.normalize(selector, stateType);

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { projectionDef } from '@angular/core/src/render3/instructions';
 import { ActionWithPayload, ReduxRootState } from '@harmowatch/ngx-redux-core';
 import { IRegisterStatePayload, Registry } from '@harmowatch/ngx-redux-core/registry';
 import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
@@ -6,14 +7,15 @@ import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provi
 @Injectable()
 export class ReducerProvider {
 
-  private stateProviders: ReduxStateProvider<{}>[] = [];
-
-  constructor() {
-  }
+  private stateProviders: {
+    [name: string]: ReduxStateProvider<{}>,
+  } = {};
 
   public addStateProvider(provider: ReduxStateProvider<{}>) {
-    Registry.registerState(provider);
-    this.stateProviders.push(provider);
+    if (!this.stateProviders[ provider.name ]) {
+      Registry.registerState(provider);
+      this.stateProviders[ provider.name ] = provider;
+    }
   }
 
   public reduce(rootState: ReduxRootState, action: ActionWithPayload<any>): ReduxRootState {
@@ -27,7 +29,7 @@ export class ReducerProvider {
       };
     }
 
-    return this.stateProviders.reduce((stateToReduce, provider) => {
+    return Object.values(this.stateProviders).reduce((stateToReduce, provider) => {
       return Object.assign({}, stateToReduce, {
         [ provider.name ]: provider.reduce(stateToReduce[ provider.name ], action),
       });

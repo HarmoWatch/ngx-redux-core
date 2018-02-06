@@ -138,7 +138,6 @@ describe('ReduxStateProvider', () => {
 
       @ReduxReducer('setFoo')
       public setFoo(state: {}, action: ActionWithPayload<string>): {} {
-        console.log('==>', state);
         // make sure "this" is binded
         expect(this instanceof TestReducer).toBeTruthy();
         return TestReducer.spy('setFoo', state, action);
@@ -239,28 +238,6 @@ describe('ReduxStateProvider', () => {
 
       it('returns a new instance of ReduxSelector, if another same selector is given', () => {
         expect(fixture.select<string>('foo')).not.toBe(fixture.select<string>('fuz'));
-      });
-
-    });
-
-    describe('reduce()', () => {
-
-      it('calls the correct reducer function, with the correct arguments', () => {
-        const action = {
-          type: 'setFoo',
-          payload: 'hello foo',
-        };
-
-        fixture.reduce({foo: null}, action);
-
-        expect(TestReducer.spy).toHaveBeenCalledTimes(1);
-        expect(TestReducer.spy).toHaveBeenCalledWith('setFoo', {foo: null}, action);
-
-        expect(SomeOtherReducer.spy).toHaveBeenCalledTimes(1);
-        expect(SomeOtherReducer.spy).toHaveBeenCalledWith('setFoo', {foo: 'touched by TestReducer'}, action);
-
-        expect(ThirdReducer.spy).toHaveBeenCalledTimes(1);
-        expect(ThirdReducer.spy).toHaveBeenCalledWith('setFoo', {foo: 'touched by SomeOtherReducer'}, action);
       });
 
     });

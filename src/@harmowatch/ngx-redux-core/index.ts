@@ -12,6 +12,7 @@ export * from './state/public_api';
 export * from './store/public_api';
 export * from './testing/public_api';
 export * from './selector/selector';
+export * from './state/state.provider';
 export * from './module';
 
 export {

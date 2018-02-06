@@ -25,6 +25,7 @@ export class ReduxRootModule {
               private reducer: ReducerProvider,
               private injector: Injector,
               @Optional() @Inject(StateDefToken) stateDefs: StateDefinition[] = []) {
+
     Registry.registerStore(store);
 
     stateDefs
