@@ -3,7 +3,9 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { Observable } from 'rxjs/Observable';
 import { Inject } from '@angular/core';
 import {
-  ReduxActionDispatcher, ReduxReducerDecorator, ReduxStateDecorator,
+  ReduxActionDispatcher,
+  ReduxReducerDecorator,
+  ReduxStateDecorator,
   ReduxStateInterface
 } from '@harmowatch/redux-decorators';
 
@@ -11,7 +13,7 @@ import { StateDefinition } from '@harmowatch/ngx-redux-core/state/definition';
 import { ReduxStateProviderType } from '@harmowatch/ngx-redux-core/state/state.provider.type';
 import { StateDefToken } from '@harmowatch/ngx-redux-core/state/definition/token';
 import { ReduxSelector } from '@harmowatch/ngx-redux-core/selector/selector';
-import { ActionWithPayload } from '@harmowatch/ngx-redux-core/action/with/payload/action-with-payload.interface';
+import { ReduxActionWithPayload } from '@harmowatch/ngx-redux-core/interfaces/redux-action.interface';
 
 export abstract class ReduxStateProvider<S> implements ReduxStateInterface<S> {
 
@@ -74,7 +76,7 @@ export abstract class ReduxStateProvider<S> implements ReduxStateInterface<S> {
     return this.selectorCache[ selector ] as ReduxSelector<T>;
   }
 
-  reduce<P>(state: S, action: ActionWithPayload<P>) {
+  reduce<P>(state: S, action: ReduxActionWithPayload<P>) {
     const reducerMethods = this.reducerMethodsByType[ action.type ] || [];
     return reducerMethods.reduce((stateToReduce, method) => method(stateToReduce, action), state);
   }

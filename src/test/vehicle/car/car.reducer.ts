@@ -1,4 +1,4 @@
-import { ActionWithPayload, getActionType, ReduxReducer } from '@harmowatch/ngx-redux-core';
+import { ReduxActionWithPayload, getActionType, ReduxReducer } from '@harmowatch/ngx-redux-core';
 
 import { VehicleActions } from 'test/vehicle/vehicle.actions.provider';
 import { VehicleState } from 'test/vehicle/vehicle.state.provider';
@@ -9,7 +9,7 @@ export class CarReducer {
     'VehicleActions://setDefaultVelocity',
     VehicleActions.prototype.setMaxVelocity
   ])
-  public setMaxVelocity(state: VehicleState, action: ActionWithPayload<number | void>): VehicleState {
+  public setMaxVelocity(state: VehicleState, action: ReduxActionWithPayload<number | void>): VehicleState {
 
     let maximum = 10;
 
@@ -30,7 +30,7 @@ export class CarReducer {
   }
 
   @ReduxReducer('CarActionsProvider://add-license-plate')
-  public addLicensePlate(state: VehicleState, action: ActionWithPayload<string>): VehicleState {
+  public addLicensePlate(state: VehicleState, action: ReduxActionWithPayload<string>): VehicleState {
 
     return {
       ...state,

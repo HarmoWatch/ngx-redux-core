@@ -1,8 +1,9 @@
 import { async, TestBed } from '@angular/core/testing';
 
 import { ReduxTestingStore } from '@harmowatch/ngx-redux-core/testing/store';
-import { ReduxTestingModule } from '@harmowatch/ngx-redux-core/testing/module';
 import { TestingStateProvider } from '@harmowatch/ngx-redux-core/testing/state';
+import { ReduxModule } from '@harmowatch/ngx-redux-core/redux.module';
+import { ReduxStore } from '@harmowatch/ngx-redux-core/store/token';
 
 describe('ReduxTestingStore', () => {
 
@@ -11,16 +12,19 @@ describe('ReduxTestingStore', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        ReduxTestingModule.forRoot({
+        ReduxModule.forRoot({
+          storeFactory: ReduxTestingStore.factory,
           state: {
             provider: TestingStateProvider,
           }
         }),
       ],
-      // schemas: [NO_ERRORS_SCHEMA]
+      providers: [
+        TestingStateProvider,
+      ]
     }).compileComponents();
 
-    store = TestBed.get(ReduxTestingStore);
+    store = TestBed.get(ReduxStore);
   }));
 
   describe('setState', () => {

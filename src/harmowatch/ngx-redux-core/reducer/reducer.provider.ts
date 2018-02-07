@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { ActionWithPayload } from '@harmowatch/ngx-redux-core/action/with/payload/action-with-payload.interface';
-import { ReduxRootState } from '@harmowatch/ngx-redux-core/module/root/state';
+import { ReduxRootState } from '@harmowatch/ngx-redux-core/interfaces/redux-root-state.interface';
 import { IRegisterStatePayload, Registry } from '@harmowatch/ngx-redux-core/registry';
 import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
+import { ReduxActionWithPayload } from '@harmowatch/ngx-redux-core/interfaces/redux-action.interface';
 
 @Injectable()
 export class ReducerProvider {
@@ -19,10 +19,10 @@ export class ReducerProvider {
     }
   }
 
-  public reduce(rootState: ReduxRootState, action: ActionWithPayload<any>): ReduxRootState {
+  public reduce(rootState: ReduxRootState, action: ReduxActionWithPayload<any>): ReduxRootState {
 
     if (action.type === Registry.ACTION_REGISTER_STATE) {
-      const regAction = (action as {} as ActionWithPayload<IRegisterStatePayload>);
+      const regAction = (action as {} as ReduxActionWithPayload<IRegisterStatePayload>);
 
       return {
         ...rootState,

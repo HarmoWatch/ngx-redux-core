@@ -1,11 +1,11 @@
-export * from './action/with/payload/action-with-payload.interface';
-export * from './common/module';
+export * from './interfaces/redux-action.interface';
+
 export * from './decorators';
-export * from './module/child/config';
-export * from './module/root/config';
-export * from './module/root/state';
+export * from './interfaces/redux-child-module-config.interface';
+export * from './interfaces/redux-root-module-config.interface';
+export * from './interfaces/redux-root-state.interface';
 export * from './reducer/reducer.provider';
-export * from './select/decorator';
+export * from './decorators/redux-select.decorator';
 export * from './select/pipe';
 export * from './selector/selector';
 export * from './state/definition/token';
@@ -15,9 +15,9 @@ export * from './state/state.provider.type';
 export * from './store/token';
 export * from './testing/store';
 export * from './testing/state';
-export * from './testing/module';
-export * from './module';
 export * from './registry';
+
+export { ReduxModule } from '@harmowatch/ngx-redux-core/redux.module';
 
 import { ReduxActionDispatcher } from '@harmowatch/redux-decorators';
 

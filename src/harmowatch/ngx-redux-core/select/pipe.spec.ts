@@ -1,11 +1,12 @@
 import { Injector } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs/Observable';
-import { ReduxTestingModule } from '../testing/module';
 import { selectorSuiteFactory } from '../testing/selector/suite.config';
 import { TestingStateProvider } from '../testing/state';
 import { ReduxTestingStore } from '../testing/store';
 import { ReduxSelectPipe } from './pipe';
+import { ReduxModule } from 'harmowatch/ngx-redux-core/redux.module';
+import { ReduxStore } from '@harmowatch/ngx-redux-core/store/token';
 
 describe('select/pipe', () => {
 
@@ -16,7 +17,8 @@ describe('select/pipe', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        ReduxTestingModule.forRoot({
+        ReduxModule.forRoot({
+          storeFactory: ReduxTestingStore.factory,
           state: {
             provider: TestingStateProvider,
           }
@@ -27,8 +29,7 @@ describe('select/pipe', () => {
       ]
     });
 
-    store = TestBed.get(ReduxTestingStore);
-
+    store = TestBed.get(ReduxStore);
     store.setState(TestingStateProvider, TestingStateProvider.INITIAL_STATE);
     pipe = new ReduxSelectPipe(
       [ {provider: TestingStateProvider} ],

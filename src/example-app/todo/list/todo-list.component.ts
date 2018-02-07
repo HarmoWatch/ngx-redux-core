@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-import { ReduxAction, ReduxActionContext, ReduxSelect } from '@harmowatch/ngx-redux-core';
 import { Observable } from 'rxjs/Observable';
 import { v4 } from 'uuid';
 import { TodoModuleStateProvider } from '../todo.module.state.provider';
 import { TodoListItem } from './todo-list-item';
+import { ReduxActionContext, ReduxAction, ReduxSelect } from '@harmowatch/ngx-redux-core';
 
 @Component({
   templateUrl: './todo-list.component.html',

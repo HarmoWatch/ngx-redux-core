@@ -11,7 +11,9 @@ import { Action, Reducer, Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Observable } from 'rxjs/Observable';
 
-import { ActionWithPayload } from '@harmowatch/ngx-redux-core/action/with/payload/action-with-payload.interface';
+import { Inject, Injectable } from '@angular/core';
+import { ReduxStore } from '@harmowatch/ngx-redux-core/store/token';
+import { ReduxActionWithPayload } from '@harmowatch/ngx-redux-core/interfaces/redux-action.interface';
 
 export class RegistryReducerItem {
   stateName: string;
@@ -24,12 +26,18 @@ export interface IRegisterStatePayload {
   name: string;
 }
 
+@Injectable()
 export class Registry {
 
   public static readonly ACTION_REGISTER_STATE = `@harmowatch/ngx-redux-core/registerState`;
 
   private static _store = new AsyncSubject<Store<{}>>();
   private static _reducers: RegistryReducerItem[] = [];
+
+  constructor(@Inject(ReduxStore) store: Store<{}> = null) {
+    Registry.reset();
+    Registry.registerStore(store);
+  }
 
   public static reset() {
     Registry._store = new AsyncSubject<Store<{}>>();
@@ -58,7 +66,7 @@ export class Registry {
       }
 
       Promise.resolve(initStateToResolve).then(initialState => {
-        store.dispatch<ActionWithPayload<IRegisterStatePayload>>({
+        store.dispatch<ReduxActionWithPayload<IRegisterStatePayload>>({
           payload: {
             initialValue: initialState,
             name: stateConfig.name,

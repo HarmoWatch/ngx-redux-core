@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReduxSelect } from '../index';
 import { selectorSuiteFactory } from '../testing/selector/suite.config';
 import { Observable } from 'rxjs/Observable';
-import { ReduxTestingModule } from '../testing/module';
-import { TestingStateProvider } from '../testing/state';
-import { ReduxTestingStore } from '../testing/store';
+import { ReduxModule } from 'harmowatch/ngx-redux-core/redux.module';
+import { ReduxSelect } from '@harmowatch/ngx-redux-core/decorators/redux-select.decorator';
+import { TestingStateProvider } from '@harmowatch/ngx-redux-core/testing/state';
+import { ReduxTestingStore } from '@harmowatch/ngx-redux-core/testing/store';
+import { ReduxStore } from '@harmowatch/ngx-redux-core/store/token';
 
 @Component({
   template: '',
@@ -42,7 +43,8 @@ describe('select/decorator', () => {
     TestBed.configureTestingModule({
       declarations: [ TestComponent ],
       imports: [
-        ReduxTestingModule.forRoot({
+        ReduxModule.forRoot({
+          storeFactory: ReduxTestingStore.factory,
           state: {
             provider: TestingStateProvider,
             reducers: [],
@@ -57,7 +59,7 @@ describe('select/decorator', () => {
     TestBed.get(TestingStateProvider);
     TestBed.compileComponents();
 
-    store = TestBed.get(ReduxTestingStore);
+    store = TestBed.get(ReduxStore);
     store.setState(TestingStateProvider, TestingStateProvider.INITIAL_STATE);
     fixture = TestBed.createComponent(TestComponent);
   }));

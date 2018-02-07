@@ -6,7 +6,7 @@ import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
 import { ReduxStateProviderType } from '@harmowatch/ngx-redux-core/state/state.provider.type';
 import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
 import { Registry } from '@harmowatch/ngx-redux-core/registry';
-import { ReduxRootState } from '@harmowatch/ngx-redux-core/module/root/state';
+import { ReduxRootState } from '@harmowatch/ngx-redux-core/interfaces/redux-root-state.interface';
 
 export class ReduxSelector<T> extends ReplaySubject<T> {
 

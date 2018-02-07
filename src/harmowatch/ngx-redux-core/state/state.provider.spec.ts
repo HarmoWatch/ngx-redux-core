@@ -4,10 +4,11 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/toPromise';
 
 import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
-import { ReduxTestingModule } from '@harmowatch/ngx-redux-core/testing/module';
-import { ReduxAction, ReduxReducer, ReduxState } from '@harmowatch/ngx-redux-core/decorators';
-import { ActionWithPayload } from '@harmowatch/ngx-redux-core/action/with/payload/action-with-payload.interface';
 import { ReduxTestingStore } from '@harmowatch/ngx-redux-core/testing/store';
+import { ReduxAction, ReduxReducer, ReduxState } from '@harmowatch/ngx-redux-core/decorators';
+import { ReduxActionWithPayload } from '@harmowatch/ngx-redux-core/interfaces/redux-action.interface';
+import { ReduxModule } from '@harmowatch/ngx-redux-core/redux.module';
+import { ReduxStore } from '@harmowatch/ngx-redux-core/store/token';
 
 describe('ReduxStateProvider', () => {
 
@@ -52,7 +53,8 @@ describe('ReduxStateProvider', () => {
       beforeEach(async(() => {
         TestBed.configureTestingModule({
           imports: [
-            ReduxTestingModule.forRoot({
+            ReduxModule.forRoot({
+              storeFactory: ReduxTestingStore.factory,
               state: {
                 provider: RegisteredStateProvider,
               }
@@ -82,7 +84,8 @@ describe('ReduxStateProvider', () => {
       beforeEach(async(() => {
         TestBed.configureTestingModule({
           imports: [
-            ReduxTestingModule.forRoot({
+            ReduxModule.forRoot({
+              storeFactory: ReduxTestingStore.factory,
               state: {
                 provider: TestSubject,
               }
@@ -137,14 +140,14 @@ describe('ReduxStateProvider', () => {
       }
 
       @ReduxReducer('setFoo')
-      public setFoo(state: {}, action: ActionWithPayload<string>): {} {
+      public setFoo(state: {}, action: ReduxActionWithPayload<string>): {} {
         // make sure "this" is binded
         expect(this instanceof TestReducer).toBeTruthy();
         return TestReducer.spy('setFoo', state, action);
       }
 
       @ReduxReducer('clearFoo')
-      public clearFoo(state: {}, action: ActionWithPayload<string>): {} {
+      public clearFoo(state: {}, action: ReduxActionWithPayload<string>): {} {
         // make sure "this" is binded
         expect(this instanceof TestReducer).toBeTruthy();
         return TestReducer.spy('clearFoo', state, action);
@@ -166,7 +169,7 @@ describe('ReduxStateProvider', () => {
       }
 
       @ReduxReducer([ TestActions.prototype.setFoo, 'some-other-event' ])
-      public setFoo(state: {}, action: ActionWithPayload<string>): {} {
+      public setFoo(state: {}, action: ReduxActionWithPayload<string>): {} {
         return SomeOtherReducer.spy('setFoo', state, action);
       }
 
@@ -186,7 +189,7 @@ describe('ReduxStateProvider', () => {
       }
 
       @ReduxReducer(TestActions.prototype.setFoo)
-      public setFoo(state: {}, action: ActionWithPayload<string>): {} {
+      public setFoo(state: {}, action: ReduxActionWithPayload<string>): {} {
         return ThirdReducer.spy('setFoo', state, action);
       }
 
@@ -197,7 +200,8 @@ describe('ReduxStateProvider', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         imports: [
-          ReduxTestingModule.forRoot({
+          ReduxModule.forRoot({
+            storeFactory: ReduxTestingStore.factory,
             state: {
               provider: TestSubject,
               reducers: [ TestReducer, SomeOtherReducer, ThirdReducer ],
@@ -210,7 +214,7 @@ describe('ReduxStateProvider', () => {
       });
 
       fixture = TestBed.get(TestSubject);
-      TestBed.get(ReduxTestingStore).setState(TestSubject, {foo: 'bar'});
+      TestBed.get(ReduxStore).setState(TestSubject, {foo: 'bar'});
     }));
 
     describe('select()', () => {
@@ -224,7 +228,7 @@ describe('ReduxStateProvider', () => {
         selector
           .take(1)
           .toPromise()
-          .then(() => TestBed.get(ReduxTestingStore).setState(TestSubject, {foo: 'baz'}));
+          .then(() => TestBed.get(ReduxStore).setState(TestSubject, {foo: 'baz'}));
 
       }));
 

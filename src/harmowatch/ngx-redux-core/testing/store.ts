@@ -6,15 +6,19 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Injectable } from '@angular/core';
 
 import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
-import { ReduxRootState } from '@harmowatch/ngx-redux-core/module/root/state';
-import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
+import { ReduxRootState } from '@harmowatch/ngx-redux-core/interfaces/redux-root-state.interface';
+import { ReduxStateProviderType } from '@harmowatch/ngx-redux-core/state/state.provider.type';
 
 @Injectable()
 export class ReduxTestingStore implements Store<{}> {
 
+  public static factory(): ReduxTestingStore {
+    return new ReduxTestingStore();
+  }
+
   private state = new BehaviorSubject(null);
 
-  public setState<S>(state: ReduxStateProvider<S>, value: S): Promise<ReduxRootState> {
+  public setState<S>(state: ReduxStateProviderType, value: S): Promise<ReduxRootState> {
     const {name} = ReduxStateDecorator.get(state);
 
     const nextState = Object.assign({}, this.state.getValue(), {

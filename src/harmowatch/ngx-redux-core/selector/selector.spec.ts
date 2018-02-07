@@ -1,11 +1,12 @@
 import { async, TestBed } from '@angular/core/testing';
 import { Registry } from '../registry';
 import { Observable } from 'rxjs/Observable';
-import { ReduxRootState } from '../module/root/state';
 import { ReduxSelector } from './selector';
-import { ReduxTestingModule } from '../testing/module';
 import { TestingState, TestingStateProvider } from '../testing/state';
 import { ReduxTestingStore } from '../testing/store';
+import { ReduxModule } from 'harmowatch/ngx-redux-core/redux.module';
+import { ReduxStore } from '@harmowatch/ngx-redux-core/store/token';
+import { ReduxRootState } from '@harmowatch/ngx-redux-core/interfaces/redux-root-state.interface';
 
 describe('ReduxSelector', () => {
 
@@ -15,11 +16,13 @@ describe('ReduxSelector', () => {
 
     TestBed.configureTestingModule({
       imports: [
-        ReduxTestingModule,
+        ReduxModule.forRoot({
+          storeFactory: ReduxTestingStore.factory,
+        }),
       ],
     });
 
-    store = TestBed.get(ReduxTestingStore);
+    store = TestBed.get(ReduxStore);
     store.setState(TestingStateProvider, TestingStateProvider.INITIAL_STATE);
   }));
 
