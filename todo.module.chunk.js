@@ -13,11 +13,12 @@ module.exports = "<div class=\"row\">\n  <div class=\"col-7\">\n    <div class=\
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TodoListComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core__ = __webpack_require__("../../../../../src/@harmowatch/ngx-redux-core/index.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_uuid__ = __webpack_require__("../../../../uuid/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_uuid__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__todo_module_state_provider__ = __webpack_require__("../../../../../src/example-app/todo/todo.module.state.provider.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid__ = __webpack_require__("../../../../uuid/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_uuid__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__todo_module_state_provider__ = __webpack_require__("../../../../../src/example-app/todo/todo.module.state.provider.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__harmowatch_ngx_redux_core_decorators_index__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/decorators/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__harmowatch_ngx_redux_core_decorators_redux_select_decorator__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/decorators/redux-select.decorator.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -32,12 +33,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var TodoListComponent = /** @class */ (function () {
     function TodoListComponent() {
     }
     TodoListComponent.prototype.add = function (label) {
         return {
-            uuid: Object(__WEBPACK_IMPORTED_MODULE_3_uuid__["v4"])(),
+            uuid: Object(__WEBPACK_IMPORTED_MODULE_2_uuid__["v4"])(),
             label: label,
             creationDate: new Date().toISOString(),
         };
@@ -46,17 +48,17 @@ var TodoListComponent = /** @class */ (function () {
         return todo;
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core__["e" /* ReduxSelect */])('', __WEBPACK_IMPORTED_MODULE_4__todo_module_state_provider__["a" /* TodoModuleStateProvider */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__["Observable"])
+        Object(__WEBPACK_IMPORTED_MODULE_5__harmowatch_ngx_redux_core_decorators_redux_select_decorator__["a" /* ReduxSelect */])('', __WEBPACK_IMPORTED_MODULE_3__todo_module_state_provider__["a" /* TodoModuleStateProvider */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"])
     ], TodoListComponent.prototype, "state", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core__["a" /* ReduxAction */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_4__harmowatch_ngx_redux_core_decorators_index__["a" /* ReduxAction */])(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [String]),
         __metadata("design:returntype", Object)
     ], TodoListComponent.prototype, "add", null);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core__["a" /* ReduxAction */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_4__harmowatch_ngx_redux_core_decorators_index__["a" /* ReduxAction */])(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
@@ -65,7 +67,7 @@ var TodoListComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             template: __webpack_require__("../../../../../src/example-app/todo/list/todo-list.component.html"),
         }),
-        Object(__WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core__["b" /* ReduxActionContext */])({ prefix: 'TodoListComponent://' })
+        Object(__WEBPACK_IMPORTED_MODULE_4__harmowatch_ngx_redux_core_decorators_index__["b" /* ReduxActionContext */])({ prefix: 'TodoListComponent://' })
     ], TodoListComponent);
     return TodoListComponent;
 }());
@@ -79,8 +81,8 @@ var TodoListComponent = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TodoStateReducer; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_ngx_redux_core__ = __webpack_require__("../../../../../src/@harmowatch/ngx-redux-core/index.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__list_todo_list_component__ = __webpack_require__("../../../../../src/example-app/todo/list/todo-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__list_todo_list_component__ = __webpack_require__("../../../../../src/example-app/todo/list/todo-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core_decorators_index__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/decorators/index.ts");
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -110,16 +112,16 @@ var TodoStateReducer = /** @class */ (function () {
         return __assign({}, state, { items: state.items.filter(function (todo) { return todo.uuid !== action.payload.uuid; }) });
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__harmowatch_ngx_redux_core__["d" /* ReduxReducer */])([
-            __WEBPACK_IMPORTED_MODULE_1__list_todo_list_component__["a" /* TodoListComponent */].prototype.add,
+        Object(__WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core_decorators_index__["c" /* ReduxReducer */])([
+            __WEBPACK_IMPORTED_MODULE_0__list_todo_list_component__["a" /* TodoListComponent */].prototype.add,
         ]),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", Object)
     ], TodoStateReducer.prototype, "addTodo", null);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__harmowatch_ngx_redux_core__["d" /* ReduxReducer */])([
-            __WEBPACK_IMPORTED_MODULE_1__list_todo_list_component__["a" /* TodoListComponent */].prototype.remove,
+        Object(__WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core_decorators_index__["c" /* ReduxReducer */])([
+            __WEBPACK_IMPORTED_MODULE_0__list_todo_list_component__["a" /* TodoListComponent */].prototype.remove,
         ]),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
@@ -137,8 +139,8 @@ var TodoStateReducer = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TodoModuleStateProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_ngx_redux_core__ = __webpack_require__("../../../../../src/@harmowatch/ngx-redux-core/index.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core_state_state_provider__ = __webpack_require__("../../../../../src/@harmowatch/ngx-redux-core/state/state.provider.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_ngx_redux_core_decorators_index__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/decorators/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core_providers_redux_state_provider__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/providers/redux-state.provider.ts");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -168,10 +170,10 @@ var TodoModuleStateProvider = /** @class */ (function (_super) {
         });
     };
     TodoModuleStateProvider = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__harmowatch_ngx_redux_core__["f" /* ReduxState */])({ name: 'todo' })
+        Object(__WEBPACK_IMPORTED_MODULE_0__harmowatch_ngx_redux_core_decorators_index__["d" /* ReduxState */])({ name: 'todo' })
     ], TodoModuleStateProvider);
     return TodoModuleStateProvider;
-}(__WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core_state_state_provider__["a" /* ReduxStateProvider */]));
+}(__WEBPACK_IMPORTED_MODULE_1__harmowatch_ngx_redux_core_providers_redux_state_provider__["a" /* ReduxStateProvider */]));
 
 
 
@@ -187,10 +189,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__harmowatch_ngx_redux_core__ = __webpack_require__("../../../../../src/@harmowatch/ngx-redux-core/index.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__list_todo_list_component__ = __webpack_require__("../../../../../src/example-app/todo/list/todo-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__state_todo_state_reducer__ = __webpack_require__("../../../../../src/example-app/todo/state/todo-state.reducer.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__todo_module_state_provider__ = __webpack_require__("../../../../../src/example-app/todo/todo.module.state.provider.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__list_todo_list_component__ = __webpack_require__("../../../../../src/example-app/todo/list/todo-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__state_todo_state_reducer__ = __webpack_require__("../../../../../src/example-app/todo/state/todo-state.reducer.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__todo_module_state_provider__ = __webpack_require__("../../../../../src/example-app/todo/todo.module.state.provider.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__harmowatch_ngx_redux_core_redux_module__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/redux.module.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -213,23 +215,434 @@ var TodoModule = /** @class */ (function () {
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_common__["b" /* CommonModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
-                __WEBPACK_IMPORTED_MODULE_4__harmowatch_ngx_redux_core__["c" /* ReduxModule */].forChild({
+                __WEBPACK_IMPORTED_MODULE_7__harmowatch_ngx_redux_core_redux_module__["a" /* ReduxModule */].forChild({
                     state: {
-                        provider: __WEBPACK_IMPORTED_MODULE_7__todo_module_state_provider__["a" /* TodoModuleStateProvider */],
-                        reducers: [__WEBPACK_IMPORTED_MODULE_6__state_todo_state_reducer__["a" /* TodoStateReducer */]],
+                        provider: __WEBPACK_IMPORTED_MODULE_6__todo_module_state_provider__["a" /* TodoModuleStateProvider */],
+                        reducers: [__WEBPACK_IMPORTED_MODULE_5__state_todo_state_reducer__["a" /* TodoStateReducer */]],
                     }
                 }),
                 __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* RouterModule */].forChild([
-                    { path: '', component: __WEBPACK_IMPORTED_MODULE_5__list_todo_list_component__["a" /* TodoListComponent */] },
+                    { path: '', component: __WEBPACK_IMPORTED_MODULE_4__list_todo_list_component__["a" /* TodoListComponent */] },
                 ]),
             ],
-            declarations: [__WEBPACK_IMPORTED_MODULE_5__list_todo_list_component__["a" /* TodoListComponent */]],
-            providers: [__WEBPACK_IMPORTED_MODULE_7__todo_module_state_provider__["a" /* TodoModuleStateProvider */]]
+            declarations: [__WEBPACK_IMPORTED_MODULE_4__list_todo_list_component__["a" /* TodoListComponent */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_6__todo_module_state_provider__["a" /* TodoModuleStateProvider */]]
         })
     ], TodoModule);
     return TodoModule;
 }());
 
+
+
+/***/ }),
+
+/***/ "../../../../../src/harmowatch/ngx-redux-core/decorators/index.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxAction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ReduxActionContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ReduxState; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ReduxReducer; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_select_decorator__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/decorators/redux-select.decorator.ts");
+/* unused harmony namespace reexport */
+
+
+var ReduxAction = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["ReduxActionDecorator"].forMethod;
+var ReduxActionContext = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["ReduxActionContextDecorator"].forClass;
+var ReduxState = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["ReduxStateDecorator"].forClass;
+var ReduxReducer = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["ReduxReducerDecorator"].forMethod;
+
+
+/***/ }),
+
+/***/ "../../../../../src/harmowatch/ngx-redux-core/decorators/redux-select.decorator.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = ReduxSelect;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_redux_state_provider__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/providers/redux-state.provider.ts");
+
+
+function ReduxSelect(expression, context) {
+    return function (target, propertyKey) {
+        var stateName = __WEBPACK_IMPORTED_MODULE_0__harmowatch_redux_decorators__["ReduxStateDecorator"].get(context).name;
+        Object.defineProperty(target, propertyKey, {
+            get: function () { return __WEBPACK_IMPORTED_MODULE_1__providers_redux_state_provider__["a" /* ReduxStateProvider */].instancesByName[stateName].select(expression); }
+        });
+    };
+}
+
+
+/***/ }),
+
+/***/ "../../../../../src/harmowatch/ngx-redux-core/providers/redux-state.provider.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxStateProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_distinctUntilChanged__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/distinctUntilChanged.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tokens_redux_state_definition_token__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/tokens/redux-state-definition.token.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__redux_selector__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/redux-selector.ts");
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+
+
+
+var ReduxStateProvider = /** @class */ (function () {
+    function ReduxStateProvider(stateDefs) {
+        if (stateDefs === void 0) { stateDefs = []; }
+        var _this = this;
+        this.selectorCache = {};
+        var _a = (__WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__["ReduxStateDecorator"].get(this.constructor) || {}).name, name = _a === void 0 ? null : _a;
+        if (!name) {
+            throw new Error('Unable to resolve state name! Make sure you\'ve decorated the provider by "@ReduxState"!');
+        }
+        this.name = __WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__["ReduxStateDecorator"].get(this.constructor).name;
+        this.stateDef = stateDefs.find(function (def) { return __WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__["ReduxStateDecorator"].get(def.provider).name === name; });
+        if (!this.stateDef) {
+            throw new Error('Unable to resolve state definition! Make sure you\'ve registered the provider to ReduxModule!');
+        }
+        this.reducerMethodsByType = (this.stateDef.reducers || [])
+            .map(function (clazz) { return _this.getReducerMethods(new clazz()); })
+            .reduce(function (all, curr) { return [].concat(curr, all); }, []) // [].concat keeps the order, all.concat(curr) destroys the order
+            .reduce(function (methodsByType, reducer) {
+            var type = __WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__["ReduxActionDispatcher"].getType(reducer.type);
+            return __assign({}, methodsByType, (_a = {}, _a[type] = [reducer.method].concat(methodsByType[type] || []), _a));
+            var _a;
+        }, {});
+        ReduxStateProvider.instancesByName[this.name] = this;
+    }
+    ReduxStateProvider.prototype.getInitialState = function () {
+        throw new Error('Method "getInitialState" not implemented.');
+    };
+    ReduxStateProvider.prototype.select = function (selector) {
+        if (selector === void 0) { selector = ''; }
+        var stateType = this.constructor;
+        selector = __WEBPACK_IMPORTED_MODULE_4__redux_selector__["a" /* ReduxSelector */].normalize(selector, stateType);
+        if (!this.selectorCache[selector]) {
+            this.selectorCache[selector] = new __WEBPACK_IMPORTED_MODULE_4__redux_selector__["a" /* ReduxSelector */](selector, stateType).distinctUntilChanged();
+        }
+        return this.selectorCache[selector];
+    };
+    ReduxStateProvider.prototype.reduce = function (state, action) {
+        var reducerMethods = this.reducerMethodsByType[action.type] || [];
+        return reducerMethods.reduce(function (stateToReduce, method) { return method(stateToReduce, action); }, state);
+    };
+    ReduxStateProvider.prototype.getReducerMethods = function (reducerClassInstance) {
+        return Object.values(Object.getPrototypeOf(reducerClassInstance))
+            .map(function (method) {
+            return {
+                method: method.bind(reducerClassInstance),
+                type: __WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__["ReduxReducerDecorator"].get(method),
+            };
+        })
+            .filter(function (type) { return type != null; })
+            .reduce(function (all, curr) { return all.concat([].concat(curr.type).map(function (type) { return (__assign({}, curr, { type: type })); })); }, []);
+    };
+    ReduxStateProvider.instancesByName = {};
+    ReduxStateProvider = __decorate([
+        __param(0, Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["z" /* Inject */])(__WEBPACK_IMPORTED_MODULE_3__tokens_redux_state_definition_token__["a" /* ReduxStateDefinitionToken */])),
+        __metadata("design:paramtypes", [Array])
+    ], ReduxStateProvider);
+    return ReduxStateProvider;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/harmowatch/ngx-redux-core/redux-selector.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxSelector; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject__ = __webpack_require__("../../../../rxjs/_esm5/ReplaySubject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_redux_registry__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/providers/redux-registry.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__harmowatch_redux_decorators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__harmowatch_redux_decorators__);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+
+
+var ReduxSelector = /** @class */ (function (_super) {
+    __extends(ReduxSelector, _super);
+    function ReduxSelector(selector, stateProvider) {
+        if (selector === void 0) { selector = '/'; }
+        var _this = this;
+        if (!selector.startsWith(ReduxSelector.DELIMITER) && !stateProvider) {
+            throw new Error('You need to provide a state provider, if you use relative selectors');
+        }
+        _this = _super.call(this, 1) || this;
+        __WEBPACK_IMPORTED_MODULE_2__providers_redux_registry__["a" /* ReduxRegistry */].getStore().then(function (store) {
+            var next = function () {
+                _this.next(ReduxSelector.getValueByState(store.getState(), selector, stateProvider));
+            };
+            store.subscribe(function () { return next(); });
+            next(); // we need to trigger a initial value, otherwise we've to wait until the first state change
+        });
+        return _this;
+    }
+    ReduxSelector.normalize = function (selector, stateProvider) {
+        if (!selector.startsWith(ReduxSelector.DELIMITER)) {
+            return "/" + __WEBPACK_IMPORTED_MODULE_3__harmowatch_redux_decorators__["ReduxStateDecorator"].get(stateProvider).name + "/" + selector;
+        }
+        return selector;
+    };
+    ReduxSelector.getValueByState = function (state, selector, stateProvider) {
+        /* save the return value in a constant to prevent
+         * "Metadata collected contains an error that will be reported at runtime: Lambda not supported."
+         * error
+         */
+        var value = ReduxSelector.normalize(selector, stateProvider).split(ReduxSelector.DELIMITER)
+            .filter(function (propertyKey) { return propertyKey !== ''; })
+            .reduce(function (previousValue, propertyKey) {
+            if (!previousValue || !previousValue.hasOwnProperty(propertyKey)) {
+                return null;
+            }
+            return previousValue[propertyKey];
+        }, state);
+        return value;
+    };
+    ReduxSelector.DELIMITER = '/';
+    return ReduxSelector;
+}(__WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject__["a" /* ReplaySubject */]));
+
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/ReplaySubject.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReplaySubject; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Subject__ = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__scheduler_queue__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/queue.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__operators_observeOn__ = __webpack_require__("../../../../rxjs/_esm5/operators/observeOn.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__util_ObjectUnsubscribedError__ = __webpack_require__("../../../../rxjs/_esm5/util/ObjectUnsubscribedError.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__SubjectSubscription__ = __webpack_require__("../../../../rxjs/_esm5/SubjectSubscription.js");
+/** PURE_IMPORTS_START ._Subject,._scheduler_queue,._Subscription,._operators_observeOn,._util_ObjectUnsubscribedError,._SubjectSubscription PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+
+
+
+
+/**
+ * @class ReplaySubject<T>
+ */
+var ReplaySubject = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(ReplaySubject, _super);
+    function ReplaySubject(bufferSize, windowTime, scheduler) {
+        if (bufferSize === void 0) {
+            bufferSize = Number.POSITIVE_INFINITY;
+        }
+        if (windowTime === void 0) {
+            windowTime = Number.POSITIVE_INFINITY;
+        }
+        _super.call(this);
+        this.scheduler = scheduler;
+        this._events = [];
+        this._bufferSize = bufferSize < 1 ? 1 : bufferSize;
+        this._windowTime = windowTime < 1 ? 1 : windowTime;
+    }
+    ReplaySubject.prototype.next = function (value) {
+        var now = this._getNow();
+        this._events.push(new ReplayEvent(now, value));
+        this._trimBufferThenGetEvents();
+        _super.prototype.next.call(this, value);
+    };
+    ReplaySubject.prototype._subscribe = function (subscriber) {
+        var _events = this._trimBufferThenGetEvents();
+        var scheduler = this.scheduler;
+        var subscription;
+        if (this.closed) {
+            throw new __WEBPACK_IMPORTED_MODULE_4__util_ObjectUnsubscribedError__["a" /* ObjectUnsubscribedError */]();
+        }
+        else if (this.hasError) {
+            subscription = __WEBPACK_IMPORTED_MODULE_2__Subscription__["a" /* Subscription */].EMPTY;
+        }
+        else if (this.isStopped) {
+            subscription = __WEBPACK_IMPORTED_MODULE_2__Subscription__["a" /* Subscription */].EMPTY;
+        }
+        else {
+            this.observers.push(subscriber);
+            subscription = new __WEBPACK_IMPORTED_MODULE_5__SubjectSubscription__["a" /* SubjectSubscription */](this, subscriber);
+        }
+        if (scheduler) {
+            subscriber.add(subscriber = new __WEBPACK_IMPORTED_MODULE_3__operators_observeOn__["a" /* ObserveOnSubscriber */](subscriber, scheduler));
+        }
+        var len = _events.length;
+        for (var i = 0; i < len && !subscriber.closed; i++) {
+            subscriber.next(_events[i].value);
+        }
+        if (this.hasError) {
+            subscriber.error(this.thrownError);
+        }
+        else if (this.isStopped) {
+            subscriber.complete();
+        }
+        return subscription;
+    };
+    ReplaySubject.prototype._getNow = function () {
+        return (this.scheduler || __WEBPACK_IMPORTED_MODULE_1__scheduler_queue__["a" /* queue */]).now();
+    };
+    ReplaySubject.prototype._trimBufferThenGetEvents = function () {
+        var now = this._getNow();
+        var _bufferSize = this._bufferSize;
+        var _windowTime = this._windowTime;
+        var _events = this._events;
+        var eventsCount = _events.length;
+        var spliceCount = 0;
+        // Trim events that fall out of the time window.
+        // Start at the front of the list. Break early once
+        // we encounter an event that falls within the window.
+        while (spliceCount < eventsCount) {
+            if ((now - _events[spliceCount].time) < _windowTime) {
+                break;
+            }
+            spliceCount++;
+        }
+        if (eventsCount > _bufferSize) {
+            spliceCount = Math.max(spliceCount, eventsCount - _bufferSize);
+        }
+        if (spliceCount > 0) {
+            _events.splice(0, spliceCount);
+        }
+        return _events;
+    };
+    return ReplaySubject;
+}(__WEBPACK_IMPORTED_MODULE_0__Subject__["Subject"]));
+var ReplayEvent = /*@__PURE__*/ (/*@__PURE__*/ function () {
+    function ReplayEvent(time, value) {
+        this.time = time;
+        this.value = value;
+    }
+    return ReplayEvent;
+}());
+//# sourceMappingURL=ReplaySubject.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/Scheduler.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Scheduler; });
+/**
+ * An execution context and a data structure to order tasks and schedule their
+ * execution. Provides a notion of (potentially virtual) time, through the
+ * `now()` getter method.
+ *
+ * Each unit of work in a Scheduler is called an {@link Action}.
+ *
+ * ```ts
+ * class Scheduler {
+ *   now(): number;
+ *   schedule(work, delay?, state?): Subscription;
+ * }
+ * ```
+ *
+ * @class Scheduler
+ */
+var Scheduler = /*@__PURE__*/ (/*@__PURE__*/ function () {
+    function Scheduler(SchedulerAction, now) {
+        if (now === void 0) {
+            now = Scheduler.now;
+        }
+        this.SchedulerAction = SchedulerAction;
+        this.now = now;
+    }
+    /**
+     * Schedules a function, `work`, for execution. May happen at some point in
+     * the future, according to the `delay` parameter, if specified. May be passed
+     * some context object, `state`, which will be passed to the `work` function.
+     *
+     * The given arguments will be processed an stored as an Action object in a
+     * queue of actions.
+     *
+     * @param {function(state: ?T): ?Subscription} work A function representing a
+     * task, or some unit of work to be executed by the Scheduler.
+     * @param {number} [delay] Time to wait before executing the work, where the
+     * time unit is implicit and defined by the Scheduler itself.
+     * @param {T} [state] Some contextual data that the `work` function uses when
+     * called by the Scheduler.
+     * @return {Subscription} A subscription in order to be able to unsubscribe
+     * the scheduled work.
+     */
+    Scheduler.prototype.schedule = function (work, delay, state) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        return new this.SchedulerAction(this, work).schedule(state, delay);
+    };
+    Scheduler.now = Date.now ? Date.now : function () { return +new Date(); };
+    return Scheduler;
+}());
+//# sourceMappingURL=Scheduler.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/add/operator/map.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__operator_map__ = __webpack_require__("../../../../rxjs/_esm5/operator/map.js");
+/** PURE_IMPORTS_START .._.._Observable,.._.._operator_map PURE_IMPORTS_END */
+
+
+__WEBPACK_IMPORTED_MODULE_0__Observable__["Observable"].prototype.map = __WEBPACK_IMPORTED_MODULE_1__operator_map__["a" /* map */];
+//# sourceMappingURL=map.js.map 
 
 
 /***/ }),
@@ -461,6 +874,453 @@ var ForkJoinSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
 
 var forkJoin = __WEBPACK_IMPORTED_MODULE_0__ForkJoinObservable__["a" /* ForkJoinObservable */].create;
 //# sourceMappingURL=forkJoin.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/scheduler/Action.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Action; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
+/** PURE_IMPORTS_START .._Subscription PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+/**
+ * A unit of work to be executed in a {@link Scheduler}. An action is typically
+ * created from within a Scheduler and an RxJS user does not need to concern
+ * themselves about creating and manipulating an Action.
+ *
+ * ```ts
+ * class Action<T> extends Subscription {
+ *   new (scheduler: Scheduler, work: (state?: T) => void);
+ *   schedule(state?: T, delay: number = 0): Subscription;
+ * }
+ * ```
+ *
+ * @class Action<T>
+ */
+var Action = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(Action, _super);
+    function Action(scheduler, work) {
+        _super.call(this);
+    }
+    /**
+     * Schedules this action on its parent Scheduler for execution. May be passed
+     * some context object, `state`. May happen at some point in the future,
+     * according to the `delay` parameter, if specified.
+     * @param {T} [state] Some contextual data that the `work` function uses when
+     * called by the Scheduler.
+     * @param {number} [delay] Time to wait before executing the work, where the
+     * time unit is implicit and defined by the Scheduler.
+     * @return {void}
+     */
+    Action.prototype.schedule = function (state, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        return this;
+    };
+    return Action;
+}(__WEBPACK_IMPORTED_MODULE_0__Subscription__["a" /* Subscription */]));
+//# sourceMappingURL=Action.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/scheduler/AsyncAction.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AsyncAction; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__util_root__ = __webpack_require__("../../../../rxjs/_esm5/util/root.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Action__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/Action.js");
+/** PURE_IMPORTS_START .._util_root,._Action PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var AsyncAction = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(AsyncAction, _super);
+    function AsyncAction(scheduler, work) {
+        _super.call(this, scheduler, work);
+        this.scheduler = scheduler;
+        this.work = work;
+        this.pending = false;
+    }
+    AsyncAction.prototype.schedule = function (state, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        if (this.closed) {
+            return this;
+        }
+        // Always replace the current state with the new state.
+        this.state = state;
+        // Set the pending flag indicating that this action has been scheduled, or
+        // has recursively rescheduled itself.
+        this.pending = true;
+        var id = this.id;
+        var scheduler = this.scheduler;
+        //
+        // Important implementation note:
+        //
+        // Actions only execute once by default, unless rescheduled from within the
+        // scheduled callback. This allows us to implement single and repeat
+        // actions via the same code path, without adding API surface area, as well
+        // as mimic traditional recursion but across asynchronous boundaries.
+        //
+        // However, JS runtimes and timers distinguish between intervals achieved by
+        // serial `setTimeout` calls vs. a single `setInterval` call. An interval of
+        // serial `setTimeout` calls can be individually delayed, which delays
+        // scheduling the next `setTimeout`, and so on. `setInterval` attempts to
+        // guarantee the interval callback will be invoked more precisely to the
+        // interval period, regardless of load.
+        //
+        // Therefore, we use `setInterval` to schedule single and repeat actions.
+        // If the action reschedules itself with the same delay, the interval is not
+        // canceled. If the action doesn't reschedule, or reschedules with a
+        // different delay, the interval will be canceled after scheduled callback
+        // execution.
+        //
+        if (id != null) {
+            this.id = this.recycleAsyncId(scheduler, id, delay);
+        }
+        this.delay = delay;
+        // If this action has already an async Id, don't request a new one.
+        this.id = this.id || this.requestAsyncId(scheduler, this.id, delay);
+        return this;
+    };
+    AsyncAction.prototype.requestAsyncId = function (scheduler, id, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        return __WEBPACK_IMPORTED_MODULE_0__util_root__["a" /* root */].setInterval(scheduler.flush.bind(scheduler, this), delay);
+    };
+    AsyncAction.prototype.recycleAsyncId = function (scheduler, id, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        // If this action is rescheduled with the same delay time, don't clear the interval id.
+        if (delay !== null && this.delay === delay && this.pending === false) {
+            return id;
+        }
+        // Otherwise, if the action's delay time is different from the current delay,
+        // or the action has been rescheduled before it's executed, clear the interval id
+        return __WEBPACK_IMPORTED_MODULE_0__util_root__["a" /* root */].clearInterval(id) && undefined || undefined;
+    };
+    /**
+     * Immediately executes this action and the `work` it contains.
+     * @return {any}
+     */
+    AsyncAction.prototype.execute = function (state, delay) {
+        if (this.closed) {
+            return new Error('executing a cancelled action');
+        }
+        this.pending = false;
+        var error = this._execute(state, delay);
+        if (error) {
+            return error;
+        }
+        else if (this.pending === false && this.id != null) {
+            // Dequeue if the action didn't reschedule itself. Don't call
+            // unsubscribe(), because the action could reschedule later.
+            // For example:
+            // ```
+            // scheduler.schedule(function doWork(counter) {
+            //   /* ... I'm a busy worker bee ... */
+            //   var originalAction = this;
+            //   /* wait 100ms before rescheduling the action */
+            //   setTimeout(function () {
+            //     originalAction.schedule(counter + 1);
+            //   }, 100);
+            // }, 1000);
+            // ```
+            this.id = this.recycleAsyncId(this.scheduler, this.id, null);
+        }
+    };
+    AsyncAction.prototype._execute = function (state, delay) {
+        var errored = false;
+        var errorValue = undefined;
+        try {
+            this.work(state);
+        }
+        catch (e) {
+            errored = true;
+            errorValue = !!e && e || new Error(e);
+        }
+        if (errored) {
+            this.unsubscribe();
+            return errorValue;
+        }
+    };
+    AsyncAction.prototype._unsubscribe = function () {
+        var id = this.id;
+        var scheduler = this.scheduler;
+        var actions = scheduler.actions;
+        var index = actions.indexOf(this);
+        this.work = null;
+        this.state = null;
+        this.pending = false;
+        this.scheduler = null;
+        if (index !== -1) {
+            actions.splice(index, 1);
+        }
+        if (id != null) {
+            this.id = this.recycleAsyncId(scheduler, id, null);
+        }
+        this.delay = null;
+    };
+    return AsyncAction;
+}(__WEBPACK_IMPORTED_MODULE_1__Action__["a" /* Action */]));
+//# sourceMappingURL=AsyncAction.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/scheduler/AsyncScheduler.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AsyncScheduler; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Scheduler__ = __webpack_require__("../../../../rxjs/_esm5/Scheduler.js");
+/** PURE_IMPORTS_START .._Scheduler PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+var AsyncScheduler = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(AsyncScheduler, _super);
+    function AsyncScheduler() {
+        _super.apply(this, arguments);
+        this.actions = [];
+        /**
+         * A flag to indicate whether the Scheduler is currently executing a batch of
+         * queued actions.
+         * @type {boolean}
+         */
+        this.active = false;
+        /**
+         * An internal ID used to track the latest asynchronous task such as those
+         * coming from `setTimeout`, `setInterval`, `requestAnimationFrame`, and
+         * others.
+         * @type {any}
+         */
+        this.scheduled = undefined;
+    }
+    AsyncScheduler.prototype.flush = function (action) {
+        var actions = this.actions;
+        if (this.active) {
+            actions.push(action);
+            return;
+        }
+        var error;
+        this.active = true;
+        do {
+            if (error = action.execute(action.state, action.delay)) {
+                break;
+            }
+        } while (action = actions.shift()); // exhaust the scheduler queue
+        this.active = false;
+        if (error) {
+            while (action = actions.shift()) {
+                action.unsubscribe();
+            }
+            throw error;
+        }
+    };
+    return AsyncScheduler;
+}(__WEBPACK_IMPORTED_MODULE_0__Scheduler__["a" /* Scheduler */]));
+//# sourceMappingURL=AsyncScheduler.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/scheduler/QueueAction.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QueueAction; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AsyncAction__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/AsyncAction.js");
+/** PURE_IMPORTS_START ._AsyncAction PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+/**
+ * We need this JSDoc comment for affecting ESDoc.
+ * @ignore
+ * @extends {Ignored}
+ */
+var QueueAction = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(QueueAction, _super);
+    function QueueAction(scheduler, work) {
+        _super.call(this, scheduler, work);
+        this.scheduler = scheduler;
+        this.work = work;
+    }
+    QueueAction.prototype.schedule = function (state, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        if (delay > 0) {
+            return _super.prototype.schedule.call(this, state, delay);
+        }
+        this.delay = delay;
+        this.state = state;
+        this.scheduler.flush(this);
+        return this;
+    };
+    QueueAction.prototype.execute = function (state, delay) {
+        return (delay > 0 || this.closed) ?
+            _super.prototype.execute.call(this, state, delay) :
+            this._execute(state, delay);
+    };
+    QueueAction.prototype.requestAsyncId = function (scheduler, id, delay) {
+        if (delay === void 0) {
+            delay = 0;
+        }
+        // If delay exists and is greater than 0, or if the delay is null (the
+        // action wasn't rescheduled) but was originally scheduled as an async
+        // action, then recycle as an async action.
+        if ((delay !== null && delay > 0) || (delay === null && this.delay > 0)) {
+            return _super.prototype.requestAsyncId.call(this, scheduler, id, delay);
+        }
+        // Otherwise flush the scheduler starting with this action.
+        return scheduler.flush(this);
+    };
+    return QueueAction;
+}(__WEBPACK_IMPORTED_MODULE_0__AsyncAction__["a" /* AsyncAction */]));
+//# sourceMappingURL=QueueAction.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/scheduler/QueueScheduler.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QueueScheduler; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AsyncScheduler__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/AsyncScheduler.js");
+/** PURE_IMPORTS_START ._AsyncScheduler PURE_IMPORTS_END */
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b)
+        if (b.hasOwnProperty(p))
+            d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+
+var QueueScheduler = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
+    __extends(QueueScheduler, _super);
+    function QueueScheduler() {
+        _super.apply(this, arguments);
+    }
+    return QueueScheduler;
+}(__WEBPACK_IMPORTED_MODULE_0__AsyncScheduler__["a" /* AsyncScheduler */]));
+//# sourceMappingURL=QueueScheduler.js.map 
+
+
+/***/ }),
+
+/***/ "../../../../rxjs/_esm5/scheduler/queue.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return queue; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__QueueAction__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/QueueAction.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__QueueScheduler__ = __webpack_require__("../../../../rxjs/_esm5/scheduler/QueueScheduler.js");
+/** PURE_IMPORTS_START ._QueueAction,._QueueScheduler PURE_IMPORTS_END */
+
+
+/**
+ *
+ * Queue Scheduler
+ *
+ * <span class="informal">Put every next task on a queue, instead of executing it immediately</span>
+ *
+ * `queue` scheduler, when used with delay, behaves the same as {@link async} scheduler.
+ *
+ * When used without delay, it schedules given task synchronously - executes it right when
+ * it is scheduled. However when called recursively, that is when inside the scheduled task,
+ * another task is scheduled with queue scheduler, instead of executing immediately as well,
+ * that task will be put on a queue and wait for current one to finish.
+ *
+ * This means that when you execute task with `queue` scheduler, you are sure it will end
+ * before any other task scheduled with that scheduler will start.
+ *
+ * @examples <caption>Schedule recursively first, then do something</caption>
+ *
+ * Rx.Scheduler.queue.schedule(() => {
+ *   Rx.Scheduler.queue.schedule(() => console.log('second')); // will not happen now, but will be put on a queue
+ *
+ *   console.log('first');
+ * });
+ *
+ * // Logs:
+ * // "first"
+ * // "second"
+ *
+ *
+ * @example <caption>Reschedule itself recursively</caption>
+ *
+ * Rx.Scheduler.queue.schedule(function(state) {
+ *   if (state !== 0) {
+ *     console.log('before', state);
+ *     this.schedule(state - 1); // `this` references currently executing Action,
+ *                               // which we reschedule with new state
+ *     console.log('after', state);
+ *   }
+ * }, 0, 3);
+ *
+ * // In scheduler that runs recursively, you would expect:
+ * // "before", 3
+ * // "before", 2
+ * // "before", 1
+ * // "after", 1
+ * // "after", 2
+ * // "after", 3
+ *
+ * // But with queue it logs:
+ * // "before", 3
+ * // "after", 3
+ * // "before", 2
+ * // "after", 2
+ * // "before", 1
+ * // "after", 1
+ *
+ *
+ * @static true
+ * @name queue
+ * @owner Scheduler
+ */
+var queue = /*@__PURE__*/ new __WEBPACK_IMPORTED_MODULE_1__QueueScheduler__["a" /* QueueScheduler */](__WEBPACK_IMPORTED_MODULE_0__QueueAction__["a" /* QueueAction */]);
+//# sourceMappingURL=queue.js.map 
 
 
 /***/ }),
