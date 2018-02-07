@@ -1,7 +1,7 @@
 import { Injector } from '@angular/core';
 import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
 
-import { ReduxStateProvider } from '../state/state.provider';
+import { ReduxStateProvider } from '../providers/redux-state.provider';
 import { ReduxStateProviderType } from '../state/state.provider.type';
 
 export function ReduxSelect<S = {}>(expression: string,

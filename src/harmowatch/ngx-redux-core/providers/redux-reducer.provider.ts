@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { ReduxRootState } from '@harmowatch/ngx-redux-core/interfaces/redux-root-state.interface';
 import { IRegisterStatePayload, Registry } from '@harmowatch/ngx-redux-core/registry';
-import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
+import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/providers/redux-state.provider';
 import { ReduxActionWithPayload } from '@harmowatch/ngx-redux-core/interfaces/redux-action.interface';
 
 @Injectable()

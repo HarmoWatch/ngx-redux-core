@@ -4,7 +4,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
 import { ReduxStateProviderType } from '@harmowatch/ngx-redux-core/state/state.provider.type';
-import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
+import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/providers/redux-state.provider';
 import { Registry } from '@harmowatch/ngx-redux-core/registry';
 import { ReduxRootState } from '@harmowatch/ngx-redux-core/interfaces/redux-root-state.interface';
 

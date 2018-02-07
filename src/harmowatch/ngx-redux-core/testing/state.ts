@@ -1,4 +1,4 @@
-import { ReduxStateProvider } from 'harmowatch/ngx-redux-core/state/state.provider';
+import { ReduxStateProvider } from 'harmowatch/ngx-redux-core/providers/redux-state.provider';
 import { ReduxState } from '@harmowatch/ngx-redux-core/decorators';
 
 export interface TestingState {

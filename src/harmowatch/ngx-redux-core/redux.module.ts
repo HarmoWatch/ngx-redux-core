@@ -2,8 +2,8 @@ import { createStore, Store, StoreEnhancer, StoreEnhancerStoreCreator } from 're
 
 import { CommonModule } from '@angular/common';
 import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';
-import { ReduxSelectPipe } from '@harmowatch/ngx-redux-core/select/pipe';
-import { ReducerProvider } from '@harmowatch/ngx-redux-core/reducer/reducer.provider';
+import { ReduxSelectPipe } from '@harmowatch/ngx-redux-core/pipes/redux-select.pipe';
+import { ReducerProvider } from '@harmowatch/ngx-redux-core/providers/redux-reducer.provider';
 import { StateDefToken } from '@harmowatch/ngx-redux-core/state/definition/token';
 import { StateDefinition } from '@harmowatch/ngx-redux-core/state/definition';
 import { Registry } from '@harmowatch/ngx-redux-core/registry';

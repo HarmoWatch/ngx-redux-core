@@ -5,7 +5,7 @@ import { Inject, Injector, Pipe, PipeTransform } from '@angular/core';
 
 import { StateDefinition } from '@harmowatch/ngx-redux-core/state/definition';
 import { StateDefToken } from '@harmowatch/ngx-redux-core/state/definition/token';
-import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
+import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/providers/redux-state.provider';
 
 @Pipe({name: 'reduxSelect'})
 export class ReduxSelectPipe implements PipeTransform {

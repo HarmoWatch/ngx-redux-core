@@ -9,11 +9,11 @@ import {
   ReduxStateInterface
 } from '@harmowatch/redux-decorators';
 
-import { StateDefinition } from '@harmowatch/ngx-redux-core/state/definition';
-import { ReduxStateProviderType } from '@harmowatch/ngx-redux-core/state/state.provider.type';
-import { StateDefToken } from '@harmowatch/ngx-redux-core/state/definition/token';
-import { ReduxSelector } from '@harmowatch/ngx-redux-core/selector/selector';
-import { ReduxActionWithPayload } from '@harmowatch/ngx-redux-core/interfaces/redux-action.interface';
+import { StateDefinition } from '../state/definition';
+import { ReduxStateProviderType } from '../state/state.provider.type';
+import { StateDefToken } from '../state/definition/token';
+import { ReduxSelector } from '../selector/selector';
+import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';
 
 export abstract class ReduxStateProvider<S> implements ReduxStateInterface<S> {
 

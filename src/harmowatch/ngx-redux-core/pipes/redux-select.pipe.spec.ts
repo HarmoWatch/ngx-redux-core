@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { selectorSuiteFactory } from '../testing/selector/suite.config';
 import { TestingStateProvider } from '../testing/state';
 import { ReduxTestingStore } from '../testing/store';
-import { ReduxSelectPipe } from './pipe';
+import { ReduxSelectPipe } from './redux-select.pipe';
 import { ReduxModule } from 'harmowatch/ngx-redux-core/redux.module';
 import { ReduxStore } from '@harmowatch/ngx-redux-core/store/token';
 

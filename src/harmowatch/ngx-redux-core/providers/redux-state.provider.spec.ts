@@ -3,12 +3,12 @@ import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/toPromise';
 
-import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
-import { ReduxTestingStore } from '@harmowatch/ngx-redux-core/testing/store';
-import { ReduxAction, ReduxReducer, ReduxState } from '@harmowatch/ngx-redux-core/decorators';
-import { ReduxActionWithPayload } from '@harmowatch/ngx-redux-core/interfaces/redux-action.interface';
-import { ReduxModule } from '@harmowatch/ngx-redux-core/redux.module';
-import { ReduxStore } from '@harmowatch/ngx-redux-core/store/token';
+import { ReduxStateProvider } from 'harmowatch/ngx-redux-core/providers/redux-state.provider';
+import { ReduxTestingStore } from '../testing/store';
+import { ReduxAction, ReduxReducer, ReduxState } from '../decorators/index';
+import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';
+import { ReduxModule } from '../redux.module';
+import { ReduxStore } from '../store/token';
 
 describe('ReduxStateProvider', () => {
 
