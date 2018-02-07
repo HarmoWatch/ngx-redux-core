@@ -9010,7 +9010,7 @@ module.exports = function(originalModule) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
 /**
- * @license Angular v5.2.3
+ * @license Angular v5.2.4
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -15536,7 +15536,7 @@ function isPlatformWorkerUi(platformId) {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* Version */]('5.2.3');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* Version */]('5.2.4');
 
 /**
  * @fileoverview added by tsickle
@@ -15814,7 +15814,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_8" /* Version */
 /* unused harmony export removeSummaryDuplicates */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
 /**
- * @license Angular v5.2.3
+ * @license Angular v5.2.4
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -16448,7 +16448,7 @@ var Version = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('5.2.3');
+var VERSION = new Version('5.2.4');
 
 /**
  * @fileoverview added by tsickle
@@ -51289,11 +51289,13 @@ var Extractor = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_observable_merge__ = __webpack_require__("../../../../rxjs/_esm5/observable/merge.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_operator_share__ = __webpack_require__("../../../../rxjs/_esm5/operator/share.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__ = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Subscription__ = __webpack_require__("../../../../rxjs/_esm5/Subscription.js");
 /**
- * @license Angular v5.2.3
+ * @license Angular v5.2.4
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
+
 
 
 
@@ -52007,7 +52009,7 @@ var Version = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new Version('5.2.3');
+var VERSION = new Version('5.2.4');
 
 /**
  * @fileoverview added by tsickle
@@ -52121,6 +52123,7 @@ var __self = typeof self !== 'undefined' && typeof WorkerGlobalScope !== 'undefi
     self instanceof WorkerGlobalScope && self;
 var __global = typeof global !== 'undefined' && global;
 var _global = __window || __global || __self;
+var promise = Promise.resolve(0);
 var _symbolIterator = null;
 /**
  * @return {?}
@@ -52150,7 +52153,13 @@ function getSymbolIterator() {
  * @return {?}
  */
 function scheduleMicroTask(fn) {
-    Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
+    if (typeof Zone === 'undefined') {
+        // use promise to schedule microTask instead of use Zone
+        promise.then(function () { fn && fn.apply(null, null); });
+    }
+    else {
+        Zone.current.scheduleMicroTask('scheduleMicrotask', fn);
+    }
 }
 /**
  * @param {?} a
@@ -55629,7 +55638,11 @@ var EventEmitter = /** @class */ (function (_super) {
                     this.__isAsync ? function () { setTimeout(function () { return complete(); }); } : function () { complete(); };
             }
         }
-        return _super.prototype.subscribe.call(this, schedulerFn, errorFn, completeFn);
+        var /** @type {?} */ sink = _super.prototype.subscribe.call(this, schedulerFn, errorFn, completeFn);
+        if (generatorOrNext instanceof __WEBPACK_IMPORTED_MODULE_5_rxjs_Subscription__["a" /* Subscription */]) {
+            generatorOrNext.add(sink);
+        }
+        return sink;
     };
     return EventEmitter;
 }(__WEBPACK_IMPORTED_MODULE_4_rxjs_Subject__["Subject"]));
@@ -70587,7 +70600,7 @@ function transition$$1(stateChangeExpr, steps) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
 /**
- * @license Angular v5.2.3
+ * @license Angular v5.2.4
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -71239,7 +71252,7 @@ var CachedResourceLoader = /** @class */ (function (_super) {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* Version */]('5.2.3');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* Version */]('5.2.4');
 
 /**
  * @fileoverview added by tsickle
@@ -71350,7 +71363,7 @@ var platformBrowserDynamic = Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__[
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_tslib__ = __webpack_require__("../../../../tslib/tslib.es6.js");
 /**
- * @license Angular v5.2.3
+ * @license Angular v5.2.4
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -76542,7 +76555,7 @@ var By = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* Version */]('5.2.3');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* Version */]('5.2.4');
 
 /**
  * @fileoverview added by tsickle
@@ -76676,7 +76689,7 @@ var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* Version */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__angular_platform_browser__ = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_rxjs_operator_filter__ = __webpack_require__("../../../../rxjs/_esm5/operator/filter.js");
 /**
- * @license Angular v5.2.3
+ * @license Angular v5.2.4
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -81452,14 +81465,15 @@ var Router = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        // Zone.current.wrap is needed because of the issue with RxJS scheduler,
-        // which does not work properly with zone.js in IE and Safari
+        // Don't need to use Zone.wrap any more, because zone.js
+        // already patch onPopState, so location change callback will
+        // run into ngZone
         if (!this.locationSubscription) {
-            this.locationSubscription = /** @type {?} */ (this.location.subscribe(Zone.current.wrap(function (change) {
+            this.locationSubscription = /** @type {?} */ (this.location.subscribe(function (change) {
                 var /** @type {?} */ rawUrlTree = _this.urlSerializer.parse(change['url']);
                 var /** @type {?} */ source = change['type'] === 'popstate' ? 'popstate' : 'hashchange';
                 setTimeout(function () { _this.scheduleNavigation(rawUrlTree, source, { replaceUrl: true }); }, 0);
-            })));
+            }));
         }
     };
     Object.defineProperty(Router.prototype, "url", {
@@ -84081,7 +84095,7 @@ function provideRouterInitializer() {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* Version */]('5.2.3');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* Version */]('5.2.4');
 
 /**
  * @fileoverview added by tsickle

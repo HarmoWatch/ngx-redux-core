@@ -1643,7 +1643,7 @@ module.exports = v4;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/operator/map.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_platform_browser__ = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
 /**
- * @license Angular v5.2.3
+ * @license Angular v5.2.4
  * (c) 2010-2018 Google, Inc. https://angular.io/
  * License: MIT
  */
@@ -9634,7 +9634,7 @@ var FormBuilder = /** @class */ (function () {
 /**
  * \@stable
  */
-var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* Version */]('5.2.3');
+var VERSION = new __WEBPACK_IMPORTED_MODULE_1__angular_core__["_8" /* Version */]('5.2.4');
 
 /**
  * @fileoverview added by tsickle
