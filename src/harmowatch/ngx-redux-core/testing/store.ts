@@ -11,11 +11,11 @@ import { ReduxStateProviderType } from '../interfaces/redux-state.provider.inter
 @Injectable()
 export class ReduxTestingStore implements Store<{}> {
 
+  private state = new BehaviorSubject(null);
+
   public static factory(): ReduxTestingStore {
     return new ReduxTestingStore();
   }
-
-  private state = new BehaviorSubject(null);
 
   public setState<S>(state: ReduxStateProviderType, value: S): Promise<ReduxRootState> {
     const {name} = ReduxStateDecorator.get(state);
