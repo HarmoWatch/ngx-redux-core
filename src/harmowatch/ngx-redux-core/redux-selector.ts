@@ -3,9 +3,9 @@ import 'rxjs/add/operator/map';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
-import { ReduxStateProviderType } from '@harmowatch/ngx-redux-core/state/state.provider.type';
+import { ReduxStateProviderType } from '@harmowatch/ngx-redux-core';
 import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/providers/redux-state.provider';
-import { Registry } from '@harmowatch/ngx-redux-core/registry';
+import { ReduxRegistry } from '@harmowatch/ngx-redux-core/providers/redux-registry';
 import { ReduxRootState } from '@harmowatch/ngx-redux-core/interfaces/redux-root-state.interface';
 
 export class ReduxSelector<T> extends ReplaySubject<T> {
@@ -21,7 +21,7 @@ export class ReduxSelector<T> extends ReplaySubject<T> {
 
     super(1);
 
-    Registry.getStore().then(store => {
+    ReduxRegistry.getStore().then(store => {
       const next = () => {
         this.next(ReduxSelector.getValueByState(store.getState(), selector, stateProvider));
       };

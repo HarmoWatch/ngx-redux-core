@@ -6,7 +6,7 @@ import { TestingStateProvider } from '../testing/state';
 import { ReduxTestingStore } from '../testing/store';
 import { ReduxSelectPipe } from './redux-select.pipe';
 import { ReduxModule } from 'harmowatch/ngx-redux-core/redux.module';
-import { ReduxStore } from '@harmowatch/ngx-redux-core/store/token';
+import { ReduxStore } from '@harmowatch/ngx-redux-core/tokens/redux-store.token';
 
 describe('select/pipe', () => {
 

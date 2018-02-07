@@ -12,8 +12,8 @@ import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Observable } from 'rxjs/Observable';
 
 import { Inject, Injectable } from '@angular/core';
-import { ReduxStore } from '@harmowatch/ngx-redux-core/store/token';
-import { ReduxActionWithPayload } from '@harmowatch/ngx-redux-core/interfaces/redux-action.interface';
+import { ReduxStore } from '../tokens/redux-store.token';
+import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';
 
 export class RegistryReducerItem {
   stateName: string;
@@ -27,7 +27,7 @@ export interface IRegisterStatePayload {
 }
 
 @Injectable()
-export class Registry {
+export class ReduxRegistry {
 
   public static readonly ACTION_REGISTER_STATE = `@harmowatch/ngx-redux-core/registerState`;
 
@@ -35,19 +35,19 @@ export class Registry {
   private static _reducers: RegistryReducerItem[] = [];
 
   constructor(@Inject(ReduxStore) store: Store<{}> = null) {
-    Registry.reset();
-    Registry.registerStore(store);
+    ReduxRegistry.reset();
+    ReduxRegistry.registerStore(store);
   }
 
   public static reset() {
-    Registry._store = new AsyncSubject<Store<{}>>();
-    Registry._reducers = [];
+    ReduxRegistry._store = new AsyncSubject<Store<{}>>();
+    ReduxRegistry._reducers = [];
   }
 
   public static registerStore(store: Store<{}>) {
-    Registry.reset();
-    Registry._store.next(store);
-    Registry._store.complete();
+    ReduxRegistry.reset();
+    ReduxRegistry._store.next(store);
+    ReduxRegistry._store.complete();
 
     ReduxActionDispatcher.dispatchedActions.subscribe(action => {
       store.dispatch(action as Action);
@@ -55,7 +55,7 @@ export class Registry {
   }
 
   public static registerState(state: ReduxStateInterface<{}>) {
-    Registry.getStore().then((store) => {
+    ReduxRegistry.getStore().then((store) => {
 
       const stateConfig = ReduxStateDecorator.get(state.constructor);
       const initState = state.getInitialState();
@@ -71,7 +71,7 @@ export class Registry {
             initialValue: initialState,
             name: stateConfig.name,
           },
-          type: Registry.ACTION_REGISTER_STATE,
+          type: ReduxRegistry.ACTION_REGISTER_STATE,
         });
       });
 
@@ -79,7 +79,7 @@ export class Registry {
   }
 
   public static getStore(): Promise<Store<{}>> {
-    return new Promise(Registry._store.subscribe.bind(Registry._store));
+    return new Promise(ReduxRegistry._store.subscribe.bind(ReduxRegistry._store));
   }
 
 }

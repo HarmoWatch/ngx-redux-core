@@ -1,11 +1,11 @@
 import { async, TestBed } from '@angular/core/testing';
-import { Registry } from '../registry';
+import { ReduxRegistry } from './providers/redux-registry';
 import { Observable } from 'rxjs/Observable';
-import { ReduxSelector } from './selector';
-import { TestingState, TestingStateProvider } from '../testing/state';
-import { ReduxTestingStore } from '../testing/store';
+import { ReduxSelector } from './redux-selector';
+import { TestingState, TestingStateProvider } from './testing/state';
+import { ReduxTestingStore } from './testing/store';
 import { ReduxModule } from 'harmowatch/ngx-redux-core/redux.module';
-import { ReduxStore } from '@harmowatch/ngx-redux-core/store/token';
+import { ReduxStore } from 'harmowatch/ngx-redux-core/tokens/redux-store.token';
 import { ReduxRootState } from '@harmowatch/ngx-redux-core/interfaces/redux-root-state.interface';
 
 describe('ReduxSelector', () => {
@@ -125,13 +125,13 @@ describe('ReduxSelector', () => {
   });
 
   it('it will not create an observerable for each observer', () => {
-    spyOn(Registry, 'getStore').and.callThrough();
+    spyOn(ReduxRegistry, 'getStore').and.callThrough();
     const selector = new ReduxSelector('todo/items', TestingStateProvider);
 
     selector.subscribe(() => null);
     selector.subscribe(() => null);
 
-    expect(Registry.getStore).toHaveBeenCalledTimes(1);
+    expect(ReduxRegistry.getStore).toHaveBeenCalledTimes(1);
   });
 
 });

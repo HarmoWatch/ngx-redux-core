@@ -3,7 +3,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { ReduxTestingStore } from '@harmowatch/ngx-redux-core/testing/store';
 import { TestingStateProvider } from '@harmowatch/ngx-redux-core/testing/state';
 import { ReduxModule } from '@harmowatch/ngx-redux-core/redux.module';
-import { ReduxStore } from '@harmowatch/ngx-redux-core/store/token';
+import { ReduxStore } from '@harmowatch/ngx-redux-core/tokens/redux-store.token';
 
 describe('ReduxTestingStore', () => {
 

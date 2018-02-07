@@ -8,7 +8,7 @@ import { ReduxTestingStore } from '../testing/store';
 import { ReduxAction, ReduxReducer, ReduxState } from '../decorators/index';
 import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';
 import { ReduxModule } from '../redux.module';
-import { ReduxStore } from '../store/token';
+import { ReduxStore } from '../tokens/redux-store.token';
 
 describe('ReduxStateProvider', () => {
 

@@ -9,10 +9,10 @@ import {
   ReduxStateInterface
 } from '@harmowatch/redux-decorators';
 
-import { StateDefinition } from '../state/definition';
+import { ReduxStateDefinition } from '../interfaces/redux-state-definition.interface';
 import { ReduxStateProviderType } from '../state/state.provider.type';
-import { StateDefToken } from '../state/definition/token';
-import { ReduxSelector } from '../selector/selector';
+import { ReduxStateDefinitionToken } from '../tokens/redux-state-definition.token';
+import { ReduxSelector } from '../redux-selector';
 import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';
 
 export abstract class ReduxStateProvider<S> implements ReduxStateInterface<S> {
@@ -20,12 +20,12 @@ export abstract class ReduxStateProvider<S> implements ReduxStateInterface<S> {
   public static instancesByName: { [stateName: string]: ReduxStateProvider<{}> } = {};
 
   public readonly name: string;
-  public readonly stateDef: StateDefinition;
+  public readonly stateDef: ReduxStateDefinition;
 
   protected selectorCache: { [selector: string]: Observable<{}> } = {};
   protected reducerMethodsByType: { [actionType: string]: Function[] };
 
-  constructor(@Inject(StateDefToken) stateDefs: StateDefinition[] = []) {
+  constructor(@Inject(ReduxStateDefinitionToken) stateDefs: ReduxStateDefinition[] = []) {
 
     const {name = null} = ReduxStateDecorator.get(this.constructor) || {};
 

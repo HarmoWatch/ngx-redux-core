@@ -3,13 +3,13 @@ import { createStore, Store, StoreEnhancer, StoreEnhancerStoreCreator } from 're
 import { CommonModule } from '@angular/common';
 import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';
 import { ReduxSelectPipe } from '@harmowatch/ngx-redux-core/pipes/redux-select.pipe';
-import { ReducerProvider } from '@harmowatch/ngx-redux-core/providers/redux-reducer.provider';
-import { StateDefToken } from '@harmowatch/ngx-redux-core/state/definition/token';
-import { StateDefinition } from '@harmowatch/ngx-redux-core/state/definition';
-import { Registry } from '@harmowatch/ngx-redux-core/registry';
+import { ReduxReducerProvider } from '@harmowatch/ngx-redux-core/providers/redux-reducer.provider';
+import { ReduxStateDefinitionToken } from '@harmowatch/ngx-redux-core/tokens/redux-state-definition.token';
+import { ReduxStateDefinition } from '@harmowatch/ngx-redux-core/interfaces/redux-state-definition.interface';
+import { ReduxRegistry } from '@harmowatch/ngx-redux-core/providers/redux-registry';
 import { ReduxModuleChildConfig } from '@harmowatch/ngx-redux-core/interfaces/redux-child-module-config.interface';
 import { ReduxModuleRootConfig } from '@harmowatch/ngx-redux-core/interfaces/redux-root-module-config.interface';
-import { ReduxStore } from '@harmowatch/ngx-redux-core/store/token';
+import { ReduxStore } from '@harmowatch/ngx-redux-core/tokens/redux-store.token';
 import { ReduxTestingStore } from '@harmowatch/ngx-redux-core/testing/store';
 
 @NgModule({
@@ -26,10 +26,10 @@ import { ReduxTestingStore } from '@harmowatch/ngx-redux-core/testing/store';
 export class ReduxModule {
 
   constructor(injector: Injector,
-              reducer: ReducerProvider,
-              @Optional() @Inject(StateDefToken) stateDefs: StateDefinition[] = []) {
+              reducer: ReduxReducerProvider,
+              @Optional() @Inject(ReduxStateDefinitionToken) stateDefs: ReduxStateDefinition[] = []) {
 
-    injector.get(Registry); // just make the the provider is instantiated
+    injector.get(ReduxRegistry); // just make the the provider is instantiated
 
     if (Array.isArray(stateDefs)) {
       stateDefs
@@ -44,7 +44,7 @@ export class ReduxModule {
     return {
       ngModule: ReduxModule,
       providers: [
-        {provide: StateDefToken, useValue: config.state || null, multi: true},
+        {provide: ReduxStateDefinitionToken, useValue: config.state || null, multi: true},
       ],
     };
   }
@@ -53,19 +53,19 @@ export class ReduxModule {
     return {
       ngModule: ReduxModule,
       providers: [
-        ReducerProvider,
-        Registry,
+        ReduxReducerProvider,
+        ReduxRegistry,
         {
           provide: ReduxStore,
           useFactory: config.storeFactory || ReduxModule.defaultStoreFactory,
-          deps: [ ReducerProvider ]
+          deps: [ ReduxReducerProvider ]
         },
-        {provide: StateDefToken, useValue: config.state || null, multi: true},
+        {provide: ReduxStateDefinitionToken, useValue: config.state || null, multi: true},
       ],
     };
   }
 
-  public static defaultStoreFactory(reducer: ReducerProvider): Store<{}> {
+  public static defaultStoreFactory(reducer: ReduxReducerProvider): Store<{}> {
     return createStore(
       reducer.reduce.bind(reducer),
       {},

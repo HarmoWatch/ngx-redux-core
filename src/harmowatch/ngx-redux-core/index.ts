@@ -7,15 +7,15 @@ export * from './interfaces/redux-root-state.interface';
 export * from './providers/redux-reducer.provider';
 export * from './decorators/redux-select.decorator';
 export * from './pipes/redux-select.pipe';
-export * from './selector/selector';
-export * from './state/definition/token';
-export * from './state/definition';
+export * from './redux-selector';
+export * from './tokens/redux-state-definition.token';
+export * from './interfaces/redux-state-definition.interface';
 export * from './providers/redux-state.provider';
 export * from './state/state.provider.type';
-export * from './store/token';
+export * from './tokens/redux-store.token';
 export * from './testing/store';
 export * from './testing/state';
-export * from './registry';
+export * from './providers/redux-registry';
 
 export { ReduxModule } from '@harmowatch/ngx-redux-core/redux.module';
 

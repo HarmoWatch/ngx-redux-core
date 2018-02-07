@@ -6,7 +6,7 @@ import { ReduxModule } from 'harmowatch/ngx-redux-core/redux.module';
 import { ReduxSelect } from '@harmowatch/ngx-redux-core/decorators/redux-select.decorator';
 import { TestingStateProvider } from '@harmowatch/ngx-redux-core/testing/state';
 import { ReduxTestingStore } from '@harmowatch/ngx-redux-core/testing/store';
-import { ReduxStore } from '@harmowatch/ngx-redux-core/store/token';
+import { ReduxStore } from '@harmowatch/ngx-redux-core/tokens/redux-store.token';
 
 @Component({
   template: '',
