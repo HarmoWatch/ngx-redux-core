@@ -1,12 +1,11 @@
 import 'rxjs/add/operator/map';
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-
+import { ReduxStateProviderType } from './interfaces/redux-state.provider.interface';
+import { ReduxStateProvider } from './providers/redux-state.provider';
+import { ReduxRegistry } from './providers/redux-registry';
 import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
-import { ReduxStateProviderType } from '@harmowatch/ngx-redux-core';
-import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/providers/redux-state.provider';
-import { ReduxRegistry } from '@harmowatch/ngx-redux-core/providers/redux-registry';
-import { ReduxRootState } from '@harmowatch/ngx-redux-core/interfaces/redux-root-state.interface';
+import { ReduxRootState } from './interfaces/redux-root-state.interface';
 
 export class ReduxSelector<T> extends ReplaySubject<T> {
 

@@ -1,8 +1,8 @@
 import {
-  ReduxActionDecorator,
   ReduxActionContextDecorator,
-  ReduxStateDecorator,
+  ReduxActionDecorator,
   ReduxReducerDecorator,
+  ReduxStateDecorator,
 } from '@harmowatch/redux-decorators';
 
 export * from './redux-select.decorator';

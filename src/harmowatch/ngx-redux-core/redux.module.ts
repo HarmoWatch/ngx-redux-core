@@ -2,15 +2,14 @@ import { createStore, Store, StoreEnhancer, StoreEnhancerStoreCreator } from 're
 
 import { CommonModule } from '@angular/common';
 import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';
-import { ReduxSelectPipe } from '@harmowatch/ngx-redux-core/pipes/redux-select.pipe';
-import { ReduxReducerProvider } from '@harmowatch/ngx-redux-core/providers/redux-reducer.provider';
-import { ReduxStateDefinitionToken } from '@harmowatch/ngx-redux-core/tokens/redux-state-definition.token';
-import { ReduxStateDefinition } from '@harmowatch/ngx-redux-core/interfaces/redux-state-definition.interface';
-import { ReduxRegistry } from '@harmowatch/ngx-redux-core/providers/redux-registry';
-import { ReduxModuleChildConfig } from '@harmowatch/ngx-redux-core/interfaces/redux-child-module-config.interface';
-import { ReduxModuleRootConfig } from '@harmowatch/ngx-redux-core/interfaces/redux-root-module-config.interface';
-import { ReduxStore } from '@harmowatch/ngx-redux-core/tokens/redux-store.token';
-import { ReduxTestingStore } from '@harmowatch/ngx-redux-core/testing/store';
+import { ReduxSelectPipe } from './pipes/redux-select.pipe';
+import { ReduxReducerProvider } from './providers/redux-reducer.provider';
+import { ReduxStateDefinitionToken } from './tokens/redux-state-definition.token';
+import { ReduxStateDefinition } from './interfaces/redux-state-definition.interface';
+import { ReduxRegistry } from './providers/redux-registry';
+import { ReduxModuleChildConfig } from './interfaces/redux-child-module-config.interface';
+import { ReduxModuleRootConfig } from './interfaces/redux-root-module-config.interface';
+import { ReduxStore } from './tokens/redux-store.token';
 
 @NgModule({
   declarations: [

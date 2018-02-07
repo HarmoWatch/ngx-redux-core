@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReduxAction } from '@harmowatch/ngx-redux-core';
+import { ReduxAction } from '../../../harmowatch/ngx-redux-core/decorators/index';
 
 @Injectable()
 export class BikeActionsProvider {

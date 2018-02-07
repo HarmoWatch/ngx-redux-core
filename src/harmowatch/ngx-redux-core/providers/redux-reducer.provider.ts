@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { ReduxRootState } from '@harmowatch/ngx-redux-core/interfaces/redux-root-state.interface';
-import { IRegisterStatePayload, ReduxRegistry } from '@harmowatch/ngx-redux-core/providers/redux-registry';
-import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/providers/redux-state.provider';
-import { ReduxActionWithPayload } from '@harmowatch/ngx-redux-core/interfaces/redux-action.interface';
+import { ReduxStateProvider } from './redux-state.provider';
+import { IRegisterStatePayload, ReduxRegistry } from './redux-registry';
+import { ReduxRootState } from '../interfaces/redux-root-state.interface';
+import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';
+
 
 @Injectable()
 export class ReduxReducerProvider {

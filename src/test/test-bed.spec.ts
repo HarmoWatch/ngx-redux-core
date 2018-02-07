@@ -1,7 +1,7 @@
 import { Injector } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
-import { VehicleModule } from 'test/vehicle/vehicle.module';
-import { ReduxModule } from '@harmowatch/ngx-redux-core/redux.module';
+import { VehicleModule } from './vehicle/vehicle.module';
+import { ReduxModule } from '../harmowatch/ngx-redux-core/redux.module';
 
 export function initTestingModule() {
 

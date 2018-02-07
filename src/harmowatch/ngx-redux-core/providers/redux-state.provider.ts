@@ -10,7 +10,7 @@ import {
 } from '@harmowatch/redux-decorators';
 
 import { ReduxStateDefinition } from '../interfaces/redux-state-definition.interface';
-import { ReduxStateProviderType } from '../state/state.provider.type';
+import { ReduxStateProviderType } from '../interfaces/redux-state.provider.interface';
 import { ReduxStateDefinitionToken } from '../tokens/redux-state-definition.token';
 import { ReduxSelector } from '../redux-selector';
 import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';

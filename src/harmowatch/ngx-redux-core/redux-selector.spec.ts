@@ -4,9 +4,9 @@ import { Observable } from 'rxjs/Observable';
 import { ReduxSelector } from './redux-selector';
 import { TestingState, TestingStateProvider } from './testing/state';
 import { ReduxTestingStore } from './testing/store';
-import { ReduxModule } from 'harmowatch/ngx-redux-core/redux.module';
-import { ReduxStore } from 'harmowatch/ngx-redux-core/tokens/redux-store.token';
-import { ReduxRootState } from '@harmowatch/ngx-redux-core/interfaces/redux-root-state.interface';
+import { ReduxModule } from './redux.module';
+import { ReduxStore } from './tokens/redux-store.token';
+import { ReduxRootState } from './interfaces/redux-root-state.interface';
 
 describe('ReduxSelector', () => {
 

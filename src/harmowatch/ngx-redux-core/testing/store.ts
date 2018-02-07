@@ -4,10 +4,9 @@ import 'rxjs/add/operator/toPromise';
 import { Action, Store, Unsubscribe } from 'redux';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Injectable } from '@angular/core';
-
+import { ReduxRootState } from '../interfaces/redux-root-state.interface';
 import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
-import { ReduxRootState } from '@harmowatch/ngx-redux-core/interfaces/redux-root-state.interface';
-import { ReduxStateProviderType } from '@harmowatch/ngx-redux-core/state/state.provider.type';
+import { ReduxStateProviderType } from '../interfaces/redux-state.provider.interface';
 
 @Injectable()
 export class ReduxTestingStore implements Store<{}> {

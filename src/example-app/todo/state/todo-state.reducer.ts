@@ -1,9 +1,8 @@
-import { ReduxActionWithPayload } from '@harmowatch/ngx-redux-core';
-import { ReduxReducer } from '@harmowatch/ngx-redux-core/decorators';
-
 import { TodoListItem } from '../list/todo-list-item';
 import { TodoListComponent } from '../list/todo-list.component';
 import { TodoState } from '../todo.module.state';
+import { ReduxReducer } from '../../../harmowatch/ngx-redux-core/decorators/index';
+import { ReduxActionWithPayload } from '../../../harmowatch/ngx-redux-core/interfaces/redux-action.interface';
 
 export class TodoStateReducer {
 

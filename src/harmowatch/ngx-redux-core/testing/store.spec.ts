@@ -1,9 +1,10 @@
 import { async, TestBed } from '@angular/core/testing';
 
-import { ReduxTestingStore } from '@harmowatch/ngx-redux-core/testing/store';
-import { TestingStateProvider } from '@harmowatch/ngx-redux-core/testing/state';
-import { ReduxModule } from '@harmowatch/ngx-redux-core/redux.module';
-import { ReduxStore } from '@harmowatch/ngx-redux-core/tokens/redux-store.token';
+import { ReduxTestingStore } from './store';
+import { ReduxModule } from '../redux.module';
+import { TestingStateProvider } from './state';
+import { ReduxStore } from '../tokens/redux-store.token';
+
 
 describe('ReduxTestingStore', () => {
 

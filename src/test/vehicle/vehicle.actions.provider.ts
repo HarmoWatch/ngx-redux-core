@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReduxAction, ReduxActionContext } from '@harmowatch/ngx-redux-core';
+import { ReduxAction, ReduxActionContext } from '../../harmowatch/ngx-redux-core/decorators/index';
 
 @Injectable()
 @ReduxActionContext({prefix: 'VehicleActions://'})

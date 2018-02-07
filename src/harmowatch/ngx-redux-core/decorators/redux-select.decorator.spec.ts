@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { selectorSuiteFactory } from '../testing/selector/suite.config';
 import { Observable } from 'rxjs/Observable';
-import { ReduxModule } from 'harmowatch/ngx-redux-core/redux.module';
-import { ReduxSelect } from '@harmowatch/ngx-redux-core/decorators/redux-select.decorator';
-import { TestingStateProvider } from '@harmowatch/ngx-redux-core/testing/state';
-import { ReduxTestingStore } from '@harmowatch/ngx-redux-core/testing/store';
-import { ReduxStore } from '@harmowatch/ngx-redux-core/tokens/redux-store.token';
+
+import { ReduxSelect } from './redux-select.decorator';
+import { TestingStateProvider } from '../testing/state';
+import { ReduxTestingStore } from '../testing/store';
+import { ReduxModule } from '../redux.module';
+import { ReduxStore } from '../tokens/redux-store.token';
+import { selectorSuiteFactory } from '../testing/selector/suite.config';
 
 @Component({
   template: '',
@@ -37,6 +38,7 @@ describe('select/decorator', () => {
 
   let fixture: ComponentFixture<TestComponent>;
   let store: ReduxTestingStore;
+  let stateProvider: TestingStateProvider;
 
   beforeEach(async(() => {
 
@@ -56,12 +58,13 @@ describe('select/decorator', () => {
       ]
     });
 
-    TestBed.get(TestingStateProvider);
+    stateProvider = TestBed.get(TestingStateProvider);
     TestBed.compileComponents();
 
     store = TestBed.get(ReduxStore);
     store.setState(TestingStateProvider, TestingStateProvider.INITIAL_STATE);
     fixture = TestBed.createComponent(TestComponent);
+    spyOn(stateProvider, 'select').and.callThrough();
   }));
 
   beforeEach(async(() => {
@@ -83,6 +86,13 @@ describe('select/decorator', () => {
         });
 
       }));
+
+      it('uses the select method provided by the state provider', (done) => {
+        fixture.componentInstance[ cfg.given.name ].subscribe((value) => {
+          expect(stateProvider.select).toHaveBeenCalledTimes(1);
+          done();
+        });
+      });
 
     });
 

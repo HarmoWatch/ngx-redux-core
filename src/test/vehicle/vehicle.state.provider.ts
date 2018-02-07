@@ -1,7 +1,7 @@
-import { ReduxState, ReduxStateProvider } from '@harmowatch/ngx-redux-core/index';
-
-import { BikeState } from 'test/vehicle/bike/bike.state';
-import { CarState } from 'test/vehicle/car/car.state';
+import { BikeState } from './bike/bike.state';
+import { CarState } from './car/car.state';
+import { ReduxState } from '../../harmowatch/ngx-redux-core/decorators/index';
+import { ReduxStateProvider } from '../../harmowatch/ngx-redux-core/providers/redux-state.provider';
 
 export interface VehicleState {
   bike: BikeState;

@@ -1,7 +1,8 @@
-import { ReduxActionWithPayload, getActionType, ReduxReducer } from '@harmowatch/ngx-redux-core';
-
-import { VehicleActions } from 'test/vehicle/vehicle.actions.provider';
-import { VehicleState } from 'test/vehicle/vehicle.state.provider';
+import { ReduxReducer } from '../../../harmowatch/ngx-redux-core/decorators/index';
+import { VehicleActions } from '../vehicle.actions.provider';
+import { VehicleState } from '../vehicle.state.provider';
+import { ReduxActionWithPayload } from '../../../harmowatch/ngx-redux-core/interfaces/redux-action.interface';
+import { getActionType } from '../../../harmowatch/ngx-redux-core/index';
 
 export class CarReducer {
 
