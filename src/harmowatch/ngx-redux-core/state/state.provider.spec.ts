@@ -1,11 +1,13 @@
 import { async, TestBed } from '@angular/core/testing';
-import {
-  ActionWithPayload, ReduxAction, ReduxReducer, ReduxState,
-  ReduxTestingStore, ReduxStateProvider, ReduxTestingModule,
-} from '../index';
 import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/toPromise';
+
+import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
+import { ReduxTestingModule } from '@harmowatch/ngx-redux-core/testing/module';
+import { ReduxAction, ReduxReducer, ReduxState } from '@harmowatch/ngx-redux-core/decorators';
+import { ActionWithPayload } from '@harmowatch/ngx-redux-core/action/with/payload/action-with-payload.interface';
+import { ReduxTestingStore } from '@harmowatch/ngx-redux-core/testing/store';
 
 describe('ReduxStateProvider', () => {
 

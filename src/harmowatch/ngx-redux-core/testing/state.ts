@@ -1,5 +1,5 @@
 import { ReduxStateProvider } from 'harmowatch/ngx-redux-core/state/state.provider';
-import { ReduxState } from '../state/public_api';
+import { ReduxState } from '@harmowatch/ngx-redux-core/decorators';
 
 export interface TestingState {
   todo: {

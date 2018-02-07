@@ -11,7 +11,7 @@ import { Action, Reducer, Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Observable } from 'rxjs/Observable';
 
-import { ActionWithPayload } from './';
+import { ActionWithPayload } from '@harmowatch/ngx-redux-core/action/with/payload/action-with-payload.interface';
 
 export class RegistryReducerItem {
   stateName: string;

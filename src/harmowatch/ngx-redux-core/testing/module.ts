@@ -1,11 +1,12 @@
+import { Store } from 'redux';
 import { CommonModule } from '@angular/common';
 import { Inject, ModuleWithProviders, NgModule, Optional } from '@angular/core';
-import { ReduxCommonModule } from '../common/module';
-import { Registry } from '../registry';
-import { ReduxTestingStore } from './store';
-import { ReduxModuleRootConfig } from '../module/root/config';
-import { StateDefToken } from '../state/definition/token';
-import { Store } from 'redux';
+
+import { ReduxCommonModule } from '@harmowatch/ngx-redux-core/common/module';
+import { ReduxTestingStore } from '@harmowatch/ngx-redux-core/testing/store';
+import { Registry } from '@harmowatch/ngx-redux-core/registry';
+import { ReduxModuleRootConfig } from '@harmowatch/ngx-redux-core/module/root/config';
+import { StateDefToken } from '@harmowatch/ngx-redux-core/state/definition/token';
 
 @NgModule({
   exports: [

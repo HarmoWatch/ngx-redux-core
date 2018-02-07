@@ -1,10 +1,11 @@
 import { Injector } from '@angular/core';
-import { ReduxStateDecorator, ReduxStateType } from '@harmowatch/redux-decorators';
+import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
 
-import { ReduxStateProvider } from '../state/state.provider';
+import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
+import { ReduxStateProviderType } from '@harmowatch/ngx-redux-core/state/state.provider.type';
 
 export function ReduxSelect<S = {}>(expression: string,
-                                    context?: ReduxStateType<ReduxStateProvider<{}>>): PropertyDecorator {
+                                    context?: ReduxStateProviderType<ReduxStateProvider<{}>>): PropertyDecorator {
 
   return (target: {}, propertyKey: string) => {
     const originalOnInit = target[ 'ngOnInit' ];

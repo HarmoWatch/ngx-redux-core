@@ -1,22 +1,24 @@
-import { Injectable } from '@angular/core';
-import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
-import { Action, Store, Unsubscribe } from 'redux';
 import 'rxjs/add/operator/takeWhile';
 import 'rxjs/add/operator/toPromise';
+
+import { Action, Store, Unsubscribe } from 'redux';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { ReduxRootState } from '../module/root/state';
-import { StateConstructor } from '../state/constructor';
+import { Injectable } from '@angular/core';
+
+import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
+import { ReduxRootState } from '@harmowatch/ngx-redux-core/module/root/state';
+import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
 
 @Injectable()
 export class ReduxTestingStore implements Store<{}> {
 
   private state = new BehaviorSubject(null);
 
-  public setState<S>(state: StateConstructor, value: S): Promise<ReduxRootState> {
+  public setState<S>(state: ReduxStateProvider<S>, value: S): Promise<ReduxRootState> {
     const {name} = ReduxStateDecorator.get(state);
 
     const nextState = Object.assign({}, this.state.getValue(), {
-      [name]: value,
+      [ name ]: value,
     });
 
     this.state.next(nextState);

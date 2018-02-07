@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { ReduxSelectPipe } from '../select/pipe';
+import { ReduxSelectPipe } from '@harmowatch/ngx-redux-core/select/pipe';
 
 @NgModule({
   declarations: [

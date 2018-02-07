@@ -3,9 +3,9 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { Observable } from 'rxjs/Observable';
 import { Inject, Injector, Pipe, PipeTransform } from '@angular/core';
 
-import { ReduxStateProvider } from '../state/state.provider';
-import { StateDefinition } from '../state/definition';
-import { StateDefToken } from '../state/definition/token';
+import { StateDefinition } from '@harmowatch/ngx-redux-core/state/definition';
+import { StateDefToken } from '@harmowatch/ngx-redux-core/state/definition/token';
+import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
 
 @Pipe({name: 'reduxSelect'})
 export class ReduxSelectPipe implements PipeTransform {

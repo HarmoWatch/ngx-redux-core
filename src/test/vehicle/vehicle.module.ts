@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { ReduxModule } from '@harmowatch/ngx-redux-core';
-import { BikeActionsProvider } from './bike/bike.actions.provider';
-import { BikeReducer } from './bike/bike.reducer';
-import { CarActionsProvider } from './car/car.actions.provider';
-import { CarReducer } from './car/car.reducer';
-import { VehicleActions } from './vehicle.actions.provider';
 
-import { VehicleStateProvider } from './vehicle.state.provider';
+import { VehicleStateProvider } from 'test/vehicle/vehicle.state.provider';
+import { BikeReducer } from 'test/vehicle/bike/bike.reducer';
+import { CarReducer } from 'test/vehicle/car/car.reducer';
+import { VehicleActions } from 'test/vehicle/vehicle.actions.provider';
+import { BikeActionsProvider } from 'test/vehicle/bike/bike.actions.provider';
+import { CarActionsProvider } from 'test/vehicle/car/car.actions.provider';
 
 @NgModule({
   imports: [

@@ -1,42 +1,25 @@
-import {
-  ReduxActionContextDecorator,
-  ReduxActionDecorator,
-  ReduxActionDispatcher,
-  ReduxReducerDecorator
-} from '@harmowatch/redux-decorators';
-import { Action } from 'redux';
-
-export * from './module/public_api';
-export * from './select/public_api';
-export * from './state/public_api';
-export * from './store/public_api';
-export * from './testing/public_api';
+export * from './action/with/payload/action-with-payload.interface';
+export * from './common/module';
+export * from './decorators';
+export * from './module/child/config';
+export * from './module/root/config';
+export * from './module/root/state';
+export * from './reducer/reducer.provider';
+export * from './select/decorator';
+export * from './select/pipe';
 export * from './selector/selector';
+export * from './state/definition/token';
+export * from './state/definition';
 export * from './state/state.provider';
+export * from './state/state.provider.type';
+export * from './store/token';
+export * from './testing/store';
+export * from './testing/state';
+export * from './testing/module';
 export * from './module';
+export * from './registry';
 
-export {
-  ReduxActionFunction,
-  ReduxReducerType,
-  ReduxStateType as ReduxStateProviderType
-} from '@harmowatch/redux-decorators';
+import { ReduxActionDispatcher } from '@harmowatch/redux-decorators';
 
-export const ReduxAction = ReduxActionDecorator.forMethod;
-export const ReduxActionContext = ReduxActionContextDecorator.forClass;
 export const getActionType = ReduxActionDispatcher.getType;
-
-export const ReduxReducer = ReduxReducerDecorator.forMethod;
-
-export interface ActionWithPayload<P = void> extends Action {
-  type: string;
-  payload?: P;
-}
-
-/**
- * interface doesn't work @see https://github.com/angular/angular-cli/issues/2034#issuecomment-302666897 :/
- * @deprecated Please use ActionWithPayload instead
- */
-export class ActionInterface<P = void> {
-  type: string;
-  payload?: P;
-}
+export const dispatch = ReduxActionDispatcher.dispatch;

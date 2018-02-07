@@ -1,18 +1,19 @@
 import 'rxjs/add/operator/map';
+
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 
-import { ReduxStateDecorator, ReduxStateType } from '@harmowatch/redux-decorators';
-
-import { ReduxStateProvider } from '../state/state.provider';
-import { ReduxRootState } from '../module/root/state';
-import { Registry } from '../registry';
+import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
+import { ReduxStateProviderType } from '@harmowatch/ngx-redux-core/state/state.provider.type';
+import { ReduxStateProvider } from '@harmowatch/ngx-redux-core/state/state.provider';
+import { Registry } from '@harmowatch/ngx-redux-core/registry';
+import { ReduxRootState } from '@harmowatch/ngx-redux-core/module/root/state';
 
 export class ReduxSelector<T> extends ReplaySubject<T> {
 
   private static readonly DELIMITER = '/';
 
   constructor(selector = '/',
-              stateProvider?: ReduxStateType<ReduxStateProvider<{}>>) {
+              stateProvider?: ReduxStateProviderType<ReduxStateProvider<{}>>) {
 
     if (!selector.startsWith(ReduxSelector.DELIMITER) && !stateProvider) {
       throw new Error('You need to provide a state provider, if you use relative selectors');
@@ -31,7 +32,7 @@ export class ReduxSelector<T> extends ReplaySubject<T> {
 
   }
 
-  public static normalize(selector: string, stateProvider?: ReduxStateType): string {
+  public static normalize(selector: string, stateProvider?: ReduxStateProviderType): string {
     if (!selector.startsWith(ReduxSelector.DELIMITER)) {
       return `/${ReduxStateDecorator.get(stateProvider).name}/${selector}`;
     }
@@ -39,7 +40,7 @@ export class ReduxSelector<T> extends ReplaySubject<T> {
     return selector;
   }
 
-  public static getValueByState<S>(state: ReduxRootState<S>, selector: string, stateProvider?: ReduxStateType): S {
+  public static getValueByState<S>(state: ReduxRootState<S>, selector: string, stateProvider?: ReduxStateProviderType): S {
     /* save the return value in a constant to prevent
      * "Metadata collected contains an error that will be reported at runtime: Lambda not supported."
      * error

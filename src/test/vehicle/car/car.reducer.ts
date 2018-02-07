@@ -1,6 +1,7 @@
 import { ActionWithPayload, getActionType, ReduxReducer } from '@harmowatch/ngx-redux-core';
-import { VehicleActions } from '../vehicle.actions.provider';
-import { VehicleState } from '../vehicle.state.provider';
+
+import { VehicleActions } from 'test/vehicle/vehicle.actions.provider';
+import { VehicleState } from 'test/vehicle/vehicle.state.provider';
 
 export class CarReducer {
 

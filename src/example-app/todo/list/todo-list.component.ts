@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { ReduxAction, ReduxActionContext, ReduxSelect } from '@harmowatch/ngx-redux-core';
 import { Observable } from 'rxjs/Observable';
 import { v4 } from 'uuid';

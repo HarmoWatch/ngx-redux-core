@@ -1,9 +1,10 @@
 import { async, TestBed } from '@angular/core/testing';
-import { describeIntegrationTest } from '../../test-bed.spec';
-import { VehicleActions } from '../vehicle.actions.provider';
-import { VehicleStateProvider } from '../vehicle.state.provider';
-import { CarActionsProvider } from './car.actions.provider';
-import { CarState } from './car.state';
+
+import { describeIntegrationTest } from 'test/test-bed.spec';
+import { VehicleActions } from 'test/vehicle/vehicle.actions.provider';
+import { CarState } from 'test/vehicle/car/car.state';
+import { VehicleStateProvider } from 'test/vehicle/vehicle.state.provider';
+import { CarActionsProvider } from 'test/vehicle/car/car.actions.provider';
 
 describeIntegrationTest('CarReducer', () => {
 

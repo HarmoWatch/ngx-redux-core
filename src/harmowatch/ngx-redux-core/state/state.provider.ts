@@ -1,18 +1,17 @@
 import 'rxjs/add/operator/distinctUntilChanged';
 
+import { Observable } from 'rxjs/Observable';
 import { Inject } from '@angular/core';
 import {
-  ReduxReducerDecorator,
-  ReduxStateDecorator,
-  ReduxStateInterface,
-  ReduxStateType
+  ReduxActionDispatcher, ReduxReducerDecorator, ReduxStateDecorator,
+  ReduxStateInterface
 } from '@harmowatch/redux-decorators';
 
-import { ActionWithPayload, getActionType } from '../';
-import { ReduxSelector } from '../selector/selector';
-import { StateDefinition } from '../state/definition';
-import { StateDefToken } from '../state/definition/token';
-import { Observable } from 'rxjs/Observable';
+import { StateDefinition } from '@harmowatch/ngx-redux-core/state/definition';
+import { ReduxStateProviderType } from '@harmowatch/ngx-redux-core/state/state.provider.type';
+import { StateDefToken } from '@harmowatch/ngx-redux-core/state/definition/token';
+import { ReduxSelector } from '@harmowatch/ngx-redux-core/selector/selector';
+import { ActionWithPayload } from '@harmowatch/ngx-redux-core/action/with/payload/action-with-payload.interface';
 
 export abstract class ReduxStateProvider<S> implements ReduxStateInterface<S> {
 
@@ -48,7 +47,7 @@ export abstract class ReduxStateProvider<S> implements ReduxStateInterface<S> {
       .reduce((all, curr) => [].concat(curr, all), []) // [].concat keeps the order, all.concat(curr) destroys the order
       // .reduce((all, curr) => [curr, ...all], []) // [].concat keeps the order, all.concat(curr) destroys the order
       .reduce((methodsByType, reducer) => {
-        const type = getActionType(reducer.type);
+        const type = ReduxActionDispatcher.getType(reducer.type);
 
         return {
           ...methodsByType,
@@ -65,7 +64,7 @@ export abstract class ReduxStateProvider<S> implements ReduxStateInterface<S> {
 
   select<T>(selector = ''): Observable<T> {
 
-    const stateType = this.constructor as ReduxStateType<ReduxStateProvider<S>>;
+    const stateType = this.constructor as ReduxStateProviderType<ReduxStateProvider<S>>;
     selector = ReduxSelector.normalize(selector, stateType);
 
     if (!this.selectorCache[ selector ]) {
