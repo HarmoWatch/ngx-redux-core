@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "@harmowatch/ngx-redux-core",
-  "version": "0.2.0-3",
+  "version": "0.2.0-4",
   "license": "MIT",
   "scripts": {
     "lint": "ng lint",
