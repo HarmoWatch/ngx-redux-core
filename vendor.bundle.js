@@ -17,16 +17,18 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js");
+function ReduxActionContextDecoratorForClass(config) {
+    return ReduxActionContextDecorator.instance.forClass(config);
+}
+exports.ReduxActionContextDecoratorForClass = ReduxActionContextDecoratorForClass;
 var ReduxActionContextDecorator = /** @class */ (function (_super) {
     __extends(ReduxActionContextDecorator, _super);
     function ReduxActionContextDecorator() {
         return _super.call(this, 'ReduxActionContext') || this;
     }
-    ReduxActionContextDecorator.forClass = function (config) {
-        return ReduxActionContextDecorator.instance.forClass(config);
-    };
     ReduxActionContextDecorator.instance = new ReduxActionContextDecorator();
     ReduxActionContextDecorator.get = ReduxActionContextDecorator.instance.get.bind(ReduxActionContextDecorator.instance);
+    ReduxActionContextDecorator.forClass = ReduxActionContextDecoratorForClass;
     return ReduxActionContextDecorator;
 }(generic_decorator_1.GenericDecorator));
 exports.ReduxActionContextDecorator = ReduxActionContextDecorator;
@@ -53,14 +55,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__("../../../../rxjs/_esm5/add/operator/toPromise.js");
 var _1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
 var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js");
+function ReduxActionDecoratorForMethod(config) {
+    return ReduxActionDecorator.instance.forMethod(config);
+}
+exports.ReduxActionDecoratorForMethod = ReduxActionDecoratorForMethod;
 var ReduxActionDecorator = /** @class */ (function (_super) {
     __extends(ReduxActionDecorator, _super);
     function ReduxActionDecorator() {
         return _super.call(this, 'ReduxAction') || this;
     }
-    ReduxActionDecorator.forMethod = function (config) {
-        return ReduxActionDecorator.instance.forMethod(config);
-    };
     Object.defineProperty(ReduxActionDecorator.prototype, "forMethod", {
         get: function () {
             var _this = this;
@@ -84,6 +87,7 @@ var ReduxActionDecorator = /** @class */ (function (_super) {
     });
     ReduxActionDecorator.instance = new ReduxActionDecorator();
     ReduxActionDecorator.get = ReduxActionDecorator.instance.get.bind(ReduxActionDecorator.instance);
+    ReduxActionDecorator.forMethod = ReduxActionDecoratorForMethod;
     return ReduxActionDecorator;
 }(generic_decorator_1.GenericDecorator));
 exports.ReduxActionDecorator = ReduxActionDecorator;
@@ -266,16 +270,18 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js");
+function ReduxReducerDecoratorForMethod(config) {
+    return ReduxReducerDecorator.instance.forMethod(config);
+}
+exports.ReduxReducerDecoratorForMethod = ReduxReducerDecoratorForMethod;
 var ReduxReducerDecorator = /** @class */ (function (_super) {
     __extends(ReduxReducerDecorator, _super);
     function ReduxReducerDecorator() {
         return _super.call(this, 'ReduxReducer') || this;
     }
-    ReduxReducerDecorator.forMethod = function (config) {
-        return ReduxReducerDecorator.instance.forMethod(config);
-    };
     ReduxReducerDecorator.instance = new ReduxReducerDecorator();
     ReduxReducerDecorator.get = ReduxReducerDecorator.instance.get.bind(ReduxReducerDecorator.instance);
+    ReduxReducerDecorator.forMethod = ReduxReducerDecoratorForMethod;
     return ReduxReducerDecorator;
 }(generic_decorator_1.GenericDecorator));
 exports.ReduxReducerDecorator = ReduxReducerDecorator;
@@ -300,16 +306,18 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js");
+function ReduxStateDecoratorForClass(config) {
+    return ReduxStateDecorator.instance.forClass(config);
+}
+exports.ReduxStateDecoratorForClass = ReduxStateDecoratorForClass;
 var ReduxStateDecorator = /** @class */ (function (_super) {
     __extends(ReduxStateDecorator, _super);
     function ReduxStateDecorator() {
         return _super.call(this, 'ReduxState') || this;
     }
-    ReduxStateDecorator.forClass = function (config) {
-        return ReduxStateDecorator.instance.forClass(config);
-    };
     ReduxStateDecorator.instance = new ReduxStateDecorator();
     ReduxStateDecorator.get = ReduxStateDecorator.instance.get.bind(ReduxStateDecorator.instance);
+    ReduxStateDecorator.forClass = ReduxStateDecoratorForClass;
     return ReduxStateDecorator;
 }(generic_decorator_1.GenericDecorator));
 exports.ReduxStateDecorator = ReduxStateDecorator;
