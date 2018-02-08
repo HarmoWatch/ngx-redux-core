@@ -1,13 +1,8 @@
-import {
-  ReduxActionContextDecorator,
-  ReduxActionDecorator,
-  ReduxReducerDecorator,
-  ReduxStateDecorator,
+export {
+  ReduxActionContextDecoratorForClass as ReduxActionContext,
+  ReduxActionDecoratorForMethod as ReduxAction,
+  ReduxReducerDecoratorForMethod as ReduxReducer,
+  ReduxStateDecoratorForClass as ReduxState,
 } from '@harmowatch/redux-decorators';
 
 export * from './redux-select.decorator';
-
-export const ReduxAction = ReduxActionDecorator.forMethod;
-export const ReduxActionContext = ReduxActionContextDecorator.forClass;
-export const ReduxState = ReduxStateDecorator.forClass;
-export const ReduxReducer = ReduxReducerDecorator.forMethod;
