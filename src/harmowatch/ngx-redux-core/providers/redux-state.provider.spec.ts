@@ -42,7 +42,9 @@ describe('ReduxStateProvider', () => {
 
       @ReduxState({name: 'registered-state'})
       class RegisteredStateProvider extends ReduxStateProvider<{}> {
-
+        getInitialState() {
+          return {};
+        }
       }
 
       @ReduxState({name: 'unregistered-state'})
