@@ -2,7 +2,6 @@ import 'rxjs/add/operator/map';
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { ReduxStateProviderType } from './interfaces/redux-state.provider.interface';
-import { ReduxStateProvider } from './providers/redux-state.provider';
 import { ReduxRegistry } from './providers/redux-registry';
 import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
 import { ReduxRootState } from './interfaces/redux-root-state.interface';
@@ -12,7 +11,7 @@ export class ReduxSelector<T> extends ReplaySubject<T> {
   private static readonly DELIMITER = '/';
 
   constructor(selector = '/',
-              stateProvider?: ReduxStateProviderType<ReduxStateProvider<{}>>) {
+              stateProvider?: ReduxStateProviderType) {
 
     if (!selector.startsWith(ReduxSelector.DELIMITER) && !stateProvider) {
       throw new Error('You need to provide a state provider, if you use relative selectors');
