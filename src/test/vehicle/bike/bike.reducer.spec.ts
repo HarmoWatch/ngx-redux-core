@@ -1,11 +1,13 @@
 import { async, TestBed } from '@angular/core/testing';
-import { describeIntegrationTest } from '../../test-bed.spec';
+import { initTestingModule } from '../../test-bed.spec';
 import { BikeState } from './bike.state';
 import { VehicleStateProvider } from '../vehicle.state.provider';
 import { VehicleActions } from '../vehicle.actions.provider';
 import { BikeActionsProvider } from './bike.actions.provider';
 
-describeIntegrationTest('BikeReducer', () => {
+describe('test/integration/bike/reducer', () => {
+
+  beforeEach(async(() => initTestingModule()));
 
   let bikeState: BikeState;
 

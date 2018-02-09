@@ -14,6 +14,7 @@ import { ReduxStateProviderType } from '../interfaces/redux-state.provider.inter
 import { ReduxStateDefinitionToken } from '../tokens/redux-state-definition.token';
 import { ReduxSelector } from '../redux-selector';
 import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';
+import { ReduxRegistry } from './redux-registry';
 
 export abstract class ReduxStateProvider<S> implements ReduxStateInterface<S> {
 
@@ -74,6 +75,12 @@ export abstract class ReduxStateProvider<S> implements ReduxStateInterface<S> {
     }
 
     return this.selectorCache[ selector ] as ReduxSelector<T>;
+  }
+
+  getState(): Promise<S> {
+    return ReduxRegistry.getStore().then(store => {
+      return ReduxSelector.getValueByState<S>(store.getState(), '/' + this.name);
+    });
   }
 
   reduce<P>(state: S, action: ReduxActionWithPayload<P>) {

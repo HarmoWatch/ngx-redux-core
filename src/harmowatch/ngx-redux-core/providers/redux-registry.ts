@@ -7,7 +7,7 @@ import {
   ReduxStateInterface
 } from '@harmowatch/redux-decorators';
 
-import { Action, Reducer, Store } from 'redux';
+import { Reducer, Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Observable } from 'rxjs/Observable';
 
@@ -50,7 +50,18 @@ export class ReduxRegistry {
     ReduxRegistry._store.complete();
 
     ReduxActionDispatcher.dispatchedActions.subscribe(action => {
-      store.dispatch(action as Action);
+
+      const reduxAction: ReduxActionWithPayload = {
+        type: action.type,
+        payload: action.payload,
+      };
+
+      store.dispatch(reduxAction);
+
+      if (action.onDispatchSuccess) {
+        action.onDispatchSuccess();
+      }
+
     });
   }
 
