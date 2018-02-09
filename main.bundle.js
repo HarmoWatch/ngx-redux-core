@@ -300,7 +300,14 @@ var ReduxRegistry = /** @class */ (function () {
         ReduxRegistry_1._store.next(store);
         ReduxRegistry_1._store.complete();
         __WEBPACK_IMPORTED_MODULE_1__harmowatch_redux_decorators__["ReduxActionDispatcher"].dispatchedActions.subscribe(function (action) {
-            store.dispatch(action);
+            var reduxAction = {
+                type: action.type,
+                payload: action.payload,
+            };
+            store.dispatch(reduxAction);
+            if (action.onDispatchSuccess) {
+                action.onDispatchSuccess();
+            }
         });
     };
     ReduxRegistry.registerState = function (state) {

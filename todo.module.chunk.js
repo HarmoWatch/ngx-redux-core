@@ -287,6 +287,7 @@ function ReduxSelect(expression, context) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tokens_redux_state_definition_token__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/tokens/redux-state-definition.token.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__redux_selector__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/redux-selector.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__redux_registry__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/providers/redux-registry.ts");
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -307,6 +308,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+
 
 
 
@@ -347,6 +349,12 @@ var ReduxStateProvider = /** @class */ (function () {
             this.selectorCache[selector] = new __WEBPACK_IMPORTED_MODULE_4__redux_selector__["a" /* ReduxSelector */](selector, stateType).distinctUntilChanged();
         }
         return this.selectorCache[selector];
+    };
+    ReduxStateProvider.prototype.getState = function () {
+        var _this = this;
+        return __WEBPACK_IMPORTED_MODULE_5__redux_registry__["a" /* ReduxRegistry */].getStore().then(function (store) {
+            return __WEBPACK_IMPORTED_MODULE_4__redux_selector__["a" /* ReduxSelector */].getValueByState(store.getState(), '/' + _this.name);
+        });
     };
     ReduxStateProvider.prototype.reduce = function (state, action) {
         var reducerMethods = this.reducerMethodsByType[action.type] || [];
