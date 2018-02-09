@@ -71,11 +71,13 @@ var ReduxActionDecorator = /** @class */ (function (_super) {
                 config = Object.assign({
                     type: String(propertyKey),
                     contextClass: target.constructor,
+                    onDispatchSuccess: null,
                 }, config);
                 var originalFunction = descriptor.value;
                 var proxyFunction = function () {
                     var returnValue = originalFunction.apply(this, arguments);
-                    _1.ReduxActionDispatcher.dispatch(proxyFunction, returnValue);
+                    var onDispatchSuccess = config.onDispatchSuccess ? config.onDispatchSuccess.bind(this) : null;
+                    _1.ReduxActionDispatcher.dispatch(proxyFunction, returnValue, onDispatchSuccess);
                     return returnValue;
                 };
                 _this.defineMetadata(proxyFunction, config);
@@ -127,12 +129,16 @@ var ReduxActionDispatcher = /** @class */ (function () {
         var context = __assign({ prefix: '' }, _1.ReduxActionContextDecorator.get(contextClass));
         return "" + context.prefix + type;
     };
-    ReduxActionDispatcher.dispatch = function (target, payload) {
+    ReduxActionDispatcher.dispatch = function (target, payload, onDispatchSuccess) {
         return Promise
             .resolve(payload instanceof Observable_1.Observable ? payload.toPromise() : payload)
             .then(function (p) {
             var type = ReduxActionDispatcher.getType(target);
-            type ? ReduxActionDispatcher.dispatchedActions.next({ type: type, payload: p }) : null;
+            type ? ReduxActionDispatcher.dispatchedActions.next({
+                type: type,
+                payload: p,
+                onDispatchSuccess: onDispatchSuccess,
+            }) : null;
         });
     };
     ReduxActionDispatcher.dispatchedActions = new Subject_1.Subject();
@@ -180,7 +186,15 @@ var GenericDecorator = /** @class */ (function () {
         configurable: true
     });
     GenericDecorator.prototype.get = function (target) {
-        return Reflect.getMetadata(this.key, target);
+        if (typeof target === 'string' || typeof target === 'number') {
+            return null;
+        }
+        try {
+            return Reflect.getMetadata(this.key, target);
+        }
+        catch (e) {
+            return null;
+        }
     };
     GenericDecorator.prototype.defineMetadata = function (target, value) {
         Reflect.defineMetadata(this.key, value, target);
