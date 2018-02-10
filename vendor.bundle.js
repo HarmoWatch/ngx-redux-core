@@ -189,12 +189,7 @@ var GenericDecorator = /** @class */ (function () {
         if (typeof target === 'string' || typeof target === 'number') {
             return null;
         }
-        try {
-            return Reflect.getMetadata(this.key, target);
-        }
-        catch (e) {
-            return null;
-        }
+        return Reflect.getMetadata(this.key, target);
     };
     GenericDecorator.prototype.defineMetadata = function (target, value) {
         Reflect.defineMetadata(this.key, value, target);
