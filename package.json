@@ -88,6 +88,6 @@
     "zone.js": "0.8.20"
   },
   "dependencies": {
-    "@harmowatch/redux-decorators": "0.0.5"
+    "@harmowatch/redux-decorators": "0.0.6"
   }
 }
