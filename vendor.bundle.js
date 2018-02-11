@@ -16,7 +16,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js");
+var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/decorator/generic-decorator.js");
 function ReduxActionContextDecoratorForClass(config) {
     return ReduxActionContextDecorator.instance.forClass(config);
 }
@@ -54,7 +54,7 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__("../../../../rxjs/_esm5/add/operator/toPromise.js");
 var _1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
-var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js");
+var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/decorator/generic-decorator.js");
 function ReduxActionDecoratorForMethod(config) {
     return ReduxActionDecorator.instance.forMethod(config);
 }
@@ -149,7 +149,7 @@ exports.ReduxActionDispatcher = ReduxActionDispatcher;
 
 /***/ }),
 
-/***/ "../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js":
+/***/ "../../../../@harmowatch/redux-decorators/lib/generic/decorator/generic-decorator.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -241,7 +241,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js");
+var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/decorator/generic-decorator.js");
 /**
  * @todo check if we really need this decorator
  */
@@ -278,7 +278,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js");
+var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/decorator/generic-decorator.js");
 function ReduxReducerDecoratorForMethod(config) {
     return ReduxReducerDecorator.instance.forMethod(config);
 }
@@ -288,6 +288,13 @@ var ReduxReducerDecorator = /** @class */ (function (_super) {
     function ReduxReducerDecorator() {
         return _super.call(this, 'ReduxReducer') || this;
     }
+    ReduxReducerDecorator.prototype.defineMetadata = function (target, value) {
+        var metadata = this.get(target);
+        if (metadata) {
+            return _super.prototype.defineMetadata.call(this, target, [].concat(value).concat(metadata));
+        }
+        _super.prototype.defineMetadata.call(this, target, value);
+    };
     ReduxReducerDecorator.instance = new ReduxReducerDecorator();
     ReduxReducerDecorator.get = ReduxReducerDecorator.instance.get.bind(ReduxReducerDecorator.instance);
     ReduxReducerDecorator.forMethod = ReduxReducerDecoratorForMethod;
@@ -314,7 +321,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/generic-decorator.js");
+var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/decorator/generic-decorator.js");
 function ReduxStateDecoratorForClass(config) {
     return ReduxStateDecorator.instance.forClass(config);
 }
