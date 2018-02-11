@@ -7,10 +7,8 @@ import { BikeActionsProvider } from './bike.actions.provider';
 
 export class BikeReducer {
 
-  @ReduxReducer([
-    VehicleActions.prototype.setDefaultVelocity,
-    VehicleActions.prototype.setMaxVelocity
-  ])
+  @ReduxReducer(VehicleActions.prototype.setMaxVelocity)
+  @ReduxReducer(VehicleActions.prototype.setDefaultVelocity)
   public setMaxVelocity(state: VehicleState, action: ReduxActionWithPayload<number | void>): VehicleState {
 
     let maximum = 25;

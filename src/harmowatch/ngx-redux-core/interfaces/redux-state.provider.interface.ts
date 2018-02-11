@@ -1,1 +1,1 @@
-export { ReduxStateType as ReduxStateProviderType } from '@harmowatch/redux-decorators';
+export { ReduxState as ReduxStateProviderType } from '@harmowatch/redux-decorators';

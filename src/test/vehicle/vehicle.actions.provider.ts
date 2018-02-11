@@ -6,12 +6,13 @@ import { ReduxAction, ReduxActionContext } from '../../harmowatch/ngx-redux-core
 export class VehicleActions {
 
   @ReduxAction()
-  public setMaxVelocity(max: number) {
+  public setMaxVelocity(max: number): number {
     return max;
   }
 
   @ReduxAction()
-  public setDefaultVelocity() {
+  public setDefaultVelocity(): void {
+
   }
 
 }
