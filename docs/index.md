@@ -1,13 +1,13 @@
 ###### [@harmowatch/ngx-redux-core](../README.md)
 
-# Docs
+# Docs (work in progress)
 
 - [Decorators](./decorators/index.md)
-  - [@ReduxAction](./redux-action.md)
-  - [@ReduxActionContext](./redux-action-context.md)
-  - [@ReduxReducer](./redux-reducer.md)
-  - [@ReduxSelect](./redux-select.md)
-  - [@ReduxState](./redux-state.md)
+  - [@ReduxAction](./decorators/redux-action.md)
+  - [@ReduxActionContext](./decorators/redux-action-context.md)
+  - [@ReduxReducer](./decorators/redux-reducer.md)
+  - [@ReduxSelect](./decorators/redux-select.md)
+  - [@ReduxState](./decorators/redux-state.md)
   
 - [Pipes](./pipes/index.md)
   - [reduxSelect](./pipes/redux-select.md)  

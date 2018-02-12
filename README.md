@@ -3,9 +3,9 @@
 [![npm version](https://badge.fury.io/js/%40harmowatch%2Fngx-redux-core.svg)](https://badge.fury.io/js/%40harmowatch%2Fngx-redux-core)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovateapp.com/)
 [![Build Status](https://travis-ci.org/HarmoWatch/ngx-redux-core.svg?branch=master)](https://travis-ci.org/HarmoWatch/ngx-redux-core)
+[![HitCount](http://hits.dwyl.io/harmowatch/ngx-redux-core.svg)](http://hits.dwyl.com/harmowatch/ngx-redux-core)
 [![Maintainability](https://api.codeclimate.com/v1/badges/24a417a5e870fbe5e94e/maintainability)](https://codeclimate.com/github/HarmoWatch/ngx-redux-core/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/24a417a5e870fbe5e94e/test_coverage)](https://codeclimate.com/github/HarmoWatch/ngx-redux-core/test_coverage)
-[![HitCount](http://hits.dwyl.io/harmowatch/ngx-redux-core.svg)](http://hits.dwyl.com/harmowatch/ngx-redux-core)
 
 ## The modern redux integration for Angular 2+
 
@@ -70,6 +70,9 @@ import {TodoListReducer} from '...';
         reducers: [ TodoListReducer ], // You'll create it in step 4
       }
     }),
+  ],
+  providers: [
+    YourModuleStateProvider // You'll create it in step 2
   ],
 })
 export class YourModule {
@@ -178,21 +181,8 @@ export class TodoListReducer {
 
 > Don't forget to add the state as described in step 1
 
-### Please also find the docs
+### Documentation
 
-- [Decorators](./docs/decorators/index.md)
-  - [@ReduxAction](./docs/decorators/redux-action.md)
-  - [@ReduxActionContext](./docs/decorators/redux-action-context.md)
-  - [@ReduxReducer](./docs/decorators/redux-reducer.md)
-  - [@ReduxSelect](./docs/decorators/redux-select.md)
-  - [@ReduxState](./docs/decorators/redux-state.md)
-  
-- [Pipes](./docs/pipes/index.md)
-  - [reduxSelect](./docs/pipes/redux-select.md)  
-  
-- [API](./docs/api/index.md)  
-  - [ReduxStateProvider](./docs/api/redux-state-provider.md)  
-  
-### And something else on my own behalf ...
-
-It would be wonderful if you gave me a star. :wink:
+I am still working on the [documentation](./docs/index.md), but I wanted to release the new 0.2.x version of the package 
+as soon as possible. Therefore, the latest version of the [documentation](./docs/index.md) will only be available on Github 
+for the time being, in order to avoid an unnecessary version patch for each update. 

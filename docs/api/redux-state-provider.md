@@ -1,4 +1,4 @@
-###### [@harmowatch/ngx-redux-core](../../README.md) / [api](../index.md)
+###### [@harmowatch/ngx-redux-core](../../README.md) / [docs](../index.md) / [api](./index.md)
  
 # ReduxStateProvider
 

@@ -1,4 +1,4 @@
-###### [@harmowatch/ngx-redux-core](../../README.md) / [pipes](../index.md)
+###### [@harmowatch/ngx-redux-core](../../README.md) / [docs](../index.md)
  
 # Pipes
 
