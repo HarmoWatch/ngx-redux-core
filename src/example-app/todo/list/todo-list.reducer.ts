@@ -1,14 +1,12 @@
-import { TodoListItem } from '../list/todo-list-item';
-import { TodoListComponent } from '../list/todo-list.component';
+import { TodoListItem } from './todo-list-item';
+import { TodoListComponent } from './todo-list.component';
 import { TodoState } from '../todo.module.state';
 import { ReduxReducer } from '../../../harmowatch/ngx-redux-core/decorators/index';
 import { ReduxActionWithPayload } from '../../../harmowatch/ngx-redux-core/interfaces/redux-action.interface';
 
-export class TodoStateReducer {
+export class TodoListReducer {
 
-  @ReduxReducer([
-    TodoListComponent.prototype.add,
-  ])
+  @ReduxReducer(TodoListComponent.prototype.add)
   addTodo(state: TodoState, action: ReduxActionWithPayload<TodoListItem>): TodoState {
     return {
       ...state,
@@ -16,9 +14,7 @@ export class TodoStateReducer {
     };
   }
 
-  @ReduxReducer([
-    TodoListComponent.prototype.remove,
-  ])
+  @ReduxReducer(TodoListComponent.prototype.remove)
   removeTodo(state: TodoState, action: ReduxActionWithPayload<TodoListItem>): TodoState {
     return {
       ...state,
