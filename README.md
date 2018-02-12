@@ -181,11 +181,11 @@ export class TodoListReducer {
 ### Please also find the docs
 
 - [Decorators](./docs/decorators/index.md)
-  - [@ReduxAction](./docs/redux-action.md)
-  - [@ReduxActionContext](./docs/redux-action-context.md)
-  - [@ReduxReducer](./docs/redux-reducer.md)
-  - [@ReduxSelect](./docs/redux-select.md)
-  - [@ReduxState](./docs/redux-state.md)
+  - [@ReduxAction](./docs/decorators/redux-action.md)
+  - [@ReduxActionContext](./docs/decorators/redux-action-context.md)
+  - [@ReduxReducer](./docs/decorators/redux-reducer.md)
+  - [@ReduxSelect](./docs/decorators/redux-select.md)
+  - [@ReduxState](./docs/decorators/redux-state.md)
   
 - [Pipes](./docs/pipes/index.md)
   - [reduxSelect](./docs/pipes/redux-select.md)  
