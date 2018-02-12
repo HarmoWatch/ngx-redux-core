@@ -10,10 +10,10 @@ import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';
 export class ReduxReducerProvider {
 
   private stateProviders: {
-    [name: string]: ReduxStateProvider<{}>,
+    [name: string]: ReduxStateProvider,
   } = {};
 
-  public addStateProvider(provider: ReduxStateProvider<{}>) {
+  public addStateProvider(provider: ReduxStateProvider) {
     if (!this.stateProviders[ provider.name ]) {
       ReduxRegistry.registerState(provider);
       this.stateProviders[ provider.name ] = provider;

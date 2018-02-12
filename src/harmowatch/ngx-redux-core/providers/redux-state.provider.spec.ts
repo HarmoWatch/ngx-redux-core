@@ -18,7 +18,7 @@ describe('ReduxStateProvider', () => {
 
       it('throws an exception', () => {
 
-        class TestSubject extends ReduxStateProvider<{}> {
+        class TestSubject extends ReduxStateProvider {
 
           constructor() {
             spyOn(ReduxStateDecorator, 'get').and.returnValue({
@@ -41,14 +41,14 @@ describe('ReduxStateProvider', () => {
     describe('the class is not registered to the redux module', () => {
 
       @ReduxState({name: 'registered-state'})
-      class RegisteredStateProvider extends ReduxStateProvider<{}> {
+      class RegisteredStateProvider extends ReduxStateProvider {
         getInitialState() {
           return {};
         }
       }
 
       @ReduxState({name: 'unregistered-state'})
-      class UnregisteredStateProvider extends ReduxStateProvider<{}> {
+      class UnregisteredStateProvider extends ReduxStateProvider {
 
       }
 
@@ -79,7 +79,7 @@ describe('ReduxStateProvider', () => {
 
     describe('the class is not decorated by "@ReduxState"', () => {
 
-      class TestSubject extends ReduxStateProvider<{}> {
+      class TestSubject extends ReduxStateProvider {
 
       }
 
@@ -111,7 +111,7 @@ describe('ReduxStateProvider', () => {
   describe('a well configured state provider ', () => {
 
     @ReduxState({name: 'test-state'})
-    class TestSubject extends ReduxStateProvider<{}> {
+    class TestSubject extends ReduxStateProvider {
 
       getInitialState(): {} {
         return {};

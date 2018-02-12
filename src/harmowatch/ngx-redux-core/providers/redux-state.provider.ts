@@ -1,24 +1,19 @@
 import 'rxjs/add/operator/distinctUntilChanged';
 
 import { Observable } from 'rxjs/Observable';
-import { Inject } from '@angular/core';
-import {
-  ReduxActionDispatcher,
-  ReduxReducerDecorator,
-  ReduxStateDecorator,
-  ReduxStateInterface
-} from '@harmowatch/redux-decorators';
+import { Inject, Type } from '@angular/core';
+import { ReduxActionDispatcher, ReduxReducerDecorator, ReduxStateDecorator } from '@harmowatch/redux-decorators';
 
 import { ReduxStateDefinition } from '../interfaces/redux-state-definition.interface';
-import { ReduxStateProviderType } from '../interfaces/redux-state.provider.interface';
-import { ReduxStateDefinitionToken } from '../tokens/redux-state-definition.token';
-import { ReduxSelector } from '../redux-selector';
 import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';
+import { ReduxStateDefinitionToken } from '../tokens/redux-state-definition.token';
+
+import { ReduxSelector } from '../redux-selector';
 import { ReduxRegistry } from './redux-registry';
 
-export abstract class ReduxStateProvider<S> implements ReduxStateInterface<S> {
+export abstract class ReduxStateProvider<S = {}> {
 
-  public static instancesByName: { [stateName: string]: ReduxStateProvider<{}> } = {};
+  public static instancesByName: { [stateName: string]: ReduxStateProvider } = {};
 
   public readonly name: string;
   public readonly stateDef: ReduxStateDefinition;
@@ -67,7 +62,7 @@ export abstract class ReduxStateProvider<S> implements ReduxStateInterface<S> {
 
   select<T>(selector = ''): Observable<T> {
 
-    const stateType = this.constructor as ReduxStateProviderType<ReduxStateProvider<S>>;
+    const stateType = this.constructor as Type<ReduxStateProvider<S>>;
     selector = ReduxSelector.normalize(selector, stateType);
 
     if (!this.selectorCache[ selector ]) {

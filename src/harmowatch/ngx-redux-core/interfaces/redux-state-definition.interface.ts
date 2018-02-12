@@ -4,5 +4,5 @@ import { ReduxStateProvider } from '../providers/redux-state.provider';
 
 export interface ReduxStateDefinition<S = {}> {
   provider: Type<ReduxStateProvider<S>>;
-  reducers?: Type<S>[];
+  reducers?: Type<{}>[];
 }

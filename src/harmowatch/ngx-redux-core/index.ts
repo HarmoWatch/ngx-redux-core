@@ -11,7 +11,6 @@ export * from './redux-selector';
 export * from './tokens/redux-state-definition.token';
 export * from './interfaces/redux-state-definition.interface';
 export * from './providers/redux-state.provider';
-export * from './interfaces/redux-state.provider.interface';
 export * from './tokens/redux-store.token';
 export * from './testing/store';
 export * from './testing/state';

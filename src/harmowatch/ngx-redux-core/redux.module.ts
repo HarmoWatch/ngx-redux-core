@@ -39,7 +39,7 @@ export class ReduxModule {
 
   }
 
-  public static forChild(config: ReduxModuleChildConfig = {}): ModuleWithProviders {
+  public static forChild<S = {}>(config: ReduxModuleChildConfig<S> = {}): ModuleWithProviders {
     return {
       ngModule: ReduxModule,
       providers: [
@@ -48,7 +48,7 @@ export class ReduxModule {
     };
   }
 
-  public static forRoot(config: ReduxModuleRootConfig = {}): ModuleWithProviders {
+  public static forRoot<S = {}>(config: ReduxModuleRootConfig<S> = {}): ModuleWithProviders {
     return {
       ngModule: ReduxModule,
       providers: [

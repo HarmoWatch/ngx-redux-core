@@ -10,10 +10,10 @@ import { ReduxStateDefinition } from '../interfaces/redux-state-definition.inter
 @Pipe({name: 'reduxSelect'})
 export class ReduxSelectPipe implements PipeTransform {
 
-  private provider: ReduxStateProvider<{}>;
+  private provider: ReduxStateProvider;
 
   constructor(@Inject(ReduxStateDefinitionToken) stateDefs: ReduxStateDefinition[] = [], injector: Injector) {
-    this.provider = injector.get(stateDefs[ 0 ].provider) as ReduxStateProvider<{}>;
+    this.provider = injector.get(stateDefs[ 0 ].provider) as ReduxStateProvider;
   }
 
   transform(selector: string): Observable<{}> {

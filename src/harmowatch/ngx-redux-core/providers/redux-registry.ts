@@ -1,25 +1,15 @@
 import 'rxjs/add/operator/toPromise';
 
-import {
-  ReduxActionDispatcher,
-  ReduxActionFunction,
-  ReduxStateDecorator,
-  ReduxStateInterface
-} from '@harmowatch/redux-decorators';
+import { ReduxActionDispatcher, ReduxStateDecorator } from '@harmowatch/redux-decorators';
 
-import { Reducer, Store } from 'redux';
+import { Store } from 'redux';
 import { AsyncSubject } from 'rxjs/AsyncSubject';
 import { Observable } from 'rxjs/Observable';
 
 import { Inject, Injectable } from '@angular/core';
 import { ReduxStore } from '../tokens/redux-store.token';
 import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';
-
-export class RegistryReducerItem {
-  stateName: string;
-  reducer: Reducer<{}>;
-  type: ReduxActionFunction<{}>;
-}
+import { ReduxStateProvider } from './redux-state.provider';
 
 export interface IRegisterStatePayload {
   initialValue: {};
@@ -32,7 +22,6 @@ export class ReduxRegistry {
   public static readonly ACTION_REGISTER_STATE = `@harmowatch/ngx-redux-core/registerState`;
 
   private static _store = new AsyncSubject<Store<{}>>();
-  private static _reducers: RegistryReducerItem[] = [];
 
   constructor(@Inject(ReduxStore) store: Store<{}> = null) {
     ReduxRegistry.reset();
@@ -41,7 +30,6 @@ export class ReduxRegistry {
 
   public static reset() {
     ReduxRegistry._store = new AsyncSubject<Store<{}>>();
-    ReduxRegistry._reducers = [];
   }
 
   public static registerStore(store: Store<{}>) {
@@ -65,26 +53,23 @@ export class ReduxRegistry {
     });
   }
 
-  public static registerState(state: ReduxStateInterface<{}>) {
+  public static registerState(state: ReduxStateProvider) {
     ReduxRegistry.getStore().then((store) => {
 
       const stateConfig = ReduxStateDecorator.get(state.constructor);
-      const initState = state.getInitialState();
-      let initStateToResolve = initState;
+      const initialState = state.getInitialState();
 
-      if (initState instanceof Observable) {
-        initStateToResolve = initState.toPromise();
-      }
-
-      Promise.resolve(initStateToResolve).then(initialState => {
-        store.dispatch<ReduxActionWithPayload<IRegisterStatePayload>>({
-          payload: {
-            initialValue: initialState,
-            name: stateConfig.name,
-          },
-          type: ReduxRegistry.ACTION_REGISTER_STATE,
+      Promise
+        .resolve(initialState instanceof Observable ? initialState.toPromise() : initialState)
+        .then(initialValue => {
+          store.dispatch<ReduxActionWithPayload<IRegisterStatePayload>>({
+            payload: {
+              initialValue,
+              name: stateConfig.name,
+            },
+            type: ReduxRegistry.ACTION_REGISTER_STATE,
+          });
         });
-      });
 
     });
   }

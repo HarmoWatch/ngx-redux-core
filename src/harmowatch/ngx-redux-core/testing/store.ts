@@ -3,10 +3,10 @@ import 'rxjs/add/operator/toPromise';
 
 import { Action, Store, Unsubscribe } from 'redux';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { ReduxRootState } from '../interfaces/redux-root-state.interface';
 import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
-import { ReduxStateProviderType } from '../interfaces/redux-state.provider.interface';
+import { ReduxStateProvider } from '../providers/redux-state.provider';
 
 @Injectable()
 export class ReduxTestingStore implements Store<{}> {
@@ -17,7 +17,7 @@ export class ReduxTestingStore implements Store<{}> {
     return new ReduxTestingStore();
   }
 
-  public setState<S>(state: ReduxStateProviderType, value: S): Promise<ReduxRootState> {
+  public setState<S>(state: Type<ReduxStateProvider>, value: S): Promise<ReduxRootState> {
     const {name} = ReduxStateDecorator.get(state);
 
     const nextState = Object.assign({}, this.state.getValue(), {

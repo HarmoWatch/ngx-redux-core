@@ -1,17 +1,19 @@
 import 'rxjs/add/operator/map';
 
+import { Type } from '@angular/core';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { ReduxStateProviderType } from './interfaces/redux-state.provider.interface';
-import { ReduxRegistry } from './providers/redux-registry';
 import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
+
+import { ReduxRegistry } from './providers/redux-registry';
 import { ReduxRootState } from './interfaces/redux-root-state.interface';
+import { ReduxStateProvider } from './providers/redux-state.provider';
 
 export class ReduxSelector<T> extends ReplaySubject<T> {
 
   private static readonly DELIMITER = '/';
 
   constructor(selector = '/',
-              stateProvider?: ReduxStateProviderType) {
+              stateProvider?: Type<ReduxStateProvider>) {
 
     if (!selector.startsWith(ReduxSelector.DELIMITER) && !stateProvider) {
       throw new Error('You need to provide a state provider, if you use relative selectors');
@@ -30,7 +32,7 @@ export class ReduxSelector<T> extends ReplaySubject<T> {
 
   }
 
-  public static normalize(selector: string, stateProvider?: ReduxStateProviderType): string {
+  public static normalize(selector: string, stateProvider?: Type<ReduxStateProvider>): string {
     if (!selector.startsWith(ReduxSelector.DELIMITER)) {
       return `/${ReduxStateDecorator.get(stateProvider).name}/${selector}`;
     }
@@ -38,7 +40,10 @@ export class ReduxSelector<T> extends ReplaySubject<T> {
     return selector;
   }
 
-  public static getValueByState<S>(state: ReduxRootState<S>, selector: string, stateProvider?: ReduxStateProviderType): S {
+  public static getValueByState<S>(state: ReduxRootState<S>,
+                                   selector: string,
+                                   stateProvider?: Type<ReduxStateProvider>): S {
+
     /* save the return value in a constant to prevent
      * "Metadata collected contains an error that will be reported at runtime: Lambda not supported."
      * error
