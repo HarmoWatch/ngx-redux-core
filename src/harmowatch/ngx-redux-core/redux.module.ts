@@ -28,7 +28,7 @@ export class ReduxModule {
               reducer: ReduxReducerProvider,
               @Optional() @Inject(ReduxStateDefinitionToken) stateDefs: ReduxStateDefinition[] = []) {
 
-    injector.get(ReduxRegistry); // just make the the provider is instantiated
+    injector.get(ReduxRegistry); // just make sure the provider is instantiated
 
     if (Array.isArray(stateDefs)) {
       stateDefs
@@ -64,16 +64,16 @@ export class ReduxModule {
     };
   }
 
-  public static defaultStoreFactory(reducer: ReduxReducerProvider): Store<{}> {
+  public static defaultStoreFactory(reducer: ReduxReducerProvider, devMode = isDevMode()): Store<{}> {
     return createStore(
       reducer.reduce.bind(reducer),
       {},
-      ReduxModule.defaultEnhancerFactory(),
+      ReduxModule.defaultEnhancerFactory(devMode),
     );
   }
 
-  public static defaultEnhancerFactory(): StoreEnhancer<{}> {
-    if (console && window[ '__REDUX_DEVTOOLS_EXTENSION__' ] && isDevMode()) {
+  public static defaultEnhancerFactory(devMode: boolean): StoreEnhancer<{}> {
+    if (window[ '__REDUX_DEVTOOLS_EXTENSION__' ] && devMode) {
       return window[ '__REDUX_DEVTOOLS_EXTENSION__' ]();
     }
 
