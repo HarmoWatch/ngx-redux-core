@@ -13,7 +13,7 @@ export class BikeActionsProvider {
     onDispatchSuccess: BikeActionsProvider.prototype.addLicensePlateSuccess,
   })
   public addLicensePlate(licensePlate: string) {
-    return licensePlate;
+    return Promise.resolve(licensePlate);
   }
 
   public addLicensePlateSuccess() {
