@@ -390,9 +390,9 @@ var ReduxStateProvider = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxSelector; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_ReplaySubject__ = __webpack_require__("../../../../rxjs/_esm5/ReplaySubject.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_redux_registry__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/providers/redux-registry.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__harmowatch_redux_decorators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__harmowatch_redux_decorators__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_redux_registry__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/providers/redux-registry.ts");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -416,7 +416,7 @@ var ReduxSelector = /** @class */ (function (_super) {
             throw new Error('You need to provide a state provider, if you use relative selectors');
         }
         _this = _super.call(this, 1) || this;
-        __WEBPACK_IMPORTED_MODULE_2__providers_redux_registry__["a" /* ReduxRegistry */].getStore().then(function (store) {
+        __WEBPACK_IMPORTED_MODULE_3__providers_redux_registry__["a" /* ReduxRegistry */].getStore().then(function (store) {
             var next = function () {
                 _this.next(ReduxSelector.getValueByState(store.getState(), selector, stateProvider));
             };
@@ -427,7 +427,7 @@ var ReduxSelector = /** @class */ (function (_super) {
     }
     ReduxSelector.normalize = function (selector, stateProvider) {
         if (!selector.startsWith(ReduxSelector.DELIMITER)) {
-            return "/" + __WEBPACK_IMPORTED_MODULE_3__harmowatch_redux_decorators__["ReduxStateDecorator"].get(stateProvider).name + "/" + selector;
+            return "/" + __WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__["ReduxStateDecorator"].get(stateProvider).name + "/" + selector;
         }
         return selector;
     };

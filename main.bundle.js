@@ -250,7 +250,6 @@ var ReduxReducerProvider = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export RegistryReducerItem */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxRegistry; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/toPromise.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise__);
@@ -278,12 +277,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 
 
-var RegistryReducerItem = /** @class */ (function () {
-    function RegistryReducerItem() {
-    }
-    return RegistryReducerItem;
-}());
-
 var ReduxRegistry = /** @class */ (function () {
     function ReduxRegistry(store) {
         if (store === void 0) { store = null; }
@@ -293,7 +286,6 @@ var ReduxRegistry = /** @class */ (function () {
     ReduxRegistry_1 = ReduxRegistry;
     ReduxRegistry.reset = function () {
         ReduxRegistry_1._store = new __WEBPACK_IMPORTED_MODULE_2_rxjs_AsyncSubject__["a" /* AsyncSubject */]();
-        ReduxRegistry_1._reducers = [];
     };
     ReduxRegistry.registerStore = function (store) {
         ReduxRegistry_1.reset();
@@ -313,15 +305,13 @@ var ReduxRegistry = /** @class */ (function () {
     ReduxRegistry.registerState = function (state) {
         ReduxRegistry_1.getStore().then(function (store) {
             var stateConfig = __WEBPACK_IMPORTED_MODULE_1__harmowatch_redux_decorators__["ReduxStateDecorator"].get(state.constructor);
-            var initState = state.getInitialState();
-            var initStateToResolve = initState;
-            if (initState instanceof __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["Observable"]) {
-                initStateToResolve = initState.toPromise();
-            }
-            Promise.resolve(initStateToResolve).then(function (initialState) {
+            var initialState = state.getInitialState();
+            Promise
+                .resolve(initialState instanceof __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__["Observable"] ? initialState.toPromise() : initialState)
+                .then(function (initialValue) {
                 store.dispatch({
                     payload: {
-                        initialValue: initialState,
+                        initialValue: initialValue,
                         name: stateConfig.name,
                     },
                     type: ReduxRegistry_1.ACTION_REGISTER_STATE,
@@ -334,7 +324,6 @@ var ReduxRegistry = /** @class */ (function () {
     };
     ReduxRegistry.ACTION_REGISTER_STATE = "@harmowatch/ngx-redux-core/registerState";
     ReduxRegistry._store = new __WEBPACK_IMPORTED_MODULE_2_rxjs_AsyncSubject__["a" /* AsyncSubject */]();
-    ReduxRegistry._reducers = [];
     ReduxRegistry = ReduxRegistry_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_4__angular_core__["A" /* Injectable */])(),
         __param(0, Object(__WEBPACK_IMPORTED_MODULE_4__angular_core__["z" /* Inject */])(__WEBPACK_IMPORTED_MODULE_5__tokens_redux_store_token__["a" /* ReduxStore */])),
