@@ -111,6 +111,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__("../../../../rxjs/_esm5/add/operator/toPromise.js");
 var Observable_1 = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
 var Subject_1 = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
 var _1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
@@ -215,50 +216,11 @@ __export(__webpack_require__("../../../../@harmowatch/redux-decorators/lib/actio
 __export(__webpack_require__("../../../../@harmowatch/redux-decorators/lib/action/dispatcher/redux-action-dispatcher.js"));
 // action context
 __export(__webpack_require__("../../../../@harmowatch/redux-decorators/lib/action/context/decorator/redux-action-context-decorator.js"));
-// module
-__export(__webpack_require__("../../../../@harmowatch/redux-decorators/lib/module/decorator/redux-module-decorator.js"));
 // reducer
 __export(__webpack_require__("../../../../@harmowatch/redux-decorators/lib/reducer/decorator/redux-reducer-decorator.js"));
 // state
 __export(__webpack_require__("../../../../@harmowatch/redux-decorators/lib/state/decorator/redux-state-decorator.js"));
 //# sourceMappingURL=index.js.map
-
-/***/ }),
-
-/***/ "../../../../@harmowatch/redux-decorators/lib/module/decorator/redux-module-decorator.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var generic_decorator_1 = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/generic/decorator/generic-decorator.js");
-/**
- * @todo check if we really need this decorator
- */
-var ReduxModuleDecorator = /** @class */ (function (_super) {
-    __extends(ReduxModuleDecorator, _super);
-    function ReduxModuleDecorator() {
-        return _super.call(this, 'ReduxModule') || this;
-    }
-    ReduxModuleDecorator.forClass = function (config) {
-        return ReduxModuleDecorator.instance.forClass(config);
-    };
-    ReduxModuleDecorator.instance = new ReduxModuleDecorator();
-    ReduxModuleDecorator.get = ReduxModuleDecorator.instance.get.bind(ReduxModuleDecorator.instance);
-    return ReduxModuleDecorator;
-}(generic_decorator_1.GenericDecorator));
-exports.ReduxModuleDecorator = ReduxModuleDecorator;
-//# sourceMappingURL=redux-module-decorator.js.map
 
 /***/ }),
 
