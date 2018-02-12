@@ -373,7 +373,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var ReduxModule = /** @class */ (function () {
     function ReduxModule(injector, reducer, stateDefs) {
         if (stateDefs === void 0) { stateDefs = []; }
-        injector.get(__WEBPACK_IMPORTED_MODULE_6__providers_redux_registry__["a" /* ReduxRegistry */]); // just make the the provider is instantiated
+        injector.get(__WEBPACK_IMPORTED_MODULE_6__providers_redux_registry__["a" /* ReduxRegistry */]); // just make sure the provider is instantiated
         if (Array.isArray(stateDefs)) {
             stateDefs
                 .filter(function (def) { return def && def.provider; })
@@ -407,11 +407,12 @@ var ReduxModule = /** @class */ (function () {
             ],
         };
     };
-    ReduxModule.defaultStoreFactory = function (reducer) {
-        return Object(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* createStore */])(reducer.reduce.bind(reducer), {}, ReduxModule_1.defaultEnhancerFactory());
+    ReduxModule.defaultStoreFactory = function (reducer, devMode) {
+        if (devMode === void 0) { devMode = Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_16" /* isDevMode */])(); }
+        return Object(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* createStore */])(reducer.reduce.bind(reducer), {}, ReduxModule_1.defaultEnhancerFactory(devMode));
     };
-    ReduxModule.defaultEnhancerFactory = function () {
-        if (console && window['__REDUX_DEVTOOLS_EXTENSION__'] && Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_16" /* isDevMode */])()) {
+    ReduxModule.defaultEnhancerFactory = function (devMode) {
+        if (window['__REDUX_DEVTOOLS_EXTENSION__'] && devMode) {
             return window['__REDUX_DEVTOOLS_EXTENSION__']();
         }
         return ReduxModule_1.noopEnhancer;
