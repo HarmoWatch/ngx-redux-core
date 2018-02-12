@@ -1,8 +1,8 @@
-###### @harmowatch/ngx-redux-core / [decorators](./index.md)
+###### [@harmowatch/ngx-redux-core](../../README.md) / [docs](../index.md) / [decorators](./index.md)
  
 # @ReduxState
 
-Marks a [ReduxStateProvider](../redux-state-provider.md) class as redux state.
+Marks a [ReduxStateProvider](../api/redux-state-provider.md) class as redux state.
 This is required to provide a unique name within the global application state.
 
 ```ts

@@ -1,4 +1,4 @@
-###### @harmowatch/ngx-redux-core / [decorators](./index.md)
+###### [@harmowatch/ngx-redux-core](../../README.md) / [docs](../index.md) / [decorators](./index.md)
  
 # @ReduxActionContext
 

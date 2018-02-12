@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/HarmoWatch/ngx-redux-core.svg?branch=master)](https://travis-ci.org/HarmoWatch/ngx-redux-core)
 [![Maintainability](https://api.codeclimate.com/v1/badges/24a417a5e870fbe5e94e/maintainability)](https://codeclimate.com/github/HarmoWatch/ngx-redux-core/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/24a417a5e870fbe5e94e/test_coverage)](https://codeclimate.com/github/HarmoWatch/ngx-redux-core/test_coverage)
+[![HitCount](http://hits.dwyl.io/harmowatch/ngx-redux-core.svg)](http://hits.dwyl.com/harmowatch/ngx-redux-core)
 
 ## The modern redux integration for Angular 2+
 
@@ -94,7 +95,7 @@ export interface YourModuleState {
 }
 
 @Injectable()
-@ReduxState({name: 'my-module'}) // Make sure you choose a application-wide unique name
+@ReduxState({name: 'your-module'}) // Make sure you choose a application-wide unique name
 export class YourModuleStateProvider extends ReduxStateProvider<YourModuleState> {
 
   getInitialState(): Promise<YourModuleState> { // You can return Observable<YourModuleState> or YourModuleState as well
@@ -176,3 +177,22 @@ export class TodoListReducer {
 ```  
 
 > Don't forget to add the state as described in step 1
+
+### Please also find the docs
+
+- [Decorators](./decorators/index.md)
+  - [@ReduxAction](./redux-action.md)
+  - [@ReduxActionContext](./redux-action-context.md)
+  - [@ReduxReducer](./redux-reducer.md)
+  - [@ReduxSelect](./redux-select.md)
+  - [@ReduxState](./redux-state.md)
+  
+- [Pipes](./pipes/index.md)
+  - [reduxSelect](./pipes/redux-select.md)  
+  
+- [API](./api/index.md)  
+  - [ReduxStateProvider](./api/redux-state-provider.md)  
+  
+### And something else on my own behalf ...
+
+It would be wonderful if you gave me a star. :wink:
