@@ -21,7 +21,7 @@ your redux state directly from your view.
 <pre>{{ 'some/state/path' | reduxSelect | async | json }}</pre>
 ```
 Another big advantage of this package is the very good TypeScript support. Now you'll get a compiler error if 
-the payload of the redux action is not compatible to the the reducer function.
+the payload of the redux action is not compatible to the reducer function.
 
 ![TypeScript support](./docs/ts-support.gif "TypeScript support")
 
