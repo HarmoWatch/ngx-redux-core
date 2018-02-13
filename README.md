@@ -53,6 +53,8 @@ As the first step, you need to add `ReduxModule.forRoot()` to the root NgModule 
 The static [`forRoot`](https://angular.io/docs/ts/latest/guide/ngmodule.html#!#core-for-root) method is a convention
 that provides and configures services at the same time. Make sure you call this method in your root NgModule, only!
 
+[Lazy loading is also supported](./docs/how-to/use-lazy-loading.md)
+
 ```ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -75,7 +77,7 @@ import {TodoListReducer} from '...';
     YourModuleStateProvider // You'll create it in step 2
   ],
 })
-export class YourModule {
+export class AppModule {
 }
 ```
 

@@ -14,3 +14,6 @@
   
 - [API](./api/index.md)  
   - [ReduxStateProvider](./api/redux-state-provider.md)  
+
+- [How to](./how-to/index.md)
+  - [... use lazy loading?](./how-to/use-lazy-loading.md)
