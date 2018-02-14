@@ -58,7 +58,7 @@ import { TodoModuleStateProvider } from './todo.module.state.provider';
   imports: [
     CommonModule,
     FormsModule,
-    ReduxModule.forChild({ // use forCHild instead of forRoot in lazy loaded modules
+    ReduxModule.forChild({ // use forChild instead of forRoot in lazy loaded modules
       state: {
         provider: TodoModuleStateProvider,
         reducers: [ TodoListReducer ],
