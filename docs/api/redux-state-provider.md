@@ -9,7 +9,7 @@
 
 ## getInitialState
 
-This method must be implemented by your provider. The method is responsible to resolve the initial state. As initial state 
+This method must be implemented by your provider and is responsible for resolving the initial state. As initial state 
 you can return a `Promise`, `Observable` or directly a literal. If you return a `Promise` your state is not initialized 
 until your Promise has been *resolved successfully*. If a `Observable` is returned the state is initialized after the
 `Observable` has been completed.
@@ -75,14 +75,14 @@ export class YourModuleStateProvider extends ReduxStateProvider<YourModuleState>
 }
 ```
 
-> If your `Observable` never completed, the state will never be initialized!
+> If your `Observable` never completes, the state will never be initialized!
 
 ## select
 
 This method is used by the [reduxSelect](../pipes/redux-select.md) pipe and the [@ReduxSelect](../decorators/redux-select.md) 
-decorator. The method is already implemented by default. For example, caching is already implemented where the same instance
+decorator and is already implemented by default. The default implementation caches calls to the state, where the same instance
 of a ReduxSelector is returned for the same selector string. Overwriting this method gives you a powerful tool to rename
-selectors, for example.
+selectors, for example:
 
 ```ts
 import 'rxjs/add/observable/from';

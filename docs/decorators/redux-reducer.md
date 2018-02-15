@@ -12,7 +12,7 @@ Marks a class method as redux reducer and wires the reducer method against one o
 
 ### By prototype
 
-The recommended and simplest way is to wire the reducer directly via the prototype with the action method. Here you have the 
+The recommended and simplest way is to wire the reducer directly via the prototype with the action method. This gives you the 
 advantage that TypeScript can validate the return value of the ReduxAction against the expected payload of your Reducer 
 function. This is also the only way to enable IDE refactoring.
 
@@ -51,7 +51,7 @@ class SomeReducerClass {
 }
 ```
 
-Or you can decorate the reducer method two times:
+Or you can decorate the reducer method multiple times:
 
 ```ts
 class SomeReducerClass {
@@ -68,8 +68,8 @@ class SomeReducerClass {
 }
 ```
 
-The array notation and the TypeScript type check currently only works well with actions which return the same type.
-So if you have something like this, TypeScript will throw an type error.
+The array notation and the TypeScript type check currently only work well for actions which return the same type.
+So if you have something like this, TypeScript will throw a type error:
 
 ```ts
 class SomeReducerClass {
@@ -108,7 +108,7 @@ class SomeReducerClass {
 ### By string
 
 It is also possible to refer directly to an action by string. However, this option should only be used if there 
-is no other option. You can also specify this as an array or decorate the method twice.
+is no other option. You can also specify this as an array or decorate the method multiple times.
 
 ```ts
 class SomeReducerClass {
