@@ -12,7 +12,7 @@
 This package contains a number of features that make working with Redux easy. For example, 
 you can decorate a method with [@ReduxAction](./docs/decorators/redux-action.md). This method then 
 sends a redux action every time it is called. In addition to [@ReduxAction](./docs/decorators/redux-action.md) 
-there some more decorators available like [@ReduxActionContext](docs/decorators/redux-action-context.md), 
+there are some more decorators available like [@ReduxActionContext](docs/decorators/redux-action-context.md), 
 [@ReduxReducer](./docs/decorators/redux-reducer.md), [@ReduxSelect](./docs/decorators/redux-select.md) and
 [@ReduxState](./docs/decorators/redux-state.md). But that's not all! By using this package, you can also access 
 your redux state directly from your view.
