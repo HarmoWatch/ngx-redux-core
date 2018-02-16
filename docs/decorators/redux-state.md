@@ -15,7 +15,7 @@ This is required to provide a unique name within the global application state.
 
 ### ```name```
 
-Defines the unique state name, that shall be used as key in the global application state.
+Defines the unique state name, that will be used as key in the global application state.
 
 |               |                                  |
 | ------------- | -------------------------------- |

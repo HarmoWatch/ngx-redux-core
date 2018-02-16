@@ -3,7 +3,7 @@
 # Use Lazy Loading
 
 As described in the [Angular - Router & Navigation](https://angular.io/guide/router#asynchronous-routing) docs,
-it possible to load a [Angular Module](https://angular.io/guide/ngmodules) asynchronously. To use this together 
+it's possible to load a [Angular Module](https://angular.io/guide/ngmodules) asynchronously. To use this together 
 with `@harmowatch/ngx-redux-core` you just have to use the static `ReduxModule.forChild()` method in your lazy loaded module.
 
 Make sure you've initialized the `ReduxModule.forRoot()` module in your app module as well.
@@ -58,7 +58,7 @@ import { TodoModuleStateProvider } from './todo.module.state.provider';
   imports: [
     CommonModule,
     FormsModule,
-    ReduxModule.forChild({ // use forCHild instead of forRoot in lazy loaded modules
+    ReduxModule.forChild({ // use forChild instead of forRoot in lazy loaded modules
       state: {
         provider: TodoModuleStateProvider,
         reducers: [ TodoListReducer ],
