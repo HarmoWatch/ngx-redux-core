@@ -13,10 +13,10 @@ you can also inject your [`ReduxStateProvider`](../api/redux-state-provider.md) 
 )
 ```
 
-The decorator expects two arguments, whereby the second argument only has to be given, when you use a relative selector. 
-The following examples should illustrate the usage very well. 
+The decorator expects two arguments, but the second argument is only mandatory, if you use a relative selector. 
+The following examples illustrate this: 
 
-## Using a relative selector
+## Using a relative selector, second argument needed
 
 ```ts
 class SomeClass {
@@ -27,7 +27,7 @@ class SomeClass {
 }
 ```
 
-## Select the same value using a absolute selector
+## Select the same value using a absolute selector, no second argument needed
 
 ```ts
 class SomeClass {

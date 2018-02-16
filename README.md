@@ -9,10 +9,10 @@
 
 ## The modern redux integration for Angular 2+
 
-This package contains a number of features that make working with Redux very easy for you. For example, 
-you can easily decorate a method with [@ReduxAction](./docs/decorators/redux-action.md). This method then 
+This package contains a number of features that make working with Redux easy. For example, 
+you can decorate a method with [@ReduxAction](./docs/decorators/redux-action.md). This method then 
 sends a redux action every time it is called. In addition to [@ReduxAction](./docs/decorators/redux-action.md) 
-there're some more decorators available like [@ReduxActionContext](docs/decorators/redux-action-context.md), 
+there are some more decorators available like [@ReduxActionContext](docs/decorators/redux-action-context.md), 
 [@ReduxReducer](./docs/decorators/redux-reducer.md), [@ReduxSelect](./docs/decorators/redux-select.md) and
 [@ReduxState](./docs/decorators/redux-state.md). But that's not all! By using this package, you can also access 
 your redux state directly from your view.
@@ -20,16 +20,16 @@ your redux state directly from your view.
 ```angular2html
 <pre>{{ 'some/state/path' | reduxSelect | async | json }}</pre>
 ```
-Another big advantage of this package is the very good TypeScript support. Now you'll get a compiler error if 
-the payload of the redux action is not compatible to the reducer function.
+Another big advantage of this package is the TypeScript support. You'll get a compiler error if  the payload 
+of the redux action is not compatible to the reducer function.
 
 ![TypeScript support](./docs/ts-support.gif "TypeScript support")
 
-Of course, this package works perfectly with [RxJS](https://github.com/ReactiveX/rxjs) and the AOT compiler.
+Of course, this package works with [RxJS](https://github.com/ReactiveX/rxjs) and the AOT compiler.
 
 ### What is Redux?
 
-[Redux](http://redux.js.org/) is a popular and common approach to manage a application state. The three principles of redux are:
+[Redux](http://redux.js.org/) is a popular and common approach to manage an application state. The three principles of redux are:
 
 - [Single source of truth](http://redux.js.org/docs/introduction/ThreePrinciples.html#single-source-of-truth)
 - [State is read-only](http://redux.js.org/docs/introduction/ThreePrinciples.html#state-is-read-only)
@@ -38,7 +38,7 @@ Of course, this package works perfectly with [RxJS](https://github.com/ReactiveX
 ### Installation
 
 The redux package is not shipped with @harmowatch/ngx-redux-core. 
-Therefore you also had to install the redux package.
+Therefore you also have to install the redux package:
 
 ```sh
 $ npm install redux @harmowatch/ngx-redux-core --save
@@ -51,7 +51,7 @@ $ npm install redux @harmowatch/ngx-redux-core --save
 As the first step, you need to add `ReduxModule.forRoot()` to the root NgModule of your application.
 
 The static [`forRoot`](https://angular.io/docs/ts/latest/guide/ngmodule.html#!#core-for-root) method is a convention
-that provides and configures services at the same time. Make sure you call this method in your root NgModule, only!
+that provides and configures services at the same time. Make sure you call this method only in your root NgModule!
 
 [Lazy loading is also supported](./docs/how-to/use-lazy-loading.md)
 
@@ -114,12 +114,13 @@ export class YourModuleStateProvider extends ReduxStateProvider<YourModuleState>
 
 > Don't forget to add the state as described in step 1
 
-#### 3. Create a action dispatcher
+#### 3. Create an action dispatcher
 
-To initiate a state change, a redux action must be dispatched. Let's assume there is a component called 
+To initiate a state change, a redux action must be dispatched. Let's assume that there is a component called 
 `TodoListComponent` that displays a button. Each time the button is clicked, the view calls the function 
-`addTodo` and passes the todo, which shall be added to the list. All you have to do is decorate 
-to the function with `@ReduxAction` and return the `TodoListItem` as a return value.
+`addTodo` and passes the todo, which shall be added to the list. 
+
+All you have to do is decorate the function with `@ReduxAction` and return the `TodoListItem` as a return value.
 
 ```ts
 import { Component } from '@angular/core';
@@ -145,7 +146,7 @@ export class TodoListComponent {
 }
 ```
 
-Now `@harmowatch/ngx-redux-core` will dispatch the following action, every time the `addTodo` method was called.
+Now `@harmowatch/ngx-redux-core` will dispatch the following action, every time the `addTodo` method was called:
 
 ```json
 {
@@ -160,7 +161,7 @@ That was easy, wasn't it?
 
 There's one more thing you need to do. You're firing an action, but at the moment no reducer is listening to it.
 In order to change this, we need to create a reducer function that can make the state change as soon as the action 
-is fired.
+is fired:
 
 ```ts
 import { ReduxReducer, ReduxActionWithPayload } from '@harmowatch/ngx-redux-core';
