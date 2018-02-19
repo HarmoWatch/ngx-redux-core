@@ -44,6 +44,7 @@ Of course, this package works with [RxJS](https://github.com/ReactiveX/rxjs) and
 - [x] A [Angular Pipe](https://angular.io/guide/pipes) to select state values
 - [x] Easy to test - *docs are work in progress*
 - [x] Easy to learn
+- [x] [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension) is enabled automatically [in dev mode](https://angular.io/api/core/isDevMode)
 
 ### Installation
 
