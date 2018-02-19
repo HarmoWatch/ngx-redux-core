@@ -38,6 +38,8 @@ Of course, this package works with [RxJS](https://github.com/ReactiveX/rxjs) and
 ### Why @harmowatch/ngx-redux-core?
 
 - [x] Better TypeScript support for [redux reducers](./docs/decorators/redux-reducer.md)
+- [x] All your [redux actions](./docs/decorators/redux-action.md) are strongly typed by default
+- [x] You don't need to define constants and switch statements for your action names
 - [x] Easy refactoring of [redux actions](./docs/decorators/redux-action.md)
 - [x] Reduced boilerplate when using redux patterns trough [decorators](./docs/decorators/index.md)
 - [x] Support for [lazy loaded modules](./docs/how-to/use-lazy-loading.md)
