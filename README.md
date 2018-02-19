@@ -1,5 +1,7 @@
 # @harmowatch/ngx-redux-core
 
+[![Join the chat at https://gitter.im/harmowatch/ngx-redux-core](https://badges.gitter.im/harmowatch/ngx-redux-core.svg)](https://gitter.im/harmowatch/ngx-redux-core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![npm version](https://badge.fury.io/js/%40harmowatch%2Fngx-redux-core.svg)](https://badge.fury.io/js/%40harmowatch%2Fngx-redux-core)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovateapp.com/)
 [![Build Status](https://travis-ci.org/HarmoWatch/ngx-redux-core.svg?branch=master)](https://travis-ci.org/HarmoWatch/ngx-redux-core)
