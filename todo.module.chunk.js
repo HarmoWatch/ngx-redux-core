@@ -433,7 +433,8 @@ var ReduxSelector = /** @class */ (function (_super) {
     }
     ReduxSelector.normalize = function (selector, stateProvider) {
         if (!selector.startsWith(ReduxSelector.DELIMITER)) {
-            return "/" + __WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__["ReduxStateDecorator"].get(stateProvider).name + "/" + selector;
+            var stateName = __WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__["ReduxStateDecorator"].get(stateProvider).name;
+            return "" + ReduxSelector.DELIMITER + stateName + ReduxSelector.DELIMITER + selector;
         }
         return selector;
     };
