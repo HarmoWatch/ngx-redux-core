@@ -35,6 +35,16 @@ Of course, this package works with [RxJS](https://github.com/ReactiveX/rxjs) and
 - [State is read-only](http://redux.js.org/docs/introduction/ThreePrinciples.html#state-is-read-only)
 - [Changes are made with pure functions](http://redux.js.org/docs/introduction/ThreePrinciples.html#changes-are-made-with-pure-functions)
 
+### Why @harmowatch/ngx-redux-core?
+
+- [x] Better TypeScript support for [redux reducers](./docs/decorators/redux-reducer.md)
+- [x] Easy refactoring of [redux actions](./docs/decorators/redux-action.md)
+- [x] Reduced boilerplate when using redux patterns trough [decorators](./docs/decorators/index.md)
+- [x] Support for [lazy loaded modules](./docs/how-to/use-lazy-loading.md)
+- [x] A [Angular Pipe](https://angular.io/guide/pipes) to select state values
+- [x] Easy to test - *docs are work in progress*
+- [x] Easy to learn
+
 ### Installation
 
 The redux package is not shipped with @harmowatch/ngx-redux-core. 
@@ -89,14 +99,8 @@ Now you have to create a provider for your module in order to describe your stat
 import { Injectable } from '@angular/core';
 import { ReduxState, ReduxStateProvider } from '@harmowatch/ngx-redux-core';
 
-export interface TodoListItem {
-  uuid: string;
-  label: string;
-  creationDate: string;
-}
-
 export interface YourModuleState {
-  todoListItems: TodoListItem[];
+  todoListItems: string[];
 }
 
 @Injectable()
@@ -120,27 +124,18 @@ To initiate a state change, a redux action must be dispatched. Let's assume that
 `TodoListComponent` that displays a button. Each time the button is clicked, the view calls the function 
 `addTodo` and passes the todo, which shall be added to the list. 
 
-All you have to do is decorate the function with `@ReduxAction` and return the `TodoListItem` as a return value.
+All you have to do is decorate the function with `@ReduxAction` and return the todo as a return value.
 
 ```ts
 import { Component } from '@angular/core';
-
-import { v4 } from 'uuid';
-import { Observable } from 'rxjs/Observable';
 import { ReduxAction } from '@harmowatch/ngx-redux-core';
-
-import {YourModuleStateProvider, TodoListItem} from '...';
 
 @Component({templateUrl: './todo-list.component.html'})
 export class TodoListComponent {
 
   @ReduxAction()
-  addTodo(label: string): TodoListItem {
-    return {
-      uuid: v4(),
-      label,
-      creationDate: new Date().toISOString(),
-    };
+  addTodo(label: string): string {
+    return label; // your return value is the payload
   }
 
 }
@@ -155,7 +150,7 @@ Now `@harmowatch/ngx-redux-core` will dispatch the following action, every time 
 }
 ```
 
-That was easy, wasn't it?
+[You can also create a provider to fire the actions.](./docs/how-to/create-a-actions-provider.md)
 
 #### 4. Create the reducer
 
@@ -166,13 +161,12 @@ is fired:
 ```ts
 import { ReduxReducer, ReduxActionWithPayload } from '@harmowatch/ngx-redux-core';
 
-import {TodoListItem} from '...';
 import {TodoListComponent} from '...';
 
 export class TodoListReducer {
 
   @ReduxReducer(TodoListComponent.prototype.add)
-  addTodo(state: TodoState, action: ReduxActionWithPayload<TodoListItem>): TodoState {
+  addTodo(state: TodoState, action: ReduxActionWithPayload<string>): TodoState {
     return {
       ...state,
       items: state.items.concat(action.payload),

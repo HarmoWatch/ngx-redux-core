@@ -26,7 +26,7 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    ReduxModule.forRoot(), // import the ReduxModule.forRoot() without a state definition
+    ReduxModule.forRoot(), // import the ReduxModule.forRoot()
     RouterModule.forRoot([
       {path: 'todo', loadChildren: './todo/todo.module#TodoModule'}, // lazy load you child module
       {path: '', redirectTo: 'todo', pathMatch: 'prefix'},
