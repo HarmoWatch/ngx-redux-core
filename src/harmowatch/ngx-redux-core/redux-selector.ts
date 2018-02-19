@@ -34,7 +34,8 @@ export class ReduxSelector<T> extends ReplaySubject<T> {
 
   public static normalize(selector: string, stateProvider?: Type<ReduxStateProvider>): string {
     if (!selector.startsWith(ReduxSelector.DELIMITER)) {
-      return `/${ReduxStateDecorator.get(stateProvider).name}/${selector}`;
+      const stateName = ReduxStateDecorator.get(stateProvider).name;
+      return `${ReduxSelector.DELIMITER}${stateName}${ReduxSelector.DELIMITER}${selector}`;
     }
 
     return selector;
