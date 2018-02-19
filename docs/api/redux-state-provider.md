@@ -78,7 +78,7 @@ export class YourModuleStateProvider extends ReduxStateProvider<YourModuleState>
 
 This method is used by the [reduxSelect](../pipes/redux-select.md) pipe and the [@ReduxSelect](../decorators/redux-select.md) 
 decorator to resolve the state. The `ReduxStateProvider`'s implementation caches the `select` calls, and returns the same 
-instance of a [ReduxSelector](../api/redux-selector.md) for the same selector string. You can overwrites this method to
+instance of a [ReduxSelector](../api/redux-selector.md) for the same selector string. You can overwrite this method to
 implement some custom `select` behavior.
 
 ### reduce

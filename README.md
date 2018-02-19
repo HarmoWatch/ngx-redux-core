@@ -9,7 +9,7 @@
 
 ## The modern redux integration for Angular 2+
 
-This package contains a number of features that makes working with Redux easy. For example, 
+This package contains a number of features that makes working with redux easy. For example, 
 you can decorate a method with [@ReduxAction](./docs/decorators/redux-action.md). This method then 
 sends a redux action every time it's been called. In addition to [@ReduxAction](./docs/decorators/redux-action.md) 
 there are some more decorators available like [@ReduxActionContext](docs/decorators/redux-action-context.md), 
@@ -20,16 +20,18 @@ your redux state directly from your view.
 ```angular2html
 <pre>{{ 'some/state/path' | reduxSelect | async | json }}</pre>
 ```
-Another big advantage of this package is the TypeScript support. You'll get a compiler error if  the payload 
+Another big advantage of this package is the TypeScript support. You'll get a compiler error if the payload 
 of the redux action is not compatible with the reducer function.
 
 ![TypeScript support](./docs/ts-support.gif "TypeScript support")
 
-Of course, this package works with [RxJS](https://github.com/ReactiveX/rxjs) and the AOT compiler.
+Of course, this package works with [RxJS](https://github.com/ReactiveX/rxjs) 
+and the [AOT Compiler](https://angular.io/guide/aot-compiler).
 
 ### What is Redux?
 
-[Redux](http://redux.js.org/) is a popular and common approach to manage an application state. The three principles of redux are:
+[Redux](http://redux.js.org/) is a popular and common approach to manage an application state. 
+The three principles of redux are:
 
 - [Single source of truth](http://redux.js.org/docs/introduction/ThreePrinciples.html#single-source-of-truth)
 - [State is read-only](http://redux.js.org/docs/introduction/ThreePrinciples.html#state-is-read-only)
@@ -41,7 +43,7 @@ Of course, this package works with [RxJS](https://github.com/ReactiveX/rxjs) and
 - [x] All your [redux actions](./docs/decorators/redux-action.md) are strongly typed by default
 - [x] You don't need to define constants and switch statements for your action names
 - [x] Easy refactoring of [redux actions](./docs/decorators/redux-action.md)
-- [x] Reduced boilerplate when using redux patterns trough [decorators](./docs/decorators/index.md)
+- [x] Reduced boilerplate trough [decorators](./docs/decorators/index.md)
 - [x] Support for [lazy loaded modules](./docs/how-to/use-lazy-loading.md)
 - [x] A [Angular Pipe](https://angular.io/guide/pipes) to select state values
 - [x] Easy to test - *docs are work in progress*
@@ -50,7 +52,7 @@ Of course, this package works with [RxJS](https://github.com/ReactiveX/rxjs) and
 
 ### Installation
 
-The redux package is not shipped with @harmowatch/ngx-redux-core. 
+The [redux](https://github.com/reactjs/redux) package itself is not shipped with @harmowatch/ngx-redux-core. 
 Therefore you also have to install the redux package:
 
 ```sh
@@ -66,7 +68,7 @@ As the first step, you need to add `ReduxModule.forRoot()` to the root NgModule 
 The static [`forRoot`](https://angular.io/docs/ts/latest/guide/ngmodule.html#!#core-for-root) method is a convention
 that provides and configures services at the same time. Make sure you call this method only in your root NgModule!
 
-[Lazy loading is also supported](./docs/how-to/use-lazy-loading.md)
+Please note that [Lazy loading](./docs/how-to/use-lazy-loading.md) is also supported.
 
 ```ts
 import { NgModule } from '@angular/core';
@@ -90,20 +92,19 @@ import {TodoListReducer} from '...';
     YourModuleStateProvider // You'll create it in step 2
   ],
 })
-export class AppModule {
-}
+export class AppModule {}
 ```
 
 #### 2. Create a state provider
 
-Now you have to create a provider for your module in order to describe your state.
+Now you have to create a provider for your module in order to describe and initialize the state.
 
 ```ts
 import { Injectable } from '@angular/core';
 import { ReduxState, ReduxStateProvider } from '@harmowatch/ngx-redux-core';
 
 export interface YourModuleState {
-  todoListItems: string[];
+  items: string[];
 }
 
 @Injectable()
@@ -118,6 +119,9 @@ export class YourModuleStateProvider extends ReduxStateProvider<YourModuleState>
 
 }
 ```
+
+You can have just one `ReduxStateProvider` per NgModule. But it's possible to have a state provider for each 
+[lazy loaded](./docs/how-to/use-lazy-loading.md) module.
 
 > Don't forget to add the state as described in step 1
 
@@ -153,7 +157,7 @@ Now `@harmowatch/ngx-redux-core` will dispatch the following action, every time 
 }
 ```
 
-[You can also create a provider to fire the actions.](./docs/how-to/create-a-actions-provider.md)
+[You can also create a provider to dispatch actions.](./docs/how-to/create-an-actions-provider.md)
 
 #### 4. Create the reducer
 
@@ -184,7 +188,8 @@ export class TodoListReducer {
 ### 5. Display the todo items in the view
 
 To display the todo items you just can use the [reduxSelect](./docs/pipes/redux-select.md) pipe.
-Alternatively, you can also use the [@ReduxSelect](./docs/decorators/redux-select.md) decorator.
+Alternatively, you can also use the [@ReduxSelect](./docs/decorators/redux-select.md) decorator,
+the [ReduxSelector](./docs/api/redux-selector.md), or your [ReduxStateProvider](./docs/api/redux-state-provider.md)'s `select` method.
 
 ```angular2html
 <ul>

@@ -2,4 +2,5 @@
  
 # API
 
+- [ReduxSelector](./redux-selector.md)
 - [ReduxStateProvider](./redux-state-provider.md)

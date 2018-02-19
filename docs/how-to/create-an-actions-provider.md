@@ -1,6 +1,6 @@
 ###### [@harmowatch/ngx-redux-core](../../README.md) / [docs](../index.md) / [how to](./index.md)
  
-# Create a actions provider
+# Create an actions provider
 
 Of course you can also create a provider to fire your Redux actions. Here's an example using 
 [@ReduxActionContext](../decorators/redux-action-context.md) and [@ReduxAction](../decorators/redux-action.md):

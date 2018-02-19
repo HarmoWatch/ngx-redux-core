@@ -13,7 +13,9 @@
   - [reduxSelect](./pipes/redux-select.md)  
   
 - [API](./api/index.md)  
+  - [ReduxSelector](./api/redux-selector.md)  
   - [ReduxStateProvider](./api/redux-state-provider.md)  
 
 - [How to](./how-to/index.md)
-  - [... use lazy loading?](./how-to/use-lazy-loading.md)
+  - [Create an actions provider](./how-to/create-an-actions-provider.md)
+  - [Use lazy loading](./how-to/use-lazy-loading.md)

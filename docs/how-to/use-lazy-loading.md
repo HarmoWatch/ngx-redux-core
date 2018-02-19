@@ -1,6 +1,6 @@
 ###### [@harmowatch/ngx-redux-core](../../README.md) / [docs](../index.md) / [how to](./index.md)
  
-# Use Lazy Loading
+# Use lazy loading
 
 As described in the [Angular - Router & Navigation](https://angular.io/guide/router#asynchronous-routing) docs,
 it's possible to load a [Angular Module](https://angular.io/guide/ngmodules) asynchronously. To use this together 

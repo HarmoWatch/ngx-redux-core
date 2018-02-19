@@ -16,7 +16,7 @@ you can also inject your [`ReduxStateProvider`](../api/redux-state-provider.md) 
 The decorator expects two arguments, but the second argument is only mandatory, if you use a relative selector. 
 The following examples illustrate this: 
 
-## Using a relative selector, second argument needed
+## Using a relative selector, second argument needed (recommended)
 
 ```ts
 class SomeClass {
@@ -27,7 +27,7 @@ class SomeClass {
 }
 ```
 
-## Select the same value using a absolute selector, no second argument needed
+## Select the same value using a absolute selector, no second argument needed (avoid)
 
 ```ts
 class SomeClass {

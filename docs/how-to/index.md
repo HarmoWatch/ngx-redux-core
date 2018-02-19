@@ -2,4 +2,5 @@
  
 # How to
 
-- [... use lazy loading?](./use-lazy-loading.md)
+- [Create an actions provider](./create-an-actions-provider.md)
+- [Use lazy loading](./use-lazy-loading.md)
