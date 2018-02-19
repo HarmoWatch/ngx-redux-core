@@ -181,6 +181,17 @@ export class TodoListReducer {
 
 > Don't forget to add the state as described in step 1
 
+### 5. Display the todo items in the view
+
+To display the todo items you just can use the [reduxSelect](./docs/pipes/redux-select.md) pipe.
+Alternatively, you can also use the [@ReduxSelect](./docs/decorators/redux-select.md) decorator.
+
+```angular2html
+<ul>
+  <li *ngFor="let todo of ('items' | reduxSelect | async)">{{todo}}</li>
+</ul>
+```
+
 ### Documentation
 
 I am still working on the [documentation](./docs/index.md), but I wanted to release the new 0.2.x version of the package 
