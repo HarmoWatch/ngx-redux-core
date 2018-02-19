@@ -78,7 +78,7 @@ export abstract class ReduxStateProvider<S = {}> {
     });
   }
 
-  reduce<P>(state: S, action: ReduxActionWithPayload<P>) {
+  reduce<P>(state: S, action: ReduxActionWithPayload<P>): S {
     const reducerMethods = this.reducerMethodsByType[ action.type ] || [];
     return reducerMethods.reduce((stateToReduce, method) => method(stateToReduce, action), state);
   }

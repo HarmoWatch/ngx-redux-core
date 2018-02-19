@@ -2,19 +2,14 @@
  
 # ReduxStateProvider
 
-+ [getInitialState](#getinitialstate)
-+ [select](#select)
-+ [getState](#getstate)
-+ [reduce](#reduce)
+### getInitialState
 
-## getInitialState
+To describe your module state, you need to create a state provider. This provider has to extend the `ReduxStateProvider<S>` 
+class and to provide the method `getInitialState`. As initial state you can return a `Promise`, `Observable` or directly 
+a literal. Please note that the `ReduxStateProvider<S>` is a generic class to which you must pass your state type. The
+`getInitialState` method is called by [@harmowatch/ngx-redux-core](../../README.md) during the initialization process.
 
-This method must be implemented by your provider and is responsible for resolving the initial state. As initial state 
-you can return a `Promise`, `Observable` or directly a literal. If you return a `Promise` your state is not initialized 
-until your Promise has been *resolved successfully*. If a `Observable` is returned the state is initialized after the
-`Observable` has been completed.
-
-*Example - Return a object literal*
+##### `getInitialState` returns a literal
 
 ```ts
 import { Injectable } from '@angular/core';
@@ -33,7 +28,10 @@ export class YourModuleStateProvider extends ReduxStateProvider<YourModuleState>
 }
 ```
 
-*Example - Return a Promise*
+##### `getInitialState` returns a `Promise`
+
+The module state is not initialized until your Promise has been *resolved successfully*.
+If your `Promise` is rejected, the state will never be initialized!
 
 ```ts
 import { Injectable } from '@angular/core';
@@ -52,9 +50,10 @@ export class YourModuleStateProvider extends ReduxStateProvider<YourModuleState>
 }
 ```
 
-> If your `Promise` is rejected, the state will never be initialized!
+##### `getInitialState` returns a `Observable`
 
-*Example - Return a Observable*
+The module state is initialized *after* the `Observable` has been completed.
+If your `Observable` never completes, the state will never be initialized!
 
 ```ts
 import 'rxjs/add/observable/from';
@@ -75,47 +74,22 @@ export class YourModuleStateProvider extends ReduxStateProvider<YourModuleState>
 }
 ```
 
-> If your `Observable` never completes, the state will never be initialized!
-
-## select
+### select
 
 This method is used by the [reduxSelect](../pipes/redux-select.md) pipe and the [@ReduxSelect](../decorators/redux-select.md) 
-decorator and is already implemented by default. The default implementation caches calls to the state, where the same instance
-of a ReduxSelector is returned for the same selector string. Overwriting this method gives you a powerful tool to rename
-selectors, for example:
+decorator to resolve the state. The `ReduxStateProvider`'s implementation caches the `select` calls, and returns the same 
+instance of a [ReduxSelector](../api/redux-selector.md) for the same selector string. You can overwrites this method to
+implement some custom `select` behavior.
 
-```ts
-import 'rxjs/add/observable/from';
+### reduce
 
-import { Injectable } from '@angular/core';
-import { ReduxState, ReduxStateProvider } from '@harmowatch/ngx-redux-core';
+This method is called by [@harmowatch/ngx-redux-core](../../README.md) to reduce your module's state. There's already a 
+default implementation which will forward the reduce command to the appropriate 
+[@ReduxReducer](../decorators/redux-reducer.md). You can overwrite this method to implement some custom reducer behavior.
 
-@Injectable()
-@ReduxState({name: 'your-module'})
-export class YourModuleStateProvider extends ReduxStateProvider<YourModuleState> {
+### getState
 
-  getInitialState(): Observable<YourModuleState> {
-    return Observable.from([{
-      items: []
-    }]);
-  }
-  
-  select<T>(selector: string = ''): Observable<T> {
-
-    if (selector === 'todos') {
-      selector = 'items';
-    }
-
-    return super.select(selector);
-  }
-
-}
-```
-
-## getState
-
-... tbw
-
-## reduce
-
-... tbw
+Returns a `Promise` with a snapshot of the state. A basic principle of [rxjs](https://github.com/ReactiveX/rxjs) is that 
+you should not break out of the event chain, so it is better to use the [select](#select) method. In exceptional cases, the 
+use of the `getState` method can also make sense. The `getState` method isn't used by [@harmowatch/ngx-redux-core](../../README.md)
+internally.
