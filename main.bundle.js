@@ -211,6 +211,9 @@ var ReduxReducerProvider = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_1__redux_registry__["a" /* ReduxRegistry */].registerState(provider);
             this.stateProviders[provider.name] = provider;
         }
+        else {
+            throw new Error("State \"" + provider.name + "\" is registered twice! Make sure your state name is unique!");
+        }
     };
     ReduxReducerProvider.prototype.reduce = function (rootState, action) {
         if (action.type === __WEBPACK_IMPORTED_MODULE_1__redux_registry__["a" /* ReduxRegistry */].ACTION_REGISTER_STATE) {
