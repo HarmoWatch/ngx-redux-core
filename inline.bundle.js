@@ -83,7 +83,7 @@
 /******/ 		// start chunk loading
 /******/ 		var head = document.getElementsByTagName('head')[0];
 /******/ 		var script = document.createElement('script');
-/******/ 		script.type = 'text/javascript';
+/******/ 		script.type = "text/javascript";
 /******/ 		script.charset = 'utf-8';
 /******/ 		script.async = true;
 /******/ 		script.timeout = 120000;

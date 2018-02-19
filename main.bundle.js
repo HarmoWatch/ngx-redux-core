@@ -1,11 +1,11 @@
 webpackJsonp(["main"],{
 
-/***/ "../../../../../src/$$_lazy_route_resource lazy recursive":
+/***/ "./src/$$_lazy_route_resource lazy recursive":
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"./todo/todo.module": [
-		"../../../../../src/example-app/todo/todo.module.ts",
+		"./src/example-app/todo/todo.module.ts",
 		"todo.module"
 	]
 };
@@ -20,12 +20,12 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = "../../../../../src/$$_lazy_route_resource lazy recursive";
+webpackAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ "../../../../../src/environments/environment.ts":
+/***/ "./src/environments/environment.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -41,37 +41,26 @@ var environment = {
 
 /***/ }),
 
-/***/ "../../../../../src/example-app/app.component.css":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./src/example-app/app.component.css":
+/***/ (function(module, exports) {
 
-exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/*** EXPORTS FROM exports-loader ***/
-module.exports = module.exports.toString();
+module.exports = ""
 
 /***/ }),
 
-/***/ "../../../../../src/example-app/app.component.html":
+/***/ "./src/example-app/app.component.html":
 /***/ (function(module, exports) {
 
 module.exports = "<router-outlet></router-outlet>\n"
 
 /***/ }),
 
-/***/ "../../../../../src/example-app/app.component.ts":
+/***/ "./src/example-app/app.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -86,8 +75,8 @@ var AppComponent = /** @class */ (function () {
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-root',
-            template: __webpack_require__("../../../../../src/example-app/app.component.html"),
-            styles: [__webpack_require__("../../../../../src/example-app/app.component.css")]
+            template: __webpack_require__("./src/example-app/app.component.html"),
+            styles: [__webpack_require__("./src/example-app/app.component.css")]
         })
     ], AppComponent);
     return AppComponent;
@@ -97,16 +86,16 @@ var AppComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/example-app/app.module.ts":
+/***/ "./src/example-app/app.module.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__("../../../../../src/example-app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__harmowatch_ngx_redux_core_redux_module__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/redux.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__("./node_modules/@angular/platform-browser/esm5/platform-browser.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__("./src/example-app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__harmowatch_ngx_redux_core_redux_module__ = __webpack_require__("./src/harmowatch/ngx-redux-core/redux.module.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -147,14 +136,14 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/harmowatch/ngx-redux-core/pipes/redux-select.pipe.ts":
+/***/ "./src/harmowatch/ngx-redux-core/pipes/redux-select.pipe.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxSelectPipe; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_distinctUntilChanged__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/distinctUntilChanged.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tokens_redux_state_definition_token__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/tokens/redux-state-definition.token.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_distinctUntilChanged__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/distinctUntilChanged.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tokens_redux_state_definition_token__ = __webpack_require__("./src/harmowatch/ngx-redux-core/tokens/redux-state-definition.token.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -190,13 +179,13 @@ var ReduxSelectPipe = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/harmowatch/ngx-redux-core/providers/redux-reducer.provider.ts":
+/***/ "./src/harmowatch/ngx-redux-core/providers/redux-reducer.provider.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxReducerProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_registry__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/providers/redux-registry.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__redux_registry__ = __webpack_require__("./src/harmowatch/ngx-redux-core/providers/redux-registry.ts");
 var __assign = (this && this.__assign) || Object.assign || function(t) {
     for (var s, i = 1, n = arguments.length; i < n; i++) {
         s = arguments[i];
@@ -246,19 +235,19 @@ var ReduxReducerProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/harmowatch/ngx-redux-core/providers/redux-registry.ts":
+/***/ "./src/harmowatch/ngx-redux-core/providers/redux-registry.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxRegistry; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise__ = __webpack_require__("../../../../rxjs/_esm5/add/operator/toPromise.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise__ = __webpack_require__("./node_modules/rxjs/_esm5/add/operator/toPromise.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__harmowatch_redux_decorators__ = __webpack_require__("../../../../@harmowatch/redux-decorators/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__harmowatch_redux_decorators__ = __webpack_require__("./node_modules/@harmowatch/redux-decorators/lib/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__harmowatch_redux_decorators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__harmowatch_redux_decorators__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_AsyncSubject__ = __webpack_require__("../../../../rxjs/_esm5/AsyncSubject.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tokens_redux_store_token__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/tokens/redux-store.token.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_AsyncSubject__ = __webpack_require__("./node_modules/rxjs/_esm5/AsyncSubject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Observable__ = __webpack_require__("./node_modules/rxjs/_esm5/Observable.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tokens_redux_store_token__ = __webpack_require__("./src/harmowatch/ngx-redux-core/tokens/redux-store.token.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -337,19 +326,19 @@ var ReduxRegistry = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/harmowatch/ngx-redux-core/redux.module.ts":
+/***/ "./src/harmowatch/ngx-redux-core/redux.module.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__("../../../../redux/es/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pipes_redux_select_pipe__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/pipes/redux-select.pipe.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_redux_reducer_provider__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/providers/redux-reducer.provider.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tokens_redux_state_definition_token__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/tokens/redux-state-definition.token.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_redux_registry__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/providers/redux-registry.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tokens_redux_store_token__ = __webpack_require__("../../../../../src/harmowatch/ngx-redux-core/tokens/redux-store.token.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__("./node_modules/redux/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__("./node_modules/@angular/common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pipes_redux_select_pipe__ = __webpack_require__("./src/harmowatch/ngx-redux-core/pipes/redux-select.pipe.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_redux_reducer_provider__ = __webpack_require__("./src/harmowatch/ngx-redux-core/providers/redux-reducer.provider.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tokens_redux_state_definition_token__ = __webpack_require__("./src/harmowatch/ngx-redux-core/tokens/redux-state-definition.token.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_redux_registry__ = __webpack_require__("./src/harmowatch/ngx-redux-core/providers/redux-registry.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tokens_redux_store_token__ = __webpack_require__("./src/harmowatch/ngx-redux-core/tokens/redux-store.token.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -444,12 +433,12 @@ var ReduxModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/harmowatch/ngx-redux-core/tokens/redux-state-definition.token.ts":
+/***/ "./src/harmowatch/ngx-redux-core/tokens/redux-state-definition.token.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxStateDefinitionToken; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -473,12 +462,12 @@ var ReduxStateDefinitionToken = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "../../../../../src/harmowatch/ngx-redux-core/tokens/redux-store.token.ts":
+/***/ "./src/harmowatch/ngx-redux-core/tokens/redux-store.token.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReduxStore; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -502,15 +491,15 @@ var ReduxStore = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "../../../../../src/main.ts":
+/***/ "./src/main.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__("../../../platform-browser-dynamic/esm5/platform-browser-dynamic.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__example_app_app_module__ = __webpack_require__("../../../../../src/example-app/app.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__("./node_modules/@angular/platform-browser-dynamic/esm5/platform-browser-dynamic.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__example_app_app_module__ = __webpack_require__("./src/example-app/app.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("./src/environments/environment.ts");
 
 
 
@@ -527,7 +516,7 @@ Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* pl
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("../../../../../src/main.ts");
+module.exports = __webpack_require__("./src/main.ts");
 
 
 /***/ })
