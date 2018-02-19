@@ -46,7 +46,8 @@
   "homepage": "https://github.com/HarmoWatch/ngx-redux-core#readme",
   "peerDependencies": {
     "@angular/core": ">=5.0.0",
-    "redux": ">=3.0.0"
+    "redux": ">=3.0.0",
+    "rxjs": ">=5.0.0"
   },
   "devDependencies": {
     "@angular/cli": "1.7.0",
