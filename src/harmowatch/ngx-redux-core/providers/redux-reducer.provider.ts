@@ -17,6 +17,8 @@ export class ReduxReducerProvider {
     if (!this.stateProviders[ provider.name ]) {
       ReduxRegistry.registerState(provider);
       this.stateProviders[ provider.name ] = provider;
+    } else {
+      throw new Error(`State "${provider.name}" is registered twice! Make sure your state name is unique!`);
     }
   }
 
