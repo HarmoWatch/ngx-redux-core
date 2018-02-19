@@ -52,7 +52,7 @@ The three principles of redux are:
 
 ### Installation
 
-The [redux](https://github.com/reactjs/redux) package itself is not shipped with @harmowatch/ngx-redux-core. 
+The [redux](https://github.com/reactjs/redux) package itself is not shipped with @harmowatch/ngx-redux-core.
 Therefore you also have to install the redux package:
 
 ```sh
@@ -120,10 +120,10 @@ export class YourModuleStateProvider extends ReduxStateProvider<YourModuleState>
 }
 ```
 
+> Don't forget to add the state as described in step 1
+
 You can have just one `ReduxStateProvider` per NgModule. But it's possible to have a state provider for each 
 [lazy loaded](./docs/how-to/use-lazy-loading.md) module.
-
-> Don't forget to add the state as described in step 1
 
 #### 3. Create an action dispatcher
 
@@ -148,7 +148,7 @@ export class TodoListComponent {
 }
 ```
 
-Now `@harmowatch/ngx-redux-core` will dispatch the following action, every time the `addTodo` method was called:
+Now the following action is dispatched, every time the `addTodo` method was called:
 
 ```json
 {
@@ -161,7 +161,7 @@ Now `@harmowatch/ngx-redux-core` will dispatch the following action, every time 
 
 #### 4. Create the reducer
 
-There's one more thing you need to do. You're firing an action, but at the moment no reducer is listening to it.
+There's one more thing you need to do. You dispatch an action, but at the moment no reducer is listening to it.
 In order to change this, we need to create a reducer function that can make the state change as soon as the action 
 is fired:
 
