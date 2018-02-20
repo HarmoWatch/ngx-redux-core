@@ -5,7 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { ReduxTestingStore } from '../testing/store';
 import { ReduxAction, ReduxReducer, ReduxState } from '../decorators/index';
-import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';
+import { ReduxActionWithPayload } from '../interfaces/redux-action-with-payload.interface';
 import { ReduxModule } from '../redux.module';
 import { ReduxStore } from '../tokens/redux-store.token';
 import { ReduxStateProvider } from './redux-state.provider';

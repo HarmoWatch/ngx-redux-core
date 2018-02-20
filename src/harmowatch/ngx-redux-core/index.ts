@@ -1,4 +1,4 @@
-export * from './interfaces/redux-action.interface';
+export * from './interfaces/redux-action-with-payload.interface';
 
 export * from './decorators';
 export * from './interfaces/redux-child-module-config.interface';

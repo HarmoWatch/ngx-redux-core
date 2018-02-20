@@ -2,7 +2,7 @@ import { TodoListItem } from './todo-list-item';
 import { TodoListComponent } from './todo-list.component';
 import { TodoState } from '../todo.module.state';
 import { ReduxReducer } from '../../../harmowatch/ngx-redux-core/decorators/index';
-import { ReduxActionWithPayload } from '../../../harmowatch/ngx-redux-core/interfaces/redux-action.interface';
+import { ReduxActionWithPayload } from '../../../harmowatch/ngx-redux-core/interfaces/redux-action-with-payload.interface';
 
 export class TodoListReducer {
 

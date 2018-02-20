@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ReduxStateProvider } from './redux-state.provider';
 import { IRegisterStatePayload, ReduxRegistry } from './redux-registry';
 import { ReduxRootState } from '../interfaces/redux-root-state.interface';
-import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';
+import { ReduxActionWithPayload } from '../interfaces/redux-action-with-payload.interface';
 
 
 @Injectable()

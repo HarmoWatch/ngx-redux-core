@@ -7,8 +7,8 @@ import { ReduxReducerProvider } from './providers/redux-reducer.provider';
 import { ReduxStateDefinitionToken } from './tokens/redux-state-definition.token';
 import { ReduxStateDefinition } from './interfaces/redux-state-definition.interface';
 import { ReduxRegistry } from './providers/redux-registry';
-import { ReduxModuleChildConfig } from './interfaces/redux-child-module-config.interface';
-import { ReduxModuleRootConfig } from './interfaces/redux-root-module-config.interface';
+import { ReduxChildModuleConfig } from './interfaces/redux-child-module-config.interface';
+import { ReduxRootModuleConfig } from './interfaces/redux-root-module-config.interface';
 import { ReduxStore } from './tokens/redux-store.token';
 
 @NgModule({
@@ -39,7 +39,7 @@ export class ReduxModule {
 
   }
 
-  public static forChild<S = {}>(config: ReduxModuleChildConfig<S> = {}): ModuleWithProviders {
+  public static forChild<S = {}>(config: ReduxChildModuleConfig<S> = {}): ModuleWithProviders {
     return {
       ngModule: ReduxModule,
       providers: [
@@ -48,7 +48,7 @@ export class ReduxModule {
     };
   }
 
-  public static forRoot<S = {}>(config: ReduxModuleRootConfig<S> = {}): ModuleWithProviders {
+  public static forRoot<S = {}>(config: ReduxRootModuleConfig<S> = {}): ModuleWithProviders {
     return {
       ngModule: ReduxModule,
       providers: [

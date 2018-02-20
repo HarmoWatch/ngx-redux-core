@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { Inject, Injectable } from '@angular/core';
 import { ReduxStore } from '../tokens/redux-store.token';
-import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';
+import { ReduxActionWithPayload } from '../interfaces/redux-action-with-payload.interface';
 import { ReduxStateProvider } from './redux-state.provider';
 
 export interface IRegisterStatePayload {

@@ -5,7 +5,7 @@ import { Inject, Type } from '@angular/core';
 import { ReduxActionDispatcher, ReduxReducerDecorator, ReduxStateDecorator } from '@harmowatch/redux-decorators';
 
 import { ReduxStateDefinition } from '../interfaces/redux-state-definition.interface';
-import { ReduxActionWithPayload } from '../interfaces/redux-action.interface';
+import { ReduxActionWithPayload } from '../interfaces/redux-action-with-payload.interface';
 import { ReduxStateDefinitionToken } from '../tokens/redux-state-definition.token';
 
 import { ReduxSelector } from '../redux-selector';

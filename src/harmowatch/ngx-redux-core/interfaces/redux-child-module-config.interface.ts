@@ -1,5 +1,5 @@
 import { ReduxStateDefinition } from './redux-state-definition.interface';
 
-export interface ReduxModuleChildConfig<S = {}> {
+export interface ReduxChildModuleConfig<S = {}> {
   state?: ReduxStateDefinition<S>;
 }

@@ -1,7 +1,7 @@
 import { ReduxReducer } from '../../../harmowatch/ngx-redux-core/decorators/index';
 import { VehicleActions } from '../vehicle.actions.provider';
 import { VehicleState } from '../vehicle.state.provider';
-import { ReduxActionWithPayload } from '../../../harmowatch/ngx-redux-core/interfaces/redux-action.interface';
+import { ReduxActionWithPayload } from '../../../harmowatch/ngx-redux-core/interfaces/redux-action-with-payload.interface';
 import { getActionType } from '../../../harmowatch/ngx-redux-core/index';
 import { BikeActionsProvider } from './bike.actions.provider';
 

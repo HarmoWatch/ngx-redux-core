@@ -1,6 +1,6 @@
 import { Store } from 'redux';
-import { ReduxModuleChildConfig } from './redux-child-module-config.interface';
+import { ReduxChildModuleConfig } from './redux-child-module-config.interface';
 
-export interface ReduxModuleRootConfig<S> extends ReduxModuleChildConfig<S> {
+export interface ReduxRootModuleConfig<S> extends ReduxChildModuleConfig<S> {
   storeFactory?(): Store<{}>;
 }
