@@ -76,9 +76,10 @@ export class YourModuleStateProvider extends ReduxStateProvider<YourModuleState>
 
 ### select
 
-This method is used by the [reduxSelect](../pipes/redux-select.md) pipe and the [@ReduxSelect](../decorators/redux-select.md) 
-decorator to resolve the state. The `ReduxStateProvider`'s implementation caches the `select` calls, and returns the same 
-instance of a [ReduxSelector](../api/redux-selector.md) for the same selector string. You can overwrite this method to
+This method is used by the [reduxSelect](../articles/select-pattern.md#the-reduxselect-pipe) pipe and the
+[@ReduxSelect](../articles/select-pattern.md#the-reduxselect-decorator) decorator to resolve the state. 
+The `ReduxStateProvider`'s implementation caches the `select` calls, and returns the same instance of a 
+[ReduxSelector](../articles/select-pattern.md) for the same selector string. You can overwrite this method to
 implement some custom `select` behavior.
 
 ### reduce

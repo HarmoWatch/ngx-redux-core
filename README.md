@@ -15,7 +15,7 @@ This package contains a number of features that makes working with redux easy. F
 you can decorate a method with [@ReduxAction](./docs/decorators/redux-action.md). This method then 
 sends a redux action every time it's been called. In addition to [@ReduxAction](./docs/decorators/redux-action.md) 
 there are some more decorators available like [@ReduxActionContext](docs/decorators/redux-action-context.md), 
-[@ReduxReducer](./docs/decorators/redux-reducer.md), [@ReduxSelect](./docs/decorators/redux-select.md) and
+[@ReduxReducer](./docs/decorators/redux-reducer.md), [@ReduxSelect](./docs/articles/select-pattern.md#the-reduxselect-decorator) and
 [@ReduxState](./docs/decorators/redux-state.md). But that's not all! By using this package, you can also access 
 your redux state directly from your view.
 
@@ -187,11 +187,11 @@ export class TodoListReducer {
 
 > Don't forget to add the state as described in step 1
 
-### 5. Display the todo items in the view
+### 5. Select values from the state
 
-To display the todo items you just can use the [reduxSelect](./docs/pipes/redux-select.md) pipe.
-Alternatively, you can also use the [@ReduxSelect](./docs/decorators/redux-select.md) decorator,
-the [ReduxSelector](./docs/api/redux-selector.md), or your [ReduxStateProvider](./docs/api/redux-state-provider.md)'s `select` method.
+To select a state value, you just can use the [reduxSelect](./docs/pipes/redux-select.md) pipe.
+But you've several options to select a state value. Please check out the 
+[Select Pattern](./docs/articles/select-pattern.md) article for more information.
 
 ```angular2html
 <ul>

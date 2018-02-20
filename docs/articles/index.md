@@ -1,5 +1,5 @@
 ###### [@harmowatch/ngx-redux-core](../../README.md) / [docs](../index.md)
  
-# API
+# Articles
 
-- [ReduxStateProvider](./redux-state-provider.md)
+- [Select Pattern](./select-pattern.md)
