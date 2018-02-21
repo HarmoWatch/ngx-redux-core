@@ -9380,12 +9380,12 @@ module.exports = "<div class=\"row\">\n  <div class=\"col-7\">\n    <div class=\
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TodoListComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__ = __webpack_require__("./node_modules/rxjs/_esm5/Observable.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid__ = __webpack_require__("./node_modules/uuid/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_uuid__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__todo_module_state_provider__ = __webpack_require__("./src/example-app/todo/todo.module.state.provider.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__harmowatch_ngx_redux_core_decorators_index__ = __webpack_require__("./src/harmowatch/ngx-redux-core/decorators/index.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__harmowatch_ngx_redux_core_decorators_redux_select_decorator__ = __webpack_require__("./src/harmowatch/ngx-redux-core/decorators/redux-select.decorator.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_uuid__ = __webpack_require__("./node_modules/uuid/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_uuid__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__todo_module_state_provider__ = __webpack_require__("./src/example-app/todo/todo.module.state.provider.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__harmowatch_ngx_redux_core_decorators_index__ = __webpack_require__("./src/harmowatch/ngx-redux-core/decorators/index.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__harmowatch_ngx_redux_core_decorators_redux_select_decorator__ = __webpack_require__("./src/harmowatch/ngx-redux-core/decorators/redux-select.decorator.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__harmowatch_ngx_redux_core_redux_selector__ = __webpack_require__("./src/harmowatch/ngx-redux-core/redux-selector.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9406,7 +9406,7 @@ var TodoListComponent = /** @class */ (function () {
     }
     TodoListComponent.prototype.add = function (label) {
         return {
-            uuid: Object(__WEBPACK_IMPORTED_MODULE_2_uuid__["v4"])(),
+            uuid: Object(__WEBPACK_IMPORTED_MODULE_1_uuid__["v4"])(),
             label: label,
             creationDate: new Date().toISOString(),
         };
@@ -9415,17 +9415,17 @@ var TodoListComponent = /** @class */ (function () {
         return todo;
     };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_5__harmowatch_ngx_redux_core_decorators_redux_select_decorator__["a" /* ReduxSelect */])('', __WEBPACK_IMPORTED_MODULE_3__todo_module_state_provider__["a" /* TodoModuleStateProvider */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_rxjs_Observable__["Observable"])
+        Object(__WEBPACK_IMPORTED_MODULE_4__harmowatch_ngx_redux_core_decorators_redux_select_decorator__["a" /* ReduxSelect */])('', __WEBPACK_IMPORTED_MODULE_2__todo_module_state_provider__["a" /* TodoModuleStateProvider */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_5__harmowatch_ngx_redux_core_redux_selector__["a" /* ReduxSelector */])
     ], TodoListComponent.prototype, "state", void 0);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_4__harmowatch_ngx_redux_core_decorators_index__["a" /* ReduxAction */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_3__harmowatch_ngx_redux_core_decorators_index__["a" /* ReduxAction */])(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [String]),
         __metadata("design:returntype", Object)
     ], TodoListComponent.prototype, "add", null);
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_4__harmowatch_ngx_redux_core_decorators_index__["a" /* ReduxAction */])(),
+        Object(__WEBPACK_IMPORTED_MODULE_3__harmowatch_ngx_redux_core_decorators_index__["a" /* ReduxAction */])(),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
@@ -9434,7 +9434,7 @@ var TodoListComponent = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             template: __webpack_require__("./src/example-app/todo/list/todo-list.component.html"),
         }),
-        Object(__WEBPACK_IMPORTED_MODULE_4__harmowatch_ngx_redux_core_decorators_index__["b" /* ReduxActionContext */])({ prefix: 'TodoListComponent://' })
+        Object(__WEBPACK_IMPORTED_MODULE_3__harmowatch_ngx_redux_core_decorators_index__["b" /* ReduxActionContext */])({ prefix: 'TodoListComponent://' })
     ], TodoListComponent);
     return TodoListComponent;
 }());
