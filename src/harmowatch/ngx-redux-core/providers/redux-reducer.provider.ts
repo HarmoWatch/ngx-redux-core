@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
+import { Reducer } from 'redux';
 import { ReduxStateProvider } from './redux-state.provider';
 import { IRegisterStatePayload, ReduxRegistry } from './redux-registry';
 import { ReduxRootState } from '../interfaces/redux-root-state.interface';
 import { ReduxActionWithPayload } from '../interfaces/redux-action-with-payload.interface';
-
 
 @Injectable()
 export class ReduxReducerProvider {
@@ -12,6 +12,10 @@ export class ReduxReducerProvider {
   private stateProviders: {
     [name: string]: ReduxStateProvider,
   } = {};
+
+  public get rootReducer(): Reducer<ReduxRootState> {
+    return this.reduce.bind(this);
+  }
 
   public addStateProvider(provider: ReduxStateProvider) {
     if (!this.stateProviders[ provider.name ]) {

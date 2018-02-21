@@ -25,7 +25,7 @@ import { ReduxStore } from './tokens/redux-store.token';
 export class ReduxModule {
 
   constructor(injector: Injector,
-              reducer: ReduxReducerProvider,
+              reducerProvider: ReduxReducerProvider,
               @Optional() @Inject(ReduxStateDefinitionToken) stateDefs: ReduxStateDefinition[] = []) {
 
     injector.get(ReduxRegistry); // just make sure the provider is instantiated
@@ -34,7 +34,7 @@ export class ReduxModule {
       stateDefs
         .filter(def => def && def.provider)
         .map(def => injector.get(def.provider))
-        .forEach(provider => reducer.addStateProvider(provider));
+        .forEach(provider => reducerProvider.addStateProvider(provider));
     }
 
   }
@@ -64,9 +64,9 @@ export class ReduxModule {
     };
   }
 
-  public static defaultStoreFactory(reducer: ReduxReducerProvider, devMode = isDevMode()): Store<{}> {
+  public static defaultStoreFactory(reduxReducerProvider: ReduxReducerProvider, devMode = isDevMode()): Store<{}> {
     return createStore(
-      reducer.reduce.bind(reducer),
+      reduxReducerProvider.rootReducer,
       {},
       ReduxModule.defaultEnhancerFactory(devMode),
     );
