@@ -46,3 +46,11 @@ export class AppModule {
 ```
 
 For more information, how to create a store, please see the [redux docs](https://redux.js.org/api-reference/createstore).
+
+----
+
+To use this *new feature* you've to install the **next** version (>= 0.2.3-0).
+
+```
+$ npm install @harmowatch/ngx-redux-core@next
+```
