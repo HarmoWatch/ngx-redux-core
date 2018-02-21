@@ -206,6 +206,13 @@ var ReduxReducerProvider = /** @class */ (function () {
     function ReduxReducerProvider() {
         this.stateProviders = {};
     }
+    Object.defineProperty(ReduxReducerProvider.prototype, "rootReducer", {
+        get: function () {
+            return this.reduce.bind(this);
+        },
+        enumerable: true,
+        configurable: true
+    });
     ReduxReducerProvider.prototype.addStateProvider = function (provider) {
         if (!this.stateProviders[provider.name]) {
             __WEBPACK_IMPORTED_MODULE_1__redux_registry__["a" /* ReduxRegistry */].registerState(provider);
@@ -363,14 +370,14 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 
 var ReduxModule = /** @class */ (function () {
-    function ReduxModule(injector, reducer, stateDefs) {
+    function ReduxModule(injector, reducerProvider, stateDefs) {
         if (stateDefs === void 0) { stateDefs = []; }
         injector.get(__WEBPACK_IMPORTED_MODULE_6__providers_redux_registry__["a" /* ReduxRegistry */]); // just make sure the provider is instantiated
         if (Array.isArray(stateDefs)) {
             stateDefs
                 .filter(function (def) { return def && def.provider; })
                 .map(function (def) { return injector.get(def.provider); })
-                .forEach(function (provider) { return reducer.addStateProvider(provider); });
+                .forEach(function (provider) { return reducerProvider.addStateProvider(provider); });
         }
     }
     ReduxModule_1 = ReduxModule;
@@ -399,9 +406,9 @@ var ReduxModule = /** @class */ (function () {
             ],
         };
     };
-    ReduxModule.defaultStoreFactory = function (reducer, devMode) {
+    ReduxModule.defaultStoreFactory = function (reduxReducerProvider, devMode) {
         if (devMode === void 0) { devMode = Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_16" /* isDevMode */])(); }
-        return Object(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* createStore */])(reducer.reduce.bind(reducer), {}, ReduxModule_1.defaultEnhancerFactory(devMode));
+        return Object(__WEBPACK_IMPORTED_MODULE_0_redux__["a" /* createStore */])(reduxReducerProvider.rootReducer, {}, ReduxModule_1.defaultEnhancerFactory(devMode));
     };
     ReduxModule.defaultEnhancerFactory = function (devMode) {
         if (window['__REDUX_DEVTOOLS_EXTENSION__'] && devMode) {
