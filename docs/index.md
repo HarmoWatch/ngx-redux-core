@@ -20,4 +20,5 @@
 
 - [How to](./how-to/index.md)
   - [Create an actions provider](./how-to/create-an-actions-provider.md)
+  - [Provide your own store](./how-to/provide-your-own-store.md)
   - [Use lazy loading](./how-to/use-lazy-loading.md)
