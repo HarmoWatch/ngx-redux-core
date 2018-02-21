@@ -9,21 +9,22 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/24a417a5e870fbe5e94e/maintainability)](https://codeclimate.com/github/HarmoWatch/ngx-redux-core/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/24a417a5e870fbe5e94e/test_coverage)](https://codeclimate.com/github/HarmoWatch/ngx-redux-core/test_coverage)
 
-## The modern redux integration for Angular 2+
+## The modern [Redux](http://redux.js.org/) integration for [Angular](https://angular.io/) 2+
 
-This package contains a number of features that makes working with redux easy. For example, 
-you can decorate a method with [@ReduxAction](./docs/decorators/redux-action.md). This method then 
-sends a redux action every time it's been called. In addition to [@ReduxAction](./docs/decorators/redux-action.md) 
-there are some more decorators available like [@ReduxActionContext](docs/decorators/redux-action-context.md), 
-[@ReduxReducer](./docs/decorators/redux-reducer.md), [@ReduxSelect](./docs/articles/select-pattern.md#the-reduxselect-decorator) and
+This package contains a number of features that makes working with [Angular](https://angular.io/) and
+[Redux](http://redux.js.org/) very easy. For example, you can decorate a method with 
+[@ReduxAction](./docs/decorators/redux-action.md). This method then sends a redux action every time it's been called. 
+In addition to [@ReduxAction](./docs/decorators/redux-action.md) there are some more decorators available like
+[@ReduxActionContext](docs/decorators/redux-action-context.md), [@ReduxReducer](./docs/decorators/redux-reducer.md),
+[@ReduxSelect](./docs/articles/select-pattern.md#the-reduxselect-decorator) and 
 [@ReduxState](./docs/decorators/redux-state.md). But that's not all! By using this package, you can also access 
 your redux state directly from your view.
 
 ```angular2html
 <pre>{{ 'some/state/path' | reduxSelect | async | json }}</pre>
 ```
-Another big advantage of this package is the TypeScript support. You'll get a compiler error if the payload 
-of the redux action is not compatible with the reducer function.
+Another big advantage of this package is the [TypeScript](https://www.typescriptlang.org/) support. 
+You'll get a compiler error if the payload of the redux action is not compatible with the reducer function.
 
 ![TypeScript support](./docs/ts-support.gif "TypeScript support")
 
