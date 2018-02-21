@@ -11,25 +11,52 @@
 
 ## The modern [Redux](http://redux.js.org/) integration for [Angular](https://angular.io/) 2+
 
-This package contains a number of features that makes working with [Angular](https://angular.io/) and
-[Redux](http://redux.js.org/) very easy. For example, you can decorate a method with 
-[@ReduxAction](./docs/decorators/redux-action.md). This method then sends a redux action every time it's been called. 
-In addition to [@ReduxAction](./docs/decorators/redux-action.md) there are some more decorators available like
-[@ReduxActionContext](docs/decorators/redux-action-context.md), [@ReduxReducer](./docs/decorators/redux-reducer.md),
-[@ReduxSelect](./docs/articles/select-pattern.md#the-reduxselect-decorator) and 
-[@ReduxState](./docs/decorators/redux-state.md). But that's not all! By using this package, you can also access 
-your redux state directly from your view.
+This package contains a number of features that makes working with [Angular](https://angular.io/) and [Redux](http://redux.js.org/) 
+very easy and comfortable. This is achieved using [decorators](./docs/decorators/index.md). For example, you can decorate any class 
+method with [@ReduxAction](./docs/decorators/redux-action.md). Every time the method is called it will dispatch a redux action.
+
+### Main Features
+
+#### TypeScript support
+
+One big advantage of this package is the [TypeScript](https://www.typescriptlang.org/) support for reducer functions. 
+By using this package, you'll get a compiler error, if the payload of the redux action is not compatible with the reducer.
+
+![TypeScript support](./docs/ts-support.gif "TypeScript support")
+
+#### Reduced boilerplate 
+
+The decorators will save you a lot of boilerplate code, so for example you don't have to call an extra
+service to dispatch the redux action anymore. Also the annoying switch-cases on the action-types are replaced by the 
+[@ReduxReducer](./docs/decorators/redux-reducer.md) decorator:
+
+![No switch case](./docs/reducer-switch-case.gif "No switch case")
+
+#### Refactoring support
+
+Refactoring is improved as well, since you refer directly to the action method and not to a string.
+Therefore, your IDE can also modify your reducer, when the action method was renamed.
+
+#### The Select Pattern
+
+The [Select Pattern](./docs/articles/select-pattern.md) gives you a powerful tool-set at your hand, to select slices of your state.
+The easiest way to access a state value is the [reduxSelect pipe](./docs/articles/select-pattern.md#the-reduxselect-decorator):
 
 ```angular2html
 <pre>{{ 'some/state/path' | reduxSelect | async | json }}</pre>
 ```
-Another big advantage of this package is the [TypeScript](https://www.typescriptlang.org/) support. 
-You'll get a compiler error if the payload of the redux action is not compatible with the reducer function.
 
-![TypeScript support](./docs/ts-support.gif "TypeScript support")
+#### Lazy Loaded Modules
 
-Of course, this package works with [RxJS](https://github.com/ReactiveX/rxjs) 
-and the [AOT Compiler](https://angular.io/guide/aot-compiler).
+[Lazy Loaded Modules](./docs/how-to/use-lazy-loading.md) are also supported.
+So you can only initialize the reducer and the state when the respective NgModule is loaded.
+
+#### Redux DevTools Extension support
+
+The [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension) is fully supported and automatically
+enabled if your Angular app is running [in dev mode](https://angular.io/api/core/isDevMode).
+
+----
 
 ### What is Redux?
 
@@ -39,19 +66,6 @@ The three principles of redux are:
 - [Single source of truth](http://redux.js.org/docs/introduction/ThreePrinciples.html#single-source-of-truth)
 - [State is read-only](http://redux.js.org/docs/introduction/ThreePrinciples.html#state-is-read-only)
 - [Changes are made with pure functions](http://redux.js.org/docs/introduction/ThreePrinciples.html#changes-are-made-with-pure-functions)
-
-### Why @harmowatch/ngx-redux-core?
-
-- [x] Better TypeScript support for [redux reducers](./docs/decorators/redux-reducer.md)
-- [x] All your [redux actions](./docs/decorators/redux-action.md) are strongly typed by default
-- [x] You don't need to define constants and switch statements for your action names
-- [x] Easy refactoring of [redux actions](./docs/decorators/redux-action.md)
-- [x] Reduced boilerplate trough [decorators](./docs/decorators/index.md)
-- [x] Support for [lazy loaded modules](./docs/how-to/use-lazy-loading.md)
-- [x] A [Angular Pipe](https://angular.io/guide/pipes) to select state values
-- [x] Easy to test - *docs are work in progress*
-- [x] Easy to learn
-- [x] [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension) is enabled automatically [in dev mode](https://angular.io/api/core/isDevMode)
 
 ### Installation
 
@@ -188,7 +202,7 @@ export class TodoListReducer {
 
 > Don't forget to add the state as described in step 1
 
-### 5. Select values from the state
+#### 5. Select values from the state
 
 To select a state value, you just can use the [reduxSelect](./docs/pipes/redux-select.md) pipe.
 But you've several options to select a state value. Please check out the 
