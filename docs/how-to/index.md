@@ -5,3 +5,4 @@
 - [Create an actions provider](./create-an-actions-provider.md)
 - [Provide your own store](./provide-your-own-store.md)
 - [Use lazy loading](./use-lazy-loading.md)
+- [Use with unit-testing](./use-with-unit-testing.md)
