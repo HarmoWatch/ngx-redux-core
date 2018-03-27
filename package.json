@@ -14,6 +14,9 @@
     "publish:package:next": "npm run build:package && npm publish ./dist/ --access=public --registry https://registry.npmjs.org/ --tag next"
   },
   "ngPackage": {
+    "whitelistedNonPeerDependencies": [
+      "@harmowatch/redux-decorators"
+    ],
     "lib": {
       "entryFile": "src/harmowatch/ngx-redux-core/index.ts",
       "languageLevel": [
