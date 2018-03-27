@@ -9742,7 +9742,7 @@ var ReduxStateProvider = /** @class */ (function () {
                 type: __WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__["ReduxReducerDecorator"].get(method),
             };
         })
-            .filter(function (type) { return type != null; })
+            .filter(function (reducer) { return reducer && reducer.type; })
             // convert array of types to multiple method entries
             .reduce(function (all, curr) { return all.concat([].concat(curr.type).map(function (type) { return (__assign({}, curr, { type: type })); })); }, []);
     };
