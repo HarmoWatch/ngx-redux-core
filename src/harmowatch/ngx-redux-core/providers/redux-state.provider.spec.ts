@@ -155,6 +155,11 @@ describe('ReduxStateProvider', () => {
         return TestReducer.spy('clearFoo', state, action);
       }
 
+      // it shall not throw an exception for the undecorated method
+      private foo() {
+
+      }
+
     }
 
     class SomeOtherReducer {
@@ -173,6 +178,11 @@ describe('ReduxStateProvider', () => {
       @ReduxReducer([ TestActions.prototype.setFoo, 'some-other-event' ])
       public setFoo(state: {}, action: ReduxActionWithPayload<string>): {} {
         return SomeOtherReducer.spy('setFoo', state, action);
+      }
+
+      // it shall not throw an exception for the undecorated method
+      public foo() {
+
       }
 
     }

@@ -91,7 +91,7 @@ export abstract class ReduxStateProvider<S = {}> {
           type: ReduxReducerDecorator.get(method),
         };
       })
-      .filter(type => type != null)
+      .filter(reducer => reducer && reducer.type)
       // convert array of types to multiple method entries
       .reduce((all, curr) => all.concat([].concat(curr.type).map(type => ({...curr, type}))), []);
   }
