@@ -9704,6 +9704,7 @@ var ReduxStateProvider = /** @class */ (function () {
         this.reducerMethodsByType = (this.stateDef.reducers || [])
             .map(function (clazz) { return _this.getReducerMethods(new clazz()); })
             .reduce(function (all, curr) { return [].concat(curr, all); }, []) // [].concat keeps the order, all.concat(curr) destroys the order
+            // .reduce((all, curr) => [curr, ...all], []) // [].concat keeps the order, all.concat(curr) destroys the order
             .reduce(function (methodsByType, reducer) {
             var type = __WEBPACK_IMPORTED_MODULE_2__harmowatch_redux_decorators__["ReduxActionDispatcher"].getType(reducer.type);
             return __assign({}, methodsByType, (_a = {}, _a[type] = [reducer.method].concat(methodsByType[type] || []), _a));
@@ -9742,6 +9743,7 @@ var ReduxStateProvider = /** @class */ (function () {
             };
         })
             .filter(function (type) { return type != null; })
+            // convert array of types to multiple method entries
             .reduce(function (all, curr) { return all.concat([].concat(curr.type).map(function (type) { return (__assign({}, curr, { type: type })); })); }, []);
     };
     ReduxStateProvider.instancesByName = {};
