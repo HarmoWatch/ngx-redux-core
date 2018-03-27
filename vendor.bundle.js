@@ -79077,10 +79077,13 @@ var Subscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
                     break;
                 }
                 if (typeof destinationOrNext === 'object') {
-                    if (destinationOrNext instanceof Subscriber) {
-                        this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
-                        this.destination = destinationOrNext;
-                        this.destination.add(this);
+                    // HACK(benlesh): To resolve an issue where Node users may have multiple
+                    // copies of rxjs in their node_modules directory.
+                    if (isTrustedSubscriber(destinationOrNext)) {
+                        var trustedSubscriber = destinationOrNext[__WEBPACK_IMPORTED_MODULE_3__symbol_rxSubscriber__["a" /* rxSubscriber */]]();
+                        this.syncErrorThrowable = trustedSubscriber.syncErrorThrowable;
+                        this.destination = trustedSubscriber;
+                        trustedSubscriber.add(this);
                     }
                     else {
                         this.syncErrorThrowable = true;
@@ -79294,6 +79297,9 @@ var SafeSubscriber = /*@__PURE__*/ (/*@__PURE__*/ function (_super) {
     };
     return SafeSubscriber;
 }(Subscriber));
+function isTrustedSubscriber(obj) {
+    return obj instanceof Subscriber || ('syncErrorThrowable' in obj && obj[__WEBPACK_IMPORTED_MODULE_3__symbol_rxSubscriber__["a" /* rxSubscriber */]]);
+}
 //# sourceMappingURL=Subscriber.js.map
 
 
