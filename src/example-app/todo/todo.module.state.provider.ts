@@ -8,11 +8,14 @@ import { Observable } from 'rxjs/Observable';
 @ReduxState({name: 'todo'})
 export class TodoModuleStateProvider extends ReduxStateProvider<TodoState> {
 
+  public static readonly DEFAULT_STATE: TodoState = {
+    items: []
+  };
+
   getInitialState(): Promise<TodoState> {
-    return Promise.resolve({
-      items: []
-    });
+    return Promise.resolve(TodoModuleStateProvider.DEFAULT_STATE);
   }
+
 
   select<T>(selector: string = ''): Observable<T> {
 
