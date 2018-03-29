@@ -9,7 +9,7 @@
     "start": "ng serve",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "build:package": "ng-packagr -p package.json && npm run build:karma-plugin",
-    "build:karma-plugin": "webpack --config src/plugins/karma/webpack.config.js",
+    "build:karma-plugin": "webpack --config src/plugins/karma/webpack.config.js && echo \"import './plugins/karma/index';\" >> ./dist/index.d.ts",
     "publish:package": "npm run build:package && npm publish ./dist/ --access=public --registry https://registry.npmjs.org/",
     "publish:package:next": "npm run build:package && npm publish ./dist/ --access=public --registry https://registry.npmjs.org/ --tag next"
   },
