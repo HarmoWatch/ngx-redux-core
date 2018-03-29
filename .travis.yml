@@ -19,19 +19,9 @@ script:
   - npm run lint
   - npm run test
   - npm run build:package
-  - npm run build:github-page
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 addons:
   chrome: stable
-
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
-  keep-history: true
-  local-dir: "github-page"
-  on:
-    branch: master
