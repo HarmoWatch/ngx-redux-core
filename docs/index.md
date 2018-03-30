@@ -1,23 +1,20 @@
 ###### [@harmowatch/ngx-redux-core](../README.md)
 
-# Docs (work in progress)
+# Docs
 
 - [Articles](./articles/index.md)
   - [The Select Pattern](./articles/select-pattern.md)
-
+  - [Testing Guide](./articles/testing-guide.md)
 - [Decorators](./decorators/index.md)
   - [@ReduxAction](./decorators/redux-action.md)
   - [@ReduxActionContext](./decorators/redux-action-context.md)
   - [@ReduxReducer](./decorators/redux-reducer.md)
   - [@ReduxSelect](./articles/select-pattern.md#the-reduxselect-decorator)
   - [@ReduxState](./decorators/redux-state.md)
-  
 - [Pipes](./pipes/index.md)
   - [reduxSelect](./pipes/redux-select.md)  
-  
 - [API](./api/index.md)  
   - [ReduxStateProvider](./api/redux-state-provider.md)  
-
 - [How to](./how-to/index.md)
   - [Create an actions provider](./how-to/create-an-actions-provider.md)
   - [Provide your own store](./how-to/provide-your-own-store.md)

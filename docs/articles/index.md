@@ -3,3 +3,4 @@
 # Articles
 
 - [Select Pattern](./select-pattern.md)
+- [Testing Guide](./testing-guide.md)
