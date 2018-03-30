@@ -1,13 +1,13 @@
 declare module jasmine {
+
   interface Matchers<T> {
 
-    doesNotTouchTheGivenState: <T>(config: {state: {}, action: {type?: string, payload?: T}}) => void;
+    // reducer matchers
+    toReduceOn: (...any) => void;
+    notToMutateTheGivenState: <T>(state: {}, action?: { type?: string, payload?: T }) => void;
 
-    toDispatchSomeAction: <T>() => void;
+    // action matchers
     toDispatchAction: <T>(action?: string) => void;
-
-    toListenForAction: (action: Function | string) => void;
-    toListenForActions: (action: [Function | string]) => void;
 
   }
 }

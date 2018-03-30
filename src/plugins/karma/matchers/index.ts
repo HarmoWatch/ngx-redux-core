@@ -1,20 +1,13 @@
+import { notToMutateTheGivenState } from './not-to-mutate-the-given-state';
 import { toDispatchAction } from './to-dispatch-action';
-import { toDispatchSomeAction } from './to-dispatch-some-action';
-import { doesNotTouchTheGivenState } from './does-not-touch-the-given-state';
-import { toListenForActions } from './to-listen-for-actions';
+import { toReduceOn } from './to-reduce-on';
 
 beforeEach(function () {
+
   jasmine.addMatchers({
-    doesNotTouchTheGivenState,
-
+    notToMutateTheGivenState,
     toDispatchAction,
-    toDispatchSomeAction,
-
-    toListenForActions,
-    toListenForAction: util => {
-      return {
-        compare: (actual, expected) => toListenForActions(util).compare(actual, [ expected ]),
-      };
-    },
+    toReduceOn,
   });
+
 });
