@@ -91,7 +91,7 @@
     "tslint": "5.9.1",
     "typescript": "2.8.1",
     "uuid": "3.2.1",
-    "zone.js": "0.8.23"
+    "zone.js": "0.8.24"
   },
   "dependencies": {
     "@harmowatch/redux-decorators": "0.1.0"
