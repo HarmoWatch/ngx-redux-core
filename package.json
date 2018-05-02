@@ -73,7 +73,7 @@
     "codelyzer": "4.3.0",
     "copy-webpack-plugin": "4.5.1",
     "core-js": "2.5.5",
-    "coveralls": "3.0.0",
+    "coveralls": "3.0.1",
     "jasmine-core": "2.99.1",
     "jasmine-spec-reporter": "4.2.1",
     "karma": "2.0.2",
