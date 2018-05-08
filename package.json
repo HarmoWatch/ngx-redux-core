@@ -82,7 +82,7 @@
     "karma-coverage-istanbul-reporter": "1.4.2",
     "karma-jasmine": "1.1.2",
     "karma-jasmine-html-reporter": "0.2.2",
-    "ng-packagr": "2.4.2",
+    "ng-packagr": "2.4.3",
     "protractor": "5.3.1",
     "redux": "4.0.0",
     "redux-logger": "3.0.6",
