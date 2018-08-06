@@ -1,6 +1,4 @@
-import 'rxjs/add/operator/distinctUntilChanged';
-
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Inject, Injector, Pipe, PipeTransform } from '@angular/core';
 
 import { ReduxStateProvider } from '../providers/redux-state.provider';

@@ -2,7 +2,7 @@ import { TodoState } from './todo.module.state';
 import { ReduxState } from '../../harmowatch/ngx-redux-core/decorators/index';
 import { ReduxStateProvider } from '../../harmowatch/ngx-redux-core/providers/redux-state.provider';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Injectable()
 @ReduxState({name: 'todo'})

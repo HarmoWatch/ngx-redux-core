@@ -1,6 +1,5 @@
-import 'rxjs/add/operator/distinctUntilChanged';
-
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
 import { Inject, Type } from '@angular/core';
 import { ReduxActionDispatcher, ReduxReducerDecorator, ReduxStateDecorator } from '@harmowatch/redux-decorators';
 
@@ -66,7 +65,7 @@ export abstract class ReduxStateProvider<S = {}> {
     selector = ReduxSelector.normalize(selector, stateType);
 
     if (!this.selectorCache[ selector ]) {
-      this.selectorCache[ selector ] = new ReduxSelector<T>(selector, stateType).distinctUntilChanged();
+      this.selectorCache[ selector ] = new ReduxSelector<T>(selector, stateType).pipe(distinctUntilChanged());
     }
 
     return this.selectorCache[ selector ] as ReduxSelector<T>;

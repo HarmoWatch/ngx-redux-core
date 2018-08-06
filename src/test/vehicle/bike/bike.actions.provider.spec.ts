@@ -1,4 +1,4 @@
-import 'rxjs/add/operator/take';
+import {take} from 'rxjs/operators';
 
 import { describeIntegrationTest } from '../../test-bed.spec';
 import { TestBed } from '@angular/core/testing';
@@ -23,7 +23,7 @@ describeIntegrationTest('BikeActions', () => {
   it('calls "addLicensePlateSuccess" after the state was reduced', done => {
     const licensePlate = 'IK-184n2-43';
 
-    BikeActionsProvider.addLicensePlateSuccessEmitter.take(1).subscribe(() => {
+    BikeActionsProvider.addLicensePlateSuccessEmitter.pipe(take(1)).subscribe(() => {
       vehicleStateProvider.getState().then(state => {
         expect(state.bike.licensePlates).toEqual([ licensePlate ]);
         done();

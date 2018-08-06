@@ -1,8 +1,6 @@
-import 'rxjs/add/operator/takeWhile';
-import 'rxjs/add/operator/toPromise';
-
 import { Action, Store, Unsubscribe } from 'redux';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
+import { takeWhile } from 'rxjs/operators';
 import { Injectable, Type } from '@angular/core';
 import { ReduxRootState } from '../interfaces/redux-root-state.interface';
 import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
@@ -27,7 +25,7 @@ export class ReduxTestingStore implements Store<{}> {
     this.state.next(nextState);
 
     return this.state
-      .takeWhile(currentState => currentState !== nextState)
+      .pipe(takeWhile(currentState => currentState !== nextState))
       .toPromise().then(() => this.state.getValue());
   }
 

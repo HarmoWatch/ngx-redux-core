@@ -1,10 +1,7 @@
-import 'rxjs/add/operator/toPromise';
-
 import { ReduxActionDispatcher, ReduxStateDecorator } from '@harmowatch/redux-decorators';
 
 import { Store } from 'redux';
-import { AsyncSubject } from 'rxjs/AsyncSubject';
-import { Observable } from 'rxjs/Observable';
+import { AsyncSubject, Observable } from 'rxjs';
 
 import { Inject, Injectable } from '@angular/core';
 import { ReduxStore } from '../tokens/redux-store.token';

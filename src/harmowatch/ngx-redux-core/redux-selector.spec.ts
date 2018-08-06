@@ -1,6 +1,6 @@
 import { async, TestBed } from '@angular/core/testing';
 import { ReduxRegistry } from './providers/redux-registry';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ReduxSelector } from './redux-selector';
 import { TestingState, TestingStateProvider } from './testing/state';
 import { ReduxTestingStore } from './testing/store';

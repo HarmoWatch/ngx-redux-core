@@ -1,7 +1,5 @@
-import 'rxjs/add/operator/map';
-
 import { Type } from '@angular/core';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { ReplaySubject } from 'rxjs';
 import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
 
 import { ReduxRegistry } from './providers/redux-registry';

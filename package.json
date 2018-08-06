@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "ng lint",
-    "test": "ng test --code-coverage --single-run && npm run coveralls",
+    "test": "ng test --code-coverage && npm run coveralls",
     "start": "ng serve",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "build:package": "ng-packagr -p package.json && npm run build:karma-plugin",
@@ -48,22 +48,23 @@
   },
   "homepage": "https://github.com/HarmoWatch/ngx-redux-core#readme",
   "peerDependencies": {
-    "@angular/core": ">=5.0.0",
+    "@angular/core": "6.x",
     "redux": ">=3.0.0",
-    "rxjs": ">=5.0.0"
+    "rxjs": "6.x"
   },
   "devDependencies": {
-    "@angular/cli": "1.7.4",
-    "@angular/common": "5.2.10",
-    "@angular/compiler": "5.2.10",
-    "@angular/compiler-cli": "5.2.10",
-    "@angular/core": "5.2.10",
-    "@angular/forms": "5.2.10",
-    "@angular/http": "5.2.10",
-    "@angular/language-service": "5.2.10",
-    "@angular/platform-browser": "5.2.10",
-    "@angular/platform-browser-dynamic": "5.2.10",
-    "@angular/router": "5.2.10",
+    "@angular-devkit/build-angular": "~0.7.0",
+    "@angular/cli": "6.1.2",
+    "@angular/common": "6.1.1",
+    "@angular/compiler": "6.1.1",
+    "@angular/compiler-cli": "6.1.1",
+    "@angular/core": "6.1.1",
+    "@angular/forms": "6.1.1",
+    "@angular/http": "6.1.1",
+    "@angular/language-service": "6.1.1",
+    "@angular/platform-browser": "6.1.1",
+    "@angular/platform-browser-dynamic": "6.1.1",
+    "@angular/router": "6.1.1",
     "@types/jasmine": "2.8.8",
     "@types/jasminewd2": "2.0.3",
     "@types/node": "9.6.25",
@@ -86,7 +87,7 @@
     "protractor": "5.4.0",
     "redux": "4.0.0",
     "redux-logger": "3.0.6",
-    "rxjs": "5.5.11",
+    "rxjs": "6.2.2",
     "ts-node": "7.0.0",
     "tslint": "5.11.0",
     "typescript": "2.9.2",
@@ -94,6 +95,6 @@
     "zone.js": "0.8.26"
   },
   "dependencies": {
-    "@harmowatch/redux-decorators": "0.1.0"
+    "@harmowatch/redux-decorators": "0.1.1"
   }
 }
