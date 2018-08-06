@@ -77,7 +77,7 @@ export class ReduxModule {
     );
   }
 
-  public static defaultEnhancerFactory(middlewareFunctions: Middleware[], devMode: boolean): StoreEnhancer<{}> {
+  public static defaultEnhancerFactory(middlewareFunctions: Function[], devMode: boolean): StoreEnhancer<{}> {
 
     let composeEnhancers = compose;
 
