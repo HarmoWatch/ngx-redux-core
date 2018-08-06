@@ -13,11 +13,12 @@ module.exports = {
     path: path.resolve('dist/plugins/karma'),
     filename: "bundle.js"
   },
+  mode: 'development',
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.ts?$/,
-        loader: 'awesome-typescript-loader'
+        use: 'awesome-typescript-loader'
       }
     ]
   },
@@ -28,15 +29,6 @@ module.exports = {
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: true
-      },
-      output: {
-        comments: false
-      },
-      sourceMap: false
     }),
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows

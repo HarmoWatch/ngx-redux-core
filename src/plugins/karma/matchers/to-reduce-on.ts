@@ -1,5 +1,4 @@
-import { ReduxActionFunction, ReduxReducerDecorator } from '@harmowatch/redux-decorators';
-import { getActionType } from '../../../harmowatch/ngx-redux-core/index';
+import { ReduxActionDispatcher, ReduxActionFunction, ReduxReducerDecorator } from '@harmowatch/redux-decorators';
 
 function printList(actions: string[]) {
 
@@ -11,11 +10,11 @@ function printList(actions: string[]) {
 
 export function compare(actual: Function, ...expected: ReduxActionFunction[]): jasmine.CustomMatcherResult {
 
-  const expectedActionTypes = expected.map(getActionType);
+  const expectedActionTypes = expected.map(ReduxActionDispatcher.getType);
 
   const givenActionTypes = []
     .concat(ReduxReducerDecorator.get(actual))
-    .map(type => getActionType(type));
+    .map(type => ReduxActionDispatcher.getType(type));
 
   const actionsNotListeningTo = expectedActionTypes
     .filter(type => !givenActionTypes.includes(type));

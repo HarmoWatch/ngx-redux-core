@@ -1,6 +1,6 @@
 import diff from 'deep-diff';
 
-import { ReduxActionWithPayload } from '../../../harmowatch/ngx-redux-core/interfaces/redux-action-with-payload.interface';
+import { ReduxActionWithPayload } from '../../../harmowatch/ngx-redux-core';
 import { ReduxReducerFunction } from '@harmowatch/redux-decorators/lib/reducer/function/redux-reducer-function.type';
 
 export function compare(actual: ReduxReducerFunction<any, any>,

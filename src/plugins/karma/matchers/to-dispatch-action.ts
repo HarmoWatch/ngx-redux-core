@@ -1,8 +1,8 @@
-import { getActionType } from '../../../harmowatch/ngx-redux-core/index';
+import { ReduxActionDispatcher } from '@harmowatch/redux-decorators';
 
 function compare(actual, expectedActionType): jasmine.CustomMatcherResult {
 
-  const actionType = getActionType(actual);
+  const actionType = ReduxActionDispatcher.getType(actual);
 
   if (expectedActionType) {
     if (actionType) {
