@@ -53,7 +53,7 @@
     "rxjs": ">=5.0.0"
   },
   "devDependencies": {
-    "@angular/cli": "1.7.4",
+    "@angular/cli": "6.1.2",
     "@angular/common": "5.2.10",
     "@angular/compiler": "5.2.10",
     "@angular/compiler-cli": "5.2.10",
