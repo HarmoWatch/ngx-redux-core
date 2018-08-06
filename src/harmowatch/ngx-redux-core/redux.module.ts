@@ -1,4 +1,4 @@
-import { createStore, Store, StoreEnhancer, StoreEnhancerStoreCreator } from 'redux';
+import { compose, createStore, Middleware, Store, StoreEnhancer, StoreEnhancerStoreCreator } from 'redux';
 
 import { CommonModule } from '@angular/common';
 import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';
@@ -10,6 +10,7 @@ import { ReduxRegistry } from './providers/redux-registry';
 import { ReduxChildModuleConfig } from './interfaces/redux-child-module-config.interface';
 import { ReduxRootModuleConfig } from './interfaces/redux-root-module-config.interface';
 import { ReduxStore } from './tokens/redux-store.token';
+import { ReduxMiddlewares } from './tokens/redux-middlewares.token';
 
 @NgModule({
   declarations: [
@@ -57,27 +58,34 @@ export class ReduxModule {
         {
           provide: ReduxStore,
           useFactory: config.storeFactory || ReduxModule.defaultStoreFactory,
-          deps: [ ReduxReducerProvider ]
+          deps: [ReduxReducerProvider, ReduxMiddlewares]
         },
         {provide: ReduxStateDefinitionToken, useValue: config.state || null, multi: true},
+        {provide: ReduxMiddlewares, useValue: config.middlewareFunctions || [], multi: false},
       ],
     };
   }
 
-  public static defaultStoreFactory(reduxReducerProvider: ReduxReducerProvider, devMode = isDevMode()): Store<{}> {
+  public static defaultStoreFactory(reduxReducerProvider: ReduxReducerProvider,
+                                    middlewareFunctions: Middleware[],
+                                    devMode = isDevMode()): Store<{}> {
+
     return createStore(
       reduxReducerProvider.rootReducer,
       {},
-      ReduxModule.defaultEnhancerFactory(devMode),
+      ReduxModule.defaultEnhancerFactory(middlewareFunctions, devMode),
     );
   }
 
-  public static defaultEnhancerFactory(devMode: boolean): StoreEnhancer<{}> {
-    if (window[ '__REDUX_DEVTOOLS_EXTENSION__' ] && devMode) {
-      return window[ '__REDUX_DEVTOOLS_EXTENSION__' ]();
+  public static defaultEnhancerFactory(middlewareFunctions: Middleware[], devMode: boolean): StoreEnhancer<{}> {
+
+    let composeEnhancers = compose;
+
+    if (devMode && window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__']) {
+      composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'];
     }
 
-    return ReduxModule.noopEnhancer;
+    return composeEnhancers(...middlewareFunctions);
   }
 
   public static noopEnhancer(next: StoreEnhancerStoreCreator<{}>): StoreEnhancerStoreCreator<{}> {
