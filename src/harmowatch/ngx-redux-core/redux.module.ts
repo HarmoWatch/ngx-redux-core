@@ -88,8 +88,4 @@ export class ReduxModule {
     return composeEnhancers(...middlewareFunctions);
   }
 
-  public static noopEnhancer(next: StoreEnhancerStoreCreator<{}>): StoreEnhancerStoreCreator<{}> {
-    return next;
-  }
-
 }
