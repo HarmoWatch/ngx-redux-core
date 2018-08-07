@@ -127,8 +127,8 @@ If you use an **absolute selector**, you can omit the second argument, which is 
 ```ts
 class SomeClass {
 
-  constructor() {
-    new ReduxSelector('todo/items', YourModuleStateProvider).subscribe(todoItems => {
+  constructor(zone: NgZone) {
+    new ReduxSelector(zone, 'todo/items', YourModuleStateProvider).subscribe(todoItems => {
       console.log('todo items', todoItems);
     });
   }

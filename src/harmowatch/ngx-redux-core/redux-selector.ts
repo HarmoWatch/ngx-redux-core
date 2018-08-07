@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { NgZone, Type } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
 
@@ -10,7 +10,8 @@ export class ReduxSelector<T> extends ReplaySubject<T> {
 
   private static readonly DELIMITER = '/';
 
-  constructor(selector = '/',
+  constructor(zone: NgZone,
+              selector = '/',
               stateProvider?: Type<ReduxStateProvider>) {
 
     if (!selector.startsWith(ReduxSelector.DELIMITER) && !stateProvider) {
@@ -21,7 +22,9 @@ export class ReduxSelector<T> extends ReplaySubject<T> {
 
     ReduxRegistry.getStore().then(store => {
       const next = () => {
-        this.next(ReduxSelector.getValueByState(store.getState(), selector, stateProvider));
+        zone.run(() => {
+          this.next(ReduxSelector.getValueByState(store.getState(), selector, stateProvider));
+        });
       };
 
       store.subscribe(() => next());

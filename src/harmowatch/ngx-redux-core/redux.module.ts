@@ -1,4 +1,4 @@
-import { compose, createStore, Middleware, Store, StoreEnhancer, StoreEnhancerStoreCreator } from 'redux';
+import { compose, createStore, Middleware, Store, StoreEnhancer } from 'redux';
 
 import { CommonModule } from '@angular/common';
 import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';

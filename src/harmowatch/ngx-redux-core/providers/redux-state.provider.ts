@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { Inject, Type } from '@angular/core';
+import { Inject, NgZone, Type } from '@angular/core';
 import { ReduxActionDispatcher, ReduxReducerDecorator, ReduxStateDecorator } from '@harmowatch/redux-decorators';
 
 import { ReduxStateDefinition } from '../interfaces/redux-state-definition.interface';
@@ -20,7 +20,8 @@ export abstract class ReduxStateProvider<S = {}> {
   protected selectorCache: { [selector: string]: Observable<{}> } = {};
   protected reducerMethodsByType: { [actionType: string]: Function[] };
 
-  constructor(@Inject(ReduxStateDefinitionToken) stateDefs: ReduxStateDefinition[] = []) {
+  constructor(@Inject(ReduxStateDefinitionToken) stateDefs: ReduxStateDefinition[] = [],
+              private zone: NgZone) {
 
     const {name = null} = ReduxStateDecorator.get(this.constructor) || {};
 
@@ -65,7 +66,7 @@ export abstract class ReduxStateProvider<S = {}> {
     selector = ReduxSelector.normalize(selector, stateType);
 
     if (!this.selectorCache[ selector ]) {
-      this.selectorCache[ selector ] = new ReduxSelector<T>(selector, stateType).pipe(distinctUntilChanged());
+      this.selectorCache[ selector ] = new ReduxSelector<T>(this.zone, selector, stateType).pipe(distinctUntilChanged());
     }
 
     return this.selectorCache[ selector ] as ReduxSelector<T>;

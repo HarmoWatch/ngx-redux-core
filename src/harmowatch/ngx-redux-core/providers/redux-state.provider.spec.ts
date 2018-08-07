@@ -1,6 +1,7 @@
+import { NgZone } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 import { ReduxStateDecorator } from '@harmowatch/redux-decorators';
-import {take} from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { ReduxTestingStore } from '../testing/store';
 import { ReduxAction, ReduxReducer, ReduxState } from '../decorators/index';
 import { ReduxActionWithPayload } from '../interfaces/redux-action-with-payload.interface';
@@ -22,10 +23,12 @@ describe('ReduxStateProvider', () => {
             spyOn(ReduxStateDecorator, 'get').and.returnValue({
               name: 'some-name',
             });
-            super([ {
+            super([{
               provider: null,
               reducers: [],
-            } ]);
+            }], ({
+              run: jasmine.createSpy('Zone.run')
+            }) as {} as NgZone);
           }
 
         }
@@ -173,7 +176,7 @@ describe('ReduxStateProvider', () => {
         SomeOtherReducer.spy.calls.reset();
       }
 
-      @ReduxReducer([ TestActions.prototype.setFoo, 'some-other-event' ])
+      @ReduxReducer([TestActions.prototype.setFoo, 'some-other-event'])
       public setFoo(state: {}, action: ReduxActionWithPayload<string>): {} {
         return SomeOtherReducer.spy('setFoo', state, action);
       }
@@ -214,7 +217,7 @@ describe('ReduxStateProvider', () => {
             storeFactory: ReduxTestingStore.factory,
             state: {
               provider: TestSubject,
-              reducers: [ TestReducer, SomeOtherReducer, ThirdReducer ],
+              reducers: [TestReducer, SomeOtherReducer, ThirdReducer],
             }
           }),
         ],
@@ -243,7 +246,7 @@ describe('ReduxStateProvider', () => {
       }));
 
       it('selects the correct value', () => {
-        expect(fooValues).toEqual([ 'bar', 'baz' ]);
+        expect(fooValues).toEqual(['bar', 'baz']);
       });
 
       it('returns the same instance of ReduxSelector, if the same selector is given', () => {
