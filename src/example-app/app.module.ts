@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { ReduxModule } from '../harmowatch/ngx-redux-core/redux.module';
-import { applyMiddleware } from 'redux';
 import { ReduxActionWithPayload } from '../harmowatch/ngx-redux-core';
 
 const logger = store => next => (action: ReduxActionWithPayload) => {
@@ -15,7 +14,7 @@ const logger = store => next => (action: ReduxActionWithPayload) => {
 
   return result;
 
-};
+}
 ​
 @NgModule({
   declarations: [
@@ -24,7 +23,7 @@ const logger = store => next => (action: ReduxActionWithPayload) => {
   imports: [
     BrowserModule,
     ReduxModule.forRoot({
-      middlewareFunctions: [applyMiddleware(logger)]
+      middlewareFunctions: [logger]
     }),
     RouterModule.forRoot([
       {path: 'todo', loadChildren: './todo/todo.module#TodoModule'},

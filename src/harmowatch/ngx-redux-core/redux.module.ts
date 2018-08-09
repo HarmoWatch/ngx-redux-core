@@ -1,4 +1,4 @@
-import { compose, createStore, Middleware, Store, StoreEnhancer } from 'redux';
+import { applyMiddleware, compose, createStore, Middleware, Store, StoreEnhancer } from 'redux';
 
 import { CommonModule } from '@angular/common';
 import { Inject, Injector, isDevMode, ModuleWithProviders, NgModule, Optional } from '@angular/core';
@@ -77,7 +77,7 @@ export class ReduxModule {
     );
   }
 
-  public static defaultEnhancerFactory(middlewareFunctions: Function[], devMode: boolean): StoreEnhancer<{}> {
+  public static defaultEnhancerFactory(middlewareFunctions: Middleware[], devMode: boolean): StoreEnhancer<{}> {
 
     let composeEnhancers = compose;
 
@@ -85,7 +85,7 @@ export class ReduxModule {
       composeEnhancers = window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'];
     }
 
-    return composeEnhancers(...middlewareFunctions);
+    return composeEnhancers(applyMiddleware(...middlewareFunctions));
   }
 
 }
