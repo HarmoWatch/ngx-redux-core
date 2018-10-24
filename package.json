@@ -69,7 +69,7 @@
     "@types/jasminewd2": "2.0.3",
     "@types/node": "9.6.25",
     "@types/redux-logger": "3.0.6",
-    "@types/uuid": "3.4.3",
+    "@types/uuid": "3.4.4",
     "awesome-typescript-loader": "4.0.1",
     "codelyzer": "4.4.3",
     "copy-webpack-plugin": "4.5.2",
