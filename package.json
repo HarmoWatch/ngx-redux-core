@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "ng lint",
-    "test": "ng test --code-coverage && npm run coveralls",
+    "test": "ng test --watch=false --code-coverage --source-map && npm run coveralls",
     "start": "ng serve",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "build:package": "ng-packagr -p package.json && npm run build:karma-plugin",
