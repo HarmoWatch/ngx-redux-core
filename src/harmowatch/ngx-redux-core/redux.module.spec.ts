@@ -1,9 +1,8 @@
-import { ReduxModule } from './redux.module';
 import { async } from '@angular/core/testing';
-import { ReduxActionWithPayload } from "./index";
-import { applyMiddleware, compose, Middleware } from "redux";
-import { ReduxRegistry } from "./providers/redux-registry";
-import { ReduxReducerProvider } from "./providers/redux-reducer.provider";
+import { compose, Middleware } from 'redux';
+import { ReduxActionWithPayload } from './index';
+import { ReduxReducerProvider } from './providers/redux-reducer.provider';
+import { ReduxModule } from './redux.module';
 
 describe('ReduxModule', () => {
 

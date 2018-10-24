@@ -14,7 +14,7 @@ const logger = store => next => (action: ReduxActionWithPayload) => {
 
   return result;
 
-}
+};
 ​
 @NgModule({
   declarations: [
