@@ -85,7 +85,7 @@
     "karma-jasmine-html-reporter": "0.2.2",
     "ng-packagr": "4.0.1",
     "protractor": "5.4.0",
-    "redux": "4.0.0",
+    "redux": "4.0.1",
     "redux-logger": "3.0.6",
     "rxjs": "6.2.2",
     "ts-node": "7.0.0",
