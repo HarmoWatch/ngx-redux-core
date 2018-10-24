@@ -232,9 +232,11 @@ describe('ReduxStateProvider', () => {
 
     describe('select()', () => {
 
-      const fooValues: string[] = [];
+      const fooValues: string[];
 
       beforeEach(async(() => {
+        fooValues = [];
+
         const selector = fixture.select<string>('foo');
         selector.subscribe(foo => fooValues.push(foo));
 
