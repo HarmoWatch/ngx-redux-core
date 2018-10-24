@@ -9,7 +9,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/24a417a5e870fbe5e94e/maintainability)](https://codeclimate.com/github/HarmoWatch/ngx-redux-core/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/24a417a5e870fbe5e94e/test_coverage)](https://codeclimate.com/github/HarmoWatch/ngx-redux-core/test_coverage)
 
-## The modern [Redux](http://redux.js.org/) integration for [Angular](https://angular.io/) 2+
+## The modern [Redux](http://redux.js.org/) integration for [Angular](https://angular.io/) 6+
 
 This package contains a number of features that makes working with [Angular](https://angular.io/) and [Redux](http://redux.js.org/) 
 very easy and comfortable. This is achieved using [decorators](./docs/decorators/index.md). For example, you can decorate any class 
