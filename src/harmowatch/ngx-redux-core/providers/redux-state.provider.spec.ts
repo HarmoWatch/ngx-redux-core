@@ -232,7 +232,7 @@ describe('ReduxStateProvider', () => {
 
     describe('select()', () => {
 
-      const fooValues: string[];
+      let fooValues: string[];
 
       beforeEach(async(() => {
         fooValues = [];
