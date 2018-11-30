@@ -67,7 +67,7 @@
     "@angular/router": "7.1.1",
     "@types/jasmine": "2.8.12",
     "@types/jasminewd2": "2.0.6",
-    "@types/node": "10.12.10",
+    "@types/node": "10.12.11",
     "@types/redux-logger": "3.0.6",
     "@types/uuid": "3.4.4",
     "awesome-typescript-loader": "5.2.1",
