@@ -65,7 +65,7 @@
     "@angular/platform-browser": "7.2.2",
     "@angular/platform-browser-dynamic": "7.2.2",
     "@angular/router": "7.2.2",
-    "@types/jasmine": "2.8.15",
+    "@types/jasmine": "2.8.16",
     "@types/jasminewd2": "2.0.6",
     "@types/node": "10.12.18",
     "@types/redux-logger": "3.0.6",
