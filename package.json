@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.13.2",
-    "@angular/cli": "7.3.1",
+    "@angular/cli": "7.3.2",
     "@angular/common": "7.2.6",
     "@angular/compiler": "7.2.6",
     "@angular/compiler-cli": "7.2.6",
