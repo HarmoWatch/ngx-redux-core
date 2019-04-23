@@ -87,7 +87,7 @@
     "protractor": "5.4.2",
     "redux": "4.0.1",
     "redux-logger": "3.0.6",
-    "rxjs": "6.4.0",
+    "rxjs": "6.5.1",
     "ts-node": "7.0.1",
     "tsickle": "0.34.3",
     "tslint": "5.16.0",
